@@ -1,0 +1,250 @@
+\chapter{Indução}\label{cap:Induction}
+
+\epigraph{``Indução Matemática é a técnica de prova padrão na Ciência da Computação.''}{Anthony Ralston}
+
+\section{Introdução}\label{sec:InducaoIntroducao}
+
+No Capítulo \ref{cap:Proofs} foram apresentados diversos métodos para a demonstração de asserções, além disso, foram apresentadas técnicas para refutar enunciados falaciosos. Neste capítulo será apresentado um outro método de demonstração chamando \textbf{indução matemática}, ou simplesmente indução. 
+
+A indução apresenta uma característica extremamente interessante que não é encontrada em outros métodos de demonstração,  sendo esta característica a capacidade de fornecer uma estratégia de construção extremamente forte para estruturas abstratas da Ciência da Computação (e matemática), de tal forma que as propriedades dessas estruturas geradas são relativamente fáceis de serem demonstradas ou verificadas.
+
+No que tange a historia o primeiro ao utilizar da indução para realizar uma demonstração foi o matemático italiano Francesco Maurolico (1494--1575), depois nos séculos seguintes nomes como Pierre de Fermat\footnote{Famoso por suas contribuições em geometria e teoria dos números.} (1607--1665) e Blaise Pascal\footnote{Entre outras contribuições criou a máquina analítica.} (1623--1662) usaram tal método de demonstração em seus trabalhos,  como dito em \cite{sussana2010-MD} nas próximas seções serão apresentados os conceitos ligados a demonstrações por indução e ao processo de construção indutiva.
+
+\section{Indução como Método de Demonstração}\label{sec:InducaoFinita}
+
+Para demonstrar que uma determinada propriedade \textbf{P} acontece para qualquer que seja o número natural $n$, denotado por \textbf{P}$(n)$,  usando indução é necessário aplicar o conceito chamado de ``\textbf{princípio da indução finita}'', este conceito é em geral apresentado de duas forma: \textbf{fraca}\footnote{Também é possível encontrar na literatura a nomenclatura ``forma simples''.} e \textbf{forte}. A seguir é formalmente definido a versão fraca de tal princípio.
+
+\begin{definicao}[Princípio da Indução Fraca]\label{def:InducaoFraca}
+	Dado \textbf{P}$(n)$ uma condição (ou propriedade) definida sobre os números naturais. Se
+	\begin{itemize}
+		\item[(i)] \textbf{P}$(0)$ é verdadeira e
+		\item[(ii)] qualquer que seja $k$ tem-se que, se \textbf{P}$(k)$ é verdadeira, então \textbf{P}$(k + 1)$ também é verdadeira. 
+	\end{itemize}
+	Então, para todo $n \in \mathbb{N}$  tem-se que $\textbf{P}(n)$ é verdadeiro.
+\end{definicao}
+
+Em termos da escrita usada na lógica de primeira ordem (ver \ref{cap:LogicaPredicados}) o princípio da indução fraca é da forma $(\textbf{P}(0) \land (\forall k \in \mathbb{N})[\textbf{P}(k) \Rightarrow \textbf{P}(k+1)]) \Rightarrow (\forall n \in \mathbb{N})[\textbf{P}(n)]$.  O procedimento (ou método) de se demonstrar alguma propriedade por indução consiste em,  informar que a prova será feita usado indução, depois deve-ser usar os três passos descritos na definição, sendo tais passos:
+
+\begin{itemize}
+	\item[ ] \textbf{(B)}ase: Neste passo é provado que a proposição vale para $0$, ou seja, deve-se provar que $\textbf{P}(0)$ realmente é verdadeira.
+	\item[ ] \textbf{(H)}ipótese indutiva: Supor que $\textbf{P}(k)$ é verdadeira para um valor $k$ genérico.
+	\item[ ] \textbf{(P)}asso indutivo: Demonstrar que $\textbf{P}(k + 1)$ também é verdadeira.
+\end{itemize}
+
+Após isso pode-se concluir que a propriedades que se está verificado é verdadeira para todos os naturais \cite{carmo2013}. A razão pela qual o princípio da indução pode ser usado para demonstrar propriedades dos números naturais decorre do fato de como os naturais são construídos, na Seção \ref{sec:InducaoEstrutural} será apresentada uma forma axiomática desta construção, vale entretanto ressaltar que a indução pode ser empregado em qualquer conjunto que seja recursivamente enumerável.
+
+\begin{nota}
+	A partir deste ponto será denotado por $P(n) :=  \varepsilon$, a noção que a propriedade $P(n)$ corresponde a expressão $\varepsilon$ aplicando a variável $n$.
+\end{nota}
+
+No que se segue serão apresentados alguns exemplos sobre a aplicação do método de demonstração por indução (versão fraca). 
+
+\begin{exemplo}\label{exe:InducaoFraca1}
+	Seja $r \in \mathbb{N} - \{0, 1\}$ e $a \in \mathbb{R}$, considere que $P(n) := ar^0 + ar + \cdots + ar^n = \frac{a(r^{n + 1} - 1)}{r - 1}$ e demonstre que $(\forall n \in \mathbb{N})[P(n)]$.
+	
+	\begin{proof}
+		A prova será feita por indução sobre os naturais, assim note que:
+		\begin{itemize}
+			\item[ ] \textbf{(B)}ase: Por um lado é claro que $ar^0 = a \cdot 1 = a$, por outro lado tem-se que, $\frac{a(r^{0 + 1} - 1)}{r - 1}  = \frac{a(r^{1} - 1)}{r - 1} = a$, assim pela transitividade de $=$ segue que $ar^0 = \frac{a(r^{0 + 1} - 1)}{r - 1} $ e, portanto, $\textbf{P}(0)$ é verdadeiro.
+			\item[ ] \textbf{(H)}ipótese indutiva: Suponha que $P(k)$ seja verdadeira para qualquer $k \in \mathbb{N}$, logo tem-se que $ar^0 + ar + \cdots + ar^k = \frac{a(r^{k + 1} - 1)}{r - 1}$.
+			\item[ ] \textbf{(P)}asso indutivo: Agora note que:
+			\begin{eqnarray*}
+				ar^0 + ar + \cdots + ar^k +  ar^{k +1 } & = & (ar^0 + ar + \cdots + ar^k) +  ar^{k +1 }\\
+				& \stackrel{\textbf{(H)}}{=} & \frac{a(r^{k + 1} - 1)}{r - 1} + ar^{k +1 }\\
+				& = &  \frac{a(r^{k + 1} - 1)}{r - 1} + \frac{ar^{k +1 } (r-1)}{r- 1}\\
+				& = &  \frac{a(r^{k + 1} - 1)}{r - 1} + \frac{ar^{k +2} - ar^{k + 1}}{r- 1}\\
+				& = & \frac{ar^{k + 1} - a + ar^{k +2} - ar^{k + 1}}{r-1}\\
+				& = & \frac{a(r^{k+2} -1)}{r-1}
+			\end{eqnarray*}
+		\end{itemize}
+		consequentemente $P(k + 1)$ é verdadeira. Agora desde que $k$ em \textbf{(H)} e \textbf{(P)} é um elemento genérico qualquer de $\mathbb{N}$ e também pelo resultado particular em  \textbf{(B)} pode-se dizer para todo $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira.
+	\end{proof}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:InducaoFraca2}
+	Demonstre para todo $n \in \mathbb{N}$ que $P(n)$ é verdadeira, considerando que $P(n) := 2^{n-1} \leq n!$.
+	
+	\begin{proof}
+		A prova será feita por indução sobre o conjunto dos naturais. Assim observe que:
+		\begin{itemize}
+			\item[ ] \textbf{(B)}ase: Inicialmente é claro que $2^{0 - 1} = 2^{-1} = \frac{1}{2}$, além disso, por definição tem-se que $0! = 1$, e é sabido que $\frac{1}{2} \leq 1$, consequentemente $2^{0 - 1} \leq 0!$ e, portanto, $P(0)$ é verdadeira.
+			\item[ ] \textbf{(H)}ipótese indutiva: Suponha que $P(k)$ seja verdadeira para qualquer $k \in \mathbb{N}$, ou seja, tem-se que $2^{k-1} \leq k!$.
+			\item[ ] \textbf{(P)}asso indutivo: Primeiro considerando também a hipótese adicional $H_0$ de que $k \geq 1$ tem-se que:
+			\begin{eqnarray*}
+				(k + 1)!  & = & (k+1) \cdot k!\\
+				& \stackrel{\textbf{(H)}}{\geq} & (k+1) \cdot 2^{k-1}\\
+				& \stackrel{H_0}{\geq} & 2 \cdot 2^{k-1}\\
+				& = & 2^k
+			\end{eqnarray*}
+		\end{itemize}
+		ou seja, tem-se que $2^k \leq (k+1)!$. Por outro lado, o caso em que é considerada a hipótese adicional $H_1$ de que $k$ seja exatamente igual a $0$ é trivial (fica como exercício), assim a conclui-se a argumentação mostrando que para qualquer que seja $k$ tem-se que $P(k+1)$ será verdadeira. Agora por  \textbf{(B)}, \textbf{(H)} e \textbf{(P)} pode-se efetivamente enunciar que  para todo $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira.
+	\end{proof}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:InducaoFraca3}
+	Considerando que $\displaystyle P(n) := \sum_{i = 0}^{n} i = \frac{n(n+1)}{2}$, demonstre para todo $n \in \mathbb{N}$ que $P(n)$ é verdadeira.
+	
+	\begin{proof}
+		A prova será feita por indução sobre o conjunto dos naturais. Assim observe que:
+		\begin{itemize}
+			\item[ ] \textbf{(B)}ase: Inicialmente é claro que $\frac{0(0+1)}{2} = 0$, além disso, por definição tem-se que $\displaystyle \sum_{i=0}^{0} i = 0$, consequentemente, pela transitividade da igualdade tem-se que  $\displaystyle\sum_{i = 0}^{0} i = \frac{0(0+1)}{2}$ e, portanto, $P(0)$ é verdadeira.
+			\item[ ] \textbf{(H)}ipótese indutiva: Suponha que $P(k)$ seja verdadeira para qualquer $k \in \mathbb{N}$, ou seja, tem-se que $\displaystyle\sum_{i = 0}^{k} i = \frac{k(k+1)}{2}$.
+			\item[ ] \textbf{(P)}asso indutivo:  Agora note que:
+			\begin{eqnarray*}
+				\sum_{i = 0}^{k+1} i & = & \Big(\sum_{i = 0}^{k} i\Big) + (k+1)\\
+				& \stackrel{\textbf{(H)}}{=} & \frac{k(k+1)}{2} + (k+1)\\
+				& = & \frac{(k+1)(k + 2)}{2}\\
+				& = & \frac{(k+1)((k+1) + 1)}{2}
+			\end{eqnarray*}
+		\end{itemize}
+		consequentemente $P(k + 1)$ é verdadeira. Agora desde que $k$ em \textbf{(H)} e \textbf{(P)} é um elemento genérico qualquer de $\mathbb{N}$ e também pelo resultado particular em  \textbf{(B)} pode-se dizer para todo $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira.
+	\end{proof}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:InducaoFraca4}
+	Considerando que $\displaystyle P(n) := \sum_{i = 0}^{n} r^i = \frac{r^{n+1} - 1}{r - 1}$ onde $r \in \mathbb{R}$ tal que $r \neq 1$, demonstre para todo $n \in \mathbb{N}$ que $P(n)$ é verdadeira.
+	
+	\begin{proof}
+		A prova será feita por indução sobre o conjunto dos naturais. Assim observe que:
+		\begin{itemize}
+			\item[ ] \textbf{(B)}ase: Inicialmente é claro que para qualquer $r \in \mathbb{R}$ com $r \neq 1$ tem-se que $\frac{r^{0+1} - 1}{r - 1} = 1$, além disso, por definição tem-se que $\displaystyle \sum_{i=0}^{0} r^0 = 1$, consequentemente, pela transitividade da igualdade tem-se que  $\displaystyle\sum_{i = 0}^{0} r^i =\frac{r^{0+1} - 1}{r - 1} $ e, portanto, $P(0)$ é verdadeira.
+			\item[ ] \textbf{(H)}ipótese indutiva: Suponha que $P(k)$ seja verdadeira para qualquer $k \in \mathbb{N}$, ou seja, tem-se que $\displaystyle\sum_{i = 0}^{k} r^i = \frac{r^{k+1} - 1}{r - 1}$.
+			\item[ ] \textbf{(P)}asso indutivo:  Agora note que:
+			\begin{eqnarray*}
+				\sum_{i = 0}^{k+1} r^i & = & \Big(\sum_{i = 0}^{k} r^i\Big) + r^{k+1}\\
+				& \stackrel{\textbf{(H)}}{=} & \frac{r^{k+1} - 1}{r - 1} + r^{k+1}\\
+				& = & \frac{r^{k+1}-1 + r^{k+2} - r^{k+ 1}}{r-1}\\
+				& = & \frac{r^{k+2}-1}{r-1}
+			\end{eqnarray*}
+		\end{itemize}
+		o que mostra que $P(k + 1)$ é verdadeira. Agora desde que $k$ em \textbf{(H)} e \textbf{(P)} é um elemento genérico qualquer de $\mathbb{N}$ e também pelo resultado particular em  \textbf{(B)} pode-se dizer para todo $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira.
+	\end{proof}
+\end{exemplo}
+
+Agora como dito em \cite{carmo2013}, em algumas situações para se provar por indução é necessário supor uma hipótese indutiva mais forte. Nesses casos é interessante (e até necessário) supor que $P(0), \cdots, P(k)$ são todas verdadeiras, em vez de, supor apenas que $P(K)$ seja verdadeira. Quando tal suposição é feito, é dito que se está demonstrado usando o princípio forte da indução.
+
+\begin{definicao}[Princípio da Indução Forte]\label{def:InducaoForte}
+	Dado \textbf{P}$(n)$ uma condição (ou propriedade) definida sobre os números naturais. Se
+	\begin{itemize}
+		\item[(i)] \textbf{P}$(0)$ é verdadeira e
+		\item[(ii)] qualquer que seja $k$ tem-se que, se  \textbf{P}$(0), \cdots,$ \textbf{P}$(k)$ são verdadeiras, então \textbf{P}$(k + 1)$ também é verdadeira. 
+	\end{itemize}
+	Então, para todo $n \in \mathbb{N}$  tem-se que $\textbf{P}(n)$ é verdadeiro.
+\end{definicao}
+
+Usando a escrita da lógica de primeira ordem, o princípio da indução forte pode ser especificado da seguinte forma, $(\textbf{P}(0) \land (\forall k \in \mathbb{N})[(\forall i \leq k)[\textbf{P}(k)] \Rightarrow \textbf{P}(k+1)]) \Rightarrow (\forall n \in \mathbb{N})[\textbf{P}(n)]$. Utilizando o conceito de sequência apresentado no Capítulo \ref{cap:Funcoes}, pode-se dizer que na indução forte assume-se que uma sequência  de hipótese é totalmente verdadeira, ou seja, que todas as hipóteses na sequência $($\textbf{P}$(i))_{i \leq k}$ são verdadeiras. 
+
+A seguir serão apresentados alguns exemplos sobre o uso da estratégia de indução forte como um método de demonstração, depois nas próximas seções serão apresentados respectivamente a equivalência entre a indução fraca e forte, e alguns cuidados que devem ser tomados ao se usar indução.
+
+\begin{exemplo}\label{exe:InducaoForte1}
+	Considerando que $\displaystyle P(n) := $ ``Seja $a = (a_n)_{n \in \mathbb{N}}$ satisfazendo as conduções:
+	\begin{itemize}
+		\item $a_0 = 1$
+		\item $a_1 = 3$
+		\item $a_{n+1} = 2a_n - a_{n-1}$ para todo $n \ge 1$.
+	\end{itemize}
+	tem-se que $a_n = 2n + 1$ para qualquer que seja $n \in \mathbb{N}$''. Demonstre que $(\forall n \in \mathbb{N})[P(n)]$ é verdadeira.
+	
+	\begin{proof}
+		Utilizando o princípio da indução forte sobre os naturais tem-se que:
+		\begin{itemize}
+			\item[ ] \textbf{(B)}ase: Pela definição da sequência tem-se que $a_0 = 1$, mas desde que $2\cdot 0 + 1 = 1$, tem-se pela transitividade da igualdade que $a_0 = 2\cdot 0 + 1$. 
+			\item[ ] \textbf{(H)}ipótese indutiva:  Suponha para $k \in \mathbb{N}$ que $P(0), \cdots, P(k)$ são todas verdadeiras, ou seja, $a_i = 2i + 1$ para todo $0 \leq i \leq k$.
+			\item[ ] \textbf{(P)}asso indutivo:  Agora note que:
+			\begin{eqnarray*}
+				a_{k+1} & \stackrel{Def.}{=} & 2a_{k} - a_{k-1}\\
+				& \stackrel{\textbf{(H)}}{=} &  2(2k+1) - (2(k-1) + 1)\\
+				& = & 4k + 2 - 2k + 2 - 1\\
+				& = & 4k - 2k + 3\\
+				& = & 2k + 3\\
+				& = & 2(k + 1) + 1
+			\end{eqnarray*}
+		\end{itemize}
+		Consequentemente $P(k+1)$ é verdadeiro.  Agora desde que $k$ em \textbf{(H)} e \textbf{(P)} é um elemento genérico qualquer de $\mathbb{N}$ e também pelo resultado particular em  \textbf{(B)} pode-se concluir que para qualquer que seja $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira, concluindo assim a prova.
+	\end{proof}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:InducaoForte2}
+	Considerando que $\displaystyle P(n) := $ ``Seja $a = (a_n)_{n \in \mathbb{N}}$ satisfazendo as conduções:
+	\begin{itemize}
+		\item $a_0 = 7$
+		\item $a_1 = 16$
+		\item $a_{n+1} = 5a_{n-1}  - 6a_{n-2}$ para todo $n \ge 1$.
+	\end{itemize}
+	assim $a_n = 5 \cdot 2^n + 2 \cdot 3^n$ para qualquer que seja $n \in \mathbb{N}$''. Demonstre que $(\forall n \in \mathbb{N})[P(n)]$ é verdadeira.
+	
+	\begin{proof}
+		Utilizando o princípio da indução forte sobre os naturais tem-se que:
+		\begin{itemize}
+			\item[ ] \textbf{(B)}ase: Note que por definição da sequência tem-se que $a_0 = 7$, mas desde que $7 = 5 \cdot 2^0 + 2 \cdot 3^0$, tem-se pela transitividade da igualdade que $a_0 = 5 \cdot 2^0 + 2 \cdot 3^0$ e, portanto, $P(0)$ é verdadeira.
+			\item[ ] \textbf{(H)}ipótese indutiva:  Suponha para $k \in \mathbb{N}$ que $P(0), \cdots, P(k)$ são todas verdadeiras, ou seja, $a_i = 5 \cdot 2^i + 2 \cdot 3^i$ para todo $0 \leq i \leq k$.
+			\item[ ] \textbf{(P)}asso indutivo:  Agora note que:
+			\begin{eqnarray*}
+				a_{k+1} & \stackrel{Def.}{=} & 5a_{(k+1)-1}  - 6a_{(k+1)-2}\\
+				& = &  5a_{k}  - 6a_{k-1}\\
+				& \stackrel{\textbf{(H)}}{=} & 5(5\cdot 2^k + 2 \cdot 3^k) - 6(5\cdot 2^{k-1} + 2 \cdot 3^{k-1})\\
+				& = & 25 \cdot 2^k + 10 \cdot 3^k - 30 \cdot 2^{k-1} - 12 \cdot 3^{k-1}\\
+				& = &  25 \cdot 2^k + 10 \cdot 3^k - 30 \cdot 2^k \cdot 2^{-1} - 12 \cdot 3^{k} \cdot 3^{-1}\\
+				& = & 25 \cdot 2^k - 15 \cdot 2^k + 10 \cdot 3^k - 4 \cdot 3^k\\
+				& = & 10 \cdot 2^k + 6 \cdot 3^k\\
+				& = & 5 \cdot 2^{k+1} + 2 \cdot 3^{k+1}
+			\end{eqnarray*}
+		\end{itemize}
+		Consequentemente $P(k+1)$ é verdadeiro.  Agora desde que $k$ em \textbf{(H)} e \textbf{(P)} é um elemento genérico qualquer de $\mathbb{N}$ e também pelo resultado particular em  \textbf{(B)} pode-se concluir que para qualquer que seja $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira, o que terminar a prova.
+	\end{proof}
+\end{exemplo}
+
+Agora é claro, como discutido em \cite{carmo2013}, que é praticamente natural considerar o princípio da indução fraca como sendo um caso particular do  princípio da indução forte, entretanto, essa consideração não deve ``cegar'' a mente do leitor, ao induzir-lo a acreditar que a versão forte seja mais poderosa que a versão fraca, no que tange a isto, os seguintes resultados bem conhecidos a seguir mostram que na verdade ambos os princípios tem um mesmo poder de demonstração.
+
+\begin{teorema}\label{teo:InducaoFraca-Forte}
+	\cite{carmo2013} Dado $A$ é um conjunto de naturais. Se é verificável  pelo princípio da indução fraca uma propriedade $P$ dos elementos de $A$, então a propriedade $P$ dos elementos de $A$ é verificável pelo  princípio da indução forte.
+\end{teorema}
+
+\begin{teorema}\label{teo:InducaoForte-Fraca}
+	\cite{carmo2013} Dado $A$ é um conjunto de naturais. Se é verificável  pelo princípio da indução forte uma propriedade $P$ dos elementos de $A$, então a propriedade $P$ dos elementos de $A$ é verificável pelo  princípio da indução fraca.
+\end{teorema}
+
+\begin{corolario}
+	O princípio da indução fraca é equivalente ao princípio da indução forte.
+\end{corolario}
+
+\begin{proof}
+	Direto dos Teoremas \ref{teo:InducaoFraca-Forte} e \ref{teo:InducaoForte-Fraca}.
+\end{proof}
+
+Agora esta seção irá se dedicar a tarefa de apresentar ao leitor a relação existente entre o conceito de indução finita e a noção de conjunto bem ordenado, isto é, aqui será tratado da relação íntima que existe entre o princípio de indução e os conjuntos sobre os quais pode-se definir uma relação de boa ordem.
+
+\begin{teorema}\label{teo:InducaoBoaOrdem}
+	Todo subconjunto não vazio de $\mathbb{N}$ tem mínimo.
+\end{teorema}
+
+\begin{proof}
+	Suponha por absurdo que existe um  $B \subseteq \mathbb{N}$ não vazio tal que $B$ não tem mínimo. Agora seja $A = \{i \in \mathbb{N} \mid (\forall x \in B)[i \leq x]\}$, ou seja, $A \subseteq B$. Agora por indução tem-se que:
+	\begin{itemize}
+		\item[ ] \textbf{(B)}ase: $0 \in A$, pois é claro que $0 \leq x$ tal que $x \in B$.
+		\item[ ] \textbf{(H)}ipótese indutiva:  Suponha para todo $k \in \mathbb{N}$ que $k \in A$.
+		\item[ ] \textbf{(P)}asso indutivo:  Pelo fato em \textbf{(H)} sabe-se que $k \notin B$ uma vez que por hipótese $B$ não tem mínimo, assim é claro que $k < x$ para todo $x \in B$, mas de $k < x$ pode-se concluir que $k + 1 \leq x$ e, portanto, $k+1 \in A$
+	\end{itemize}
+	Agora é claro por \textbf{(B)}, \textbf{(H)} e \textbf{(P)} que $A = \mathbb{N}$, e assim desde que $B \subseteq \mathbb{N}$ existe um $k \in A \cap B$ e, portanto, $A \cap B \neq \emptyset$, logo existe um $k$ que é um mínimo de $B$ uma vez que $k \leq x$ para todo $x \in B$, o que é um absurdo uma vez que por hipótese $B$ não tem mínimo, consequentemente, a asserção: todo subconjunto não vazio de $\mathbb{N}$ tem mínimo, é verdadeira.
+\end{proof}
+
+\begin{teorema}\label{teo:BoaOrdemInducao}
+	Se $\mathbb{N}$ é bem ordenado, então para qualquer $A \subseteq \mathbb{N}$ tem-se que se
+	\begin{itemize}
+		\item[(i)] $0 \in A$.
+		\item[(ii)] qualquer que seja $n \in \mathbb{N}^*$, se $\{k \in \mathbb{N} \mid k < n\} \subseteq A$, então $n \in A$.
+	\end{itemize}
+	Então $A = \mathbb{N}$.
+\end{teorema}
+
+\begin{proof}
+	Suponha por absurdo que $\mathbb{N}$ é bem ordenado e para qualquer $A \subseteq \mathbb{N}$ tem-se que $(i)$ e $(ii)$ são satisfeitas e $A \neq \mathbb{N}$. Agora por $A \subseteq \mathbb{N}$ e $A \neq \mathbb{N}$ tem-se claramente que $\mathbb{N} - A \neq \emptyset$, e por  $\mathbb{N}$ ser bem ordenado, existe um $i = min(\mathbb{N} - A)$, agora por $(i)$ é claro que $0 \in A$, e assim como $i \in \mathbb{N} - A$ tem-se que obrigatoriamente que $i \neq 0$, mas $0 = min(\mathbb{N})$, consequentemente tem-se que $0 \leq i$ e, portanto, $0 < i$. Agora uma vez que $i = min(\mathbb{N} - A)$ tem-se que não existe nenhum $j \in \mathbb{N} - A$ tal que $j < i$. Logo é claro que $\{j \in \mathbb{N} \mid j < i\} \subseteq A$, mas como $i > 0$, por $(ii)$, fica evidente que $i \in A$, o que é um absurdo uma vez que $i = min(\mathbb{N} - A)$, assim pode-se concluir que o enunciado do Teorema \ref{teo:BoaOrdemInducao} é verdadeiro.
+\end{proof}
+
+\section{Indução Bem fundada}\label{sec:InducaoBoaOrdem}
+
+Escrever depois . . . 
+
+\section{Estruturas Indutivamente Geradas}\label{sec:InducaoEstrutural}
+
+Escrever depois . . .

@@ -1,0 +1,503 @@
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de definição
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nas definições
+\newtheoremstyle{defstyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de Teorema
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}
+}
+
+% Define a forma de numeração as definições
+\theoremstyle{defstyle}
+\newtheorem{defT}{Definição}[chapter]
+
+% Define a caixa para as definições
+\newmdenv[
+  skipabove=7pt,
+  skipbelow=7pt,
+  rightline=true,
+  leftline=true,
+  topline=true,
+  bottomline=true,
+  linecolor=NordFrost1,
+  backgroundcolor=white,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=5pt,
+  innerbottommargin=5pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=1pt]{defBox}
+
+% Cria o ambiente para a definição
+\newenvironment{definicao}{\begin{defBox}\begin{defT}}{\end{defT}\end{defBox}}
+
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de Notas
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nas notas
+\newtheoremstyle{notestyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.2em}
+% Formatação do texto do título para a caixinha de notação
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries--\nobreakspace#3}
+}
+
+% Define a forma de numeração as observações de notação
+\theoremstyle{notestyle}
+\newtheorem{noteT}{\color{NordAurora2}Tomando Notas}[chapter]
+
+% Define a caixa para as definições
+\newmdenv[
+  skipabove=7pt,
+  skipbelow=7pt,
+  rightline=true,
+  leftline=true,
+  topline=true,
+  bottomline=true,
+  linecolor=NordAurora2,
+  backgroundcolor=white,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=5pt,
+  innerbottommargin=5pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=1pt]{noteBox}
+
+% Cria o ambiente para notas (ALiCIA escrevendo)
+\newenvironment{nota}{
+  \begin{noteBox}
+    \printALiCIAWritte
+    \begin{noteT}
+}{
+    \end{noteT}
+  \end{noteBox}
+}
+
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente de exemplo
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nas notas
+\newtheoremstyle{examplestyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de notação
+{
+  \small\bf\normalfont\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3}
+}
+
+% Define a forma de numeração dos exemplos
+\theoremstyle{examplestyle}
+\newtheorem{exampleT}{\color{NordAurora3}Exemplo}[chapter]
+
+% Define a caixa para os exemplos
+\newmdenv[
+  skipabove=8pt,
+  skipbelow=8pt,
+  rightline=false,
+  leftline=false,
+  topline=true,
+  bottomline=true,
+  linecolor=NordAurora3,
+  backgroundcolor=white,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=5pt,
+  innerbottommargin=5pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=0.5pt]{exampleBox}
+
+% Cria o ambiente para exemplos
+\newenvironment{exemplo}{\begin{exampleBox}\begin{exampleT}}{\end{exampleT}\end{exampleBox}}
+
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente dicas e cuidado
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nas notas
+\newtheoremstyle{observacaostyle}
+% Espaço acima
+{2pt}
+% Espaço abaixo
+{2pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.2em}
+% Formatação do texto do título para a caixinha de notas
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3}
+}
+
+% Define a forma de numerar as observações de notação
+\theoremstyle{observacaostyle}
+\newtheorem{observacaoT}{\color{NordAurora4}Observação}[chapter]
+
+% Define a caixa para as observações
+\newmdenv[
+  skipabove=7pt,
+  skipbelow=7pt,
+  rightline=true,
+  leftline=true,
+  topline=true,
+  bottomline=true,
+  linecolor=NordAurora4,
+  backgroundcolor=white,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=5pt,
+  innerbottommargin=5pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=1pt]{observacaoBox}
+
+% Cria o ambiente dicas (ALiCIA Confusa)
+\newenvironment{dica}{
+  \begin{observacaoBox}
+    \printALiCIAConfused
+    \begin{observacaoT}
+}{
+    \end{observacaoT}
+  \end{observacaoBox}
+}
+
+% Cria o ambiente cuidado  (ALiCIA Confusa)
+\newenvironment{cuidado}{
+  \begin{observacaoBox}
+    \printALiCIARage
+    \begin{observacaoT}
+}{
+    \end{observacaoT}
+  \end{observacaoBox}
+}
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de teorema
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nos teoremas
+\newtheoremstyle{teostyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de Teorema
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}
+}
+
+% Define a forma de numerar os teoremas
+\theoremstyle{teostyle}
+\newtheorem{teoT}{Teorema}[chapter]
+
+% Define a caixa para as teoremas
+\newmdenv[
+  skipabove=7pt,
+  skipbelow=7pt,
+  rightline=true,
+  leftline=true,
+  topline=true,
+  bottomline=true,
+  linecolor=NordPolarNight1,
+  backgroundcolor=white,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=5pt,
+  innerbottommargin=5pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=1pt]{teoBox}
+
+% Cria o ambiente para o teorema
+\newenvironment{teorema}{\begin{teoBox}\begin{teoT}}{\end{teoT}\end{teoBox}}
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de corolario
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nos corolários
+\newtheoremstyle{colstyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de Corolário
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}
+}
+
+% Define a forma de numerar os corolários
+\theoremstyle{colstyle}
+\newtheorem{colT}{\color{NordAurora5}Corolário}[chapter]
+
+% Define a caixa para os corolários
+\newmdenv[
+  skipabove=5pt,
+  skipbelow=5pt,
+  rightline=false,
+  leftline=false,
+  topline=false,
+  bottomline=false,
+  linecolor=NordPolarNight1,
+  backgroundcolor=white,
+  innerleftmargin=0pt,
+  innerrightmargin=0pt,
+  innertopmargin=3pt,
+  innerbottommargin=3pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=1pt]{colBox}
+
+% Cria o ambiente para o corolário
+\newenvironment{corolario}{\begin{colBox}\begin{colT}}{\end{colT}\end{colBox}}
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de proposição
+%---------------------------------------------------------------------------------------
+
+  % nome do estilo para usar nas proposições
+\newtheoremstyle{propstyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de proposição
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}
+}
+
+% Define a forma de numerar as proposições
+\theoremstyle{propstyle}
+\newtheorem{propT}{Proposição}[chapter]
+
+% Define a caixa para as proposições
+\newmdenv[
+  skipabove=5pt,
+  skipbelow=5pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=NordAurora4,
+  backgroundcolor=white,
+  innerleftmargin=0pt,
+  innerrightmargin=0pt,
+  innertopmargin=3pt,
+  innerbottommargin=3pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=3pt]{propBox}
+
+% Cria o ambiente para a proposição
+\newenvironment{proposicao}{\begin{propBox}\begin{propT}}{\end{propT}\end{propBox}}
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de princípio
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nos princípio
+\newtheoremstyle{prinstyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de princípio
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}
+}
+
+% Define a forma de numerar os princípios
+\theoremstyle{prinstyle}
+\newtheorem{prinT}{Princípio}[chapter]
+
+% Define a caixa para as princípios
+\newmdenv[
+  skipabove=5pt,
+  skipbelow=5pt,
+  rightline=true,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=vOrange,
+  backgroundcolor=vGray,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=3pt,
+  innerbottommargin=3pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=3pt]{prinBox}
+
+% Cria o ambiente para o princípios
+\newenvironment{principio}{\begin{prinBox}\begin{prinT}}{\end{prinT}\end{prinBox}}
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de princípio
+%---------------------------------------------------------------------------------------
+
+% nome do estilo para usar nos princípio
+\newtheoremstyle{lemastyle}
+% Espaço acima
+{0pt}
+% Espaço abaixo
+{0pt}
+% Fonte dentro da caixa
+{\normalfont}
+% Indentação
+{}
+% Título
+{\small\bf\sffamily}
+% Pontuação pós título
+{\;}
+% Espaço depois do título
+{0.25em}
+% Formatação do texto do título para a caixinha de princípio
+{
+  \small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}
+  \thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}
+}
+
+% Define a forma de numerar os princípios
+\theoremstyle{lemastyle}
+\newtheorem{lemaT}{Lema}[chapter]
+
+% Define a caixa para as princípios
+\newmdenv[
+  skipabove=5pt,
+  skipbelow=5pt,
+  rightline=true,
+  leftline=true,
+  topline=true,
+  bottomline=true,
+  linecolor=Salmon,
+  backgroundcolor=white,
+  innerleftmargin=5pt,
+  innerrightmargin=5pt,
+  innertopmargin=3pt,
+  innerbottommargin=3pt,
+  leftmargin=0cm,
+  rightmargin=0cm,
+  linewidth=1pt]{lemaBox}
+
+% Cria o ambiente para o princípios
+\newenvironment{lema}{\begin{lemaBox}\begin{lemaT}}{\end{lemaT}\end{lemaBox}}
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  de questões
+%---------------------------------------------------------------------------------------
+
+%\theoremstyle{testStyle}
+\newtheorem{testeT}{Questão}[chapter]
+%\newenvironment{questaos}{\begin{testeT}$({\color{cyan}\star})$}{\end{testeT}}
+\newenvironment{questao}{\begin{testeT}}{\end{testeT}}
+
+% Comando Necessário
+\makeatother
+

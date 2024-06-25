@@ -1,0 +1,34 @@
+%---------------------------------------------------------------------------------------
+%	Comando para mini-índice
+%---------------------------------------------------------------------------------------
+\newcommand\PrintMiniIndex{%
+	\startcontents[chapters]
+	\printcontents[chapters]{}{1}{\noindent{\color{NordFrost2}\rule{\textwidth}{1.5pt}}\par\medskip}%
+}
+
+%---------------------------------------------------------------------------------------
+% Comando para gerar a logo do PDFLatex
+%---------------------------------------------------------------------------------------
+\newcommand{\pdflatex}{PDF\LaTeX}
+
+%---------------------------------------------------------------------------------------
+% Comando para imprimir ALiCIA: escrevendo, tonta, brava e curiosa
+%---------------------------------------------------------------------------------------
+\newcommand{\printALiCIAWritte}{%
+  \centering\includegraphics[width=0.1\textwidth]{fig/Alicia-A.png}
+}
+
+\newcommand{\printALiCIAConfused}{%
+  \centering\includegraphics[width=0.1\textwidth]{fig/Alicia-B.png}
+}
+
+\newcommand{\printALiCIARage}{%
+  \centering\includegraphics[width=0.1\textwidth]{fig/Alicia-C.png}
+}
+
+%---------------------------------------------------------------------------------------
+% Cria o comando para o ambiente de refutação
+%---------------------------------------------------------------------------------------
+\newenvironment{refute}[1][\textit{Refutação}]
+{\renewcommand\qedsymbol{$\blacksquare$}\proof[#1]}
+{\endproof}

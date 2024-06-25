@@ -1,0 +1,84 @@
+% -------------------------------------------------------------------------
+% Arquivo principal do projeto: vBook5
+% Autor: Valdigleis (valdigleis@gmail.com)
+% -------------------------------------------------------------------------
+
+% Definição da classe básica
+\documentclass[b5paper,10pt]{book}
+
+% -------------------------------------------------------------------------
+% Importa os pacotes usados
+% -------------------------------------------------------------------------
+\input{configs/packages}
+
+% -------------------------------------------------------------------------
+% Importa as cores definidas para o documento
+% -------------------------------------------------------------------------
+\input{configs/colors}
+
+% -------------------------------------------------------------------------
+% Configurações dos pacotes
+% -------------------------------------------------------------------------
+\input{configs/settings}
+
+% -------------------------------------------------------------------------
+% Importa as configurações
+% -------------------------------------------------------------------------
+\input{configs/basic}
+\input{configs/contents}
+\input{configs/headfoot}
+\input{configs/commands}
+\input{configs/boxes}
+\input{configs/lists}
+
+% -------------------------------------------------------------------------
+% Estilo das bibliográficas
+% -------------------------------------------------------------------------
+%\bibliographystyle{abbrv}
+
+
+% Informações básicas
+\title{Sobre Conjuntos, Relações e Funções}
+\author{Valdigleis S. Costa} % Author
+\newcommand{\edition}{1.0} % Book edition
+
+
+\begin{document}
+	
+	\frontmatter
+	% Pre-texto
+	\input{pre/cover}
+	\input{pre/copyright}	
+	\input{pre/disclaimer}
+	
+	% Índices de Conteúdos, Imagens e Tabelas
+	\tableofcontents
+	%\listoffigures
+	
+	% Texto Principal
+	\mainmatter
+	
+	\part{A Linguagem Básica}
+	% Chapter naive sets theory
+	\input{text/basic/set}	
+ 	% Chapter introduction to proofs
+	\input{text/basic/proofs}
+	% Chapter relations
+	\input{text/basic/relations}
+        % Chapter equavalence and order
+        \input{text/basic/order}
+        % Chapter functions
+        \input{text/basic/functions}
+	% Chapter Cardinality
+	\input{text/basic/cardinals}
+	% Chatpter induction
+	\input{text/basic/induction}
+
+
+	% Referências bibliográficas
+	\bibliographystyle{abbrv}
+	\bibliography{references/referencias}
+	\phantomsection
+	\addcontentsline{toc}{chapter}{\bibname}
+		
+\end{document}

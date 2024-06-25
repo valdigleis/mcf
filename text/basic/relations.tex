@@ -1,0 +1,1160 @@
+\chapter{Relações}\label{cap:Relations}
+
+\epigraph{``A matemática preocupa-se apenas com a enumeração e comparação de relações''.}{Carl Friedrich Gauss}
+
+\section{Sobre Relações}\label{sec:SobreRelacoes}
+
+A ideia de relação é um conceito frequentemente utilizado, seja no cotidiano das pessoas, seja na matemática \cite{barreto}. Uma subárea da matemática de extrema importância para a Ciência da Computação, especificamente na área de banco de dados, é a álgebra relacional, que de forma resumida é o estudo das relações entre objetos de um mesmo espaço (conjunto).
+
+Como comentado em \cite{epp1990}, no cotidiano do mundo ``real'' existem diversos tipos de relacionamentos entre as entidades, por exemplo, imagine que duas pessoas, um homem jovem e um(a) garotinho(a) compartilham um ancestral comum, tal como um avô, assim pode-se dizer que os dois apresentam uma relação de parentesco, ou ainda que existe uma relação familiar entre os dois.
+
+No que diz respeito ao universo matemático, a noção de relação entre os objetos é algo onipresente em todos os campos da matemática. Um exemplo clássico de relacionamento que se pode estabelecer entre dois números, $x$ e $y$, é a ideia de dobro, isto é, $x$ e $y$ apresentam um relacionamento de dobro entre si no caso de $y = 2x$ ou $x = 2y$.
+
+Note que de forma subliminar os exemplos anteriores caracterizam as relações de parentesco e dobro através da associação de elementos que juntos apresentavam uma certa propriedade, e nesse sentido uma relação nada mais é do que um conjunto definido sobre uma certa propriedade entre elementos de um espaço. A formalização das relações como sendo um conjunto será construída nas próximas seções.
+
+\section{Pares Ordenados e Produto Cartesiano}\label{sec:ParesOrdenadosProdutoCartesiano}
+
+Da mesma forma que \cite{abe1991-TC}, neste documento será considerada a definição apresentada a seguir de par ordenado, sendo que tal definição foi apresentada pela primeira vez pelo grande matemático e lógico polonês Kazimierz Kuratowski (1896--1980).
+
+\begin{definicao}[Par Ordenado]\label{def:ParOrdenado}
+    Sejam $x$ e $y$ elementos em um universo do discurso. O par ordenado entre $x$ e $y$, denotado por $(x, y)$, corresponde a seguinte igualdade:
+    \begin{equation*}
+        (x, y) = \{x, \{x, y\}\}
+    \end{equation*}
+\end{definicao}
+
+Dado qualquer par ordenado $(x, y)$ o elemento $x$ é chamado de primeira componente do par ordenado, e o $y$ é chamado de segunda componente do par ordenado. Além disso, como explicado em \cite{lipschutz1978-TC, lipschutz2013-MD}, dois pares ordenados $(x_1, y_1)$ e $(x_2, y_2)$ serão ditos iguais\footnote{Este resultado segue direto da Definição \ref{def:IgualdadeConjuntos}, a prova deste fato ficará como exercício ao leitor.} se, e somente se, $x_1 = x_2$ e $y_1 = y_2$.
+
+\begin{cuidado}[Igualdade perigosa!]
+    Não saia por aí dizendo que $(x, y)$ é igual a $\{x, y\}$, ALiCIA vai te dar um grande sermão se você fizer isso! Pois note que, $(x, y)$ consiste em um conjunto heterogêneo na forma $\{x, \{x, y\}\}$, enquanto, $\{x, y\}$ é um conjunto diferente, se não entendeu, ALiCIA recomenda que você volte ao Capítulo \ref{cap:Sets} e reveja a Definição \ref{def:IgualdadeConjuntos}, que descreve extamente a igualdade entre conjuntos!
+\end{cuidado}
+
+De posse do conceito de par ordenado é possível definir uma nova operação entre conjuntos, tal operação recebe o nome de produto Cartesiano\footnote{O nome produto Cartesiano provém do matemática francês René Descartes (1596--1650), que foi o primeiro a estudar tal operação conjuntista \cite{lipschutz1978-TC}.} e será de vital importância para em seguida apresentar as ideias ligadas ao conceito de relações.
+
+\begin{definicao}[Produto Cartesiano]\label{def:ProdutoCartesiano}
+    Sejam $A$ e $B$ dois conjuntos quaisquer, o produto Cartesiano entre $A$ e $B$, denotado por $A \times B$, corresponde ao conjunto de todos os pares ordenados em que a primeira componente é um elemento de $A$ e a segunda componente é um elemento de $B$, ou seja, tem-se que:
+    \begin{equation*}
+        A \times B = \{(x, y) \mid x \in A, y \in B\}
+    \end{equation*}
+\end{definicao}
+
+\begin{exemplo}\label{exe:ProdutoCartesiano}
+    Dado os seguintes dois conjuntos $\{a, b, c\}$ e $\{-1, 1\}$ tem-se os seguintes produtos Cartesianos.
+    \begin{itemize}
+        \item[(a)] $\{a, b, c\} \times \{-1, 1\} = \{(a, 1), (a, -1), (b, -1), (b, 1), (c, -1), (c, 1)\}$.
+        \item[(b)] $\{-1, 1\} \times \{a, b, c\} = \{(1, a), (1, b), (1, c), (-1, a), (-1, c), (-1, b)\}$.
+        \item[(c)] $\{a, b, c\} \times \{a, b\} = \{(a, a), (a, b), (c, b), (b, a), (b, b), (c, a)\}$.
+        \item[(d)] $\{-1, 1\} \times \{1, -1\} = \{(1, 1), (1, -1), (-1, 1), (-1, -1)\}$ 
+    \end{itemize}
+\end{exemplo}
+
+Uma classe de casos particulares da aplicação do produto Cartesiano e a classe dos Cartesianos chamados de quadrados, no que se segue este documento apresenta formalmente a seguir o conceito de Cartesiano quadrado.
+
+\begin{definicao}[Cartesiano quadrado]\label{def:CartesianoQuadrado}
+    Seja $A$ um conjunto qualquer. O produto Cartesiano quadrado de $A$, denotado por $A^2$, corresponde ao produto Cartesiano de $A$ consigo mesmo, ou seja, tem-se que:
+    \begin{equation*}
+        A^2 = \{(x, y) \mid x,y \in A\}
+    \end{equation*}
+\end{definicao}
+
+\begin{nota}[Açúcar sintático!]
+    É bom ter em mente que $A^2$ é apenas uma forma simplificada ou doce (um açúcar sintático\footnote{O conceito de açúcar sintático (em inglês \textit{syntactic sugar}), é uma expressão criada em 1964 por Peter J. Landin (1930--2009) em seus seminais trabalhos \cite{landin1964,landin1965-1,landin1965-2}. De forma direta um açúcar sintático diz respeito a uma sintaxe dentro da linguagem formal que tem por finalidade tornar suas construções mais fáceis de serem lidas e expressas, ou seja, um açúcar sintático é uma ferramenta para tornar o uso da linguagem “mais doce” (ou amigável) para o uso dos seres humanos.}) para escrever $A \times A$.
+\end{nota}
+
+\begin{exemplo}\label{exe:CartesianoQuadrado}
+    Os itens (c) e (d) do Exemplo \ref{exe:ProdutoCartesiano} são produtos Cartesianos quadrados.
+\end{exemplo}
+
+\begin{teorema}[Produto Cartesiano - absorção]\label{teo:AbsorcaoCatersiano}
+	Dado dois conjuntos $A$ e $B$ tem-se que, $A \times B = \emptyset$ se, e somente se, $A = \emptyset$ ou $B = \emptyset$.
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Por contrapositiva assuma que $A \neq \emptyset$ e $B \neq \emptyset$, assim tem-se que existem $x \in A$ e $y \in B$, consequentemente, pela definição de produto cartesiano existe $(x,y) \in A \times B$, assim tem-se que, $A \times B \neq \emptyset$, e portanto, a afirmação: Se $A \times B = \emptyset$, então $A = \emptyset$ ou $B = \emptyset$ é verdadeira.
+	
+	$(\Leftarrow)$ Suponha que $A = \emptyset$ ou $B = \emptyset$, assim tem-se claramente por vacuidade que $A \times B = \emptyset$.
+\end{proof}
+
+\begin{teorema}[Produto Cartesiano - igualdade]\label{teo:IgualdadeCartesiano}
+	Dado dois conjuntos $A$ e $B$ tem-se que, $A \times B = B \times A$ se, e somente se, $A = \emptyset$ ou $B = \emptyset$ ou $A = B$.
+\end{teorema}
+
+\begin{proof}
+	A prova desta asserção ficará como exercício ao leitor.
+\end{proof}
+
+O produto Cartesiano enquanto operação tem a propriedade de preservar a relação de inclusão à direta e à esquerda como pode ser visto a seguir. 
+
+\begin{teorema}[Produto Cartesiano - monotonicidade à direita]\label{teo:CartesianoMonoDireita}
+	Dado três conjuntos $A, B$ e $C$ tem-se que, $A \subset B$ se, e somente se, $A \times C \subset B \times C$.
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Suponha que $A \subset B$, logo por definição tem-se que todo $x \in A$ é tal que $x \in B$, e assim é óbvio que para todo $(x,y) \in A \times C$ tem-se que $(x, y) \in B \times C$, e portanto, pela definição de subconjunto tem-se que $A \times C \subseteq B \times C$, mas por hipótese tem-se que existe $x' \in B$ tal que $x' \notin A$, logo existe $(x', y) \in B \times C$ tal que $(x', y) \notin A \times C$, consequentemente, $A \times C \subset B \times C$.
+	
+	$(\Leftarrow)$ Assuma que $A \times C \subset B \times C$, logo tem-se que para todo $(x, y) \in A \times C$ tem-se que $(x, y) \in B \times C$, mas note que por definição $(x, y) \in A \times C$ se, e somente se, $x \in A$ e de forma similar tem-se que $(x, y) \in B \times C$ se, e somente se, $x \in B$, dessa forma tem-se que $A \subset B$, além disso, por hipótese existe um $(x', y) \in B \times C$ tal que $(x', y) \notin A \times C$, portanto, é claro que existe $x' \in B$ tal que $x' \notin A$, consequentemente, $A \subset B$.
+\end{proof}
+
+\begin{teorema}[Produto Cartesiano - monotonicidade à esquerda]
+	Dado três conjuntos $A, B$ e $C$ tem-se que, $A \subset B$ se, e somente se, $C \times A \subset C \times B$.
+\end{teorema}
+
+\begin{proof}
+	Similar a demonstração do Teorema \ref{teo:CartesianoMonoDireita}.
+\end{proof}
+
+O próximo resultado mostra que a operação de produto Cartesiano se distribui sobre as operações de união, interseção e diferença.
+
+\begin{teorema}[Leis de Distributividade do Cartesiano]\label{teo:DistributividadeCartesiano}
+	Dado três conjuntos $A, B$ e $C$ tem-se que:
+	\begin{itemize}
+		\item[(i)] $A \times (B \cap C) = (A \times B) \cap (A \times C)$.
+		\item[(ii)] $(A \cap B) \times C = (A \times C) \cap (B \times C)$.
+		\item[(iii)] $A \times (B \cup C) = (A \times B) \cup (A \times C)$.
+		\item[(iv)] $(A \cup B) \times C = (A \times C) \cup (B \times C)$.
+		\item[(v)] $A \times (B - C) = (A \times B) - (A \times C)$.
+		\item[(vi)] $(A - B) \times C = (A \times C) - (B \times C)$.
+		\item[(vii)] $A \times (B \ominus C) = (A \times B) \ominus (A \times C)$.
+		\item[(vii)] $(A \ominus B) \times C = (A \times C) \ominus (B \times C)$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	Sejam $A, B$ e $C$ conjuntos tem-se que:
+	\begin{itemize}
+		\item[(i)] 
+		\begin{eqnarray*}
+			A \times (B \cap C) & = & \{(x, y) \mid x \in A, y \in (B \cap C)\}\\
+			& = & \{(x, y) \mid x \in (A \cap A), y \in (B \cap C)\}\\
+			& = & \{(x, y) \mid x \in A, x \in A, y \in B, y \in C\}\\
+			& = & \{(x, y) \mid x \in A, y \in B, x \in A, y \in C\}\\
+			& = & \{(x, y) \mid x \in A, y \in B\} \cap \{(x, y) \mid x \in A, y \in C\}\\
+			& = & (A \times B) \cap (A \times C)
+		\end{eqnarray*}
+		\item[(ii)] Similar ao item anterior.
+		\item[(iii)]
+		\begin{eqnarray*}
+			A \times (B \cup C) & = & \{(x, y) \mid x \in A, y \in (B \cup C)\}\\
+			& = & \{(x, y) \mid x \in (A \cup A), y \in (B \cup C)\}\\
+			& = & \{(x, y) \mid x \in A \text{ ou } x \in A, y \in B \text{ ou } y \in C\}\\
+			& = & \{(x, y) \mid x \in A, y \in B \text{ ou } x \in A, y \in C\}\\
+			& = & \{(x, y) \mid x \in A, y \in B\} \cup \{(x, y) \mid x \in A, y \in C\}\\
+			& = & (A \times B) \cup (A \times C)
+		\end{eqnarray*}
+		\item[(iv)] Similar ao item anterior.
+		\item[(v)]
+		\begin{eqnarray*}
+			A \times (B - C) & = & \{(x, y) \mid x \in A, y \in (B-C)\}\\
+			& = & \{(x, y) \mid x \in A \cap A, y \in (B-C)\}\\
+			& = & \{(x, y) \mid x \in A, x \in A, y \in B, y \notin C\}\\
+			& = & \{(x, y) \mid (x, y) \in A \times B, (x, y) \notin (A \times  C)\}\\
+			& = & (A \times B) - (A \times C)
+		\end{eqnarray*}
+		\item[(vi)] Similar ao item anterior.
+		\item[(vii)]
+		\begin{eqnarray*}
+			A \times (B \ominus C) & \stackrel{Cor. \ \ref{col:DiferencaSimetrica}}{=} & A \times ((B \cup C) - (B \cap C))\\
+			& \stackrel{Teo. \ \ref{teo:DistributividadeCartesiano}(\text{v})}{=} & (A \times (B \cup C)) - (A \times (B \cap C))\\
+			& \stackrel{Teo. \ \ref{teo:DistributividadeCartesiano}(\text{iii})}{=} & ((A \times B) \cup (A \times C)) - (A \times (B \cap C))\\
+			& \stackrel{Teo. \ \ref{teo:DistributividadeCartesiano}(\text{i})}{=} & ((A \times B) \cup (A \times C)) - ((A \times B) \cap (A \times C))\\
+			& \stackrel{Cor. \ \ref{col:DiferencaSimetrica}}{=} & (A \times B) \ominus (A \times C)
+		\end{eqnarray*}
+		\item[(viii)] Similar ao item anterior.
+	\end{itemize}
+\end{proof}
+
+O conceito do produto Cartesiano pode, como explicado em \cite{lipschutz1978-TC, lipschutz2013-MD}, ser estendido a poder operar com mais de dois conjuntos, sendo essa extensão realizada de forma natural apenas aumentando um número de componentes nos elementos do conjunto resultante ao conjunto do produto, ou seja, os elementos deixam de ser simples pares ordenados para serem tuplas ordenadas. A seguir este conceito é formalizado.
+
+\begin{definicao}[Produto Cartesiano $n$-ário]\label{def:Cartesianonario}
+	Dado $n \geq 2$ e sejam $A_1, A_2, \cdots, A_n$ conjuntos quaisquer, o produto Cartesiano $n$-ário, denotado por $A_1 \times \cdots \times A_n$, corresponde ao conjunto formado por todas as tuplas da forma $(a_1, \cdots, a_n)$ tal que para todo $1 \leq i \leq n$ tem-se que $a_i \in A_i$.
+\end{definicao}
+
+Em um produto Cartesiano $n$-ário da forma $A_1 \times \cdots \times A_n$ cada $A_i$ com $1 \leq i \leq n$ é chamado de $i$-ésimo fator do produto. Outra forma comum de denotar o produto Cartesiano $n$-ário muito encontrada na literatura é usando o símbolo do produtório, ou seja, $\displaystyle\prod_{i = 1}^{n} A_i$, ou ainda na forma açucarada, $A^n$.
+
+\begin{exemplo}\label{exe:CartesianoNario1}
+	Dado os conjuntos $\{-1, 1\}, \{a, b\}$ e $\{0, 1\}$ tem-se os seguintes produtos Cartesianos $n$-ários:
+	\begin{eqnarray*}
+		\{-1, 1\} \times \{a, b\} \times \{0, 1\} & = & \{(-1, a, 0), (-1, a, 1), (-1, b, 0), (-1, b, 1), \\
+		& & \ \ (1, a, 0), (1, a, 1), (1, b, 0), (1, b, 1)\}
+	\end{eqnarray*}
+	\begin{eqnarray*}
+		\{-1, 1\} \times \{-1, 1\} \times \{a, b\} \times \{a, b\} & = & \{ (-1, 1, a, a), (-1, 1, a, b), \\
+		& & \ \ (-1, 1, b, a),  (-1, 1, b, b), \\
+		& & \ \ (-1, -1, a, a), (-1, -1, a, b),\\
+		& & \ \ (-1, -1, b, a), (-1, -1, b, b),\\
+		& & \ \ (1, -1, a, a),  (1, -1, a, b),\\
+		& & \ \ (1, -1, b, a),  (1, -1, b, b),\\
+		& & \ \ (1, 1, a, a),   (1, 1, a, b),\\
+		& & \ \ (1, 1, b, a),   (1, 1, b, b) \}
+	\end{eqnarray*}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:CartesianoNario2}
+	Dado o conjunto $\{0,1\}$ tem-se que 
+	\begin{eqnarray*}
+		\{0, 1\}^5 & = & \{ (0, 0, 0, 0, 0), (0, 0, 0, 0, 1), (0, 0, 0, 1, 0), (0, 0, 0, 1, 1), (0, 0, 1, 0, 0),\\ 
+    & & \ \ (0, 0, 1, 0, 1),(0, 0, 1, 1, 0), (0, 0, 1, 1, 1), (0, 1, 0, 0, 0), (0, 1, 0, 0, 1),\\ 
+    & & \ \ (0, 1, 0, 1, 0), (0, 1, 0, 1, 1),(0, 1, 1, 0, 0), (0, 1, 1, 0, 1), (0, 1, 1, 1, 0),\\ 
+    & & \ \ (1, 0, 0, 0, 0), (1, 0, 0, 0, 1),(1, 0, 0, 1, 0), (1, 0, 0, 1, 1), (1, 0, 1, 0, 0),\\
+    & & \ \ (1, 0, 1, 1, 0), (1, 0, 1, 1, 1),(1, 1, 0, 0, 0), (1, 1, 0, 0, 1), (1, 1, 0, 1, 0),\\
+    & & \ \ (1, 1, 1, 0, 0), (1, 1, 1, 0, 1), (1, 1, 1, 1, 0), (1, 1, 1, 1, 1), (0, 1, 1, 1, 1),\\
+    & & \ \ (1, 0, 1, 0, 1), (1, 1, 0, 1, 1) \}
+	\end{eqnarray*}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:CartesianoNario3}
+  São produtos Cartesianos $n$-ários:
+	\begin{itemize}
+		\item[(a)] $\{a, b, c\}^2 = \{(a, a), (c, b), (a, c), (a, b), (c, c, )(b, a), (b, b), (b, c), (c, a)\}$.
+		\item[(b)] $\{0, 1\}^2 = \{(1, 0), (1, 1), (0, 1), (0, 0)\}$.
+		\item[(c)] $\{1\}^9 = \{(1, 1, 1, 1, 1, 1, 1, 1, 1)\}$.
+    \item[(d)] $\{a, (1, 2)\}^2 = \{(a, a),  (a, (1, 2)), ((1, 2), a), ((1, 2), (1, 2))\}$.
+    \item[(e)] $\{a, b\} \times \{0\}^2 = \{(a, (0,0)), (b, (0,0))\}$.
+    \item[(f)] $\{1\}^2 \times \{1\} = \{((1,1), 1)\}$.
+	\end{itemize}
+\end{exemplo}
+
+Quando os conjuntos $A_1, A_2, \cdots, A_n$ são todos conjuntos finitos, uma estratégia muito utilizada para se obter e também representar o mecanismo de construção das tuplas $(a_1, a_2, \cdots, a_n)$ pertencentes ao produto Cartesiano $n$-ário $A_1 \times A_2 \times \cdots \times A_n$ é usando a noção de diagrama de árvore \cite{lipschutz1978-TC, lipschutz2013-MD}. 
+
+\begin{nota}[Cuidado ao desenhar árvores cartesianas!]
+  De forma contrária ao que acontecer nos diagramas de árvores nas área de estrutura de dados \cite{jaime1994}, linguagens formais \cite{benjaLivro2010, hopcroft2008, linz2006} e compiladores \cite{aho2007, cooper2017}, os diagramas de árvore na teoria dos conjuntos são construídos de forma horizontal no sentido da esquerda para à direita.
+\end{nota}
+
+Em um diagrama de árvore o número de níveis na árvore é igual ao número de conjuntos envolvidos no Cartesiano mais 2, ou seja, para cada produto Cartesiano $n$-ário, o número de níveis na árvore que gera/representa tal cartesiano é igual a $n+2$. 
+
+Dado então os conjuntos no Cartesiano $A_1 \times \cdots \times A_n$, o diagrama é construindo por níveis da seguinte forma: 
+
+\begin{enumerate}
+  \item O nível inicial da árvore (nível 0) é colocado o símbolo de inicio da árvore (neste documento será usado o $\ast$ como símbolo inicial). 
+  \item Para todo $1 \leq i \leq n$, cada nível $i$ do diagrama vai ser preenchido pelos elementos do conjunto $A_i$\footnote{Como cada $A_i$ é finito, cada $x \in A_i$ será repetido exatamente $2^{i-1}$ no nível $i$.}.
+  \item Por fim, no último nível da árvore (ou nível EPC) estão os elementos do produto Cartesiano em si.
+\end{enumerate}
+
+\begin{exemplo}\label{exe:ArvoreDoCartesino}
+	Dado os conjuntos $\{-1, 1\}, \{a, b\}$ e $\{-1, 1\}$ tem-se que o produto Cartesiano $\{-1, 1\} \times \{a, b\} \times \{-1, 1\}$ pode ser representado pelo diagrama esboçado na Figura \ref{fig:Cartesiano}.
+\end{exemplo}
+
+\begin{figure}[h]
+	\begin{tikzpicture}[grow=right,level distance=1.0in,sibling distance=.10in]
+	\tikzset{edge from parent/.style= {thick, draw, edge from parent fork right}, every tree node/.style={align=center}}
+		\Tree 
+		[. $\ast$
+			[.{$-1$}
+				[.{$a$}
+					[.{$-1$}
+						[.{$(-1, a, -1)$} ]  
+					]
+					[.{$1$} 
+						[.{$(-1, a, 1)$} ] 
+					] 
+				]
+				[.{$b$} 
+					[.{$-1$} 
+						[.{$(-1, b, -1)$} ]   
+					]
+					[.{$1$} 
+						[.{$(-1, a, 1)$} ] 	
+					]
+				]
+			]
+			[.{$1$}
+				[.{$a$}
+					[.{$-1$} 
+						[.{$(1, a, -1)$} ]  
+					]
+					[.{$1$} 
+						[.{$(1, a, 1)$} ]
+					] 
+				]
+				[.{$b$} 
+					[.{$-1$} 
+						[.{$(1, b, -1)$} ]  
+					]
+					[.{$1$} 
+						[.{$(1, b, 1)$} ]
+					]
+				]
+			]
+		]
+		\begin{scope}[yshift=-4cm]
+		  \Tree 
+		  [.{nível 0} [.{nível 1} [.{nível 2} [.{nível 3} [.{EPC} ] ] ]  ] ]
+		\end{scope}
+	\end{tikzpicture}
+	\caption{Diagrama de árvore para o Cartesiano $\{-1, 1\} \times \{a, b\} \times \{1, -1\}$.}
+	\label{fig:Cartesiano}
+\end{figure}
+
+Apesar de ser uma ótima forma prática de representar e visualizar o produto Cartesiano, os diagramas de árvores tendem a não ser adotados com frequência pois seu crescimento se dá em proporções fatoriais, o que torna sua construção facilmente complexa.
+
+\begin{cuidado}
+  ALiCIA quer que você fique sempre atento a alguns fatos de cunho sintático a respeito do produto Cartesiano, ela chama sua atenção para o Exemplo \ref{exe:CartesianoNario3}, em tal exemplo é mostrado de forma explicita que $A \times B \times C \neq A \times (B \times C) \neq (A \times B) \times C$\footnote{No primeiro produto os elementos gerados são da forma $(x, y, z)$, já no segundo os elementos terão a forma $(x, (y, z))$, e por fim, no terceiro produto os elementos tem a seguinte forma $((x,y), z)$ sendo $x \in A, y \in B$ e $z \in C$. Além disso, tem-se que o produto Cartesiano $A^n \times B = (\underbrace{A \times \cdots \times A}_{n-\text{vezes}}) \times B$.}. 
+\end{cuidado}
+
+\section{Relações}\label{sec:Relacoes}
+
+Da mesma forma que foi apresentado em \cite{abe1991-TC}, este documento irá nesta seção tratar do conceito de relações binária e suas propriedades. O conceito de relações $n$-ária muito importante na matemática e na teoria de banco de dados não será estudado neste documento.
+
+\begin{definicao}[Relação binária]\label{def:RelacaoBinaria}
+	Seja $A$ e $B$ dois conjuntos, uma relação $R$ de $A$ em $B$ é qualquer subconjunto de $A \times B$, isto é, $R \subseteq (A \times B)$.
+\end{definicao}
+
+\begin{nota}[Açúcar sintático.]\label{note:Acucar1}
+  Dado $R$ uma relação binária de $A$ em $B$ a sintaxe da teoria dos conjuntos e de pares ordenados permite que seja escrito que $(x, y) \in R$, entretanto, está escrita é geralmente substituída por $x\mathrel{R}y$. E no caso de $(x,y) \notin R$ é escrito simplesmente $x\centernot{R}y$.
+\end{nota}
+
+A semântica das palavras $x\mathrel{R}y$ e $x\centernot{R}y$ podem ser interpretadas respectivamente como: ``$x$ está $R$-relacionado (está relacionado por $R$) com $y$'' e ``$x$ não está $R$-relacionado (não está relacionado por $R$) com $y$''. Em algumas obras como \cite{carmo2013}, é possível ver a sintaxe $x \underrightarrow{R} y$ para designar que $(x, y) \in R$, neste documento o autor irá optar sempre que possível pelo açúcar sintática descrito na Nota \ref{note:Acucar1}, e quando não for possível (ou conveniente) será usado a sintaxe padrão da teoria dos conjuntos e dos pares ordenados.
+
+\begin{definicao}[Domínio e Imagem]\label{def:DominioImagemRelacoes}
+	Seja $R$ uma relação de $A$ em $B$, o domínio de $R$, denotado por $Dom(R)$, corresponde ao conjunto de todos os elementos de $A$ que são a primeira coordenada de $x\mathrel{R}y$, ou seja, 
+	$$Dom(R) = \{x \in A \mid x\mathrel{R}y\}$$
+	e a imagem de $R$, denotada por $Ima(R)$, corresponde ao conjunto de todos os elementos de $B$ que são a segunda coordenada de $x\mathrel{R}y$, ou seja, 
+	$$Ima(R) = \{y \in B \mid x\mathrel{R}y\}$$
+\end{definicao}
+
+\begin{exemplo}\label{exe:RelacaoBinaria1}
+	Seja $R = \{(a, 1), (b, -1), (c, 1), (b, 1), (c, -1)\}$ uma relação tem-se que $Dom(R) = \{a, b, c\}$ e $Ima(R) = \{1, -1\}$.
+\end{exemplo}
+
+\begin{exemplo}
+	Dado a relação $Q = \{(x, y) \in \mathbb{N}^2 \mid x^2 = y\}$ tem-se que $Dom(Q) = \{x \in \mathbb{N} \mid (\exists y \in \mathbb{N})[\sqrt{y} = x]\}$ e $Ima(Q) = \{y \in \mathbb{N} \mid (\exists x \in \mathbb{N})[x^2 = y]\}$
+\end{exemplo}
+
+\begin{exemplo}
+	Uma relação binária $R$ famosa é aquela usada para representar o conjunto das frações positivas, tal relação é definida como $F = \{(x, y)\mid x \in \mathbb{N}, y \in (\mathbb{N}-\{0\})\}$, note que a fração $\displaystyle\frac{1}{12}$ por exemplo corresponde ao elemento $1\mathrel{F}12$.
+\end{exemplo}
+
+Dada qualquer relação $R$ sempre é possível obter uma nova relação a partir de $R$, essa nova relação recebe o nome de relação inversa ou oposta.
+
+\begin{definicao}[Relação inversa]\label{def:RelacaoInversa}
+	Seja $R$ uma relação. A relação inversa (ou oposta) de $R$, denotada por $R^{-1}$, corresponde ao seguinte conjunto:
+	$$R^{-1} = \{(y,x) \mid x\mathrel{R}y\}$$
+\end{definicao}
+
+\begin{exemplo}
+  Considere a relação $R$ do Exemplo \ref{exe:RelacaoBinaria1}, tem-se que a relação inversa de $R$ corresponde ao conjunto $R^{-1} = \{(1, a), (-1, b), (1, c), (-1, c), (1, b)\}$.
+\end{exemplo}
+
+\begin{exemplo}
+  Dado a relação $P = \{(a, b) \in \mathbb{N} \times \mathbb{N} \mid a = b^2\}$ tem-se a inversa de $P$ é exatamente a relação $R = \{(b, a) \in \mathbb{N} \times \mathbb{N} \mid b = \sqrt{a}\}$, isto é, $R = P^{-1}$.
+\end{exemplo}
+
+Um fato básico para qualquer relação $R$ é que $(R^{-1})^{-1} = R$. Em outras palavras, tal igualdade descreve que a reversa de uma relação, vista como uma operação é sempre involutiva, assim como a negação e o complemento.
+
+\begin{proposicao}\label{prop:ReversaPreservaInclusão}
+	Se $R \subseteq A \times B$, então $R^{-1} \subseteq B \times A$.
+\end{proposicao}
+
+\begin{proof}
+	Suponha que $R \subseteq A \times B$, logo todo $(x, y) \in A$ é tal que $(y, x) \in R^{-1}$, mas de $R \subseteq A \times B$ tem-se que $(x, y) \in A \times B$, consequentemente, por definição $x \in A$ e $y \in B$ e, portanto, $(y, x) \in B \times A$, consequentemente, $R^{-1} \subseteq B \times A$.
+\end{proof}
+
+O leitor atento pode notar que o resultado da Proposição \ref{prop:ReversaPreservaInclusão} pode ser estendido para relacionar diretamente duas relações, e isso é feito como se segue.
+
+\begin{teorema}\label{teo:ReversaPreservaInclusão}
+	Se $R$ e $S$ são relações tais que $R \subseteq S$, então $R^{-1} \subseteq S^{-1}$.
+\end{teorema}
+
+\begin{proof}
+	Similar ao raciocínio da demonstração da Proposição \ref{prop:ReversaPreservaInclusão}.
+\end{proof}
+
+Uma vez que relações são conjuntos pode-se falar sobre as operações sobre relações, aqui não serão tratadas as operações triviais de união, interseção, complemento e diferença. Para essas operações é recomendável que o leitor retorne para revisar o texto apresentado na Seção \ref{sec:OperacaoSobreConjuntos} que trata exatamente de tais operações. 
+
+Uma operação natural que surge para as relações é a noção de composição entre duas relações $R_1$ e $R_2$, a ideia da composição é gerar uma terceira relação a partir das relações iniciais. A seguir este documento apresenta formalmente o conceito de composição.
+
+\begin{definicao}[Composição de relações]\label{def:ComposicaoRelacoes}
+	Seja $R_1$ uma relação de $A$ em $B$ e seja $R_2$ uma relação de $B$ em $C$, a composição de $R_1$ e $R_2$, denotada por $R_1 \bullet R_2$, corresponde ao seguinte conjunto:
+	$$R_1 \bullet R_2 = \{(x, z) \mid (\exists y \in B)[x\mathrel{R_1}y \text{ e } y\mathrel{R_2}z] \}$$
+\end{definicao}
+
+\begin{proposicao}
+  Seja $R_1$ uma relação de $A$ em $B$ e seja $R_2$ uma relação de $B$ em $C$, então tem-se que:
+	\begin{itemize}
+		\item[(i)] $Dom(R_1 \bullet R_2) \subseteq Dom(R_1)$.
+		\item[(ii)] $Ima(R_1 \bullet R_2) \subseteq Ima(R_2)$.
+	\end{itemize}
+\end{proposicao}
+
+\begin{proof}
+	Trivial pela própria Definição \ref{def:ComposicaoRelacoes}.
+\end{proof}
+
+\begin{exemplo}
+	Sejam $R = A \times B$ e $Q = B \times C$ tem-se que $R \bullet Q = A \times C$.
+\end{exemplo}
+
+\begin{exemplo}
+	Dado a relação $R_1 = \{(a, b), (i, b), (o, c), (o, e)\}$ e outra relação $R_2 = \{(b, 1), (b, -1), (c, 3), (d, 4)\}$ tem-se então que a composição de $R_1$ e $R_2$ é exatamente igual a relação $R = \{(a, 1), (a, -1),$ $(i, 1), (i, -1), (o, 3)\}$.
+\end{exemplo}
+
+\begin{teorema}[Monotonicidade da Composição de Relações]\label{teo:MonotonicidadeComposicaoRelacoes}
+	Seja $R_1$ e $R_2$ relações de $A$ em $B$. Se $R_1 \subseteq R_2$, então para toda relação $R_3$ de $B$ em $C$ tem-se que $(R_1 \bullet R_3) \subseteq (R_2 \bullet R_3)$.
+\end{teorema}
+
+\begin{proof}
+	Suponha que $R_1$ e $R_2$ são ambas relações de $A$ em $B$ e que $R_1 \subseteq R_2$, agora note que para qualquer relação $R_3$ de $B$ em $C$ tem-se por definição que $(x, z) \in (R_1 \bullet R_3)$ se, e somente se, $(\exists y \in B)[x\mathrel{R_1}y \text{ e } y\mathrel{R_3}z]$, mas uma vez que, $R_1 \subseteq R_2$ é claro que $ (\exists y \in B)[x \mathrel{R_2}y \text{ e } y\mathrel{R_3}z]$, e assim $(x, z) \in (R_2 \bullet R_3)$, portanto, $(R_1 \bullet R_3) \subseteq (R_2 \bullet R_3)$, concluindo assim a prova.
+\end{proof}
+
+\begin{corolario}\label{col:MonotonicidadeComposicaoRelacoes}
+	Se $R_1, R_2, S_1, S_2$ são relações tais que $R_1 \subseteq R_2$ e $S_1 \subseteq S_2$, então $(R_1 \bullet S_1) \subseteq (R_2 \bullet S_2)$.
+\end{corolario}
+
+\begin{proof}
+	Suponha que $R_1, R_2, S_1, S_2$ são relações tais que $R_1 \subseteq R_2$ e $S_1 \subseteq S_2$, assim pelo Teorema \ref{teo:MonotonicidadeComposicaoRelacoes} tem-se que $(R_1 \bullet S_1) \subseteq (R_2 \bullet S_1)$. Agora note que por definição $(x, z) \in (R_2 \bullet S_1)$ se, e somente se, $(\exists y \in Dom(S_1))[x\mathrel{R_2}y \text{ e } y\mathrel{S_1}z]$, mas uma vez que $S_1 \subseteq S_2$ tem-se que $Dom(S_1) \subseteq Dom(S_2)$ e $Ima(S_1) \subseteq Ima(S_2)$ e assim é claro que $(\exists y \in Dom(S_2))[x\mathrel{R_2}y \text{ e } y\mathrel{S_2}z]$, logo $(x, z) \in (R_2 \bullet S_2)$, consequentemente pela definição de subconjunto tem-se que $(R_2 \bullet S_1) \subseteq (R_2 \bullet S_2)$. E portanto, $(R_1 \bullet S_1) \subseteq (R_2 \bullet S_2)$.
+\end{proof}
+
+\begin{nota}[Um novo símbolo!]
+  Nas próximas demonstrações aparece o símbolo da equivalência (semântica) lógica $\Longleftrightarrow$, o mesmo pode ser interpretado pela sentança, ``se, e somente, se''.
+\end{nota}
+
+Os próximos resultados estabelecem propriedades algébricas importantes para a operação de composição de relações.
+
+\begin{teorema}\label{teo:PseudoMorganRelacoes}
+	Seja $R_1$ uma relação de $A$ em $B$ e seja $R_2$ uma relação de $B$ em $C$ tem-se que $(R_1 \bullet R_2)^{-1} = R_2^{-1} \bullet R_1^{-1}$.
+\end{teorema}
+
+\begin{proof}
+	Dado $R_1$ uma relação de $A$ em $B$ e seja $R_2$ uma relação de $B$ em $C$ logo, 
+	\begin{eqnarray*}
+		(x, z) \in (R_1 \bullet R_2)^{-1} & \Longleftrightarrow & (z, x) \in (R_1 \bullet R_2)\\
+		& \stackrel{Def. \ref{def:ComposicaoRelacoes}}{\Longleftrightarrow }& (\exists y \in B)[(z, y) \in R_1 \text{ e } (y, x) \in R_2]\\
+		& \Longleftrightarrow & (\exists y \in B)[(y, z) \in R_1^{-1} \text{ e } (x, y) \in R_2^{-1}]\\
+		& \Longleftrightarrow & (\exists y \in B)[(x, y) \in R_2^{-1} \text{ e }(y, z) \in R_1^{-1} ]\\
+		& \Longleftrightarrow & (x, z) \in R_2^{-1} \bullet R_1^{-1}
+	\end{eqnarray*} 
+	e assim pela Definição \ref{def:IgualdadeConjuntos} tem-se que $(R_1 \bullet R_2)^{-1} = R_2^{-1} \bullet R_1^{-1}$ o que completa a prova.
+\end{proof}
+
+\begin{teorema}
+  Seja $R_1$ uma relação de $A$ em $B$ e seja $R_2$ uma relação de $B$ em $C$ e $R_3$ uma relação de $C$ em $D$ tem-se que $(R_1 \bullet R_2) \bullet R_3 = R_1 \bullet (R_2 \bullet R_3)$.
+\end{teorema}
+
+\begin{proof}
+	Dado três relações $R_1$ de $A$ em $B$, $R_2$ de $B$ em $C$ e $R_3$ de $C$ em $D$ tem-se por definição que, $(x, z) \in (R_1 \bullet R_2) \bullet R_3$ se, e somente se, existe $w \in C$ tal que $(x, w) \in (R_1 \bullet R_2)$ e $(w, z) \in R_3$, mas isso só é possível se, e somente se, $\exists y \in B$ tal que $(x, y) \in R_1$ e $(y, w) \in R_2$. Mas assim pela Definição \ref{def:ComposicaoRelacoes} tem-se que $(y, z) \in R_2 \bullet R_3$, o que irá implicar que $(x, z) \in R_1 \bullet (R_2 \bullet R_3)$ e, portanto, tem-se que $(x, z) \in (R_1 \bullet R_2) \bullet R_3 \Longleftrightarrow (x, z) \in R_1 \bullet (R_2 \bullet R_3)$, logo pela Definição \ref{def:IgualdadeConjuntos} tem-se que $(R_1 \bullet R_2) \bullet R_3 = R_1 \bullet (R_2 \bullet R_3)$.
+\end{proof}
+
+\begin{teorema}
+	Dado duas relações $R_1$ e $R_2$ e $A, B$ e $C$ conjuntos. Se $R_1 \subset A \times B$ e $R_2 \subset B \times C$, então $R_1 \bullet R_2 \subset A \times C$.
+\end{teorema}
+
+\begin{proof}
+	 Suponha que $R_1 \subset A \times B$ e $R_2 \subset B \times C$ logo tem-se que se $(x, y) \in R_1 \bullet R_2$ logo por definição existe $z \in B$ tal que $(x, z) \in R_1$ e $(z, y) \in R_2$, mas assim é claro que $(x, z) \in A \times B$ e $(z, y) \in B \times C$ e, portanto, $(x, y) \in A \times C$. Consequentemente, $R_1 \bullet R_2 \subset A \times C$.
+\end{proof}
+
+\begin{teorema}
+	Seja $A, B$ e $C$ conjuntos. Então tem-se que:
+	\begin{itemize}
+		\item[(1)] Se $A \cap B \neq \emptyset$, então $(A \times B) \bullet (A \times B) = A \times B$.
+		\item[(2)] Se $A \cap B = \emptyset$, então $(A \times B) \bullet (A \times B) = \emptyset$.
+		\item[(3)] Se $B \neq \emptyset$, então $(B \times C) \bullet (A \times B) = A \times C$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	Aqui será demonstrado só o fato (1) ficando o (2) e (3) como exercício ao leitor. Dado $A, B$ e $C$ conjuntos, assuma que $A \cap B \neq \emptyset$, agora note que para todo $(x, y) \in (A \times B) \bullet (A \times B)$ tem-se que pelo fato de $A$ e $B$ não serem disjuntos sempre existe um $\exists z \in A \cap B$ tal que $(x, z) \in (A \times B)$ e $(z, y) \in (A \times B)$, portanto, $(x, y) \in A \times B$, logo pela Definição \ref{def:IgualdadeConjuntos} tem-se que $(A \times B) \bullet (A \times B) = A \times B$.
+\end{proof}
+
+\begin{teorema}\label{teo:DistributividadeDaRelacaoInversa}
+	Dado duas relações $R_1$ e $R_2$ tem-se que:
+	\begin{itemize}
+		\item[(1)] $(R_1 \cup R_2)^{-1} = R_1^{-1} \cup R_2^{-1}$.
+		\item[(2)] $(R_1 \cap R_2)^{-1} = R_1^{-1} \cap R_2^{-1}$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	Sejam $R_1$ e $R_2$ duas relações logo,
+	\begin{itemize}
+		\item[(1)] Tem-se trivialmente que,  
+      \begin{eqnarray*}
+        (x, y) \in (R_1 \cup R_2)^{-1} & \Longleftrightarrow &  (y, x) \in (R_1 \cup R_2)\\
+        & \Longleftrightarrow & (y, x) \in R_1 \text{ ou } (y, x) \in R_2\\
+        & \Longleftrightarrow & (x, y) \in R_1^{-1} \text{ ou } (x, y) \in R_2^{-1}\\
+        & \Longleftrightarrow & (x, y) \in R_1^{-1} \cup R_2^{-1}
+      \end{eqnarray*}
+      logo pela Definição \ref{def:IgualdadeConjuntos} tem-se que $(R_1 \cup R_2)^{-1} = R_1^{-1} \cup R_2^{-1}$.
+		\item[(2)] A demonstração é similar ao item anterior.
+	\end{itemize}
+\end{proof}
+
+\section{Tipos ou Propriedades das Relações Binárias}\label{sec:TipoDasRelacoesBinarias}
+
+Deste ponto em diante todas as relações consideradas até o final deste capítulo serão relações binárias sobre um conjunto não vazio $A$ genérico, ou seja, tem-se que se $R$ for uma relação, então $R \subseteq A \times A$. Dito isto, agora serão apresentados os ``tipos'', ou na visão de \cite{abe1991-TC}, as propriedades que as relações binárias sobre um conjunto podem ser possuir.
+
+\begin{definicao}[Tipo Identidade]\label{def:RelacaoIdentica}
+	Uma relação $R$ é dita ser uma relação de identidade (ou relação idêntica \cite{abe1991-TC}) sempre que $R$ é igual ao conjunto $\{(x, x) \mid x \in A\}$.
+\end{definicao}
+
+\begin{exemplo}
+	Seja $A = \{1, 2, 3, 4\}$ a relação $M = \{(3, 3), (1, 1), (2,2), (4,4)\}$ é uma relação de identidade, já a relação $Q = \{(1, 1), (2,2), (3,4)\}$ não é uma relações de identidade.
+\end{exemplo}
+
+\begin{exemplo}
+	Dado o conjunto $\mathbb{N}$, a relação $R = \{(x, y) \in \mathbb{N}^2 \mid x - y = 0\}$ é uma relação de identidade, já a relação $S =  \{(x, y) \in \mathbb{N}^2 \mid x - y > 0\}$ não é uma relação de identidade pois $(5, 4) \in S$.
+\end{exemplo}
+
+\begin{nota}[Um nome especial!]
+  Dado que a relação de identidade possui exatamente todos os pares da forma $(x, x)$, é comum chamar esta relação de identidade do conjunto $A$, ou simplesmente identidade de $A$, que costuma também ser denotado por $Id_A$.
+\end{nota}
+
+\begin{teorema}[Neutralidade da relação de identidade]\label{teo:NeutralidadeRelacaoIdentidade}
+	Se $R$ é uma relação sobre $A$, então as seguintes igualdade são verdadeiras:
+	\begin{itemize}
+		\item[(i)] $R \bullet Id_A = R$.
+		\item[(ii)] $Id_A \bullet R = R$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	(i) Suponha que $R$ é uma relação sobre $A$, assim tem-se que:
+	\begin{eqnarray*}
+		(x, y) \in R \bullet Id_A  & \Longleftrightarrow & (\exists y \in A)[x \mathrel{R} y \text{ e } y \mathrel{Id_A} y]\\
+		& \Longleftrightarrow & (x, y) \in R 
+	\end{eqnarray*}
+	Portanto,  $R \bullet Id_A = R$. (ii) Similar a demonstração do item anterior.
+\end{proof}
+
+\begin{proposicao}\label{prop:ComplementarDaRelacaoIdentica}
+	Se $A$ é um conjunto não vazio, então $Id_A^{-1} = Id_A$.
+\end{proposicao}
+
+\begin{proof}
+	Trivial pelas Definições \ref{def:RelacaoInversa} e \ref{def:RelacaoIdentica}.
+\end{proof}
+
+\begin{definicao}[Tipo Reflexivo]\label{def:RelacaoReflexiva}
+	Uma relação $R$ é dita ser reflexiva quando para todo $x \in A$ tem-se que $x \mathrel{R} x$.
+\end{definicao}
+
+Um leitor atento pode perceber que a relação identidade de um conjunto é sempre reflexiva, porém, o oposto não é verdadeiro como exposto no exemplo a seguir.
+
+\begin{exemplo}
+	Dado o conjunto $A = \{a, b, c\}$ tem-se que: 
+	\begin{itemize}
+		\item[(a)] $K = \{(a, a), (b, c), (b, b), (c, c), (a, c), (c, a)\}$ é uma relação reflexiva, mas não é a identidade do conjunto $A$.
+		\item[(a)] $M = \{(a, a), (b, b), (c, c) \}$ é uma relação reflexiva e é  também a relação identidade do conjunto $A$.
+	\end{itemize}
+\end{exemplo}
+
+Como dito em \cite{abe1991-TC}, uma relação $R$ não será reflexiva quando existir pelo menos um $x \in A$ tal que $x\centernot{R} x$.
+
+\begin{exemplo}
+	Dado o conjunto $L = \{0, 0.5, 1\}$ tem-se que o conjunto $Q$ formado pelos elementos $(0,0), (0,0.5)$ e $(1, 1)$ não é uma relação reflexiva, pois $0.5\centernot{R} 0.5$, ou seja, $(0.5, 0.5) \notin Q$.
+\end{exemplo}
+
+O próximo resultado estabelece uma caracterização para as relações serem reflexivas, isto é, tal resultado apresenta as condições suficientes e necessárias para que uma relação seja reflexiva.
+
+\begin{teorema}[Caracterização das Relações Reflexivas]\label{teo:CaracterizacaoRelacaoReflexivda}
+	Uma relação $R$ é reflexiva se, e somente se, $Id_A \subset R$.
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Suponha que $R$ seja reflexiva, logo por definição para todo $x \in A$ tem-se que $x \mathrel{R} x$, e portanto, pela Definição \ref{def:RelacaoIdentica} é claro que $Id_A \subset R$.
+	
+	$(\Leftarrow)$ Assuma que $Id_A \subset R$, agora uma vez que para todo $x \in A$ tem-se que $(x, x) \in Id_A$, pela Definição \ref{def:InclusaoConjuntos} segue que $(x, x) \in R$, isto é, tem-se que $x \mathrel{R} x$, e portanto, $R$ é reflexiva.
+\end{proof}
+
+\begin{corolario}\label{col:CaracterizacaoRelacaoReflexivda}
+	Uma relação $R$ é reflexiva se, e somente se, $R^{-1}$ é reflexiva.
+\end{corolario}
+
+\begin{proof}
+	A demonstração é simples e fica como exercício ao leitor.
+\end{proof}
+
+\begin{teorema}[Fecho Algébrico das Relações Reflexivas]\label{teo:FechoAlgebricoRelacoesReflexivas}
+	Se $R_1$ e $R_2$ são relações reflexivas sobre o mesmo conjunto, então $R_1 \cup R_2$ e $R_1 \cap R_2$ são também relações reflexivas.
+\end{teorema}
+
+\begin{proof}
+	Assuma que $R_1$ e $R_2$ são relações reflexivas sobre um conjunto $A$, assim pelo Teorema \ref{teo:CaracterizacaoRelacaoReflexivda} tem-se que $Id_A \subset R_1$ e $Id_A \subset R_2$, agora pelo Teorema \ref{teo:MonotonicidadeDaUniaoIntersecao} tem-se a seguinte relação de inclusão:
+	$$R_1 \subseteq R_1 \cup R_2$$
+	logo, tem-se que $Id_A \subset R_1 \subseteq R_1 \cup R_2$, consequentemente pelo Teorema \ref{teo:MonotonicidadeDaUniaoIntersecao} tem-se que $R_1 \cup R_2$ é uma relação reflexiva. Agora suponha por absurdo que $Id_A \not\subset (R_1 \cap R_2)$, logo existe $(x, x) \in Id_A$ tal que $(x, x) \notin (R_1 \cap R_2)$, consequentemente pela Definição \ref{def:IntersecaoConjuntos} tem-se que $(x, x) \notin R_1$ e $(x, x) \notin R_2$, o que contradiz a hipótese de que $R_1$ e $R_2$ sejam relações reflexivas, isto é, contradiz a hipótese de $Id_A \subset R_1$ e $Id_A \subset R_2$, e portanto, $Id_A \subset (R_1 \cap R_2)$, logo pelo Teorema \ref{teo:CaracterizacaoRelacaoReflexivda} tem-se que $R_1 \cap R_2$ é também uma relação reflexiva.
+\end{proof}
+
+\begin{teorema}
+	Seja $R_1$ uma relação reflexiva sobre um conjunto $A$ e seja $R_2$ um relação qualquer sobre o conjunto $A$, tem-se $R_1 \cup R_2$ é uma relação reflexiva.
+\end{teorema}
+
+\begin{proof}
+	A demonstração é trivial e ficará como exercício ao leitor.
+\end{proof}
+
+\begin{teorema}
+	Se $R$ é uma relação reflexiva, então $R \bullet R^{-1}$ e $R^{-1} \bullet R$ são também relações reflexivas.
+\end{teorema}
+
+\begin{proof}
+	Assuma que $R$ é uma relação reflexiva sobre um conjunto $A$, assim pelo Corolário \ref{col:CaracterizacaoRelacaoReflexivda} tem-se que $R^{-1}$ é uma relação reflexiva. Assim pelo Teorema \ref{teo:CaracterizacaoRelacaoReflexivda} tem-se que $Id_A \subseteq R$ e $Id_A \subseteq R^{-1}$, consequentemente, pelo Corolário \ref{col:MonotonicidadeComposicaoRelacoes} tem-se que $(Id_A \bullet Id_A) \subseteq (R \bullet R^{-1})$ e $(Id_A \bullet Id_A) \subseteq (R^{-1} \bullet R)$, mas pela neutralidade da relação identidade (Teorema \ref{teo:NeutralidadeRelacaoIdentidade}) tem-se que $Id_A \bullet Id_A = Id_A$, assim tem-se que  $Id_A \subseteq (R \bullet R^{-1})$ e $Id_A \subseteq (R^{-1} \bullet R)$, e portanto, $R \bullet R^{-1}$ e $R^{-1} \bullet R$ são relações reflexivas.
+\end{proof}
+
+\begin{teorema}
+	Se $R$ é uma relação reflexiva, então as seguintes afirmações são verdadeiras.
+	\begin{itemize}
+		\item[(i)] $R \subset R \bullet R$.
+		\item[(ii)] $R \bullet R$ é reflexiva.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	A demonstração é simples e fica como exercício ao leitor.
+\end{proof}
+
+Um terceiro tipo de relações binárias é o tipo irreflexivo, de um certo ponto de vista, tal tipo de relação pode ser visto como sendo o contraponto do tipo reflexivo.
+
+\begin{definicao}[Tipo Irreflexivo]\label{def:RelacaoIrreflexiva}
+	Uma relação $R$ é dita ser irreflexiva quando para todo $x \in A$ tem-se que $x \centernot{R} x$.
+\end{definicao}
+
+\begin{exemplo}
+	Seja $P$ o conjunto de todas as pessoas, e seja $R$ a relação ``ser vó'', tem-se que $R$ é irreflexiva pois é claro que ninguém pode ser vó de si próprio, portanto, para todo $x \in P$ tem-se que $x \centernot{R} x$.
+\end{exemplo}
+
+\begin{exemplo}
+	Seja $\mathbb{N}_1 = \{x \in \mathbb{N} \mid x > 0\}$ tem-se que a relação $R$ definida sobre $\mathbb{N}_1$ como sendo $x \centernot{R} y \Longleftrightarrow y = 2x$ é irreflexiva.
+\end{exemplo}
+
+Seguindo com a tipagem das relações binárias,  a seguir este manuscrito irá apresentar os tipos: simétrico, assimétrico e anti-simétricos.
+
+\begin{definicao}[Tipo Simétrico]\label{def:RelacaoSimétrica}
+	Uma relação $R$ é dita ser simétrica quando para todo $x, y \in A$ se $x \mathrel{R} y$, então $y \mathrel{R} x$.
+\end{definicao}
+
+\begin{exemplo}
+	Dado o conjunto $A = \{-3, -2, -1, 0, 1, 2, 3, 4\}$ o conjunto $\{(x, y) \in A^2 \mid x + y \geq 6\}$ é claramente uma relação simétrica sobre $A$.
+\end{exemplo}
+
+\begin{exemplo}
+	Sendo $B = \{1, 2, 3, 4\}$ o conjunto $\{(1, 1), (1, 3), (4, 2), (2, 4), (2, 2),$  $(3, 1)\}$ é claramente uma relação simétrica sobre $B$.
+\end{exemplo}
+
+Pela Definição \ref{def:RelacaoSimétrica} é fácil notar que uma relação $R$ não será simétrica sempre que existir pelo menos um par $(x, y)$ tal que $x \mathrel{R} y$ mas $y \centernot{R} x$. O próximo resultado estabelece uma caracterização para as relações simétricas.
+
+\begin{teorema}[Caracterização das Relações Simétricas]\label{teo:CaracterizacaoRelacaoSimetricas}
+	Uma relação $R$ será simétrica se, e somente se, $R = R^{-1}$.
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Suponha que $R$ é simétrica, logo
+	\begin{eqnarray*}
+		(x, y) \in R & \Longleftrightarrow & (y, x) \in R\\
+		& \Longleftrightarrow & (x, y) \in R^{-1}
+	\end{eqnarray*}
+	portanto, pela Definição \ref{def:IgualdadeConjuntos} tem-se que $R = R^{-1}$. $(\Leftarrow)$ É trivial e fica como exercício ao leitor.
+\end{proof}
+
+
+\begin{corolario}
+	Se $R$ é simétrica, então $R \bullet R^{-1} = R^{-1} \bullet R$.
+\end{corolario}
+
+\begin{proof}
+	Direto do Teorema \ref{teo:CaracterizacaoRelacaoSimetricas}.
+\end{proof}
+
+Agora será mostrado que união e interseção são operações fechadas sobre o conjunto de todas as relações binárias simétricas.
+
+\begin{teorema}\label{teo:FechamentoSimetricas}
+	Se $R$ e $S$ são relações simétricas, então $R \cup S$ e $R \cap S$ também são simétricas.
+\end{teorema}
+
+\begin{proof}
+	Trivial.
+\end{proof}
+
+\begin{teorema}
+	Se $R$ é uma relação qualquer, então $R \bullet R^{-1}$ e  $R^{-1} \bullet R$ são ambas simétricas.
+\end{teorema}
+
+\begin{proof}
+	Suponha que $R$ é uma relação, assim tem-se que 
+	\begin{eqnarray*}
+		(R \bullet R^{-1})^{-1} & \stackrel{Teo. \ref{teo:PseudoMorganRelacoes}}{=} & (R^{-1})^{-1} \bullet R^{-1}\\
+		&\stackrel{}{=}& R \bullet R^{-1}
+	\end{eqnarray*}
+	e
+	\begin{eqnarray*}
+		(R^{-1} \bullet R)^{-1} & \stackrel{Teo. \ref{teo:PseudoMorganRelacoes}}{=} &  R^{-1} \bullet (R^{-1})^{-1}\\
+		&\stackrel{}{=}& R^{-1} \bullet R
+	\end{eqnarray*}
+	assim pelo Teorema \ref{teo:CaracterizacaoRelacaoSimetricas} tem-se que $R \bullet R^{-1}$ e  $R^{-1} \bullet R$ são ambas simétricas.
+\end{proof}
+
+\begin{teorema}
+	Se $R$ é uma relação qualquer, então $R \cup R^{-1}$ e  $R \cap R^{-1}$ são ambas simétricas.
+\end{teorema}
+
+\begin{proof}
+	Suponha que $R$ é uma relação, assim tem-se que 
+	\begin{eqnarray*}
+		(R \cup R^{-1})^{-1} & \stackrel{Teo. \ref{teo:DistributividadeDaRelacaoInversa}}{=} & R^{-1} \cup (R^{-1})^{-1}\\
+		& = & (R^{-1})^{-1} \cup R^{-1}\\
+		&\stackrel{}{=} & R \cup R^{-1}
+	\end{eqnarray*}
+	e
+	\begin{eqnarray*}
+		(R \cap R^{-1})^{-1} & \stackrel{Teo. \ref{teo:DistributividadeDaRelacaoInversa}}{=} & R^{-1} \cap (R^{-1})^{-1}\\
+		& = & (R^{-1})^{-1} \cap R^{-1}\\
+		&\stackrel{}{=} & R \cap R^{-1}
+	\end{eqnarray*}
+	assim pelo Teorema \ref{teo:CaracterizacaoRelacaoSimetricas} tem-se que $R \cup R^{-1}$ e  $R \cap R^{-1}$ são ambas simétricas.
+\end{proof}
+
+\begin{definicao}[Tipo Assimétrico]\label{def:RelacaoAssimétrica}
+	Uma relação $R$ é dita ser assimétrica quando para todo $x, y \in A$ se $x \mathrel{R} y$, então $y \centernot{R} x$.
+\end{definicao}
+
+\begin{exemplo}
+	Considere que $P$ é a relação de paternidade definida sobre o conjunto dos seres humanos, isto é, $x \mathrel{P} y$ significa que $x$ é pai de $y$, obviamente esta relação é assimétrica pois dado que um indivíduo $x$ é pai de um certo $y$ é impossível que $y$ seja pai de $x$, ou seja, sempre que $x \mathrel{R} y$ será verdade que $y \centernot{R} x$.
+\end{exemplo}
+
+\begin{exemplo}
+	A relação $R = \{(x, y) \in \mathbb{N} \mid x - y \leq 0\}$ é uma relação assimétrica 
+\end{exemplo}
+
+O leitor deve ficar atento ao fato de que uma relação $R$ será dita não ser assimétrica se existir pelo menos um par $(x,y)$ tal que $x \mathrel{R} y$ e também que  $x \mathrel{R} y$.
+
+\begin{exemplo}
+	Considere  $K = \{1, 2, 3, 4\}$ e $T$ a relação binária definida sobre o conjunto $K$ tal que $T = \{(1,2), (1, 3), (4, 1), (1, 4), (2, 3)\}$. Tem-se claramente que $T$ não é assimétrica pois $4 \mathrel{T} 1$ e $1 \mathrel{T} 4$.
+\end{exemplo}
+
+O resultado exposto a seguir mostra que o tipo assimétrico e o tipo irreflexivo estão intimamente ligados entre si.
+
+\begin{teorema}
+	Se $R$ é uma relação assimétrica sobre $A$, então $R$ é uma relação irreflexiva sobre $A$.
+\end{teorema}
+
+\begin{proof}
+	Suponha por absurdo que $R$ é uma relação assimétrica sobre $A$ e $R$ não é irreflexiva sobre $A$, logo por $R$ não ser irreflexiva existe $x \in A$ tal que  $x \mathrel{R} x$, mas isso não satisfaz a Definição \ref{def:RelacaoAssimétrica} e, portanto, isso contradiz a hipótese de que $R$ é uma relação assimétrica sobre $A$, consequentemente se $R$ é assimétrica, então $R$ tem que ser irreflexiva. 
+\end{proof}
+
+\begin{definicao}[Tipo Anti-simétrico]\label{def:RelacaoAntiSimétrica}
+	Uma relação $R$ é dita ser anti-simétrica quando para todo $x, y \in A$ se $x \mathrel{R} y$ e $y \mathrel{R} x$, então $x = y$.
+\end{definicao}
+
+\begin{exemplo}
+	Considerando $A = \{1,2,3,4\}$ e $R = \{(1,1), (2,3), (4,4), (4,3)\}$ tem-se que $R$ é claramente anti-simétrica.
+\end{exemplo}
+
+\begin{exemplo}
+	Dado um conjunto $A$ qualquer a relação de subconjunto $\subseteq$ sobre $\wp(A)$ é uma relação que é anti-simétrica, pois para todo $A, B \in \wp(A)$ quando $A \subseteq B$ e $B \subseteq A$ tem-se por definição que $A = B$.
+\end{exemplo}
+
+O leitor deve ter notado que uma relação $R$ sobre um conjunto $A$ não será anti-simétrica se existir pelo menos $x,y \in A$ tais que $x \mathrel{R} y$ e $y \mathrel{R} x$, mas $x \neq y$. 
+
+\begin{exemplo}
+	Considere que $A = \{1,2,3,4\}$ e $R = {(1,1), (3,2), (2,3), (3,4)}$ obviamente $R$ não é anti-simétrica pois $3 \mathrel{R} 2$ e $2 \mathrel{R} 3$ mas claramente $2$ e $3$ são elementos distintos de $A$. 
+\end{exemplo}
+
+\begin{teorema}[Caracterização das Relações Anti-simétricas]\label{teo:CaracterizacaoRelacaoAntiSimetricas}
+	Uma relação $R$ é anti-simétrica sobre $A$ se, e somente se, $R \cap R^{-1} \subset Id_A$.
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Suponha por absurdo que $R$ é anti-simétrica sobre $A$ e que  $R \cap R^{-1} \not\subset Id_A$, logo existe $(x, y) \in R \cap R^{-1}$ tal que $(x, y) \notin Id_A$, mas pelo fato de que $(x, y) \in R \cap R^{-1}$ tem-se que $(x, y) \in R$ e $(x, y) \in R^{-1}$ e assim $(y, x) \in R$ e como $R$ é anti-simétrica tem-se que $x = y$, logo $(x, y) \in Id_A$ o que é um absurdo, portanto, se $R$ é anti-simétrica sobre $A$, então tem-se que $R \cap R^{-1} \subset Id_A$. $(\Leftarrow)$ Suponha que $R \cap R^{-1} \subset Id_A$, assim seja $x, y \in A$ tal que $x \mathrel{R} y$ e $y \mathrel{R} x$, ou seja, $(x, y) \in R$ e $(x, y) \in R^{-1}$, logo $(x, y) \in R \cap R^{-1}$ e assim tem-se que $x = y$ e assim $R$ é anti-simétrica.
+\end{proof}
+
+\begin{corolario}
+	Uma relação $R$ é anti-simétrica se, e somente se, $R^{-1}$ for anti-simétrica.
+\end{corolario}
+
+\begin{proof}
+	Note que,
+	\begin{eqnarray*}
+		R \text{ é uma relação anti-simétrica} & \stackrel{Teo. \ref{teo:CaracterizacaoRelacaoAntiSimetricas}}{\Longleftrightarrow }& R \cap R^{-1} \subset Id_A\\
+		& \stackrel{Teo. \ref{teo:ReversaPreservaInclusão}}{\Longleftrightarrow} & 		 (R \cap R^{-1})^{-1} \subset Id_A^{-1}\\
+		& \stackrel{Prop. \ref{prop:ComplementarDaRelacaoIdentica}}{\Longleftrightarrow} & (R \cap R^{-1})^{-1} \subset Id_A\\
+		& \stackrel{Teo. \ref{teo:DistributividadeDaRelacaoInversa}(2)}{\Longleftrightarrow} & R^{-1} \cap (R^{-1})^{-1} \subset Id_A\\
+		& \stackrel{Teo. \ref{teo:CaracterizacaoRelacaoAntiSimetricas}}{\Longleftrightarrow }& R^{-1} \text{ é uma relação anti-simétrica} 
+	\end{eqnarray*}
+	E isto conclui a prova.
+\end{proof}
+
+\begin{teorema}
+	Se $R$ e $S$ são relações anti-simétricas, então $R \cap S$ também é anti-simétrica.
+\end{teorema}
+
+\begin{proof}
+	Suponha que $R$ e $S$ são relações anti-simétricas, logo pela Teorema \ref{teo:CaracterizacaoRelacaoAntiSimetricas} tem-se que $R \cap R^{-1} \subset Id_A$ e $S \cap S^{-1} Id_A$, agora note que,
+	\begin{eqnarray*}
+		(R \cap S) \cap (R \cap S)^{-1} & \stackrel{Teo. \ref{teo:DistributividadeDaRelacaoInversa}(2)}{=} & (R \cap S) \cap (R^{-1} \cap S^{-1})\\
+		& \stackrel{Tab. \ref{tab:PropriedadesUniaoIntersecao}(p2) \ e \ (p3)}{=} & (R \cap R^{-1}) \cap (S \cap S^{-1})\\
+		& \stackrel{Hip.}{\subset} & Id_A \cap Id_A\\
+		& = & Id_A
+	\end{eqnarray*}
+	Portanto, $(R \cap S) \cap (R \cap S)^{-1} \subset Id_A$ e assim pelo Teorema \ref{teo:CaracterizacaoRelacaoAntiSimetricas} tem-se que $R \cap S$ é anti-simétrica.
+\end{proof}
+
+Continuando a apresentação dos tipos (propriedades) das relações binárias, agora será introduzida o tipo transitivo.
+
+\begin{definicao}[Tipo Transitivo]\label{def:RelacaoTransitiva}
+	Uma relação $R$ é dita ser transitiva quando para todo $x, y, z \in A$ se $x \mathrel{R} y$ e $y \mathrel{R} z$, então $x \mathrel{R} z$.
+\end{definicao}
+
+\begin{exemplo}
+	Dado um conjunto não vazio $A$ a relação $\subseteq$ definida sobre $\wp(A)$ é um clássico exemplo de relação transitiva.
+\end{exemplo}
+
+\begin{exemplo}
+	A relação $R = \{(x, y) \in \mathbb{R}^2 \mid (\exists k \in \mathbb{R})[x = ky]\}$ é uma relação transitiva\footnote{A prova disso ficará como exercício ao leitor.}.
+\end{exemplo}
+
+\begin{exemplo}
+	A relação ``ser ancestral de'', definida sobre o conjunto de todos os seres humanos (vivos e mortos) é uma relação transitiva.
+\end{exemplo}
+
+Como muito explicado em \cite{abe1991-TC} uma relação não será transitiva sempre que existirem $x, y, z \in A$ tais que  $x \mathrel{R} y$ e $y \mathrel{R} z$ mas $x \centernot{R} z$.
+
+\begin{exemplo}
+	Seja $P = \{1, 2, 3, 4\}$ a relação $R_1 = \{(1, 1), (1, 2), (2, 4), (3, 2),$ $(1, 4)\}$ é transitiva, já a relação $R_2 = \{(1, 1), (3, 1), (1, 2), (2,3), (2, 4), (3, 3), (4, 1)\}$ não é transitiva pois $(3, 1), (1, 2) \in R_2$ mas $(3, 2) \notin R_2$.
+\end{exemplo}
+
+\begin{teorema}[Caracterização das Relações Transitivas]\label{teo:CaracterizacaoRelacaoTransitivas}
+	Uma relação $R$ é transitiva sobre $A$ se, e somente se, $R \bullet R \subset R$.
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Suponha que $R$ seja transitiva, assim para todo $(x, y), (y, z) \in R$ é tal que $(x, z) \in R$, mas note que $(x, y), (y, z) \in R$ implica que $(x, z) \in R \bullet R$ e, portanto, $R \bullet R \subseteq R$. $(\Leftarrow)$ Assuma que $R \bullet R \subset R$, logo todo $(x, z) \in R \bullet R$ é tal que $(x, z) \in R$, mas note que $(x, z) \in R \bullet R$ implica que existe $y \in A$ tal que $(x, y), (y, z) \in R$ e assim por definição $R$ é transitiva. 
+\end{proof}
+
+\begin{corolario}
+	Uma relação $R$ é transitiva se, e somente se, $R^{-1}$ é também transitiva.
+\end{corolario}
+
+\begin{proof}
+	Note que,
+	\begin{eqnarray*}
+		R \text{ é uma relação transitiva} & \stackrel{Teo. \ref{teo:CaracterizacaoRelacaoTransitivas}}{\Longleftrightarrow }& R \bullet R \subset R\\
+		& \stackrel{ }{\Longleftrightarrow} & (R \bullet R)^{-1} \subset R^{-1}\\
+		& \stackrel{Teo. \ref{teo:PseudoMorganRelacoes}}{\Longleftrightarrow} & R^{-1} \bullet R^{-1} \subset R^{-1}\\
+		&  \stackrel{Teo. \ref{teo:CaracterizacaoRelacaoTransitivas}}{\Longleftrightarrow } & R^{-1} \text{ é uma relação transitiva}
+	\end{eqnarray*}
+	E isto conclui a prova.
+\end{proof}
+
+\begin{teorema}
+	Se $R$ é transitiva, então $R \bullet R$ é transitiva.
+\end{teorema}
+
+\begin{proof}
+	Direto do Teorema \ref{teo:CaracterizacaoRelacaoTransitivas}.
+\end{proof}
+
+Por fim será agora apresentado o último tipo das relação binárias, sendo este último tipo a contraparte do tipo transitivo.
+
+\begin{definicao}[Tipo Intransitivo]\label{def::RelacaoIntransitiva}
+	Uma relação $R$ é dita ser intransitiva quando para todo $x, y, z \in A$ se $x \mathrel{R} y$ e $y \mathrel{R} z$, então $x \centernot{R} z$.
+\end{definicao}
+
+\begin{exemplo}
+	A relação ``$x$ é mãe de $y$'' definida sobre o conjunto de todas as pessoas (vivas e mortas) é uma relação intransitiva, pois se ``Maria é mãe de Julia'' e ``Julia é mãe de Rebeca'' tem-se que ``Maria não pode ser mãe de Rebeca''.
+\end{exemplo}
+
+O leitor atento pode notar que uma relação $R$ sobre um conjunto não vazio $A$ qualquer, será dita não ser intransitiva quando existir pelo menos três elementos $x, y, z \in A$ tal que $x \mathrel{R} y$ e $y \mathrel{R} z$ e $x \mathrel{R} z$.
+
+\section{Fecho das Relações Binárias}\label{sec:FechoDasRelacoesBinarias}
+
+Dado uma relação $R$ e uma propriedade $P$ não satisfeita por $R$,  pode-se questionar ``É possível fazer $R$ satisfazer  $P$?'', a resposta para essa pergunta é clara, \textbf{não}! Pois $R$, é uma estrutura matemática (uma relação) o que significa que é imutável\footnote{Em matemática os objetos são imutáveis no sentido de que, eles são como são, desde o momento de sua ``criação'', ou seja, não existe liberdade para mudar de comportamento ou as propriedades dos elementos.}! O que se pode fazer neste caso, como explicando em \cite{judith2021}, é criar uma nova relação $R'$ que seja o fecho-$P$ de $R$, ou seja, essa nova relação é como uma cobertura que fecha $R$ com respeito a propriedade $P$. 
+
+A seguir, seguindo a ordem de apresentação vista em \cite{Gerard2021discreta}, este documento irá apresentar de forma direta como é possível fechar as relações com respeito as propriedades de reflexividade, simetria e transitividade, ou seja, serão definidos os ``algoritmos'' de fechamento para tais propriedades.
+
+\begin{definicao}[Fecho de uma relação]
+	Seja $R$ uma relação sobre $A$ e $P$ uma propriedade, a relação $\widehat{R}$ definida sobre $A$ é dita ser o fecho de $R$ com respeito a $P$ sempre que:
+	\begin{enumerate}
+		\item $\widehat{R}$ possui a propriedade $P$.
+		\item $R \subseteq \widehat{R}$.
+		\item Para toda relação $R^*$ que satisfaça as condições $(1)$ e $(2)$ tem-se que $\widehat{R} \subseteq R^*$. 
+	\end{enumerate}
+\end{definicao}
+
+Para fins de interesse de estudantes de computação e também para fins didáticos neste manuscrito serão estudados os métodos de construção dos fechos para propriedades específicas, a saber, as propriedades de reflexividade, transitividade e simetria. 
+
+\begin{cuidado}[O ponto fixo!]
+  ALiCIA chama sua atenção para o fato de que se $R$ já possui uma certa propriedade $P$, o fecho de $R$ com respeito a esta propriedade $P$ será exatamente o próprio $R$. Nesta situação é dito que $R$ é o ponto fixo de $R$ com respeito a $P$.
+\end{cuidado}
+
+
+\begin{definicao}\label{def:FechoReflexivo}
+	Seja $R$ uma relação binária sobre $A$ o fecho reflexivo de $R$, denotado por $ref(R)$, corresponde a seguinte relação:
+	\begin{eqnarray*}
+		ref(R) = R \cup Id_A
+	\end{eqnarray*}
+\end{definicao}
+
+\begin{exemplo}
+	Seja $A = \{a, b, c\}$ e $R = \{(a, a), (a, b), (a, c), (c, a), (b, c)\}$ uma relação sobre $A$,  o fecho reflexivo desta relação é dado por:
+	\begin{eqnarray*}
+		ref(R)  & = & R \cup Id_A\\
+		& = & \{(a, a), (a, b), (a, c), (c, a), (b, c)\} \cup \{(a,a), (b, b), (c,c)\}\\
+		& = & \{(a, a), (a, b), (a, c), (c, a), (b, c), (b, b), (c,c)\}
+	\end{eqnarray*}
+\end{exemplo}
+
+\begin{exemplo}
+	Seja $B = \{0, 1\}$ e $K= \{(0, 0), (1, 0), (0, 1)\}$ uma relação sobre $B$,  o fecho reflexivo desta relação é dado por:
+	\begin{eqnarray*}
+		ref(K)  & = & R \cup Id_B\\
+		& = & \{(0, 0), (1, 0), (0, 1)\} \cup \{(0,0), (1, 1)\}\\
+		& = & \{(0, 0), (1, 0), (0, 1), (1, 1)\} 
+	\end{eqnarray*}
+\end{exemplo}
+
+\begin{exemplo}
+	Dado o conjunto $\mathbb{N}$ e a relação ``menor que'' definida nos números naturais corresponde ao conjunto $\{(x, y) \in \mathbb{N}^2 \mid (\exists z \in \mathbb{N}_*)[x = y + k]\}$ e o fecho reflexivo para tal relação é exatamente a relação ``menor ou igual que'' e corresponde exatamente ao conjunto $\{(x, y) \in \mathbb{N}^2 \mid (\exists z \in \mathbb{N})[x = y + k]\}$.
+\end{exemplo}
+
+\begin{definicao}\label{def:FechoSimetrico}
+	Seja $R$ uma relação binária sobre $A$ o fecho simétrico de $R$, denotado por $sim(R)$, corresponde a seguinte relação:
+	\begin{eqnarray*}
+		sim(R) = R \cup \{(y, x) \mid (x, y) \in R\}
+	\end{eqnarray*}
+\end{definicao}
+
+\begin{exemplo}
+	Seja $A = \{a, b, c\}$ e $R = \{(a, a), (a, b), (a, c), (c, a), (b, c)\}$ uma relação sobre $A$,  o fecho reflexivo desta relação é dado por:
+	\begin{eqnarray*}
+		sim(R) & = &   R \cup \{(y, x) \mid (x, y) \in R\}\\
+		& = &  \{(a, a), (a, b), (a, c), (c, a), (b, c)\} \cup \{(a, a), (b, a), (c, a), (a, c), (c, b)\}\\
+		& = & \{(a, a), (a, b), (a, c), (c, a), (b, c), (b, a), (c, b)\}
+	\end{eqnarray*}
+\end{exemplo}
+
+\begin{exemplo}
+	Se $X$ é o conjunto dos humanos (vivos ou mortos) e $M$ é a relação ``pai de'', então $sim(M) = \{(x, y) \in X^2 \mid x \text{ é pai de } y \text{ ou } y \text{ é filho de } x\}$.
+\end{exemplo}
+
+%\begin{exemplo}
+%	Dado o conjunto $\mathbb{R}$ e a relação $D = \{(x,y) \in \mathbb{R}^2 \mid (\exists z \in \mathbb{R})[x = yz]\}$ o fecho reflexivo de $D$ é dado por
+%	\begin{eqnarray*}
+%		sim(D) & = &   D \cup \{(y, x) \mid (x, y) \in R\}\\
+%		& = & \{(x,y) \in \mathbb{R}^2 \mid (\exists z \in \mathbb{R})[x = yz]\} \cup \{(y, x) \in \mathbb{R}^2 \mid (\exists z \in \mathbb{R})[y = \frac{x}{z}]\}\\
+%		& = & \{(x,y) \in \mathbb{R}^2 \mid (\exists z \in \mathbb{R})[x = yz \lor y = \frac{x}{z}]\}
+%	\end{eqnarray*}
+%\end{exemplo}
+
+O próximo fecho apresentado é chamado de fecho transitivo, de um ponto de vista de teoria dos grafos, é exibição direta da propriedade de caminho entre dois pontos $A$ e $B$, sem, entretanto, necessitar informar a existência dos pontos e caminhos intermediários que ligam $A$ e $B$.
+
+\begin{definicao}\label{def:FechoTransitivo}
+	Seja $R$ uma relação binária sobre $A$ o fecho transitivo de $R$, denotado por $R^+$, corresponde a seguinte relação:
+	\begin{eqnarray*}
+		R^+ = \bigcup_{i = 1}^\infty R_i
+	\end{eqnarray*}
+	em que, $R^1 = R$ e $R^{i+1} = R \bullet R^i$. Em particular, quando $A$ for um conjunto finito a igualdade acima pode ser reescrita como:
+	\begin{eqnarray*}
+		R^+ = \bigcup_{i = 1}^n R_i
+	\end{eqnarray*}
+\end{definicao}
+
+O fecho transitivo é especialmente importante para diversas áreas que são usualmente de interesse dos cientistas da computação tais como a teoria dos grafos, a lógica e teoria da complexidade. Particularmente o fecho transitivo aparece de forma recorrente nos algoritmos de banco de dados, como dito em \cite{Gerard2021discreta}, pois diversos bancos de dados são construídos desde a década de 70 de forma que seja sempre possível realizar a implementação de fechos transitivos.
+
+\begin{exemplo}
+	Para qualquer conjunto $A$ a relação binária $\subseteq$ definida sobre $\wp(A)$ é um clássico exemplo de relação cujo fecho transitivo é igual a ela mesmo.
+\end{exemplo}
+
+\begin{exemplo}
+	Dado o conjunto $B = \{0,1\}$ e a relação $T = \{(1, 0), (0, 1)\}$ definida sobre $B$ tem-se que o fecho transitivo de $T$ é dado por, 
+	\begin{eqnarray*}
+		T^+ & = & \bigcup_{i = 1}^2 T_i\\
+		& = & T_1 \cup T_2\\
+		& = & T \cup (T \bullet T_1)\\
+		& = & T \cup (T \bullet T)\\
+		& = &  \{(1, 0), (0, 1)\} \cup  \{(1, 0), (0, 1), (1, 1), (0, 0)\}\\
+		& = &  \{(1, 0), (0, 1), (1, 1), (0, 0)\}\\
+	\end{eqnarray*}
+\end{exemplo}
+
+\begin{exemplo}
+	Seja $A = \{1, 2, 3\}$ e $S =\{(1, 2), (2, 2), (3, 1), (2, 3)\}$ uma relação sobre $A$ o fecho transitivo de $R$ é exatamente o conjunto:
+	\begin{eqnarray*}
+		S^+ & = & \bigcup_{i = 1}^3 S_i\\
+		 & = & S_1 \cup S_2 \cup S_3\\
+		 & = & S \cup (S \bullet S_1) \cup (S \bullet S_2)\\
+		 & = & \{(1, 2), (2, 2), (3, 1), (2, 3), (1, 3), (1, 1), (3, 3)\}
+	\end{eqnarray*}
+\end{exemplo}
+
+\section{Relações e Grafos}\label{sec:RelacoesGrafos}
+
+{\color{red}Escrever depois...}
+
+\section{Questionário}\label{sec:Questionario3part1}
+
+\begin{questao}\label{prob:Relacoes1}
+	Dado os conjuntos $A = \{1, 2, 3\}, B = \{x, y\}, C = \{q, v\}$ e $D = \{-1, 0, 1\}$ construa os conjuntos a seguir.
+\end{questao}
+
+\begin{exerList}
+	\item $A \times B$.
+	\item $A \times C$.
+	\item $B \times D$.
+	\item $C \times A$.
+	\item $A \times A$.
+	\item $A \times (B \times D)$.
+	\item $((A \times B) \cap (D \times A)) \times C$.
+	\item $C \times ((B \times A) \cap (A \times D))$.
+	\item $B^3 \times D^2$.
+	\item $A^2 \times (C^3 \times D)$.
+	\item $A \times B \times C$.
+	\item $A \times (B \times C)$.
+	\item $A^2 \times (B \times C)$.
+	\item $(D^3 \times C) \times B$.
+	\item $A^2 \times A^2$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes2}
+	Considerando $X = \{1, 2\}, Y = \{a, b\}$ e $Z = \{b, c\}$ determine:
+\end{questao}
+
+\begin{exerList}
+	\item $X  \times (Y \cup Z)$.
+	\item $X  \times (Y - Z)$.
+	\item $(X \times Y) \times Z$.
+	\item $(X \times Z) \times Y$.
+	\item $X  \times (Y \ominus Z)$.
+	\item $X  \times (Y \cap Z)$.
+	\item $(X \times Y) \times (X \times Z)$.
+	\item $(X \times Y) \cap (X \times Z)$.
+	\item $X^2 \times Y^2$
+	\item $Z^2 \times Y^2$
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes3}
+	Sendo $(x + y, 1), (3, x - y) \in \mathbb{N}^2$ dado que $(x + y, 1) = (3, x - y)$, determine o valor de $x$ e $y$.
+\end{questao}
+
+\begin{questao}\label{prob:Relacoes4}
+	Dado os conjuntos $A = \{P, R\}, B = \{N, E\}$ e $C = \{1, 2\}$ construa os diagramas de árvore para os seguintes produtos Cartesianos.
+\end{questao}
+
+\begin{exerList}
+	\item $A^2$.
+	\item $B \times C$.
+	\item $A \times (B \times C)$.
+	\item $B \times (A \times C)$.
+	\item $C^2 \times B$.
+	\item $C^3 \times C$.
+	\item $A \times C^2$.
+	\item $B \times (C \cup A)$.
+	\item $(A \cup C)^2 \times A$.
+	\item $A^2 \times B \times C^2$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes5}
+	Determine o domínio e a imagem das seguintes relações binárias.
+\end{questao}
+
+\begin{exerList}
+	\item $R_1 = \{(x, y) \in \mathbb{N} \times \mathbb{N} \mid 0 \leq x, y \leq 6, y = 2x\}$\footnote{Na relação $\leq$ quando é escrito que $0 \leq x, y \leq z$ significa que ambas as desigualdades $0 \leq x\leq z$ e $0 \leq y \leq z$ são verdadeiras, porém, não se tem qualquer informação acerca da tricotomia entre os elementos $x$ e $y$.}.
+	\item $R_2 = \{(x, y) \in \mathbb{N} \times \mathbb{N} \mid 0 \leq x \leq 5, 1 \leq y \leq 4, (x-y) \in \mathbb{N} \}$.
+	\item $R_3 = \{(a,b), (e, c), (a, c), (o, c), (i, (d,f)), ((o, u), b), ((o, u), c), (u, b) \}$.
+	\item $R_4 = \{(x_0, x_1) \mid x_0 \text{ é uma concoante e } x_1 \text{ é uma vogal} \}$.
+	\item $R_5 = \{(x, y) \in \mathbb{N} \times \mathbb{N} \mid x + x = x, x + y = y\}$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes6}
+	Determine o domínio, imagem e a relação inversa das seguintes relações binárias.
+\end{questao}
+
+\begin{exerList}
+	\item Relação igualdade sobre o conjunto $\mathbb{N}_1$ com $\mathbb{N}_1 = \{x \in \mathbb{N} \mid x > 0\}$. 
+	\item Relação ``maior que'' sobre o conjunto $\{1,2,3,4,5,6\}$.
+	\item Relação $\subseteq$ sobre um conjunto $\wp(A)$ com $A$ sendo um conjunto arbitrário.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes7}
+	Dado os pares ordenados: 
+  \begin{eqnarray*}
+    (6, 4), (2, 3),&(3, -3),& (9, 3), (3, 3),\\
+    (4, 5), (3, 1),&(7, 4),& (2, 4), (1, 8),\\
+    (-1, 1), (0, 5),&(9, 3),& (8, 11),\\
+    (-1, 2), (4, -6),&(1, 2),& (10, -5), (0, 0),\\ 
+    (4, 0),(9, 3),&(5, 0),& (0, 1), (3, 1)
+  \end{eqnarray*}
+  Para cada relação definida sobre os inteiros a seguir diga quais pares pertencem as relações.
+\end{questao}
+
+\begin{exerList}
+	\item $A = \{(x, y) \mid x + 2y > 15\}$.
+	\item $B = \{(x, y) \mid xy \geq 8 \}$.
+	\item $C = \{(x, y) \mid (\exists k \in \mathbb{N})[x+y = 2k]\}$.
+	\item $D = \{(x, y) \mid (\exists k \in \mathbb{N})[k = \sqrt{xy}]\}$.
+	\item $E = \{(x, y) \mid (\exists k \in \mathbb{N})[x^y = 2k]\}$.
+	\item $F = \{(x, y) \mid x, y \text{ são múltiplos de } 5\}$.
+	\item $R = \{(x, y) \mid x + y < 9\}$.
+	\item $S = \{(x, y) \mid 3x + y < 15\}$.
+	\item $T = \{(x, y) \mid 3x + 2y = 10\}$.
+	\item $U = \{(x, y) \mid (\exists k \in \mathbb{N})[y = \sqrt{k}]\}$.
+	\item $V = \{(x, y) \mid x - y \in \mathbb{N}\}$.
+	\item $X = \{(x, y) \mid x, y \text{ são primos}\}$.
+	\item $Y = \{(x, y) \mid mmc(x, y) = 4\}$.
+	\item $Z = \{(x, y) \mid 2x - y = x\}$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes8}
+	Para cada relação a seguir diga se ela é reflexiva, simétrica, transitiva ou que não tem nenhuma destas propriedades (ou tipos).
+\end{questao}
+
+\begin{exerList}
+	\item $R_1 = \{(a,a),(a,b),(a,d),(b,b),(b,a),(c,d),(d,d)\}$.
+	\item $R_2 = \{(a, a), (b, a), (b, b), (b, c), (c, c), (c, d)\}$.
+	\item $R_3 = \{(d, d), (c, d), (d, c)\}$.
+	\item $R_4 = \{(b, c), (c, b), (b, d), (d, b)\}$.
+	\item $R_5 = \{(a,a),(a,b),(a,c),(b,c)\}$.
+	\item $R_6 = \{(a,b),(a,c)\}$.
+	\item $R_7 = \{(a,d),(c,d)\}$.
+	\item $R_8 = \{(a,a),(b,b)\}$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes9}
+	Para cada relação do Exercício \ref{prob:Relacoes7} diga se ela é reflexiva, simétrica, transitiva ou que não tem nenhuma destas propriedades (ou tipos).
+\end{questao}
+
+\begin{questao}\label{prob:Relacoes10}
+	Considere o universo do discurso $\mathbb{U} = \{a, b, c\}$ verifique se as seguintes relações  definidas sobre $\mathbb{U}$ são reflexivas, simétricas, antissimétricas ou transitivas.
+\end{questao}
+
+\begin{exerList}
+	\item $S_1 = \{(a, c), (c, c), (c, a), (b, b), (b, c), (1, 1), (1, 2)\}$.
+	\item $S_2 = \{(a, a), (c, c), (b, b), (b, c)\}$.
+	\item $S_3 = \{(a,a), (a, b), (b, c), (c, a), (a, c)\}$.
+	\item $S_4 = \{(a, a), (a, b), (b, c), (a, c)\}$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes11}
+	Considere o universo do discurso $\mathbb{U} = \{a, b, c, d, e,f\}$ verifique se as seguintes relações  definidas sobre $\mathbb{U}$ são reflexivas, simétricas, antissimétricas ou transitivas.
+\end{questao}
+
+\begin{exerList}
+	\item $T = \{(a, a),  (b, b), (c, c), (e, e), (f, f), (a, b), (b, c), (c, e), (e, f)\}$.
+	\item $U = \{(a, b),  (b, a), (c, e), (e, c), (e, f), (f, e)\}$.
+	\item $V = \{(a, b),  (b, c), (a, c), (c, a), (c, b), (b, a), (a, a), (b, b), (c, c)\}$.
+	\item $X = \{(a, a),  (b, b), (c, c), (e, e), (f, f), (e, f), (f, e)\}$.
+	\item $Y = \emptyset$.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes12}
+	Esboce a relação inversa de cada uma das relações dos Exercícios \ref{prob:Relacoes10} e \ref{prob:Relacoes11}.
+\end{questao}
+
+\begin{questao}\label{prob:Relacoes13}
+	Considere o universo do discurso $\mathbb{U} = \{1, 2, 0, 4\}$ e construa sobre $\mathbb{U}$:
+\end{questao}
+
+\begin{exerList}
+	\item Uma relação que seja reflexiva e transitiva, mas não seja simétrica.
+	\item Uma relação que seja reflexiva e simétrica, mas não seja transitiva.
+	\item Uma relação que seja simétrica e transitiva, mas não seja reflexiva.
+	\item Uma relação que não seja reflexiva e nem  transitiva, e também não seja simétrica.
+\end{exerList}
+
+\begin{questao}\label{prob:Relacoes14}
+	Esboce os fechos reflexivo, simétrico e transitivo de cada relação no Exercício \ref{prob:Relacoes10}.
+\end{questao}
+
+\begin{questao}\label{prob:Relacoes15}
+	Esboce os fechos reflexivo, simétrico e transitivo de cada relação no Exercício \ref{prob:Relacoes11}.
+\end{questao}
+
+
+

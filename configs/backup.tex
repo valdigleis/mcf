@@ -1,0 +1,87 @@
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  para os Teoremas
+%---------------------------------------------------------------------------------------
+\theoremstyle{plain}
+\newtcbtheorem[number within=chapter]{teorema}{\strut Teorema}{
+	enhanced,
+	colframe=NordSnowStorm1,
+	colback=white,
+	colbacktitle=NordSnowStorm1,
+	coltitle=NordPolarNight1,
+	boxed title style={},
+	attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+	before skip=10pt plus 2pt,
+	after skip=10pt plus 2pt
+}{th}
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente  para os Lemas
+%---------------------------------------------------------------------------------------
+\theoremstyle{plain}
+\newtcbtheorem[number within=chapter]{lema}{\strut Lema}{
+	enhanced,
+	colframe=NordSnowStorm2,
+	colback=white,
+	colbacktitle=NordSnowStorm2,
+	coltitle=NordPolarNight1,
+	boxed title style={},
+	attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+	before skip=10pt plus 2pt,
+	after skip=10pt plus 2pt
+}{lm}
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente para os Corolários
+%---------------------------------------------------------------------------------------
+\theoremstyle{plain}
+\newtcbtheorem[number within=chapter]{corolario}{\strut Corolário}{
+	enhanced,
+	colframe=NordSnowStorm3,
+	colback=white,
+	colbacktitle=NordSnowStorm3,
+	coltitle=NordPolarNight1,
+	boxed title style={},
+	attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+	before skip=10pt plus 2pt,
+	after skip=10pt plus 2pt
+}{cl}
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente para as Definições
+%---------------------------------------------------------------------------------------
+\theoremstyle{plain}
+\newtcbtheorem[number within=chapter]{definicao}{\strut Definição}{
+	enhanced,
+	colframe=NordFrost1,
+	colback=white,
+	colbacktitle=NordFrost1,
+	coltitle=NordPolarNight1,
+	boxed title style={},
+	attach boxed title to top left={xshift=5mm,yshift*=-\tcboxedtitleheight/2},
+	before skip=10pt plus 2pt,
+	after skip=10pt plus 2pt
+}{dF}
+
+
+%---------------------------------------------------------------------------------------
+%	Define a caixinha para o ambiente de observação %
+%---------------------------------------------------------------------------------------
+\theoremstyle{plain}
+\newtcbtheorem[number within=chapter]{remark}{\strut {\normalfont\fontsize{7}{7}\sffamily\selectfont\textdbend} Observação}{
+	enhanced,
+	colframe=NordFrost4,
+	colback=white,
+	colbacktitle=NordFrost4,
+	coltitle=NordPolarNight1,
+	boxed title style={},
+	attach boxed title to top center={yshift*=-\tcboxedtitleheight/2},
+	before skip=10pt plus 2pt,
+	after skip=10pt plus 2pt
+}{rE}
+
+%---------------------------------------------------------------------------------------
+% Ambiente exemplo sem caixa 
+%---------------------------------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{exem}{\color{NordAurora3}\textbf{Exemplo}}

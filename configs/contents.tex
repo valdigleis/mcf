@@ -1,0 +1,115 @@
+%---------------------------------------------------------------------------------------
+%
+%	Configuração dos índices
+%
+%---------------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------------
+%	% Remove a margin default do LaTeX
+%---------------------------------------------------------------------------------------
+\contentsmargin{0cm} 
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Partes" no índice
+%---------------------------------------------------------------------------------------
+\titlecontents{part}[0cm]
+{\addvspace{20pt}\centering\Large\bfseries}
+{}
+{}
+{}
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada dos "Capítulos" no índice
+%---------------------------------------------------------------------------------------
+\titlecontents{chapter}[1.25cm]
+{\addvspace{12pt}\large\bfseries}
+{\contentslabel[\Large\thecontentslabel]{1.25cm}} 
+{}
+{{\color{NordPolarNight1}\ \titlerule[.3pc]{}}\;\normalsize\thecontentspage}
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Seções" no índice
+%---------------------------------------------------------------------------------------
+\titlecontents{section}[1.25cm]
+{\addvspace{3pt}}
+{\contentslabel[\thecontentslabel]{1.25cm}}
+{}
+{\ {\color{NordSnowStorm2}\ \titlerule*[.5pc]{.}}\;\thecontentspage}
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Subseções" no índice
+%---------------------------------------------------------------------------------------
+\titlecontents{subsection}[1.25cm]
+{\addvspace{1pt}\small}
+{\contentslabel[\thecontentslabel]{1.25cm}}
+{}
+{ {\color{NordSnowStorm3}\ \titlerule*[.5pc]{.}}\;\thecontentspage}
+
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Figuras" no índice de imagens
+%---------------------------------------------------------------------------------------
+%\titlecontents{figure}[1.25cm]
+%{\addvspace{1pt}\Large\bfseries}
+%{\thecontentslabel\hspace*{1em}}
+%{}
+%{\ \titlerule*[.5pc]{.}\;\thecontentspage}[]
+
+\titlecontents{figure}[0em]
+{\addvspace{-5pt}\sffamily}
+{\thecontentslabel\hspace*{1em}}
+{}
+{\ \titlerule*[.5pc]{.}\;\thecontentspage}
+[]
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Tabelas" no índice de tabelas
+%---------------------------------------------------------------------------------------
+\titlecontents{table}[1.25cm]
+{\addvspace{1pt}\sffamily\small} 
+{\thecontentslabel\hspace*{1em}}
+{}
+{\ \titlerule*[.5pc]{.}\;\thecontentspage}[] 
+
+%\titlecontents{table}[0em]
+%{\addvspace{-5pt}\sffamily}
+%{\thecontentslabel\hspace*{1em}}
+%{}
+%{\ \titlerule*[.5pc]{.}\;\thecontentspage}
+%[]
+
+%---------------------------------------------------------------------------------------
+%
+%	Configuração dos indices nas páginas de partes
+%
+%---------------------------------------------------------------------------------------
+
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada dos "Capítulos" no índice da página de partes
+%---------------------------------------------------------------------------------------
+\titlecontents{lchapter}[0em]
+{\addvspace{15pt}\large\sffamily\bfseries}
+{\contentslabel[\Large\thecontentslabel]{1.25cm}}
+{}  
+{{\color{NordPolarNight1}\ \titlerule[.3pc]{}}\;\normalsize\thecontentspage}
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Seções" no índice da página de partes
+%---------------------------------------------------------------------------------------
+\titlecontents{lsection}
+[0em]
+{\sffamily\small}
+{\contentslabel[\thecontentslabel]{1.25cm}} 
+{}
+{\ {\color{NordSnowStorm2}\ \titlerule*[.5pc]{.}}\;\thecontentspage}
+
+%---------------------------------------------------------------------------------------
+%	Configurando a entrada das "Seções" no índice da página de partes
+%---------------------------------------------------------------------------------------
+\titlecontents{lsubsection}
+[.5em] 
+{\sffamily\footnotesize}
+{\contentslabel[\thecontentslabel]{1.25cm}}
+{}
+{ {\color{NordSnowStorm3}\ \titlerule*[.5pc]{.}}\;\thecontentspage}

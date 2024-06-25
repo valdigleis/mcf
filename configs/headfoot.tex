@@ -1,0 +1,99 @@
+%---------------------------------------------------------------------------------------
+%
+%	Configuração dos cabeçalho e rodapé
+%
+%---------------------------------------------------------------------------------------
+
+
+%---------------------------------------------------------------------------------------
+%	Carrega configuração básica
+%---------------------------------------------------------------------------------------
+\pagestyle{fancy}
+
+%---------------------------------------------------------------------------------------
+%	Estilo para o capítulo nos 
+%---------------------------------------------------------------------------------------
+\renewcommand{\chaptermark}[1]{
+	\markboth{\color{NordPolarNight1}\normalsize\chaptername\ \thechapter.\ #1}{}
+}
+
+%---------------------------------------------------------------------------------------
+%	Estilo para o capítulo corrente
+%---------------------------------------------------------------------------------------
+\renewcommand{\sectionmark}[1]{
+	\markright{\color{NordPolarNight1}\normalsize Seção \thesection\hspace{5pt}#1}{}
+} 
+
+%---------------------------------------------------------------------------------------
+%	Limpa as configurações padrão do Fancy
+%---------------------------------------------------------------------------------------
+\fancyhf{} 
+
+%---------------------------------------------------------------------------------------
+%	Insere o número da página esquerda e na direita
+%---------------------------------------------------------------------------------------
+%\fancyhead[LE,RO]{\normalsize\thepage}
+
+%---------------------------------------------------------------------------------------
+%	Insere o capítulo atual na direita das páginas pares
+%---------------------------------------------------------------------------------------
+\fancyhead[LO]{\rightmark}
+
+%---------------------------------------------------------------------------------------
+%	Insere a seção atual na esquerda das páginas pares
+%---------------------------------------------------------------------------------------
+\fancyhead[RE]{\leftmark}
+
+%---------------------------------------------------------------------------------------
+%	Insere o número da página de forma centralizada no rodapé das páginas
+%---------------------------------------------------------------------------------------
+\fancyfoot[C]{\color{NordPolarNight1}\normalsize\thepage}
+
+%---------------------------------------------------------------------------------------
+%	Define a largura da linha no cabeçalho das páginas
+%---------------------------------------------------------------------------------------
+\renewcommand{\headrulewidth}{2pt} 
+
+%---------------------------------------------------------------------------------------
+%	Configurando a impressão do título e número no início de cada capítulo
+%---------------------------------------------------------------------------------------
+\newlength\ChapWd
+\settowidth\ChapWd{\huge\chaptertitlename}
+
+\titleformat{\chapter}[display]
+{\normalfont\filcenter\sffamily}
+{\tikz[remember picture,overlay]
+	{
+		\node[fill=NordFrost4,font=\fontsize{60}{75}\selectfont\color{white},anchor=north east,minimum size=\ChapWd] 
+		at ([xshift=-15pt,yshift=-45pt]current page.north east) 
+		(numb) {\thechapter};
+		\node[rotate=90,anchor=south,inner sep=0pt,font=\huge] at (numb.west) {\chaptertitlename};
+	}
+}{0pt}{\fontsize{33}{40}\selectfont\color{NordFrost4}#1}[\rule{\textwidth}{1.5pt}]
+\titlespacing*{\chapter}
+{0pt}{50pt}{10pt}
+
+\makeatletter
+\xpatchcmd{\ttl@printlist}{\endgroup}{{\noindent\color{NordFrost2}\rule{\textwidth}{1.5pt}}\vskip30pt\endgroup}{}{}
+\makeatother
+
+
+%---------------------------------------------------------------------------------------
+%	Define o estilo plain para as páginas especiais do manuscrito
+%---------------------------------------------------------------------------------------
+\fancypagestyle{plain}{
+	\fancyhead{}\renewcommand{\headrulewidth}{0pt}%
+}
+
+%---------------------------------------------------------------------------------------
+%	Reconfigura o comando cleardoublepage
+%---------------------------------------------------------------------------------------
+\makeatletter
+\renewcommand{\cleardoublepage}{
+	\clearpage\ifodd\c@page\else
+	\hbox{}
+	\vspace*{\fill}
+	\thispagestyle{empty}
+	\newpage
+	\fi
+}

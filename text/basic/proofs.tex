@@ -1,0 +1,1080 @@
+\chapter{Demonstrações}\label{cap:Proofs}
+
+\epigraph{``Mais um colchão, mais uma demonstração''.}{Paul Erdös}
+
+\epigraph{``Um matemático é uma máquina que transforma café em teoremas''.}{Paul Erdös}
+
+\section{Introdução}\label{sec:Introducao}
+
+No Capítulo \ref{cap:Sets} deste documento, o leit]or encontrou diversas demonstrações dentro da teoria (Cantoriana) dos conjuntos. Para um leitor iniciantie, talvez tenha sido um tanto quanto complicado entender a metodologia usada para construir tais demonstrações. E desde que, as demonstrações são figuras de interesse central no cotidiano dos matemáticos, cientistas da computação e engenheiros de software, em especial aqueles que trabalham com métodos formais, este texto irá fazer uma breve pausa no estudo da teoria dos conjuntos, para apresentar um pouco de teoria da prova ao leitor.
+
+Este capítulo começa então com o seguinte questionamento: ``Do ponto de vista da ciência da computação, qual a importância das demonstrações?'' Bem, a resposta a essa pergunta pode ser dada de dois pontos de vista, um teórico (purista) e um prático (aplicado ou de engenharia).
+
+Na perspectiva de um cientista da computação puro, as demonstrações de teoremas, proposições, lema, corolários e propriedades são a principal ferramenta para investigar os limites dos diferentes modelos de computação propostos \cite{hopcroft2008, linz2006}, assim sendo é de suma importância que o estudante de graduação em ciência da computação receba em sua formação pelo menos o básico para dominar a ``arte'' de provar teoremas, sendo assim preparado para o estudo e a pesquisa pura em computação e(ou) matemática.
+
+Já na visão prática, só existe uma forma segura de garantir que um \textit{software} está livre de erros, essa ``tecnologia'' é exatamente a demonstração das propriedades do \textit{software}. É claro que, mostrar que um \textit{software} não possui erros vai exigir que o \textit{software} seja visto através de um certo nível de formalismo e rigor matemático, mas após essa modelagem através de demonstrações pode-se garantir que um \textit{software} não apresentará erros (quando bem especificado), e assim se algo errado ocorrer foi por fatores externos, tais como defeito no \textit{hardware} por exemplo, e não por falha ou erros com a implementação. Este conceito é o cerne de uma área da engenharia de \textit{software} \cite{pressman2016}, chamada métodos  (ou especificações) formais, sendo essa área o ponto crucial no desenvolvimento de \textit{softwares} para sistemas críticos \cite{sommerville2011}. Isto já mostra a grande importância de programadores e engenheiros de \textit{software} terem em sua formação as bases para o domínio das técnicas de demonstração.
+
+Nas próxima seções deste documento serão descritas as principais técnicas de demonstração de interesse de matemáticos, cientistas da computação e engenheiros formais de \textit{software}.
+
+\begin{dica}[Uma dica valiosa!]
+  Para o leitor que nunca antes teve contato com a lógica matemática, recomenda-se que antes de estudar este capítulo, o leitor deve fazer pelo menos uma leitura superficial em obras como \cite{edgar2002, leonidas2002, joaoPavao2014}. 
+\end{dica}
+
+Para poder falar sobre métodos de demonstração e poder então descrever como os matemáticos, lógicos e cientistas da computação justificam propriedades usando apenas a argumentação matemática, será necessário fixar algumas nomenclaturas e falar sobre alguns conceitos importantes.
+
+\begin{definicao}[Asserção]\label{def:Assercao}
+	Uma \textbf{asserção} é qualquer frase declarativa que possa ser expressa na linguagem da lógica simbólica.
+\end{definicao}
+
+Os métodos (ou estratégias) de demonstrações apresentadas neste documento seguem as ideias e a ordem  de apresentação similar ao que foi exposto em \cite{velleman2019comProvar}. Em \cite{velleman2019comProvar} antes de apresentar as provas formais, erá necessário a construção de um rascunho de prova, este rascunho possui similaridades com as demonstrações em provadores de teoremas tais como Coq \cite{coq2013, softwarefoundations} e Lean \cite{lean2015}, isto é, existe uma separação clara entre dados (hipótese) e os objetivos (em inglês \textit{Goal}) que se quer demonstrar.
+
+Neste documento por outro lado, não será utilizado a ideia de um rascunho de prova, em vez disso, será usado aqui a noção de \textbf{diagrama de blocos} \cite{broda2007}. Aqui tais diagramas serão encarados como as demonstrações em si, assim diferente de \cite{velleman2019comProvar} não haverá a necessidade de escrever um texto formal após o diagrama da prova ser completado.
+
+Sobre o diagrama de blocos é conveniente explicar sua estrutura, ele consiste de uma série de linhas numeradas de $1$ até $m$, em cada linha está uma informação, sendo esta uma hipótese assumida como verdadeira ou deduzida a partir das informações anteriores a ela ou ainda um resultado (ou definição) válido(a) conhecido(a). Um diagrama de bloco representa uma prova, porém, uma prova pode conter $n$ subprovas. Cada \textbf{prova} é delimitada no diagrama por um \textbf{bloco}, assim se existe uma subprova $p'$ em uma prova $p$, significa que o diagrama de bloco de $p'$ é interno ao diagrama de bloco de $p$. Na linha abaixo de todo bloco sempre estará a conclusão que se queria demonstrar, isto é, abaixo de cada bloco está a asserção que tal bloco demonstra.
+
+Cada linha no diagrama começa com algum termo reservado (em um sentido similar ao de palavra reservada de linguagem de programação \cite{aho2007, cooper2017}) escrito em negrito\footnote{A escrita dos termos reservados em negrito em geral será usada para que o leitor consiga identificar o que é informação último da prova e o que é apenas um artificio textual para dá melhor entendimento a demonstração.}, esses termos reservados tem três naturezas distintas: inicialização de bloco, ligação e conclusão de blocos. Tais palavras podem variar a depender do material sobre demonstrações que o leitor possa encontrar na literatura neste documento serão usando os seguintes conjuntos de palavras:
+
+\begin{itemize}
+	\item Termos de inicialização de bloco: \textbf{Suponha}, \textbf{Deixe ser}, \textbf{Assuma} e \textbf{Considere};
+	\item Termos de ligação: \textbf{mas}, \textbf{tem-se que}, \textbf{então}, \textbf{assim}, \textbf{logo}, \textbf{além disso}, \textbf{desde que} e \textbf{dessa forma};
+  \item Termos de conclusão de bloco: \textbf{Portanto}, \textbf{Dessa forma}, \textbf{Consequentemente}, \textbf{Por contrapositiva} e \textbf{Logo por contrapositiva}.
+\end{itemize}
+
+%O exemplo a seguir ilustra a construção de um diagrama de bloco para uma demonstração de uma famosa asserção.
+
+\begin{exemplo}\label{exe:DiagramaProva1}
+  Demonstre a asserção: Dado $A = \{x \in \mathbb{Z} \mid x = 2i, i \in \mathbb{Z}\}$ e $B = \{x \in \mathbb{Z} \mid x = 2j - 2, j \in \mathbb{Z}\}$ tem-se que $A = B$.
+  {\scriptsize
+	\begin{logicproof}{3}
+		\begin{subproof}
+			\text{\textbf{Assuma} que } x \text{ é um elemento qualquer, }&\\
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \in A, &\\
+				\text{\textbf{assim }} x = 2i, i \in \mathbb{Z}, &\\
+				\text{\textbf{desde que} existe } k \in \mathbb{Z} \text{ tal que } k = j - 1 \text{ e fazendo } i = k, &\\
+				\text{\textbf{tem-se que} } x = 2i = 2k = 2(j -1) = 2j - 2.&\\
+				\text{\textbf{Então} } x \in B. &
+			\end{subproof}
+			\text{\textbf{Portanto}, Se } x \in A, \text{ então } x \in B.&
+		\end{subproof}
+		\text{\textbf{Consequentemente}, } \forall x.[\text{ Se } x \in A, \text{ então } x \in B].&\\
+		\begin{subproof}
+			\text{\textbf{Assuma} que } x \text{ é um elemento qualquer, }&\\
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \in B. &\\
+				\text{\textbf{assim }} x = 2j -2, j \in \mathbb{Z}, &\\
+				\text{\textbf{desde que} } j - 1 \in \mathbb{Z}, \text{ pode-se fazer } i = j - 1&\\
+				\text{\textbf{logo }} x = 2i. &\\
+				\text{\textbf{Então} } x \in A. &
+			\end{subproof}
+			\text{\textbf{Portanto}, Se } x \in B, \text{ então } x \in A.&
+		\end{subproof}
+		\text{\textbf{Consequentemente}, } \forall x.[\text{ Se } x \in B, \text{ então } x \in A].&\\
+		\text{\textbf{Portanto,} } A \subseteq B \text{ e } B \subseteq A \text{ assim por definição } A = B.&
+	\end{logicproof}
+	}
+\end{exemplo}
+
+Neste momento o exemplo anterior serve apenas para esboçar a ideia de um diagrama de bloco para uma demonstração, note que fica evidente que a depender da situação alguns termos de ligação são melhores que outros, e o mesmo também é válido para os termos de inicialização e conclusão de bloco.
+
+Aqui não será detalhando a aplicação dos métodos de demonstração usado na demonstração do Exemplo \ref{exe:DiagramaProva1}, mas nas próximas seções serão apresentados cada um dos métodos de demonstração, e seguida será gradativamente apresentados exemplos para esboçar ao leitor como é usado o diagrama de blocos e relação a cada método de demonstração.
+
+Como o leitor pode ter notado pelo diagrama de bloco no Exemplo \ref{exe:DiagramaProva1}, é possível enxergar o diagrama como ambiente muito similar a ideia de um programa imperativo em uma linguagem de programação estruturada (como Pascal ou C), no sentido de que, uma demonstração pode ser visto como a combinação de diversos blocos, em que os blocos respeito uma hierarquia e podem está aninhados entre si, a hierarquia dos bloco é determinar por uma indentação\footnote{Indentação é um termo utilizando em código fonte de um programa, serve para ressaltar, identificar ou definir a estrutura do algoritmo.}.
+
+\section{Demonstrando Implicações}\label{sec:DemonstrandoImplicacoes}
+
+Este documento irá iniciar a apresentação dos métodos de demonstração a partir das estratégias usadas para demonstrar a implicação, isto é, as estratégias usadas para provar asserção da forma: ``se $\alpha$, então $\beta$''.
+
+\begin{definicao}[Prova Direta (PD)]
+	Dado uma asserção da forma: ``se $\alpha$, então $\beta$''. A metodologia de prova direta para tal asserção consiste em supor $\alpha$ como sendo verdade e a partir disto deduzir $\beta$.
+\end{definicao}
+
+Esta estratégia é provavelmente a técnicas mais famosa e usada dentre todos os métodos de demonstração que existem, um conhecedor de lógica pode notar facilmente que tal estratégia nada mais é do que a regra de dedução natural chamada de introdução da implicação\cite{joaoPavao2014}.
+
+No que diz respeito ao diagrama tal estratégia consistem em: (1) criar um bloco, e dentro deste bloco na primeira linha irá conter a afirmação de que $\alpha$ está sendo assumido com uma hipótese verdadeira; (2) nas próximas $n$ linhas irão acontecer as deduções necessárias até que na linha $n+2$ seja deduzido o $\beta$ e o bloco é fechado e (3) na linha $n + 3$ será adicionada a conclusão do bloco. A seguir serão apresentados exemplos do uso do método de demonstração direto para implicações e seu uso junto com o diagrama de bloco.
+
+\begin{exemplo}\label{exe:DiagramaProva2}
+	Será Provado a asserção, \textbf{``Se $x$ é ímpar, então $x^2 + x$ é par''}, usando \textbf{PD}. A prova começa abrindo um bloco e inserido na primeira linha a hipótese de que o antecedente \textbf{$x$ é um número ímpar} é verdadeira, ou seja, tem-se:
+  {\scriptsize
+	\begin{logicproof}{2}
+		\begin{subproof}
+			\text{\textbf{Suponha} que } x \text{ é um número ímpar} &
+		\end{subproof}
+	\end{logicproof}
+	}
+	\noindent em seguida  pode-se na linha 2 deduzir a forma de $x$, mudando o diagrama para:
+  {\scriptsize
+		\begin{logicproof}{2}
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \text{ é um número ímpar},  &\\
+				\text{\textbf{logo} } x = 2k + 1, k  \in \mathbb{Z},&
+			\end{subproof}
+		\end{logicproof}
+	}
+	\noindent  agora nas próximas duas linhas pode-se deduzir respectivamente as formas (ou valores) de $x^2$ e $x^2 + x$, assim o diagrama é atualizado para:
+	{\scriptsize
+		\begin{logicproof}{2}
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \text{ é um número ímpar}, &\\
+				\text{\textbf{logo} } x = 2k + 1, k  \in \mathbb{Z},&\\
+				\text{\textbf{assim} } x^2 = 4k^2 + 4k + 1, k \in \mathbb{Z},&\\
+				\text{\textbf{dessa forma} } x^2 + x= 2((2k^2 + 2k) + k + 1), k \in \mathbb{Z}.&
+			\end{subproof}
+		\end{logicproof}
+	}
+  \noindent note que $x^2 + x= 2((2k^2 + 2k) + k + 1)$ pode ser reescrito (por substituição) como $x^2 + x= 2j$ com $j = (2k^2 + 2k) + k + 1$, essa dedução é inserida na linha de número $5$ atualizando o diagrama para:
+	{\scriptsize
+		\begin{logicproof}{2}
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \text{ é um número ímpar}, &\\
+				\text{\textbf{logo} } x = 2k + 1, k  \in \mathbb{Z},&\\
+				\text{\textbf{assim} } x^2 = 4k^2 + 4k + 1, k \in \mathbb{Z},&\\
+				\text{\textbf{dessa forma} } x^2 + x= 2((2k^2 + 2k) + k + 1), k \in \mathbb{Z}.&\\
+				\text{\textbf{logo} } x^2 + x= 2j \text{ com } j = (2k^2 + 2k) + k + 1, k \in \mathbb{Z}.&
+			\end{subproof}
+		\end{logicproof}
+	}
+	\noindent assim pode-se então deduzir a partir da informação na linha de número $5$ que $x^2 + x$ é um número par, assim o diagrama muda para a forma:
+	{\scriptsize
+		\begin{logicproof}{2}
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \text{ é um número ímpar}, &\\
+				\text{\textbf{logo} } x = 2k + 1, k  \in \mathbb{Z},&\\
+				\text{\textbf{assim} } x^2 = 4k^2 + 4k + 1, k \in \mathbb{Z},&\\
+				\text{\textbf{dessa forma} } x^2 + x= 2((2k^2 + 2k) + k + 1), k \in \mathbb{Z}.&\\
+				\text{\textbf{logo} } x^2 + x = 2j \text{ com } j = (2k^2 + 2k) + k + 1, k \in \mathbb{Z},&\\
+					\text{\textbf{então} } x^2 + x \text{ por definição é um número par}.&
+			\end{subproof}
+		\end{logicproof}
+	}
+  \noindent note porém que a informação na deduzida na linha de número $6$ é exatamente o consequente da implicação que se queria deduzir. Portanto, o objetivo interno ao bloco foi atingido, pode-se então fechar o bloco introduzindo abaixo dele a conclusão do bloco, ou seja, na linha de número $7$ é escrito que o antecedente de fato implica no consequente, assim o diagrama fica da forma:
+	{\scriptsize
+		\begin{logicproof}{2}
+			\begin{subproof}
+				\text{\textbf{Suponha} que } x \text{ é um número ímpar}, &\\
+				\text{\textbf{logo} } x = 2k + 1, k  \in \mathbb{Z},&\\
+				\text{\textbf{assim} } x^2 = 4k^2 + 4k + 1, k \in \mathbb{Z},&\\
+				\text{\textbf{dessa forma} } x^2 + x= 2((2k^2 + 2k) + k + 1), k \in \mathbb{Z}.&\\
+				\text{\textbf{logo} } x^2 + x = 2j \text{ com } j = (2k^2 + 2k) + k + 1, k \in \mathbb{Z},&\\
+				\text{\textbf{então} } x^2 + x \text{ por definição é um número par}.&
+			\end{subproof}
+			\text{\textbf{Portanto}, Se } x \text{ é ímpar, então } x^2 + x \text{ é par.} &
+		\end{logicproof}
+	}
+	\noindent assim o objetivo a ser demonstrado foi atingido e, portanto, a prova está completa.
+\end{exemplo}
+
+\begin{nota}[Como justificar adequadamente!]
+  Na demonstração apresentada no Exemplo \ref{exe:DiagramaProva2} as justificativas da evolução do diagrama fora apresentadas passo a passo e separadas do diagrama, isso foi adotado nesse primeiro exemplo para detalhar a evolução da demonstração ao leitor, entretanto, isso não é o padrão, o normal (que será adotado) é que a justificativa (caso necessário\footnote{Quando a justificativa for trivial, ela não será inserida na prova.}) da dedução de uma linha seja inserida a direita da informação deduzida, destacada em {\color{blue}azul}. Além disso, nas justificativas das provas as palavras definição, associatividade, comutatividade serão  abreviadas para DEF, ASS, COM respetivamente.
+\end{nota}
+
+\begin{exemplo}\label{exe:DiagramaProva3}
+	Demonstração da asserção: Se $x = 4k$, então $x$ é múltiplo de 2.
+	
+	{\scriptsize
+		\begin{logicproof}{2}
+			\begin{subproof}
+        \text{\textbf{Suponha} que } x = 4k, k  \in \mathbb{Z},& {\color{blue}Hipótese}\\
+        \text{\textbf{assim} } x = (2 \cdot 2)k, k \in \mathbb{Z},& {\color{blue}Reescrita da linha $1$}\\
+        \text{\textbf{dessa forma} } x= 2(2k), k \in \mathbb{Z}.& {\color{blue}ASS da multiplicação}\\
+        \text{\textbf{logo} } x= 2i, \text{ com } i = 2k, k \in \mathbb{Z}.& {\color{blue}Reescrita da linha $3$}\\
+        \text{\textbf{então} } x \text{ é múltiplo de } 2.& {\color{blue}DEF de múltiplo de 2}
+			\end{subproof}
+      \text{\textbf{Portanto}, Se } x = 4k, \text{ então $x$ é múltiplo de 2}. & {\color{blue}PD (linhas 1-6)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+%\begin{nota}[Sobre premissas!]
+O leitor deve ter notado nos Exemplos \ref{exe:DiagramaProva2} e \ref{exe:DiagramaProva3} as demonstrações sempre iniciam das hipótese que estão sendo assumidas, isto é, os antecedentes das implicações, isso ocorrer por que nenhuma informação adicional (necessária) é apresentada como premissa, há caso entretanto, que as premissas são importantes para o desenvolvimento da prova, como será visto no próximo exemplo. 
+%\end{nota}
+
+\begin{exemplo}\label{exe:DiagramaProva4}
+  Demonstração da asserção: Dado $m$ inteiro maior ou igual que $5$ e $n$ um número impar maior que $0$. Se $m = 2i + 1$, então $m + n \geq 6$.
+	
+	{\scriptsize
+		\begin{logicproof}{2}
+      m \geq 5, m \in \mathbb{Z} & {\color{teal}Premissa}\\
+      n = 2j + 1, j \in  \mathbb{Z}^+ & {\color{teal}Premissa}\\
+			\begin{subproof}
+        \text{\textbf{Suponha} que } m = 2i +1,& {\color{blue}Hipótese}\\
+				\text{\textbf{assim} } m + n = 2(i + j + 1)&\\
+				\text{\textbf{desde que} } m \geq 5 \text{ tem-se que } i \geq 2, &\\
+				\text{\textbf{mas} como } n \in \mathbb{Z}_+ \text{ tem-se que } j \geq 0, &\\
+        \text{\textbf{assim }} i + j + 1 \geq 3, & {\color{blue}Direto das linhas $5$ e $6$}\\
+				\text{\textbf{logo} } 2(i + j + 1) \geq 6 &\\
+        \text{\textbf{então} } m + n \geq 6. & {\color{blue}Reescrita da linha 8} 
+			\end{subproof}
+      \text{\textbf{Portanto}, Se } m = 2i + 1, \text{ então } m + n \geq 6. & {\color{blue}PD (linhas 3-9)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva5}
+	Demonstração da asserção: Dado $m,n \in \mathbb{R}$ e $3m + 2n \leq 5$. Se $m > 1$, então $n < 1$.
+	
+	{\scriptsize
+		\begin{logicproof}{2}
+      m, n \in \mathbb{R} & {\color{teal}Premissa}\\
+      3m + 2n \leq 5 & {\color{teal}Premissa}\\
+			\begin{subproof}
+        \text{\textbf{Suponha} que } m > 1, & {\color{blue}Hipótese}\\
+				\text{\textbf{assim} } 3m > 3, &\\
+				\text{\textbf{desde que }} 3m \leq 5 - 2n, &\\
+        \text{\textbf{tem-se que }} 3 < 3m  \leq  5 - 2n& {\color{blue}Direto das linhas $4$ e $5$}\\
+				\text{\textbf{logo} } 3 < 5 - 2n,&\\
+				\text{\textbf{assim} } 3 + 2n < 5,&\\
+				\text{\textbf{então} } n < 1.&
+			\end{subproof}
+      \text{\textbf{Portanto}, Se } n > 1, \text{ então }  n < 1. & {\color{blue}PD (linhas 3-10)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+Além do método de prova direta asserções que são implicações podem ser provadas por um segundo método, chamado método da contrapositiva (ou contraposição). Como dito em \cite{menezes2010MD}, o método da contrapositiva se baseia na equivalência semântica\footnote{Para um entendimento sobre equivalência semântica ver \cite{edgar2002, leonidas2002}.} da expressão ``Se $\alpha$, então $\beta$'' com a expressão ``Se não $\beta$, então não $\alpha$''. Formalmente o método de demonstração por contrapositiva é como se segue.
+
+\begin{definicao}[Prova por contrapositiva (PCP)]
+	Dado uma asserção da forma: ``se $\alpha$, então $\beta$''. A metodologia de prova por contrapositiva para tal asserção consiste em demonstrar usando PD a asserção ``se não $\beta$, então não $\alpha$'', em seguida concluir (ou enunciar) que a veracidade de ``se $\alpha$, então $\beta$'' segue da veracidade de ``se não $\beta$, então não $\alpha$''.
+\end{definicao}
+
+Agora em termos do diagrama de blocos o método PCP apresenta o seguinte raciocínio de construção do diagrama: (1) abrir um bloco com a primeira linha em branco; (2) realizar em um bloco (interno) a  demonstração  de que ``se não $\beta$, então não $\alpha$'' e (3) após a conclusão deste segundo bloco, o primeiro bloco é fechado, e sua conclusão consiste na informação ``se $\alpha$, então $\beta$'' e a justificativa de tal informação é simplesmente a conclusão PCP das linhas $i$-$j$, onde $i$-$j$ diz respeito ao intervalo contendo as  linhas do bloco e da conclusão da prova de ``se não $\beta$, então não $\alpha$''.
+
+\begin{cuidado}[Apenas organização!]
+  ALiCIA se irrita fácil com escritas que ela acha feia, então ela quer tudo sempre organizadinho, assim vale salientar que a linha em branco no início do próximo exemplo é apenas um \textbf{fator estético} adotado para agradar ela, para tornar a leitura do diagrama da demonstração mais agradável. Esse recurso pode voltar a ser usado em exemplos futuros. Além disso, ela acha que é mais conveniente escrever, por exemplo apenas $l2$, do que ter que escrever linhas $2$ nas justificativas, assim o $l$ nas justificativas a partir deste ponto deve ser lido como ``linha'' ou ``linhas'' no caso de ser $lx-y$ onde $x$ e $y$ são os números.
+\end{cuidado}
+
+\begin{exemplo}\label{exe:DiagramaProva6}
+	Demonstração da asserção: Se $n! > (n+1)$, então $n > 2$.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Suponha} que } n \leq 2,&{\color{blue}Hipótese}\\
+          \text{\textbf{assim} } n = 0, n = 1 \text{ ou } n = 2&{\color{blue}Direto da $l2$}\\
+          \text{\textbf{logo} } n! = 1 \text{ ou } n! = 2,&{\color{blue}Da $l3$ e da DEF de fatorial}\\
+          \text{\textbf{então} } n! \leq (n + 1) \text{ com } n \leq 2 .&{\color{blue}Direto de $l3$ e $l4$}
+				\end{subproof}
+        \text{\textbf{Portanto}, Se } n \leq 2, \text{ então }  n! \leq (n + 1).&{\color{blue}PD ($l2-5$)}
+			\end{subproof}
+      \text{\textbf{Por contrapositiva}, Se }n! > (n+1), \text{ então }n > 2. &{\color{blue}PCP ($l2-6$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva7}
+	Demonstração da asserção: Se $n \neq 0$, então $n + c \neq c$.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Suponha} que } n + c = c, &{\color{blue}Hipótese}\\
+					\text{\textbf{assim} } n + c - c = c -c  & \\
+					\text{\textbf{logo}, } n + 0 = 0, &\\
+					\text{\textbf{então} } n = 0 .&
+				\end{subproof}
+        \text{\textbf{Portanto}, Se } n + c = c, \text{ então }  n  = 0. &{\color{blue}PD ($l2-5$)}
+			\end{subproof}
+      \text{\textbf{Logo por contrapositiva}, Se }n \neq 0, \text{ então } n + c \neq c. &{\color{blue}PCP ($l2-6$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva8}
+	Demonstração da asserção: Dado três números $x, y, z \in \mathbb{R}$ com $x > y$. Se $xz \leq yz$, então $z \leq 0$.
+	{\scriptsize
+		\begin{logicproof}{3}
+      x, y, z \in \mathbb{R},&{\color{teal}Premissa}\\
+      x > y, &{\color{teal}Premissa}\\
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Suponha} que } z > 0, &{\color{blue}Hipótese}\\
+          \text{\textbf{então} } xz > yz,  &{\color{blue}Das $l2$ e $l4$ e da MON\footnote{MON aqui é a abreviatura de monotonicidade.} da $\cdot$ em $\mathbb{R}$}
+				\end{subproof}
+        \text{\textbf{Portanto}, Se } z > 0, \text{ então }  xz > yz. &{\color{blue}PD ($l2$-$5$)}
+			\end{subproof}
+      \text{\textbf{Por contrapositiva}, Se }xz \leq yz, \text{ então } z \leq 0. &{\color{blue}PCP ($l3-6$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva9}
+	Demonstração da asserção: Se $n^2$ é par, então $n$ é par.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Suponha} que } n \text{ não é par}, &{\color{blue}Hipótese}\\
+          \text{\textbf{logo} } n = 2k + 1 \text{ com } k \in \mathbb{Z},  &{\color{blue}DEF de paridade}\\
+					\text{\textbf{assim} } n^2 = 4k^2 + 4k + 1 \text{ com } k \in \mathbb{Z},&\\
+          \text{\textbf{dessa forma }} n^2 = 2j + 1 \text{ com } j = 2k^2 + 2k,&{\color{blue}Reescrita de $l4$}\\
+          \text{\textbf{então} } n^2 \text{ não é par}&{\color{blue}DEF de paridade}
+				\end{subproof}
+        \text{\textbf{Portanto}, Se } n  \text{ não é par}, \text{ então } n^2  \text{ não é par}. &{\color{blue}PD ($l2$-$6$)}
+			\end{subproof}
+      \text{\textbf{Logo por contrapositiva}, Se }n^2 \text{ é par}, \text{ então } n \text{ é par}. &{\color{blue}PCP ($l2$-$6$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\section{Demonstração por Absurdo}\label{sec:DemonstracaoAbsurdo}
+
+O método de demonstração por redução ao absurdo\footnote{\textit{Reductio ad absurdum} em latim.} (ou por contradição) tem por objetivo provar que a asserção $\alpha$ junto com as premissas (se houverem) é verdadeira a partir da prova de que a suposição de que a asserção ``não $\alpha$'' seja verdadeira junto das mesmas premissas (mencionadas anteriormente) gera um absurdo (ou contradição). O fato deste absurdo seja gerado, permite concluir que suposição de que a asserção ``não $\alpha$'' seja verdadeira é ridícula, ou seja, ``não $\alpha$'' tem que ser falsa e, portanto, a asserção $\alpha$ tem que ser verdadeira. 
+
+\begin{definicao}[Prova por Redução ao Absurdo (RAA)]
+	A metodologia para uma demonstração por redução ao absurdo de uma asserção $\alpha$, consiste em supor que não $\alpha$ é uma hipótese verdadeira, então deduzir um absurdo (ou contradição). Em seguida concluir que dado que a partir de não $\alpha$ foi produzido um absurdo pode-se afirma que $\alpha$ é verdadeiro.
+\end{definicao}
+
+Em termos do diagrama de blocos o método RAA consiste nos seguintes passo: (1) abrir um bloco  cuja primeira linha é vazia; (2) iniciar um bloco interno em que na primeira linha deste bloco o termo de inicialização do bloco (já listados anteriormente) é seguida da expressão ``por absurdo'' e da asserção não $\alpha$; (3) em seguida nas próximas $n$ linhas irão acontecer as deduções necessárias até que na linha $n+2$ seja deduzido o absurdo (ou uma contradição) e o bloco é fechado, inserido na linha $n +3$ a informação de que ``Se não $\alpha$, então $\bot$'' e é fechado o bloco externo e (4) na linha $n + 4$ será adicionada a conclusão do bloco externo, contendo algo como `` Portanto, $\alpha$ é verdadeiro''.
+
+\begin{nota}[Representação do absurdo]
+  Aqui como em muitos outros materiais será usado o símbolo $\bot$\footnote{Este símbolo também costuma ser usado na teoria de reticulados para representar o bottom nos reticulados.} para denotar o absurdo.
+\end{nota}
+
+\begin{nota}[Sobre provar usando RAA!]
+  O leitor um pouco mais atento perceberá que provar o asserção $P$ usando RAA, é na verdade, realizar uma demonstração para uma asserção da seguinte forma $\neg P \Rightarrow \bot$.
+\end{nota}
+
+\begin{exemplo}\label{exe:DiagramaProva10}
+	Demonstração da asserção: $\sqrt{2} \not\in \mathbb{Q}$.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Assuma por absurdo} que } \sqrt{2} \in \mathbb{Q}, &{\color{blue}Hipótese}\\
+          \text{\textbf{logo} existem } a,b \in \mathbb{Z} \text{ tal que }  \sqrt{2} = \frac{a}{b} \text{ e } mdc(a, b) = 1 &\\
+					\text{\textbf{logo} } a^2 = 2b^2, \text{ ou seja, } a^2 \text{ é par},  &\\
+          \text{\textbf{dessa forma} } a = 2i \text{ com } i \in \mathbb{Z},&{\color{blue}De $l4$ e do Exemplo \ref{exe:DiagramaProva9}}\\
+					\text{\textbf{logo} } b^2 = 2i^2 \text{ com } i \in \mathbb{Z},&\\
+          \text{\textbf{dessa forma} } b = 2j \text{ com } j \in \mathbb{Z},&{\color{blue}De $l6$ e do Exemplo \ref{exe:DiagramaProva9}}\\
+          \text{\textbf{assim} } mdc(a, b) \geq 2,&{\color{blue}De $l5$ e $l7$}\\
+          \text{\textbf{mas} } mdc(a, b) = 1  \text{ e } mdc(a, b) \geq 2 \text{ é um absurdo}.&{\color{blue}Direto de $l3$ e $l8$}
+				\end{subproof}
+        \text{\textbf{Portanto}, Se } \sqrt{2} \in \mathbb{Q}, \text{ então }  \bot. &{\color{blue}PD ($l2$-$10$)}
+			\end{subproof}
+      \text{\textbf{Consequentemente}, } \sqrt{2} \notin \mathbb{Q}. &{\color{blue}RAA ($l2$-$11$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{nota}[O que realmente uma RAA?]
+  ALiCIA precebeu que internamente a prova por redução ao absurdo de uma asserção $\alpha$, deve ser demonstrado a asserção: $(\neg \alpha) \Rightarrow \bot$. Isso é interessante não é?
+\end{nota}
+
+\begin{exemplo}\label{exe:DiagramaProva11}
+	Demonstração da asserção: Não existe solução inteira positiva não nula para a equação diofantina\footnote{Equações diofantinas são equações polinomiais, que permite a duas ou mais variáveis assumirem apenas valores inteiros.} $x^2 - y^2 = 1$.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Assuma por absurdo} } \exists x, y \in \mathbb{Z}_+^* \text{ com } x^2 - y^2 = 1 , &{\color{blue} Hipótese}\\
+					\text{\textbf{assim} }  min(x, y) = 1 \text{ e } (x-y)(x+y) = 1,&\\
+          \text{\textbf{logo} } x - y =  x + y = 1 \text{ ou }  x - y = -1 \text{ e } x + y = -1, &{\color{blue}Por $x, y \in \mathbb{Z}_+^*$}\\
+					\text{\textbf{com} } x - y = 1 \text{ e } x + y = 1 \text{ tem-se } x = 1 \text{ e } y = 0,&\\
+          \text{\textbf{assim} } min(x, y) \neq 1,&{\color{blue}De $l5$}\\
+					\text{\textbf{com} }  x - y = -1 \text{ e } x + y = -1 \text{ segue } x = -1 \text{ e } y = 0, &\\
+          \text{\textbf{assim} } min(x, y) \neq 1,&{\color{blue}De $l7$}\\
+          \text{\textbf{mas} } min(x, y) = 1  \text{ e } min(x, y) \neq 1 \text{ é um absurdo}.&{\color{blue}De $l3, l6$ e $l8$}.
+				\end{subproof}
+        \text{\textbf{Portanto}, Se } \exists x, y \in \mathbb{Z}_+^* \text{ tal que } x^2 - y^2 = 1, \text{ então }  \bot. &{\color{blue}PD ($l2$-$10$)}
+			\end{subproof}
+      \text{\textbf{Portanto}, não } \exists x, y \in \mathbb{Z}_+^* \text{ tal que } x^2 - y^2 = 1. &{\color{blue}RAA ($l2$-$10$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+Equações diofantinas tem papel central para computação, assim vale mencionar aqui que um importante resultado sobre essas equações, e que possui forte impacto computabilidade, foi demonstrado pelos trabalhos de Julia Robinson (1919--1985) e Yuri Matiyasevich(1947--.) \cite{yuri1993hilbert}. Tal resultado solucina o décimo problema da lista de Hilbert\footnote{Apresentada pelo matemático alemão David Hilbert (1862--1943).}, de forma sucinta o resultado diz que não existe um algoritmo universal para determinar se uma equação diofantina tem raízes inteiras.
+
+\begin{exemplo}\label{exe:DiagramaProva13}
+	Demonstração da asserção: Se $3n + 2$ é ímpar, então $n$ é ímpar.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+				&  \\
+				\begin{subproof}
+          \text{\textbf{Suponha por absurdo} que }3n + 2 \text{ é ímpar e } n \text{ é par}, &{\color{blue}Hipótese}\\
+          \text{\textbf{logo} } n = 2k, k \in \mathbb{Z},&{\color{blue}DEF de paridade}\\
+					\text{\textbf{dessa forma} } 3n + 2 = 2(3k + 1), k \in \mathbb{Z},&\\ 
+          \text{\textbf{assim} } 3n + 2 \text{ é par},&{\color{blue}DEF de paridade}\\
+          \text{\textbf{mas} } 3n + 2 \text{ ser ímpar e } 3n + 2 \text{ ser par, é um absurdo}.&{\color{blue}De $l2$ e $l5$}
+				\end{subproof}
+        \text{\textbf{Portanto}, se } 3n + 2 \text{ é ímpar e } n \text{ é par}, \text{ então }  \bot. &{\color{blue}PD ($l2$-$7$)}
+			\end{subproof}
+      \text{\textbf{Portanto}, se $3n + 2$ é ímpar, então $n$ é ímpar}. &{\color{blue}RAA ($l2$-$8$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\section{Demonstrando  Generalizações}\label{sec:DemonstracaoGeneralizacao}
+
+Antes de falar sobre o método usado para demonstrar generalizações deve-se primeiro reforçar ao leitor o que é são generalizações. Uma generalização é qualquer asserção que contenha em sua formação expressões das formas: 
+\begin{itemize}
+	\item[(a)] Para todo \underline{\ \ \ \ \ \ \ \ \ \ \ \ \ }.
+	\item[(b)] Para cada \underline{\ \ \ \ \ \ \ \ \ \ \ \ \ }.
+	\item[(c)] Para qualquer \underline{\ \ \ \ \ \ \ \ \ \ \ \ \ }.
+\end{itemize}
+
+\begin{exemplo}
+	A seguintes asserções são generalizações.
+	\begin{itemize}
+		\item[(a)] Todos os cachorros são mamíferos.
+		\item[(b)] Todos os números inteiros possuem um inverso aditivo.
+		\item[(c)] Todos os times de futebol pernambucanos são times brasileiros.
+	\end{itemize}
+\end{exemplo}
+
+Nos termos da lógica uma asserção é uma generalização sempre que o quantificador universal é o quantificador mais externo a da asserção. Agora que o leitor está a par do que é uma generalização, pode-se prosseguir o texto deste documento apresentando formalmente o método de demonstração para generalizações.
+
+\begin{definicao}[Prova de Generalizações (PG)]
+	Para provar uma asserção da forma, ``$(\forall x)[P(x)]$'', em que $P(x)$ é uma asserção acerca da variável $x$. Deve-se assumir que a variável $x$ assume como valor um objeto qualquer no universo do discurso de que trata a  generalização, em seguida, provar que a asserção $P(x)$ é verdadeira, usando as propriedades disponível de forma genérica para os objetos do universo do discurso.
+\end{definicao}
+
+Em termos do diagrama, a prova de uma generalização começa inserido na primeira linha de um bloco a informação de que $x$ é um objeto genérico (ou qualquer) do discurso, em seguida deve ser provado $P(x)$ é verdadeiro, caso seja necessário deve ser é aberto um novos blocos para as subprovas, após demonstrar que $P(x)$ é verdadeiro para um $x$ genérico do discurso, o bloco externo (aberto para a prova da generalização) é fechado e  pode-se apresentar a conclusão de que todo objeto $x$ do discurso $P(x)$ é verdadeiro. Note que esse raciocínio de demonstração garante (com explicado em \cite{velleman2019comProvar}) que a asserção $P$ é universal sobre o universo do discurso, ou seja, garante a universalidade da asserção $P$.
+
+\begin{exemplo}\label{exe:DiagramaProva14}
+	Demonstração da asserção: $(\forall x \in \{4n \mid n \in \mathbb{N} \})$[$x$ é par].
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+        \text{\textbf{Assuma} que } x \in \{4n \mid n \in \mathbb{N} \}&{\color{blue}Hipótese}\\
+				\begin{subproof}
+          \text{\textbf{dessa forma} } x = 4n, n \in \mathbb{N}, &{\color{blue}DEF do discurso}\\
+          \text{\textbf{logo} } x = (2\cdot 2)n, n \in \mathbb{N},&{\color{blue}Reescrita de $l2$}\\
+          \text{\textbf{dessa forma} } x = 2(2n), n \in \mathbb{N},&{\color{blue}ASS da $\cdot$}\\ 
+					\text{\textbf{assim} } x = 2k, k \in \mathbb{N},& \\
+          \text{\textbf{então} } x \text{ é par}.&{\color{blue}DEF de paridade}
+				\end{subproof}
+        \text{\textbf{Portanto}, com } x \in \{4n \mid n \in \mathbb{N} \}, \text{ tem-se que }  x \text{ é par}. & 
+			\end{subproof}
+      \text{\textbf{Consequentemente},} (\forall x \in \{4n \mid n \in \mathbb{N} \})\text{[$x$ é par]}. &{\color{blue}PG ($l1$-$7$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva15}
+	Demonstração da asserção: $(\forall X, Y \subseteq \mathbb{U})$[se $X \neq \emptyset$, então $(X \cup Y) \neq \emptyset$].
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+        \text{\textbf{Considere} dois conjuntos quaisquer } X, Y \subseteq \mathbb{U}&{\color{blue}Hipótese}\\
+				\begin{subproof}
+          \text{\textbf{Suponha} que } X \neq \emptyset, &{\color{blue}Hipótese}\\
+					\text{\textbf{logo} existe pelo menos um } x \in X,&\\
+					\text{\textbf{desde que} } x \in X \text{ tem-se que } x \in (X \cup Y),&\\ 
+					\text{\textbf{então} } (X \cup Y) \neq \emptyset.& 
+				\end{subproof}
+        \text{\textbf{Consequentemente}, Se } X \neq \emptyset, \text{ então }  X \cup Y \neq \emptyset. &{\color{blue}PD ($l2$-$5$)}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\forall X, Y \subseteq \mathbb{U})\text{[se $X \neq \emptyset$, então $(X \cup Y) \neq \emptyset$]}. &{\color{blue}PG ($l1$-$6$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+Um erro que muitos iniciantes frequentemente cometem ao tentar provar enunciados de generalização é utilizar uma (ou mais) propriedade(s) de um elemento genérico $x$  para provar $P(x)$, entretanto esta(s) propriedade(s) usada(s) não é (são) compartilhada(s) por todos os elementos de $\mathbb{U}$, isto é, apenas um subconjunto de $\mathbb{U}$ apresenta a(s) propriedade(s) usadas, para mais detalhes sobre este tipo de erro podem ser consultados em \cite{velleman2019comProvar}.
+
+\begin{exemplo}\label{exe:DiagramaProva16}
+	Demonstração da asserção: $(\forall n \in \mathbb{Z})$[se $n > 2$, então $n^2 > n + n$].
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+        \text{\textbf{Assuma} que } n \text{ é um número inteiro,}&{\color{blue}Hipótese}\\
+				\begin{subproof}
+          \text{\textbf{Suponha} que } n > 2, &{\color{blue}Hipótese}\\
+          \text{\textbf{logo} } n \cdot n > 2x,&{\color{blue}MON\footnote{Como antes MON significa monotonicidade.} da $\cdot$ em $\mathbb{Z}$}\\
+          \text{\textbf{então} } n^2 > n + n.&{\color{blue}Reescrita de $l3$}
+				\end{subproof}
+        \text{\textbf{Dessa forma}, se } n > 2, \text{ então } x^2 > n + n. &{\color{blue}PD ($l2$-$4$)}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\forall n \in \mathbb{Z})\text{[se $n > 2$, então $x^2 > n + n$]}.&{\color{blue}PG ($l1$-$5$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\
+
+\begin{exemplo}\label{exe:DiagramaProva17}
+	Prova da asserção: Dado $(\forall n \in \mathbb{Z})$[$3(n^2 + 2n + 3) - 2n^2$ é um quadrado perfeito].
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+        \text{\textbf{Assuma} que } n \text{ é um número inteiro,}&{\color{blue}Hipótese}\\
+				\begin{subproof}
+					\text{\textbf{Desde que} } 3(n^2 + 2n + 3) - 2n^2 = 3n^2 + 6n + 9 - 2n^2, &\\
+					\text{\textbf{mas} } 3n^2 + 6n + 9 - 2n^2 =  n^2 +6n + 9,&\\
+          \text{\textbf{assim} } 3(n^2 + 2n + 3) - 2n^2 = n^2 +6n + 9&{\color{blue}De $l2$ e $l3$}\\
+					\text{\textbf{mas} } n^2 +6n + 9 = (n + 3)^2,&\\
+					\text{\textbf{logo} } 3(n^2 + 2n + 3) - 2n^2 = (n + 3)^2,& 
+				\end{subproof}
+        \text{\textbf{Dessa forma},  } 3(n^2 + 2n + 3) - 2n^2 \text{ é um quadrado perfeito.}&{\color{blue}Direto de $l2$-$6$}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\forall n \in \mathbb{Z})\text{[$3(n^2 + 2n + 3) - 2n^2$ é um quadrado perfeito]}. &{\color{blue}PG ($l1$-$7$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\section{Demonstrando Existência e Unicidade}\label{sec:DemonstrandoExistencia}
+
+Antes de falar sobre o método de demonstração existencial deve-se primeiro reforçar ao leitor o que é um enunciado existencial. Um enunciado de uma sentença do tipo existencial é qualquer asserção que inicia usando as expressões das forma seguir:
+\begin{itemize}
+	\item[(a)] Existe um(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+	\item[(b)] Há um(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+\end{itemize} 
+
+Agora sobre a metodologia para demonstrar (provar) a existência de um objeto com um determinada propriedade, ou seja, provar que um certo objeto $x$ satisfaz uma propriedade $P$,  é especificada pela definição a seguir.
+
+\begin{definicao}[Prova de existência (PE)]
+  Para provar uma asserção da forma ``$(\exists x)[P(x)]$'', em que $P(x)$ é uma asserção sobre a variável $x$. Deve-se exibir\footnote{Ou seja, deve-se instanciar o $x$ para algum objeto concreto do discurso.} um elemento específico ``$a$'' pertencente ao universo do discurso, e mostrar que a asserção $P(x)$ é verdadeira quando $x$ é instanciado como sendo exatamente o elemento $a$, ou seja, deve-se mostrar que $P(a)$ é verdadeira.
+\end{definicao}
+
+Em relação ao diagrama de bloco, uma demonstração de existência, isto é, uma prova de uma asserção $(\exists x)[P(x)]$,  irá se comportar de forma muito semelhante a uma demonstração de generalidade, as única mudanças significativas é que tal método inicia seu bloco com a declaração de que será atribuído um objeto \textbf{específico} em vez de considerar a variável genérica a $x$, ou seja, é realizado uma instanciação de um elemento. Além disso, a conclusão do bloco externo deve ser exatamente a $(\exists x)[P(x)]$, ou seja, a conclusão deverá ser a asserção existencial.
+
+\begin{exemplo}\label{exe:DiagramaProva19}
+	Demonstração da asserção: $(\exists n \in \mathbb{N})[n = n^2]$.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+        \text{\textbf{Deixe ser} } n = 1 &{\color{blue}Instanciação}\\
+        \text{\textbf{logo} } n \cdot n = 1 \cdot n, &{\color{blue}MON de $\cdot$ em $\mathbb{N}$}\\
+        \text{\textbf{assim} } n^2 = n, &{\color{blue}Reescrita da $l2$}\\
+        \text{\textbf{então} } n = n^2,&{\color{blue}Reescrita da $l3$}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\exists n \in \mathbb{N})[n = n^2]. &{\color{blue}PE ($l1$-$4$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva18}
+	Demonstração da asserção: $(\exists a, b \in \mathbb{I})[m^n \in \mathbb{Q}]$.
+	{\scriptsize
+		\begin{logicproof}{3}
+			\begin{subproof}
+        \text{\textbf{Deixe ser} } a = \sqrt{2} \text{ e } b = \sqrt{2}&{\color{blue}Instanciação}\\
+        \text{\textbf{logo} } a,b \in \mathbb{I}, &{\color{blue}Do Exemplo \ref{exe:DiagramaProva10}}\\
+				\begin{subproof}
+					\text{\textbf{Se} } \sqrt{2}^{\sqrt{2}} \in  \mathbb{Q},&\\
+					\text{\textbf{então} não há mais nada a ser demonstrado.}&
+				\end{subproof}
+        \text{\textbf{Consequentemente}, se } \sqrt{2}^{\sqrt{2}} \in  \mathbb{Q}, \text{ então } a^b \in Q.&{\color{blue}PD de $l3$-$4$}\\
+				\begin{subproof}
+					\text{\textbf{Se} } \sqrt{2}^{\sqrt{2}} \notin  \mathbb{Q},&\\
+					\text{\textbf{logo} } \sqrt{2}^{\sqrt{2}} \in  \mathbb{I},&\\
+					\text{\textbf{assim} fazendo } c = a^b \text{ tem-se que } c \in \mathbb{I},&\\
+					\text{\textbf{então} } c^b = (\sqrt{2}^{\sqrt{2}})^{\sqrt{2}} = 2.&
+				\end{subproof}
+        \text{\textbf{Portanto}, se } \sqrt{2}^{\sqrt{2}} \notin \mathbb{Q}, \text{ então } c^b \in \mathbb{Q} \text{ com } c \in \mathbb{I}, c = a^b.&{\color{blue}PD de $l6$-$9$}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\exists m, n \in \mathbb{I})[m^n \in \mathbb{Q}].&{\color{blue}PE ($l1$-$10$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva20}
+	Demonstração da asserção: $(\exists X \subseteq \mathbb{U})[(\forall Y \subseteq \mathbb{U})[X \cup Y = Y]]$.
+	{\scriptsize
+		\begin{logicproof}{5}
+			\begin{subproof}
+        \text{\textbf{Deixe ser} } X = \emptyset, &{\color{blue}Instanciação}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } Y \subseteq \mathbb{U}&{\color{blue}Hipótese}\\
+          \text{\textbf{logo} } y \in Y \text{ tem-se que } y \in (\emptyset \cup Y)&{\color{blue}DEF de união}\\
+          \text{\textbf{assim} } Y \subseteq (X \cup Y), &{\color{blue}De $l1$ e $l3$}\\
+					\begin{subproof}
+						&\\
+						\begin{subproof}
+              \text{\textbf{Suponha por absurdo} que } (\emptyset \cup Y) \not\subseteq Y&{\color{blue}Hipótese}\\
+							\text{\textbf{assim} tem-se que existe } z \in (\emptyset \cup Y) \text{ e } z \notin Y, &\\
+              \text{\textbf{dessa forma} } z \in \emptyset,&{\color{blue}De $l7$}\\
+              \text{\textbf{desde que} } X = \emptyset \text{ é um absurdo que } z \in X,&{\color{blue}De $l1$ e da DEF de $\emptyset$} 
+						\end{subproof}
+            \text{\textbf{Portanto}, se }(X \cup Y) \not\subseteq Y, \text{ então } \bot. &{\color{blue}Conclusão da PD ($l6$-$9$)}
+					\end{subproof}
+          \text{\textbf{Consequentemente}, } (X \cup Y) \subseteq Y.&{\color{blue}Conclusão RAA ($l6$-$10$)}
+				\end{subproof}
+        \text{\textbf{Dessa forma}, } (X \cup Y) = Y.&{\color{blue}Direto de $l4$ e $l11$}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\exists X \subseteq \mathbb{U})[(\forall Y \subseteq \mathbb{U})[X \cup Y = Y]]. &{\color{blue}PE ($l1$-$12$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+O leitor que leu com  atenção o Capítulo \ref{cap:Sets}, ou que tenha domínio sobre a teoria dos conjuntos sabe que $(\emptyset \cup X) = X$, para qualquer conjunto $X$, assim poderia escrever uma prova bem mais curta (fica como exercício) do que a demonstração mostrada no Exercício \ref{exe:DiagramaProva20}.
+
+Agora vale ressaltar uma importante questão, a prova de existência não garante que um único elemento do discurso satisfaça uma determinada propriedade, note que no Exemplo \ref{exe:DiagramaProva19} poderia ser substituído $1$ pelo número natural $0$ sem haver qualquer perca para a demonstração. 
+
+De fato, o que a prova de existência garante é que \textbf{pelo menos um} elemento dentro do discurso satisfaz a propriedade que está sendo avaliada. Uma demonstração que garante que \textbf{um e apenas um} elemento em todo discurso satisfaz uma certa propriedade é chamada de demonstração de unicidade.
+
+Antes de falar sobre o método de demonstração de unicidade deve-se primeiro reforçar ao leitor o que é um enunciado existencial de unicidade. Basicamente tal tipod e enunciado consiste de um enunciado de existência que adiciona os termos ``único'' ou ``apenas um'' na uma sentença do tipo existencial ficando da formas:
+\begin{itemize}
+	\item[(a)] Existe apenas um(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+	\item[(b)] Há apenas um(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+  \item[(c)] Há somente um(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+\end{itemize}
+ou ainda,
+\begin{itemize}
+	\item[(a)] Existe um(a) único(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+	\item[(b)] Há  um(a) único(a) $\underline{\ \ \ \ \ \ \ \ \ \ \ \ }$.
+\end{itemize}
+
+\begin{nota}[Simbologia]
+  Deste ponto em diante sempre que possível será substituido a escrita ``se $P$, então $Q$'' pela notação da lógica simbólica $P \Rightarrow Q$.
+\end{nota}
+
+\begin{definicao}[Prova de unicidade (PU)]\label{def:ProvaUnicidade}
+	Uma prova de unicidade consiste em provar uma asserção da forma ``$(\exists x)[P(x) \land (\forall y)[P(y) \Rightarrow x = y]]$'', em que $P$ é uma asserção sobre os elementos do discurso. Para tal primeiro deve-se demonstrar que a asserção ``$(\exists x)[P(x)]$'' é verdadeira, e depois prova que a generalização $(\forall y)[P(y) \Rightarrow x = y]$ também é verdadeira.
+\end{definicao}
+
+Com respeito ao diagrama de blocos, uma demonstração de unicidade apresenta um diagrama similar ao de uma prova de existência, entretanto, internamente ao bloco da demonstração irá existir uma subprova para a asserção $(\forall y)[P(y) \Rightarrow x = y]$, sendo está subprova responsável pro mostrar a unicidade. Por fim após fechar o bloco mais externo deve-se enunciar a conclusão.
+
+\begin{nota}[Um forma curta de escrever!]
+  Como \cite{joaoPavao2014} é comum representar a unicidade como $(\exists! x)[P(x)]$ em vez de $(\exists x)[P(x) \land (\forall y)[P(y) \Rightarrow x = y]]$.
+\end{nota}
+
+\begin{exemplo}\label{exe:DiagramaProva21}
+	Demonstração da asserção: $(\exists! x \in  \mathbb{N})[x + x = x \land (\forall y \in  \mathbb{N})[y + y = y \Rightarrow x = y]]$.
+	{\scriptsize
+		\begin{logicproof}{3}
+				\begin{subproof}
+          \text{\textbf{Deixe ser} } x = 0, &{\color{blue}Instanciação}\\
+					\text{\textbf{logo} } x + 0 = 0 + 0,&\\
+					\text{\textbf{assim} } x + 0 = 0, &\\
+          \text{\textbf{dessa forma} } x + x = x. &{\color{blue}De $l1$ e $l3$}\\
+					\begin{subproof}
+            \text{\textbf{Suponha } que } y \in \mathbb{N}, &{\color{blue}Hipótese}\\
+						\begin{subproof}
+              \text{\textbf{Assuma } que } y + y = y, &{\color{blue}Hipótese}\\
+							\text{\textbf{logo} } y = y - y,&\\
+							\text{\textbf{assim} } y = 0,&\\
+              \text{\textbf{então} } y = x,&{\color{blue}Reescrita de $l8$}
+						\end{subproof}
+            \text{\textbf{Consequentemente},} y + y = y \Rightarrow x = y. &{\color{blue}PD ($l6$-$9$)}
+					\end{subproof}
+          \text{\textbf{Portanto},} (\forall y \in  \mathbb{N})[y + y = y \Rightarrow x = y], &{\color{blue}PG ($l5$-$10$)}\\
+          \text{\textbf{logo} } x + x = x \land (\forall y \in  \mathbb{N})[y + y = y \Rightarrow x = y].&{\color{blue}Direto de $l4$ e $l11$}
+				\end{subproof}
+      \text{\textbf{Portanto},} (\exists x \in  \mathbb{N})[x + x = x \land (\forall y \in  \mathbb{N})[y + y = y \Rightarrow x = y]]. &{\color{blue}PU ($l2$-$13$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva22}
+	Demonstração da asserção: $(\forall x \in  \mathbb{Z})[(\exists! y \in  \mathbb{Z})[x + y = 0]]$.
+	{\scriptsize
+		\begin{logicproof}{4}
+			\begin{subproof}
+        \text{\textbf{Assuma} que } x \in \mathbb{Z}, &{\color{blue}Hipótese}\\
+				\begin{subproof}
+          \text{\textbf{Deixe ser} } y = -x, &{\color{blue}Instanciação}\\
+					\text{\textbf{logo} } x + y = x + (-x),&\\
+					\text{\textbf{mas} } x + (-x) = 0,&\\
+					\text{\textbf{então} } x + y = 0.&
+				\end{subproof}
+        (\exists y \in  \mathbb{Z})[x + y = 0].&{\color{blue}PE ($l2$-$5$)}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } z \in \mathbb{Z}, &{\color{blue}Hipótese}\\
+					\begin{subproof}
+						& \\
+						\begin{subproof}
+              \text{\textbf{Suponha por absurdo} que } x + z = 0 \text{ e } z \neq y, &{\color{blue}Hipótese}\\
+							\text{\textbf{desde que} } x + y = 0 \text{ tem-se que } x + z = x + y,&\\
+							\text{\textbf{mas} assim } z = y, \text{ o que contradiz é um absurdo}.&
+						\end{subproof}
+            \text{\textbf{Consequentemente}, se } x + z = 0 \text{ e } z \neq -x, \text{ então } \bot.&{\color{blue}PD ($l8$-$10$)}
+					\end{subproof}
+          \text{\textbf{Portanto}, se } x + z = 0, \text{ então } x = y. &{\color{blue}RAA ($l8$-$11$)}
+				\end{subproof}
+        \text{\textbf{Dessa forma} } (\forall z \in  \mathbb{Z})[x + z = 0 \Rightarrow z = y]. &{\color{blue}PG ($l7$-$13$)}
+			\end{subproof}
+      \text{\textbf{Portanto},} (\forall x \in  \mathbb{Z})[(\exists! y \in  \mathbb{Z})[x + y = 0]]. &{\color{blue}PU ($l2$-$13$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\section{Demonstração Guiada por Casos}
+
+Para realizar uma demonstração guiada por casos (ou simplesmente demonstração por casos) a estratégia emprega consiste em demonstrar cobrindo todos os casos possíveis que as premissas  $\alpha_i$ em um enunciado podem assumir, formalmente esta metodologia de demonstração é definida como se segue.
+
+\begin{definicao}[Prova por Casos (PPC)]\label{metodo:PorCasos}
+	Uma prova por caso, consiste em provar um enunciado da forma: Se $\alpha_1$ ou $\cdots$ ou $\alpha_n$, então $\beta$. Para isso é realizado os seguintes passos:
+	\begin{itemize}
+		\item Supor $\alpha_1$ (e apenas ela) verdadeira, e demonstrar $\beta$.
+		
+		$\vdots$
+		
+		\item Supor $\alpha_n$ (e apenas ela) verdadeira, e demonstrar $\beta$.
+	\end{itemize}
+\end{definicao}
+
+%A justificativa da validade  da metodologia da prova por casos é que um enunciado que tenha a forma $(\alpha_1 \lor \cdots \lor \alpha_n) \Rightarrow \beta$ será verdadeiro quando a conjunção da forma $(\alpha_1 \Rightarrow \beta) \land \cdots \land (\alpha_n \Rightarrow \beta)$ for verdadeira,  e para isso deve-se provar a validade de $(\alpha_i \Rightarrow \beta)$ para todo $1 \leq i \leq n$. Dessa forma o leitor pode notar facilmente que uma prova por casos nada mais é do que provar uma série de $n$ implicações (se for necessário releia a Seção \ref{sec:DemonstrandoImplicacoes}).
+
+Com respeito ao diagrama de blocos uma prova por casos consiste de um diagrama que possui em seu interior $n$ provas da forma $\alpha_i \Rightarrow \beta$ com $1 \leq i \leq n$, após todas as sub-provas serem apresentadas a última linha no diagrama mais externo irá expressar uma sentença da forma $(\alpha_1 \Rightarrow \beta) \land \cdots \land (\alpha_n \Rightarrow \beta)$, então o diagrama será fechado e será escrita a conclusão do diagrama. O exemplo a seguir ilustram esse procedimento.
+
+
+\begin{exemplo}\label{exe:DiagramaProva24}
+	Demonstração da asserção: Dado $n \in \mathbb{N}$. Se $n \leq 2$, então $n! \leq n + 1$.
+	{\scriptsize
+		\begin{logicproof}{4}
+			\begin{subproof}
+				n \in \mathbb{N} & --- Premissa\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } n = 0, &{\color{blue}Hipótese}\\
+					\text{\textbf{desde que} } 0! = 1 &\\
+					\text{\textbf{assim} } 0! \leq 1 &\\
+					\text{\textbf{mas} } 1 = n + 1&\\
+					\text{\textbf{então} } n! \leq n + 1 &
+				\end{subproof}
+        \text{\textbf{Portanto}, se } n = 0, \text{então } n! \leq n + 1 &{\color{blue}PD ($l2-5$)}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } n = 1, &{\color{blue}Hipótese}\\
+					\text{\textbf{desde que} } n! = 1 &\\
+					\text{\textbf{assim} } n! < 2 &\\
+					\text{\textbf{mas} } 2 = n + 1&\\
+					\text{\textbf{então} } n! < n + 1 &
+				\end{subproof}
+        \text{\textbf{Portanto}, se } n = 1, \text{então } n! < n + 1 &{\color{blue}PD ($l7-11$)}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } n = 2, &{\color{blue}Hipótese}\\
+					\text{\textbf{desde que} } n! = 2 &\\
+					\text{\textbf{logo} } n! < 3 &\\
+					\text{\textbf{mas} } 3 = n + 1&\\
+					\text{\textbf{então} } n! < n + 1 &
+				\end{subproof}
+        \text{\textbf{Portanto}, se } n = 2, \text{então } n! < n + 1 &{\color{blue}PD ($l7-11$)}
+			\end{subproof}
+      \text{\textbf{Portanto}, Dado $n \in \mathbb{N}$. Se } n \leq 2, \text{ então }n! \leq n + 1. &{\color{blue}PPC ($l1-19$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiagramaProva23}
+	Demonstração da asserção: Se $x \in  \mathbb{Z}$, então $x^2$ tem a mesma paridade de $x$.
+	{\scriptsize
+		\begin{logicproof}{4}
+			\begin{subproof}
+				&\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } x = 2i \text{ com } i \in \mathbb{Z}, &{\color{blue}Hipótese}\\
+					\text{\textbf{logo} } x^2 = 2(2i^2), \text{ com } i \in \mathbb{Z} &\\
+          \text{\textbf{então} } x \text{ é par} &{\color{blue}DEF de paridade}
+				\end{subproof}
+        \text{\textbf{Portanto}, se } x \text{ é par, então }, x^2 \text{ é par} &{\color{blue}PD ($l2-4$)}\\
+				\begin{subproof}
+          \text{\textbf{Assuma} que } x = 2i + 1\text{ com } i \in \mathbb{Z}, &{\color{blue}Hipótese}\\
+					\text{\textbf{logo} } x^2 = 4i^2 + 4i + 1, \text{ com } i \in \mathbb{Z} & \\
+          \text{\textbf{assim} } x^2 = 2(2i^2 + 2i) + 1, \text{ com } i \in \mathbb{Z} &{\color{blue}Reescrita}\\
+          \text{\textbf{então} } x^2 \text{ é impar} &{\color{blue}DEF de paridade}
+				\end{subproof}
+        \text{\textbf{Portanto}, se } x \text{ é ímpar, então }, x^2 \text{ é impar} &{\color{blue}PD ($l6-9$)}
+			\end{subproof}
+      \text{\textbf{Portanto}, se } x \in \mathbb{Z}, \text{então } x^2 \text{ tem a mesma paridade que } x. &{\color{blue}PPC ($l1-10$)}
+		\end{logicproof}
+	}
+\end{exemplo}
+
+\section{Outras Formas de Representação de Provas}\label{sec:OutrasFormasProvas}
+
+Durante este capítulo foram apresentadas diversas metodologias para se realizar demonstrações, e para representar as provas (demonstrações) usando tais metodologias foi empregado o uso de representação por diagrama de blocos. Este documento utilizou-se dessa representação por ela ser mais amigável ao leitor iniciante na tarefa de provar teoremas.
+
+Existem diversas outras formas de representar a demonstração de um teorema, por exemplo, o professor Thanos Tsouanas em seu livro \cite{fmcbook}, usa o conceito de tabuleiro do ``jogo''da demonstração para representar as demonstrações. Por fim, vale destacar a representação das demonstrações por meio de texto formal, que consiste basicamente em descrever a prova usando um texto utilizando o máximo de formalismo matemático possível, o exemplo a seguir ilustra a representação em texto formal.
+
+\begin{exemplo}
+	A representação por texto formal da demonstração da asserção: ``Se $n$ é par, então $n^2$ é par'', pode ser da seguinte forma.
+	\begin{proof}
+		Suponha que $n$ é par, logo $n = 2k$ para algum $k \in \mathbb{Z}$, dessa forma tem-se que $n^2 = n \cdot n = 2k \cdot 2k = 4k^2 = 2(2k^2)$, mas desde que a multiplicação e potenciação são fechadas em $\mathbb{Z}$ tem-se que existe $r \in \mathbb{Z}$ tal que $r = 2k^2$ e, portanto, $n^2 = 2r$, consequentemente,  $n^2$ é par.
+	\end{proof}
+\end{exemplo}
+
+A representação por texto formal é em geral a maneira utilizada de fato no meio acadêmico, para mais exemplos dessa representação veja \cite{valdi2016master, valdi2020phd, annax2019phd, thadeu2021phd, rui2019phd} e com texto em inglês é sugerido a leitura de \cite{vania2019phd, velleman2019comProvar}. A partir deste ponto será adotado a escrita de demonstração em texto formal, ficando assim a representação por bloco ``confinada'' as seções anteriores deste capítulo.
+
+\section{Demonstração de Suficiência e Necessidade}
+
+Na matemática (em também na computação) é comum encontrar enunciados (sejam proposições, lemas, teoremas ou propriedades de programas) da forma: ``$P$ se, e somente se, $Q$''. Provar esse tipo de enunciado consiste em  provar duas sentenças implicativas em separado, sendo elas: ``Se $P$, então $Q$'' e ``Se $Q$, então $P$''.  A primeira sentença recebe o nome de \textbf{condição suficiente}, sua prova costuma ser rotulada no texto formal da demonstração por $(\Rightarrow)$. Já a segunda implicação é nomeada como \textbf{condição necessário} e na demonstração sua prova é geralmente rotulada por $(\Leftarrow)$. A seguir serão apresentados alguns exemplos de demonstrações deste tipo.
+
+\begin{exemplo}\label{exe:ProvaIff1}
+	Considere a seguinte sentença sobre números inteiros:
+	\begin{center}
+		``$n$ é par se, e somente se, $n^2$ é par''.
+	\end{center}
+	para demonstrar tal afirmação como mencionada anteriormente é necessário provar as condições: suficiente e necessária, a seguir é apresentado como isso será feito.
+	\begin{proof}
+		$(\Rightarrow)$ A condição suficiente é trivialmente uma conclusão obtida direta do Exemplo \ref{exe:DiagramaProva23}. $(\Leftarrow)$ A prova da condição necessária foi realizada no Exemplo \ref{exe:DiagramaProva9}.
+	\end{proof}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:ProvaIff2}
+	Considere a seguinte sentença sobre números inteiros:
+	\begin{center}
+		``$x$ é divisível por $6$ se, e somente se, $x$ é divisível por $2$ e por $3$''.
+	\end{center}
+	como no exemplo anterior para demonstrar tal afirmação é preciso provar as condições, suficiente e necessária, de forma separada, e isto é feito a seguir.
+	\begin{proof}
+		$(\Rightarrow)$ Suponha que $x$ é divisível por $6$, logo existe um $i \in \mathbb{Z}$ tal que $x = 6i$, mas deste que $i$ é um inteiro podemos reescrever $x$ como $x = 2(3i)$ e $x = 3(2i)$, agora fazendo $j = 3i$ e $k = 2i$ tem-se que $x = 2j$ e $x = 3k$ e, portanto, por definição $x$ é divisível por $2$ e por $3$. $(\Leftarrow)$ Suponha que $x$ é divisível por $2$ e por $3$, ou seja, existem $i, j \in \mathbb{Z}$ tal que $x = 2i$ e $x = 3j$, mas disso tem-se que $x$ é par e assim por transitividade da igualdade $3j$ também é par, e disso pode-se concluir que $j$ é um número par (a prova disso fica como exercício ao leitor), dessa forma tem-se que $j = 2n$ para algum $n \in \mathbb{Z}$ e, assim tem-se que, $x = 3j = 3(2n) = 6n$, consequentemente, $x$ é divisível por $6$.
+	\end{proof}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:ProvaIff3}
+	Considere a seguinte sentença sobre conjuntos:
+	\begin{center}
+		``$X \cup Y \neq \emptyset$ se, e somente se, $X \neq \emptyset$ ou $Y \neq \emptyset$''.
+	\end{center}
+	como no exemplo anterior para demonstrar tal afirmação é preciso provar as condições, suficiente e necessária, de forma separada, e isto é feito a seguir.
+	\begin{proof}
+		$(\Rightarrow)$ Suponha que $X \cup Y \neq \emptyset$, logo existe um $a$ tal que $a \in X \cup Y$, mas pela definição de união tem-se que $a \in X$ ou $a \in Y$ e, portanto, $X \neq \emptyset$ ou $Y \neq \emptyset$. $(\Leftarrow)$ Trivial, ficando com exercício ao leitor.
+	\end{proof}
+\end{exemplo}
+
+\begin{nota}[Nomenclatura!]
+  Em alguns textos \cite{fmcbook, benjaLivro2010} a condição suficiente é chamada de ``ida''. Por sua vez, a condição necessária é chamada de ``volta''.
+\end{nota}
+
+\section{Refutações}
+
+Nas seções anteriores foi trabalhada a seguinte problemática: ``Dada uma asserção, prove que ela é verdadeira'', Agora este texto irá atacar a problemática inversa, ou seja, ``Dada uma asserção, prove que ela é falsa''. Resolver este tipo de problema consiste em encontrar uma refutação para a asserção.
+
+Como antes no caso da apresentação dos métodos de demonstração nas seções anteriores, este texto irá dividir a apresentação das técnicas de refutação caso a caso, entretanto, em uma ordem diferente da que foi usada para apresentar os métodos de demonstração, para se torna mais didática ao leitor iniciante.
+
+O método para conseguir \textbf{refutar uma asserção universal} consiste em encontrar um $x$ no domínio do problema para o qual a propriedade (ou afirmação) exposta pela asserção não é válida, este tipo de técnica costuma ser chamada de \textbf{refutação por contraexemplo} \cite{hammack2017}, a seguir são apresentados uma série de exemplos sobre tal técnica.
+
+\begin{nota}[Pontução é importante!]
+	Para diferenciar uma refutação de uma demonstração, será adotada nesta seção a estratégia de terminar o argumento da refutação usando o símbolo $\blacksquare$ em oposição ao símbolo do túmulo de Halmos usado ao final das demonstrações. 
+\end{nota}
+
+\begin{exemplo}\label{exe:Refutacao1}
+	Considere a asserção: $(\forall n \in \mathbb{N})[n + n > n]$.
+	
+	\begin{refute}
+		Considere $n$ sendo instanciado com valor $0$, mas é claro que $0 + 0 = 0$ e, portanto, $0$ é um contraexemplo que refuta a asserção, $(\forall n \in \mathbb{Z})[n + n > n]$.
+	\end{refute}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:Refutacao2}
+	Considere a asserção: $(\forall n \in \mathbb{Z})[n^2 -n + 11 \text{ é primo}]$.
+	
+	\begin{refute}
+		Considere $n$ sendo instanciado com valor $11$, ou seja, tem-se que $11^2 - 11 + 11 = 11^2$, agora desde que $11^2$ é divisível por $11$, tem-se que $11^2 - 11 + 11$ não é um número primo e, portanto, $n = 11$ é um contraexemplo que refuta a asserção, $(\forall n \in \mathbb{Z})[n^2 -n + 11 \text{ é primo}]$.
+	\end{refute}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:Refutacao3}
+	Considere a asserção: $(\forall A, B, C)[A - (B \cap C) = (A - B) \cap (A - C)]$.
+	
+	\begin{refute}
+		Assuma que $A = \{0, 1, 2, 3\}, B = \{0, 1\}$ e $C = \{1, 3\}$, logo tem-se que $A - (B \cap C) = \{0, 2, 3\}$, por outro lado, $(A - B) \cap (A - C) = \{2\}$, e claramente $\{0, 2, 3\} \neq \{2\}$, logo a instanciação $A = \{0, 1, 2, 3\}, B = \{0, 1\}$ e $C = \{1, 3\}$ que refuta a asserção, $(\forall A, B, C \text{ conjuntos})[A - (B \cap C) = (A - B) \cap (A - C)]$.
+	\end{refute}
+\end{exemplo}
+
+O leitor mais atento deve ter notado que refutar uma asserção universal, isto é, uma afirmação da forma $(\forall x \in X)[P(x)]$, nada mais é do que, apresentar exatamente uma instância de $x$ que prova a asserção existencial $(\exists x \in X)[\neg P(x)]$ como verdadeira.
+
+Agora o método para conseguir \textbf{refutar uma asserção existencial} consiste em mostrar que todos os $x$'s no domínio do problema são tais que não satisfazem a propriedade (ou afirmação) exposta pela asserção, em outras palavras, deve-se fazer uma demostração de universalidade sobre a negação da asserção original, neste texto tal técnica será chamada de \textbf{refutação por totalidade}, a seguir são apresentados alguns exemplos de seu uso.
+
+\begin{exemplo}\label{exe:Refutacao4}
+	Considere a seguinte asserção sobre os números reais: $(\exists x \in \mathbb{R})[x^2 + 1 \leq x]$.
+	
+	\begin{refute}
+		Primeiramente note que a negação da asserção $(\exists x \in \mathbb{R})[x^2 + 1 \leq x]$ é exatamente a asserção $(\forall x \in \mathbb{R})[x^2 + 1 > x]$. Agora assuma que $x \in \mathbb{R}$, obviamente pelas propriedades da exponenciação sabe-se que $x^2 \geq x$, além disso, é claro que $x^2 + 1 > x^2$ e, portanto, $x^2 + 1 > x$, agora desde que $x$ é um real qualquer pode-se concluir que a asserção $(\forall x \in \mathbb{R})[x^2 + 1 > x]$ é de fato verdadeira, consequentemente, sua negação é falsa, ou seja, a demonstração da universalidade de $(\forall x \in \mathbb{R})[x^2 + 1 > x]$ refuta qualquer possibilidade de que a asserção $(\exists x \in \mathbb{R})[x^2 + 1 \leq x]$ seja verdadeira.
+	\end{refute} 
+\end{exemplo}
+
+\begin{exemplo}\label{exe:Refutacao5}
+	Considere a asserção sobre os números impares\footnote{O símbolo $\mathbb{P}$ denotada o conjunto dos números inteiros pares.}: $(\exists x \in \overline{\mathbb{P}})[(\exists y \in \overline{\mathbb{P}})[x + y \notin \mathbb{P}]]$.
+	
+	\begin{refute}
+    Primeiramente note que a negação da asserção $(\exists x \in \overline{\mathbb{P}})[(\exists y \in \overline{\mathbb{P}})[x + y \notin \mathbb{P}]]$ é exatamente a asserção $(\forall x \in \overline{\mathbb{P}})[(\forall y \in \overline{\mathbb{P}})[x + y \in \mathbb{P}]]$. Agora assuma que $x \in \overline{\mathbb{P}}$ assim $x = 2i + 1$ com $i \in \mathbb{Z}$, além disso, suponha também que $y \in \overline{\mathbb{P}}$ logo $y = 2j + 1$ sendo $j \in \mathbb{Z}$, consequentemente, $x + y = 2(i + j + 1)$ fazendo $k = (i + j + 1)$ tem-se que $x + y = 2k$ e, portanto, $x + y \in \mathbb{P}$, logo a asserção $(\forall x \in \overline{\mathbb{P}})[(\forall y \in \overline{\mathbb{P}})[x + y \in \mathbb{P}]]$ é verdadeira e, dessa forma, sua demonstração refuta qualquer possibilidade da asserção $(\exists x \in \overline{\mathbb{P}})[(\exists y \in \overline{\mathbb{P}})[x + y \notin \mathbb{P}]]$ ser verdadeira.
+	\end{refute} 
+\end{exemplo}
+
+Por fim, a tarefa de refutar uma implicação (se $\alpha$, então $\beta$), consiste em assumir o antecedente como sendo verdadeiro e mostrar a partir desta suposição que a negação do consequente $\beta$ é verdadeira, em outras palavras, deve-se assumir $\alpha$ e deduzir $\neg \beta$, a seguir alguns exemplos são mostrados.
+
+\begin{exemplo}\label{exe:Refutacao6}
+	Considere a asserção: Se $x\in \mathbb{P}, y \notin \overline{\mathbb{P}}$, então $2x + 3j \in \mathbb{P}$.
+	
+	\begin{refute}
+		Suponha que $x\in \mathbb{P}$ e $y \notin \overline{\mathbb{P}}$, logo $x = 2i$ e $y = 2j + 1$, dessa forma tem-se que,
+		\begin{eqnarray*}
+			2x + 3y & = & 4i + 6j + 3\\
+			& = & 2(2i + 3j + 1) + 1
+		\end{eqnarray*}
+		agora fazendo $k = 2i + 3j + 1$ tem-se que $2x + 3y = 2k + 1$ e, portanto, $2x + 3y \in \overline{\mathbb{P}}$, consequentemente, a asserção, ``Se $x\in \mathbb{P}, y \notin \overline{\mathbb{P}}$, então $2x + 3j \in \mathbb{P}$'' é falsa.
+	\end{refute} 
+\end{exemplo}
+
+\begin{exemplo}\label{exe:Refutacao7}
+	Considere a asserção: Se $a, b \in \mathbb{N}$, então $a + a < 2ab$.
+	
+	\begin{refute}
+		Suponha que $a, b \in \mathbb{N}$, agora para um contra-exemplo note que $0$ é uma instanciação válida de $a$ nos moldes descrito pela asserção, além disso, pela instanciação $a = 0$ tem-se claramente que $a + a = 2ab$ independentemente do valor de $b$, e isto refuta a asserção ``Se $a, b \in {N}$, então $a + a < 2ab$'', mostrando que a mesma é falsa.
+	\end{refute} 
+\end{exemplo}
+
+\begin{exemplo}\label{exe:Refutacao8}
+	Considere a asserção: Se $n \in \mathbb{N}$ e $n$ é um quadrado perfeito, então $2n$ é divisível por $4$.
+	
+	\begin{refute}
+		Suponha que $n \in \mathbb{N}$ e $n$ é um quadrado perfeito, obviamente uma das instanciações para $n$ é exatamente o número natural $9$, note entretanto que $2 \cdot 9 = 18$ e $18$ não é divisível por $4$, assim a asserção ``Se $n \in \mathbb{N}$ e $n$ é um quadrado perfeito, então $2n$ é divisível por $4$'' é falsa.
+	\end{refute} 
+\end{exemplo}
+
+\section{Questionário}\label{sec:Questionario2part1}
+
+\begin{questao}\label{test:Demosntracoes1}
+	Demonstre as seguintes asserções.
+\end{questao}
+
+\begin{exerList}
+	\item Dado $a, b, \in \mathbb{R}$. Se $a < b < 0$, então $a^2 > b^2$.
+	\item Dado $a, b, \in \mathbb{R}$. Se $0 < a < b$, então $\frac{1}{b} < \frac{1}{a}$.
+	\item Dado $a \in \mathbb{R}$. Se $a^3 > a$, então $a^5 > a$.
+	\item Sejam $(A - B) \subseteq (C \cap D)$ e $x \in A$. Se $x \notin D$, então $x \in B$.
+	\item Sejam $a, b \in \mathbb{R}$. Se $a < b$, então $\frac{a + b}{2} < b$.
+	\item Dado $x \in \mathbb{R}$ e $x \neq 0$. Se $\frac{\sqrt[3]{x} + 5}{x^2 + 6} = \frac{1}{x}$, então $x \neq 8$.
+	\item Sendo $a, b, c, d \in \mathbb{R}$ com $0 < a < b$ e $d > 0$. Se $ac \geq bd$, então $c > d$.
+	\item Dado $x, y \in \mathbb{R}$ e $3x + 2y \leq 5$. Se $x > 1$, então $y < 1$.
+	\item Sejam $x, y \in \mathbb{R}$. Se $x^2 + y = -3$ e $2x - y = 2$, então $x = -1$.
+  \item Se $n \in \mathbb{Z}$ e $n \in \{x \mid 4 \leq x \leq 12, x \text{ não é primo}\}$, então $n$ é a soma de dois números primos.
+	\item Dado $n \in \mathbb{N}$. Se $n \leq 3$, então $n! \leq 2^n$.
+	\item Dado $n \in \mathbb{N}$. Se $2 \leq n \leq 4$, então $n^2 \geq 2^n$. 
+	\item Se $n$ é um inteiro par, então $n^2 - 1$ é ímpar.
+	\item Seja $n_0 \in \mathbb{N}$ e $n_1 = n_0 + 1$. Tem-se que $n_0n_1$ é par.
+	\item Se $n \in \mathbb{Z}$, então $n^2 + n$ é par.
+	\item Se $n \in \mathbb{Z}$ e $n$ é par, então $n^2$ é divisível por $4$. 
+	\item Para todo $n \in \mathbb{Z}$ o número $3(n^2 + 2n + 3) - 2n^2$ é um quadrado perfeito.
+	\item Dado $n \in \mathbb{Z}$. Se $x > 0$, então $x + 1 > 0$.
+	\item Se $n$ é ímpar, então $n$ é a diferença de dois quadrados.
+	\item Se $3n + 5 = 6k + 8$ com $k \in \mathbb{Z}$, então $n$ é ímpar.
+	\item Se $n$ é par, então $3n + 2 = 6k + 2$ com $k \in \mathbb{Z}$.
+	\item Se $x^2 + 2x - 3 = 0$, então $x \neq 2$.
+	\item Dado $n, n_0, n_1 \in \mathbb{Z}$. Se $n_0$ e $n_1$ são ambos múltiplos de $n$, então $n_0 + n_1$ é também múltiplo $n$.
+	\item Dado $x, y \in \mathbb{Z}$. Se $xy$ não é múltiplo por $n$ tal que $n \in \mathbb{Z}$, então $x + y$ é múltiplo de $n$.
+  \item Dado $m, n, p \in \mathbb{Z}$. Se $m$ é múltiplo de $n$ e $n$ é múltiplo de $p$, então $m$ é múltiplo de $p$.
+	\item Se $x$ é ímpar, então $x^2 - x$ é par.
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes2}
+	Prove que se $A$ e $(B - C)$ são disjuntos, então $(A \cap B) \subseteq C$.
+\end{questao}
+
+\begin{questao}\label{test:Demosntracoes3}
+	Prove que se $A \subseteq (B - C)$, então $A$ e $C$ são disjuntos.
+\end{questao}
+
+\begin{questao}\label{test:Demosntracoes4}
+	Dado $x \in \mathbb{R}$ prove que:
+\end{questao}
+
+\begin{exerList}
+	\item Se $x \neq 1$, então existe $y \in \mathbb{R}$ tal que $\frac{y+1}{y-2} = x$.
+	\item Se existe um $y \in \mathbb{R}$ tal que  $\frac{y+1}{y-2} = x$, então $x \neq 1$.
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes8}
+	Considere que $\mathbb{P}$ e $\overline{\mathbb{P}}$ representam respectivamente o conjunto dos números inteiros pares e ímpares, assim demonstre as seguintes asserções. 
+\end{questao}
+
+\begin{exerList}
+	\item Para todo $x, y \in \overline{\mathbb{P}}$ tem-se que $x - y \in \mathbb{P}$.
+	\item Para todo $x, y\in \mathbb{P}$ e todo $z \in \overline{\mathbb{P}}$ tem-se que $(x + y) + z \in \overline{\mathbb{P}}$.
+	\item A soma de três elementos consecutivos de $\overline{\mathbb{P}}$ é um número múltiplo de $3$.
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes9}
+	Prove que $\sqrt{3} \notin \mathbb{Q}$.
+\end{questao}
+
+\begin{questao}\label{test:Demosntracoes10}
+	Demonstre que: para todo $n \in \mathbb{Z}$, se $5n$ é ímpar, então $n$ é ímpar.
+\end{questao}
+
+\begin{questao}\label{test:Demosntracoes11}
+	Demonstre que $x^2 = 4y + 3$ não tem solução inteira.
+\end{questao}
+
+\begin{questao}\label{test:Demosntracoes12}
+	Prove que todo número primo maior que $3$ é igual a $6k+1$ ou igual a $6k-1$.
+\end{questao}
+
+\begin{questao}\label{test:Demosntracoes13}
+	Considerando o conjunto dos números inteiros demonstre as seguintes asserções.
+\end{questao}
+
+\begin{exerList}
+	\item Para todo $x, y, z$ se $x$ divide $y$ e $x$ divide $z$, então $x$ divide $y + c$.
+	\item Para todo $x, y, z$ se $xy$ divide $yz$ e $z \neq 0$, então $x$ divide $y$.
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes14}
+	Considerando o conjunto $ \mathbb{R}$ como universo do discurso demonstre as asserções a seguir:
+\end{questao}
+
+\begin{exerList}
+	\item $(\forall x)[(\exists ! y)[x^2y = x - y]]$.
+	\item $(\exists ! x)[(\forall y)[xy + x - 4 = 4y]]$.
+	\item $(\forall x)[x \neq 0 \land x \neq 1 \Rightarrow (\exists! y)[\frac{y}{x} = y-x]]$.
+	\item $(\forall x)[x \neq 0 \Rightarrow (\exists ! y)[(\forall z)[zy = \frac{z}{x}]]]$
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes15}
+	Seja $\mathbb{U}$ um conjunto qualquer, demonstre as seguintes asserções:
+\end{questao}
+
+\begin{exerList}
+	\item $(\exists! A \in \wp(U))[(\forall B \in \wp(U))[A \cup B = B]]$.
+	\item $(\exists! A \in \wp(U))[(\forall B \in \wp(U))[A \cap B = B]]$.
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes16}
+	Demonstre as condições suficientes e necessárias das asserções a seguir.
+\end{questao}
+
+\begin{exerList}
+	\item Dado $x \in \mathbb{Z}$ tem-se que $x$ é par se, e somente se, $3x + 5$ é impar.
+	\item Dado $x \in \mathbb{Z}$ tem-se que $x$ é impar se, e somente se, $3x + 9$ é par.
+	\item Dado $x \in \mathbb{Z}$ tem-se que $x^3 + x^2 + x$ é par se, e somente se, $x$ é par.
+	\item Dado $x \in \mathbb{Z}$ tem-se que $x^2 + 4x + 5$ é impar se, e somente se, $x$ é impar.
+	\item Seja $x \in \mathbb{N}$ tem-se que $x$ é impar se, e somente se, $x^3$ é impar.
+	\item Sejam $x, y \in \mathbb{R}$ tem-se que $x^3 + x^2y = y^2 + xy$ se, e somente se, $y = x^2$ ou $y = -x$.
+	\item Sejam $x, y \in \mathbb{R}$ tem-se que $(x + y)^2 = x^2 + y^2$ se, e somente se, $x + y = x$ ou $x + y = y$.
+	\item Dado $x \in \mathbb{Z}$ tem-se que $x$ é múltiplo de $16$ se, e somente se, $x$ é múltiplo de $2, 4, 8$ e seu dobro é múltiplo de $32$.
+	\item Sejam $x, y \in \mathbb{Z}$ tem-se que $x = mdc(x, y)$ se, e somente se, $y = xn$ para algum $n \in \mathbb{Z}$.
+	\item Sejam $x, y \in \mathbb{Z}$ tem-se que $y = mmc(x, y)$ se, e somente se, $y$ é múltiplo de $x = yn$ para algum $n \in \mathbb{Z}$.
+\end{exerList}
+
+\begin{questao}\label{test:Demosntracoes17}
+	Para cada asserção a seguir apresente uma demonstração (no caso da asserção ser verdadeira) ou uma refutação (no caso da asserção ser falsa).
+\end{questao}
+
+\begin{exerList}
+	\item Se $x, y \in \mathbb{R}$, então $|x + y| = |x| + |y|$.
+	\item Existe $x \in \mathbb{R}$ tal que $|x| = |\sqrt{x}|$.
+	\item Se $n \in \mathbb{Z}$ e $n^5 - n$ é par, então $n$ é par.
+	\item Para todo natural $n$, o inteiro da forma $2n^2 -4n + 31$ é primo.
+	\item Para todo natural $n_1$ e $n_2$ primos, o inteiro da forma $2n_1 + (n_2 - 1) + 1$ é impar.
+	\item Não existe nenhum número inteiro $n$ tal que $2n^2 - 1$ seja par.
+	%\item Se $A, B, C$ e $D$ conjuntos quaisquer, então $(A \times B) \cup (C \times D) = (A \cup C) \times (B \cup D)$.
+	%\item Se $A, B, C$ e $D$ conjuntos quaisquer, então $(A \times B) \cap (C \times D) = (A \cap C) \times (B \cap D)$.
+	%\item Se $A, B$ e $C$ são conjuntos quaisquer e $(A \times C) = (C \times B)$, então $A = B = C$.
+	\item Se $A$ e $B$ são conjuntos quaisquer, então $\wp(A) - \wp(B) \subseteq \wp(A - B)$.
+	\item Se $A$ e $B$ são conjuntos quaisquer e $A \cap B = \emptyset$, então $\wp(A) - \wp(B) \subseteq \wp(A - B)$.
+	%\item Se $A$ e $B$ são conjuntos quaisquer e $(A \times C) = (C \times B)$, então $\wp(A) \cap \wp(B) \subseteq \wp(A \cap B)$.
+	\item Se $x, y, z \in \mathbb{N}$ tal que $xy, yz$ e $xz$ tem a mesma paridade, então $x, y, z \in \mathbb{P}$ ou $x, y, z \in \overline{\mathbb{P}}$.
+	\item Existe um conjunto $X \subseteq \mathbb{Z}$ tal que $X \cap \mathbb{N} \neq \emptyset$ mas $X \not\subseteq \mathbb{N}$.
+	\item Existe um conjunto $X$ tal que $\mathbb{R} \subseteq X$ e $\emptyset \in X$.
+	\item Existem dois conjuntos $X_1$ e $X_2$ com $X_1 \neq X_2, X_1 \neq \emptyset$ e $X_2 \neq \emptyset$ tal que $\mathbb{Z}_+ \subseteq X_1 \cap X_2$ mas $\mathbb{Z} \not\subseteq X_1 \cup X_2$.
+	\item Para todo $x, y \in \mathbb{Q}$ com $x < y$, existe um número irracional $z$ para o qual $x < z < y$.
+	\item Existe um natural $n$ tal que $\sqrt{n + 1} = p$ e $p$ é primo.
+	\item Existem dois números primos $p_1$ e $p_2$ tal que $p_1 + p_2 = 53$.
+	\item Existem dois números primos $p_1$ e $p_2$ tal que $p_1 - p_2 = 1000$.
+	\item Existem dois números primos $p_1$ e $p_2$ tal que $p_1 - p_2 = 97$.
+	\item Existem dois números primos $p_1$ e $p_2$ tal que $p_1 < p_2$ e $2p_1 + p_2^2$ é impar.
+	\item Dado $x, y \in \mathbb{R}$, se $x^3 < y^3$, então $x < y$.
+	\item Para todo $x \in \mathbb{R}$ tem-se que $2^x \geq x + 1$.
+	\item Existem $x, y \in \mathbb{Z}$ tal que $42x + 7y = 1$.
+	\item Se existe $x \in \mathbb{N}$ para todo $y \in \mathbb{N}$ tal que $x - y \in \mathbb{Z}$ e $x - y \notin \mathbb{N}$, então $x = 0$.
+\end{exerList}
+
+
+
+

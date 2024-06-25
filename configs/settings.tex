@@ -1,0 +1,94 @@
+%---------------------------------------------------------------------------------------
+%	Configuração para estilo matemático
+%---------------------------------------------------------------------------------------
+\everymath{\displaystyle}
+
+%---------------------------------------------------------------------------------------
+%	Configuração do pacote Epigraph
+%---------------------------------------------------------------------------------------
+\setlength\epigraphrule{1pt}
+%\renewcommand\textflush{flushright}
+\renewcommand\epigraphsize{\normalsize\itshape}
+
+%---------------------------------------------------------------------------------------
+%	Configuração do pacote setspace (espaçamento entre as linhas do texot)
+%---------------------------------------------------------------------------------------
+%\setstretch{1.5}
+
+%---------------------------------------------------------------------------------------
+%	Configuração do pacote Hyperref
+%---------------------------------------------------------------------------------------
+\hypersetup{
+	% show Acrobat’s toolbar?
+	pdftoolbar=true, 
+	% show Acrobat’s menu?       
+	pdfmenubar=true, 
+	% window fit to page when opened       
+	pdffitwindow=false,
+	% fits the width of the page to the window   
+	pdfstartview={FitH},
+	% title
+	pdftitle={Fundamentos da Computação: Lógica},
+	 % author
+	pdfauthor={Valdigleis S Costa}, 
+	% list of keywords
+	pdfkeywords={Lógica, Computação}, 
+	% links in new PDF window
+	pdfnewwindow=true, 
+	 % false: boxed links; true: colored links
+	colorlinks=true, 
+	% color of internal links      
+	linkcolor=NordFrost4,
+	% color of links to bibliography       
+	citecolor=greenRef,
+	% color of file links     
+	filecolor=cyan,    
+	% color of external links     
+	urlcolor=NordAurora1
+}
+
+%---------------------------------------------------------------------------------------
+%	Configuração do ambiente para códigos C usado no pacote listings
+%---------------------------------------------------------------------------------------
+\lstdefinestyle{Cstyle}{
+	backgroundcolor=\color{black!5},   
+	commentstyle=\color{magenta},
+	keywordstyle=\color{blue},
+	numberstyle=\tiny\color{black},
+	stringstyle=\color{purple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=false,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=1,
+	language=C
+}
+
+%---------------------------------------------------------------------------------------
+%	Configuração do ambiente para códigos Haskell usado no pacote listings
+%---------------------------------------------------------------------------------------
+\lstdefinestyle{Hstyle}{
+	backgroundcolor=\color{black!5},   
+	commentstyle=\color{purple},
+  keywordstyle=\color{cyan},
+	numberstyle=\tiny\color{black},
+	stringstyle=\color{teal},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=false,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=1,
+	language=Haskell
+}

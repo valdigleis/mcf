@@ -1,0 +1,1044 @@
+% Teoria dos conjuntos
+\chapter{Conjuntos}\label{cap:Sets}
+
+\epigraph{``-Comece pelo começo'', disse o Rei de maneira severa,\\ ``-E continue até chegar ao fim, então pare!''}{Lewis Carroll, Alice no País das Maravilhas.}
+
+\section{Sobre conjuntos e elementos}\label{sec:ConjuntoElemento}
+
+A ideia de conjunto é provavelmente o conceito mais fundamental compartilhado pelos mais diversos ramos da matemática. O primeiro grande estudioso que apresentou um relativo sucesso na missão de formalizar o conceito de conjunto, foi o matemático alemão George Cantor (1845-1918), em seu seminal trabalho \cite{cantor1895}. Cantor apresentou as bases para o que hoje é chamada de teoria ingênua dos conjuntos. A seguir será apresentada uma tradução não literal da definição original de Cantor.
+
+\begin{definicao}[Formalização por Cantor]\label{def:Cantor}
+  Um \textbf{conjunto} $A$ é uma \textbf{coleção} em uma totalidade $\mathbb{U}$ de \textbf{objetos} distintos e bem-definidos $n$ que são parte da nossa percepção ou pensamento, tais objetos são chamados de \textbf{elementos} de $A$.
+\end{definicao}
+
+Agora note que a definição apresentada por Cantor distingue conjuntos e elementos como sendo objetos diferentes, e assim, a teoria dos conjuntos de cantor não tem um único objeto fundamental, mas dois, sendo eles, os conjuntos e os elementos. Além disso, a Definição \ref{def:Cantor} possui a exigência sobre dois aspectos da natureza dos elementos em um conjunto, a saber:  (1) Os elementos devem ser distintos entre si\footnote{Em um conjunto não é permitido a repetição de elementos.} e (2) eles (os elementos) devem ser bem-definidos.
+
+A definição de Cantor permite que sejam criados conjuntos com qualquer coisa que o indivíduo racional possa pensar ou perceber pelos seus sentidos. Agora, entretanto, deve-se questionar o que significa dizer que algo é bem-definido? Uma resposta satisfatória para essa perguntar é dizer que algo é bem-definido se esse algo pode ser descrito sem ambiguidades.
+
+É claro que qualquer coisa pode ser descrita a partir de suas propriedades, isto é, por suas características (ou atributos). Sendo que essas propriedades sempre podem ser verificadas pelos sentidos no caso de objetos físicos, e sempre se pode pensar e argumentar sobre elas no caso de objetos abstratos. Assim pode-se modificar um pouco a definição de Cantor para a forma apresentada a seguir.
+
+\begin{definicao}[Definição de Cantor Modificada]\label{def:CantorModificada}
+  Um \textbf{conjunto} $A$ é uma \textbf{coleção} numa totalidade $\mathbb{U}$ de certos \textbf{objetos} $n$ distintos, que satisfazem certas propriedades, tais objetos são chamados de \textbf{elementos} de $A$.
+\end{definicao}
+
+Note que a Definição \ref{def:CantorModificada} permite concluir que um conjunto seja o agrupamento de entidades (os elementos) que satisfazem certas propriedades, ou ainda que, as propriedades definem os conjuntos. Prosseguindo nesse texto serão apresentadas as convenções da \textbf{teoria ingênua dos conjuntos} de forma usual, mas com um olhar de computação, isto é, apresentado os aspectos sintáticos e semânticos da teoria. 
+
+\begin{nota}[Nomenclatura.]\label{note:NomeclaturaDiscurso}
+  É também muito comum em diversos textos, tais como \cite{carmo2013} e \cite{lipschutz1978-TC}, empregar termos como, {\bf discurso}, {\bf universo} ou {\bf universo de estudo}, em vez de usar o termo {\bf totalidade} encontrado nas Definições \ref{def:Cantor} e \ref{def:CantorModificada}, ao se especificar um conjunto. Neste texto sempre que necessário será adotado o uso de {\bf discurso}.
+\end{nota}
+
+Prosseguindo com este documento, o primeiro passo será a apresentação da teoria dos conjuntos, é interessante notar que nas Definições \ref{def:Cantor} e \ref{def:CantorModificada}, o objeto conjunto foi nomeado de forma arbitrária como $A$ o discurso como $\mathbb{U}$ e os elementos como $n$, mas por qual razão foi usado isto? Essa estratégia é usado comumente na matemática, e a ideia por trás é atribuir a um objeto um ``apelido'', a seguir será formalizado esta ideia de forma mais precisa.
+
+\begin{definicao}[Rótulo para conjuntos]\label{def:RotuloConjunto}
+	Palavras (com ou sem indexação) formadas apenas por letras maiúsculas do alfabeto latino serão usadas como rótulos\footnote{Aqui o leitor pode entender rótulo por um apelido dado ao conjunto.} que representam conjuntos.
+\end{definicao}
+
+A ideia de dar um rótulo ao conjunto se faz necessário visto o grande trabalho de escrita e leitura caso isso não fosse feito. Para ilustar considere a situação de que fosse necessário sempre se referir, por exemplo, ao \textbf{conjunto de todas as pessoas que moram em recife, mas que não são brasileiras com mais 40 anos e possuem dois filhos}. Ficar escrevendo sobre esse conjunto, seria altamente desgastante, assim não seria prático, dessa forma, é conveniente o uso de rótulos, isto é, a simbologia matemática, para torna texto e explicações mais dinâmicas. Os exemplos a seguir esboçam bem a ideia do uso de rótulos para designar conjuntos.
+
+\begin{exemplo}\label{exe:RotuloConjunto1}
+  O conjunto de todas as pessoas que moram em recife, mas que não são brasileiras com mais 40 anos e possuem dois filhos, pode ser denotado simplesmente por $PE_{40}$, ou qualquer outra palavra nos padrões estabelecidos pela Definição \ref{def:RotuloConjunto}.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:RotuloConjunto2}
+	O conjunto de todos os vizinhos da casa de número 4 pode ser representado por $VIZINHOS_4$, $VIZINHOS_{Casa_4}$, ou simplesmente  $V_4$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:RotuloConjunto3}
+  O Conjunto de todos os primos de Ana pode ser representado por $A_{primos}$, $ANA_{p}$ ou ainda $A_p$.
+\end{exemplo}
+
+Em diversas situações ao se trabalhar com conjuntos, como as apresentadas no capítulo inicial de \cite{lipschutz1978-TC}, é necessário descrever um conjunto não por seu apelido (ou nome\footnote{No caso dos conjuntos numérico note que eles possuem nomes próprios, sendo: Naturais, Inteiros, Reais e etc. Sendo que o ``apelido'' para tais conjuntos são respectivamente os símbolos $\mathbb{N}, \mathbb{Z}$ e $\mathbb{R}$, tais símbolos funcionam como {\bf palavras reservadas} dentro da teoria ingênua dos conjuntos, além dos conjuntos numéricos, o conjunto vazio também possui seu rótulo, sendo tal rótulo o símbolo $\emptyset$.}), mas sim apresentando uma forma que descreva o conjunto de forma precisa e curta, seja listando (geralmente entre chaves e separados por vírgula) os elementos que juntos formam o referido conjunto, ou através da descrição da propriedade que descreve o conjunto, esta forma de representação costuma ser chamada representação compacta\footnote{Em outra obras como dito \cite{fmcbook} na notação compacta é chamada de \itshape{Set builder}.}.
+
+\begin{exemplo}\label{exe:SetBuilder1}
+  O conjunto dos números naturais\footnote{Neste documento em virtude da formação acadêmica de seu autor, o número zero $(0)$ é um número natural, esse ponto é discutível em outras obras.} menores que 10 é escrito na notação compacta como  $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$, Já o conjunto dos naturais menores que 5 e maiores que 3 pode ser escrito usando a notação compacta como $\{x \mid 3 < x < 5\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:SetBuilder2}
+  A seguir são apresentados algumas instâncias de conjuntos não numéricos.
+  \begin{itemize}
+    \item[(a)] $\{\spadesuit, \clubsuit, {\color{red} \heartsuit, \lozenge}\}$.
+    \item[(b)] $\{{\footnotesize \dice{2}, \dice{3}, \dice{5}}\}$.
+    \item[(c)] $\{\mbox{Flamengo, Fluminense, Palmeiras, São Paulo}\}$.
+    \item[(d)] $\{5, a, {\footnotesize\dice{4}}, \{\spadesuit, \clubsuit\}\}$.
+    \item[(e)] $\{\text{Valdigleis}, \mathbb{C}, \{\bullet, {\color{blue}\bullet}\}, \{{\footnotesize\dice{6}} \}\}$
+  \end{itemize}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:SetBuilder3}
+  O conjunto de todos inteiros múltiplos de $5$ em notação compacta pode ser representado como $\{x \mid x = 5y, \text{ sendo $y$ um número inteiro}\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:SetBuilder4}
+  O conjunto de números naturais maiores que 2 e menores que 13 pode ser representado como  $\{x \mid 3 \leq x \leq 12\}$.
+\end{exemplo}
+
+\begin{nota}[Captura de variáveis.]\label{note:DummyEmConjunto}
+  Muitas vezes\footnote{Em especial quando se descreve conjuntos infinitos.} na notação compacta é necessário o uso de variáveis para descrever um conjunto, essas variáveis usadas tem a função de serem objetos ``\textit{dummy}'' do conjunto\footnote{Aqui o termo \textit{dummy} tem sentido similar ao encontrado em teoria das linguagens de programação, ou seja, entidades ou variáveis fictícias.}. Assim variáveis à esquerda do símbolo ``$\mid$'' podem ser trocadas por qualquer variável que não ocorre livre no lado direito de ``$\mid$''. Tome como exemplo o conjunto, 
+  \begin{eqnarray*}
+    \{{\color{red}x} \mid {\color{red}x} = 5 + 2y\}
+  \end{eqnarray*}
+  em tal conjunto, a variável $x$ pode ser substituída pela variável $z$ sem qualquer perda, ficando então com,
+  \begin{eqnarray*}
+    \{{\color{red}z} \mid {\color{red}z} = 5 + 2y\}
+  \end{eqnarray*}
+  note porém contudo que se $x$ fosse possível substituir $x$ por $y$ o conjunto então seria
+  \begin{eqnarray*}
+    \{{\color{red}y} \mid {\color{red}y} = 5 + 2{\color{red}y}\}
+  \end{eqnarray*}
+  o que seria absurdo por dois motivos, o primeiro é obviamente $y$ não pode ser igual a $5 + 2y$, além disso, o $y$ que era livre no conjunto tornou-se ligado ao conjunto, assim a referência ao $y$ original do lado direito de $\mid$ não pode ser mais recuperado.
+\end{nota}
+
+Para prosseguir, é interessante notar que nos itens ``a'', ``b'' e ``c'' apresentado no Exemplo \ref{exe:SetBuilder2}, os elementos no conjunto têm a mesma natureza (ou tipo), por outro lado, os itens ``d'' e ``e'' apresentam a propriedade dos elementos no conjunto serem de tipos diferentes. 
+
+No primeiro caso, quando todos os elementos têm o mesmo tipo\footnote{Tipo aqui pode ser interpretado como um segmentar os elementos do conjunto em diferentes ``espécies'', não faz menção a área de matemática chamada teoria dos tipos \cite{nederpelt2014}.}, é dito que o conjunto é \textbf{homogêneo}. Já no segundo caso, ou seja, quando os elementos no conjunto possuem tipos diferentes, é dito que o conjunto é \textbf{heterogêneo}. A seguir, mais exemplos são apresentados deste conceito.
+
+\begin{exemplo}\label{exe:ConjuntoHomogeneo1}
+  A seguir alguns conjuntos homogêneos, 
+  \begin{itemize}
+    \item[(a)] $\{10, 20, 30, 40, 50\}$.
+    \item[(b)] $\{1, 2, 3, 4, 5\}$.
+    \item[(c)] $\{a, b, c, d, e\}$.
+  \end{itemize}
+\end{exemplo}
+
+\begin{exemplo}\label{exe¨ConjuntoHeterogeneo1}
+  Os conjuntos a seguir são todos heterogêneos,
+  \begin{itemize}
+    \item[(a)] $\{A, 10, \clubsuit, \bullet\}$.
+    \item[(b)] $\{\text{azul, vermelho, amarelo}, \sqrt{2\pi}\}$.
+    \item[(c)] $\{x, y, z, 1.27, \text{Linux, Darwin, DOS}\}$.
+  \end{itemize}
+\end{exemplo}
+
+\section{Pertinência, Inclusão e Igualdade}\label{sec:RelacoesFundamentais}
+
+Em matemática ao se apresentar qualquer novo tipo de objeto é importante apresentar as interfaces\footnote{Aqui interfaces diz respeito aos mecanismos que permitem a interação entre os objetos matemáticos.} que são ``\textit{executadas}'' sobre esse novo tipo de objeto, assim esta seção irá se dedicar a apresentar as três relações fundamentais sobre conjuntos, e algumas delas derivadas. 
+
+A primeira das interfaces para o conceito de conjunto que será aqui expressa é a pertinência, esta sendo representado pelo símbolo $\in$. A pertinência é a interface que funciona provocando a interação entre um elemento do discurso e um conjunto, a seguir é apresentado formalmente o conceito de pertinência.
+
+\begin{definicao}[Pertinência]\label{def:Pertinencia}
+  Seja $A$ um conjunto definido sobre um discurso $\mathbb{U}$ por uma propriedade $\textbf{P}$ e seja $x$ um elemento do discurso. Se o elemento $x$ possui (ou satisfaz) a propriedade $\textbf{P}$, então é dito que $x$ pertence a $A$, denotado por $x \in A$.
+\end{definicao}
+
+Assim note que a Definição \ref{def:Pertinencia} estabelece que, ao usar a pertinência é sempre escrito uma palavra da linguagem da teoria dos conjuntos tendo esta palavra a forma:
+\begin{eqnarray*}
+  {\color{red}\rule{1cm}{0.4pt}} & \in & {\color{blue}\rule{1cm}{0.4pt}} 
+\end{eqnarray*}
+o espaço em {\color{red}vermelho} deve ser ocupado por elemento concreto do discurso ou por um símbolo de variável (um \textit{dummy}) que represente os elementos no discurso. Já o espaço em {\color{blue}azul} deve ser ocupado por alguma representação de um conjunto, seja o rótulo ou a forma compacta do conjunto.
+
+%\begin{nota}[Sobre o oposto de pertencer]\label{note:NaoPertinencia}
+%  A partir da relação de pertinência surge uma relação derivada, nomeada como não pertinência, tal relação é denotada como $\notin$, e como seu nome ja sugere sua definição é exatamente a negação da pertinência. Em termos de sintaxe ela é expressa exatamente como a pertinência, alterando obviamente o símbolo $\in$ para o símbolo $\notin$.
+%\end{nota}
+
+A relação de pertinência é central para a definição de outras relações dentro da teoria dos conjuntos\footnote{Dual a própria relação de pertinência existe a não pertinência $\notin$, definida formalmente como sendo a negação da relação de pertinência.}, o que permite enxergar a relação de pertinência como um dos pilares fundamentais da teoria. Um exemplo desta característica fundamental da pertinência no desenvolvimento de outras relações, é seu uso para definir a relação de inclusão apresentada à seguir.
+
+\begin{definicao}[Relação de inclusão]\label{def:InclusaoConjuntos}
+  \cite{lipschutz1978-TC} Dado dois conjuntos $A$ e $B$ quaisquer, é dito que $A$ é subconjunto de (ou está incluso\footnote{Dualmente a relação de inclusão existe sua negação, isto é, a relação de não inclusão denotada por $\not\subseteq$.} em) $B$, denotado por $A \subseteq B$, quando todo $x \in A$ é tal que $x \in B$.
+\end{definicao}
+
+Note que a Definição \ref{def:InclusaoConjuntos} estabelece a escrita,
+\begin{eqnarray*}
+  {\color{red}\rule{1cm}{0.4pt}} & \subseteq & {\color{red}\rule{1cm}{0.4pt}} 
+\end{eqnarray*}
+onde os espaços em {\color{red}vermelho} devem ser preenchidos com rótulos de conjuntos ou com a representação compacta, a seguir são apresentados usos da relação de inclusão.
+
+\begin{exemplo}\label{exe:InclusaoConjuntos1}
+  Dado o conjunto $\mathbb{Z}$ tem-se que o conjunto,  
+  $$N = \{x \mid x = 2k \mbox{ para algum } k \in \mathbb{Z}\}$$ 
+  é claramente um subconjunto de $\mathbb{Z}$, pois todo número par é também um número inteiro.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:InclusaoConjuntos2}
+  As seguintes relações de inclusão se verificam:
+	\begin{itemize}
+		\item[(a)] $\{a, e, u\} \subseteq \{a, e, o, i , u\}$.
+		\item[(b)] $\{x \mid x \mbox{ é uma cidade do PE}\} \subseteq \{x \mid x \mbox{ é uma cidade do Brasil}\}$.
+		\item[(c)] $\{x \mid x = 2k \mbox{ para algum } k \in \mathbb{N}\} \subseteq \mathbb{N}$.
+		\item[(d)] $\{\mbox{Brasil}\} \subseteq \{x \mid x \mbox{ é um país do continente americano}\}$
+	\end{itemize}
+\end{exemplo}
+
+É fácil notar que a inclusão estabelece que um conjunto $A$ está incluso em outro conjunto $B$ sempre que $B$ contém todos os elementos de $A$, assim é claro que todo conjunto é subconjunto (ou seja está incluso) de si mesmo. Além disso, existem a possibilidade de $A$ ser subconjunto de $B$, porém, pode acontecer de $B$ conter elementos que não estejam em $A$, nesse cenário é dito que $A$ é um subconjunto próprio de $B$, e isto é expresso pela palavra $A \subset B$. 
+
+\begin{exemplo}\label{exe:InclusaoPropria1}
+	As seguintes relações de inclusão se verificam:
+	\begin{itemize}
+		\item[(a)] $\{1, 2\} \subset \mathbb{R}$.
+		\item[(b)] $\{x \mid x \mbox{ é uma cidade do PE}\} \subset \{x \mid x \mbox{ é uma cidade do Brasil}\}$.
+		\item[(c)] $\mathbb{Z}^+ \subset \mathbb{Z}$.
+	\end{itemize}
+\end{exemplo}
+
+Uma propriedade interessante sobre a inclusão é que o conjunto vazio está incluso, ou seja, é subconjunto, de qualquer outro conjunto existente.
+
+\begin{teorema}\label{teo:ConjuntoVazioSubDeTodos}
+	Para todo conjunto $A$ tem-se que $\emptyset \subseteq A$.
+\end{teorema}
+
+\begin{proof}
+	Suponha por absurdo que existe um conjunto $A$ tal que $\emptyset \not\subseteq A$, assim por definição  existe pelo menos um $x \in \emptyset$ tal que $x \notin A$, mas isto é um absurdo já que o vazio não possui elementos e, portanto, a afirmação que $\emptyset \not\subseteq A$ é falsa, logo, $\emptyset \subseteq A$ é uma asserção verdadeira para qualquer que seja o $A$.
+\end{proof}
+
+\begin{nota}[Pegando a dica sobre demonstrações.]
+  Neste documento ao final das demonstrações será sempre colocado o símbolo $\Box$, tal símbolo é conhecido como túmulo de Halmos\footnote{Em inglês esse símbolo é conhecido como \textit{tombstone}, e tal símbolo foi usado para marcar o final de uma demonstração inicialmente pelo matemático Paul Halmos (1916-2006).}, este símbolo será usado para substituir a notação q.e.d. (``\textit{quod erat demonstrandum}'') usando por outras fontes bibliográficas para marcar o ponto de finalização de uma demonstração. 
+\end{nota}
+
+\begin{dica}[É sempre bom lembrar!]\label{tips:SobreInclusaoConjunto}
+ É sempre bom lembrar que quando $A \subset B$, então é verdade que $A \subseteq B$. Mas o oposto não é verdade, basta lembrar que todo conjunto é subconjunto de se próprio, mas não pode ser subconjunto próprio.
+\end{dica}
+
+Usando a ideia de subconjunto pode-se como apresentado na literatura em obras como \cite{abe1991-TC, halmos2001, lipschutz1978-TC} introduzir a ideia de igualdade entre conjuntos, esta noção é apresentada formalmente como se segue.
+
+\begin{definicao}\label{def:IgualdadeConjuntos}
+  \cite{abe1991-TC} Dois conjuntos $A$ e $B$ são iguais, denotado por $A = B$, se e somente se, $A \subseteq B$ e $B \subseteq A$.
+\end{definicao}
+
+\begin{teorema}[Teorema da igualdade]
+	Sejam $A, B$ e $C$ conjuntos quaisquer. Tem-se que:
+	\begin{enumerate}
+		\item $A = A$.
+		\item Se $A = B$, então $B = A$.
+		\item Se $A = B$ e $B = C$, então $A = C$.
+	\end{enumerate}
+\end{teorema}
+
+Agora que foi apresentada a relação fundamental de pertinência, e as relação de inclusão e igualdade dela derivadas, pode-se agora prosseguir com este documento apresentando as operações básicas sobre conjuntos.
+
+\section{Operações sobre conjuntos}\label{sec:OperacaoSobreConjuntos}
+
+A organização com que está seção do documento irá apresentar as operações sobre conjuntos é a apresentada em \cite{lipschutz2013-MD}.
+
+\begin{definicao}[União de conjuntos]\label{def:UniaoConjuntos}
+  Sejam $A$ e $B$ dois conjuntos quaisquer, a união de $A$ com $B$, denotada por $A \cup B$, corresponde ao seguinte conjunto.
+  \begin{eqnarray*}
+    A \cup B = \{x \mid x \in A \mbox{ ou } x \in B\}
+  \end{eqnarray*}
+\end{definicao}
+
+\begin{exemplo}\label{exe:UniaoConjuntos1}
+  Dados os dois conjuntos $A = \{x \in \mathbb{N} \mid x = 2i \mbox{ para algum } i \in \mathbb{N}\}$ e $B = \{x \in \mathbb{N} \mid x = 2j + 1 \mbox{ para algum } j \in \mathbb{N}\}$ tem-se que $A \cup B = \mathbb{N}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:UniaoConjuntos2}
+  Seja $N = \{1, 2, 3, 6\}$ e $L = \{4, 6\}$ tem-se que $N \cup L = \{1, 4, 6, 3, 2\}$.
+\end{exemplo}
+
+Como apontado em \cite{lipschutz1978-TC} alguns livros usam a notação $A + B$ para representar a união, é comum nesse caso não usar a nomenclatura união, em vez disso, é usado o termo soma de conjunto, entretanto, trata-se da mesma operação de união apresentada na definição anterior. Além disso, existe uma outra forma de união, chamada união de disjunta, em que é produzido um novo conjunto que contém copias dos conjuntos bases da união, e em que os elementos do conjunto produzido por essa união apresentam um ``codigo\footnote{Em alguns textos como em \cite{carmo2013}, é usado o termo chave em vez de código.}'' que identifica de qual conjunto base o elemento veio, ainda não é possível formalizar este conceito de união disjunta neste capítulo, entretanto o mesmo será formalizado em capítulos futuros.
+
+\begin{definicao}[Interseção de conjuntos]\label{def:IntersecaoConjuntos}
+	Sejam $A$ e $B$ dois conjuntos quaisquer, a interseção de $A$ com $B$, denotada por $A \cap B$, corresponde ao seguinte conjunto.
+  \begin{eqnarray*}
+    A \cap B = \{x \mid x \in A \mbox{ e } x \in B\}
+  \end{eqnarray*}
+\end{definicao}
+
+A seguir são apresentados alguns exemplo da operação de interseção de conjuntos.
+
+\begin{exemplo}\label{exe:IntersecaoConjuntos1}
+  Seja $A = \{1, 2, 3\}, B = \{2, 3, 4, 5\}$ e $C = \{5\}$ tem-se que:
+	\begin{itemize}
+		\item[(a)] $A \cap B = \{2, 3\}$.
+		\item[(b)] $A \cap C = \emptyset$.
+		\item[(c)] $B \cap C = \{5\}$.
+	\end{itemize}
+\end{exemplo}
+
+\begin{exemplo}\label{exe:IntersecaoConjuntos2}
+  Dado $A_1 = \{x \in \mathbb{N} \mid x \mbox{ é múltiplo de } 2\}$ e $A_2 = \{x \in \mathbb{N} \mid x \mbox{ é múltiplo de } 3\}$ tem-se que $A_1 \cap A_2 = \{x \in \mathbb{N} \mid x \mbox{ é múltiplo de } 6\}$.
+\end{exemplo}
+
+Com respeito as propriedades equacionais das operações de união e interseção tem-se como exposto em \cite{lipschutz2013-MD} os seguintes resultados para qualquer três conjuntos $A, B$ e $C$.
+
+\begin{table}[h]
+	\centering
+	\scriptsize
+	\begin{tabular}{lll}
+		\hline
+		Propriedade & União & Interseção\\
+		\hline
+    $(p_1)$ Idempotência &  $A \cup A = A$ & $A \cap A = A$\\
+		$(p_2)$ Comutatividade & $A \cup B = B \cup A$ & $A \cap B = B \cap A$\\
+		$(p_3)$ Associatividade & $A \cup (B \cup C) = (A \cup B) \cup C$ & $A \cap (B \cap C) = (A \cap B) \cap C$\\
+		$(p_4)$ Distributividade & $A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$ & $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$\\
+		$(p_5)$ Neutralidade &  $A \cup \emptyset = A$ & $A \cap \mathbb{U} = A$\\
+		$(p_6)$ Absorção & $A \cup \mathbb{U} = \mathbb{U}$ & $A \cap \emptyset = \emptyset$\\
+		\hline
+	\end{tabular}
+	\caption{Tabela das propriedades das operações de união e interseção.}
+	\label{tab:PropriedadesUniaoIntersecao}
+\end{table}
+
+\begin{dica}[Referenciando propriedades]\label{tips:Apelidos}
+  Os verbetes $p_1, p_2, p_3, p_4, p_5$ e $p_6$ expressos na Tabela \ref{tab:PropriedadesUniaoIntersecao} são rótulos para referenciar as respectivas propriedades apresentadas no decorrer deste documento.
+\end{dica}
+
+Além das propriedades apresentadas pela Tabela \ref{tab:PropriedadesUniaoIntersecao}, a união e a interseção possuem propriedades ligadas a relação de inclusão.
+
+\begin{teorema}\label{teo:MonotonicidadeDaUniaoIntersecao}
+	Para quaisquer conjuntos $A$ e $B$ tem-se que:
+	\begin{itemize}
+		\item[i.] $A \subseteq (A \cup B)$.
+		\item[ii.] $(A \cap B) \subseteq A$
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	Direta das Definições \ref{def:InclusaoConjuntos}, \ref{def:UniaoConjuntos} e \ref{def:IntersecaoConjuntos}.
+\end{proof}
+
+A partir da definição de interseção é estabelecido um conceito de extrema valia para a teoria dos conjuntos e suas aplicações, tal conceito é o estado de disjunção entre dois conjuntos.
+
+\begin{definicao}[Conjuntos disjuntos]\label{def:ConjuntosDisjuntos}
+	Dois conjuntos $A$ e $B$ são ditos disjuntos sempre que $A \cap B = \emptyset$.
+\end{definicao}
+
+\begin{exemplo}\label{exe:ConjuntosDisjuntos}
+	Seja $A = \{1, 2, 3\}, B = \{2, 3, 5\}$ e $C = \{5\}$ tem-se que $A$ e $C$ são disjuntos, por outro lado, $A$ e $B$ não são disjuntos entre si, além disso, $B$ e $C$ também não são disjuntos entre si.
+\end{exemplo}
+
+\begin{definicao}[Complemento de conjuntos]\label{def:ComplementoConjuntos}
+	Seja $A \subseteq \mathbb{U}$ para algum discurso $\mathbb{U}$, o complemento de $A$, denotado por $\overline{A}$, corresponde ao seguinte conjunto:
+	$$\overline{A} = \{x \in \mathbb{U} \mid x \notin A\}$$
+\end{definicao}
+
+\begin{exemplo}\label{exe:ComplementoConjuntos1}
+	Dado $P = \{ x \in \mathbb{Z} \mid x = 2k \mbox{ para algum } k \in \mathbb{Z}\}$ tem-se então o seguinte complemento $\overline{P} = \{ x \in \mathbb{Z} \mid x = 2k + 1 \mbox{ para algum } k \in \mathbb{Z}\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:ComplementoConjuntos2}
+  Dado discurso $\mathbb{U}$ tem-se direto da definição que $\overline{\mathbb{U}} = \emptyset$, e obviamente, $\overline{\emptyset} = \mathbb{U}$.
+\end{exemplo}
+
+\begin{teorema}\label{teo:PropriedadesComplemento}
+	Dado um conjunto $A$ tem-se que:
+	\begin{itemize}
+		\item[i.] $A \cup \overline{A} = \mathbb{U}$.
+		\item[ii.] $A \cap \overline{A} = \emptyset$.
+		\item[iii.] $\overline{\overline{A}} = A$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	Direta das Definições \ref{def:UniaoConjuntos}, \ref{def:IntersecaoConjuntos} e \ref{def:ComplementoConjuntos}.
+\end{proof}
+
+\begin{nota}[Um nome elegante]\label{note:Involucao}
+  A propriedade $(iii)$ apresentada no Teorema \ref{teo:PropriedadesComplemento} costuma ser chamada involução, como dito em \cite{lipschutz1978-TC}.
+\end{nota}
+
+Além das propriedades apresentadas no Teorema \ref{teo:PropriedadesComplemento} o complemento também apresenta propriedades ligadas diretamente a união e a interseção, tais propriedades são uma versão conjuntistas das famosas leis De Morgan (ver \cite{carmo2013, joaoPavao2014, lipschutz2013-MD}) muito conhecidas pelos estudiosos da área de lógica, a seguir são apresentadas as leis De Morgan para a linguagem teoria dos conjuntos.
+
+\begin{table*}[h]
+	\centering
+	\begin{tabular}{lc}
+		\textbf{(DM1) Primeira Lei De Morgan:} & $\overline{(A \cup B)} = \overline{A} \cap \overline{B}$\\
+		\textbf{(DM2) Segunda Lei De Morgan:} & $\overline{(A \cap B)} = \overline{A} \cup \overline{B}$\\
+	\end{tabular}
+\end{table*}
+
+Seguindo com este texto, uma outra importante operação sobre conjuntos é a diferença entre dois conjuntos. A diferença entre conjunto apresenta duas formas, a primeira considerada por muito com a diferença natural \cite{carmo2013}, Já a segunda forma existente, é conhecida por diferença simétrica, esta segunda forma em um certo sentido, pode ser usada para medir a  dissimetria entre conjuntos, ambas as operações são definidas formalmente a seguir.
+
+\begin{definicao}[Diferença de conjuntos]\label{def:DiferencaConjuntos}
+	Dado dois conjuntos $A$ e $B$, a diferença de $A$ e $B$, denotado por $A - B$, corresponde ao seguinte conjunto:
+  \begin{eqnarray*}
+    A - B = \{x \in A \mid x \notin B\}
+  \end{eqnarray*}
+\end{definicao}
+
+\begin{exemplo}\label{exe:DiferencaConjuntos1}
+	Dado os conjuntos $S = \{a, b, c, d\}$ e $T = \{f, b, g, d\}$ tem-se os seguintes conjuntos de diferença: $S - T = \{a, c\}$ e $T - S = \{f, g\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiferencaConjuntos2}
+	Dado os conjuntos $\mathbb{Z}$ e $\mathbb{Z}_+^*$ tem-se que $\mathbb{Z} - \mathbb{Z}_+^* = \mathbb{Z}_-$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:DiferencaConjuntos3}
+  Dado $A = \{1, 2, 3, 4\}$ tem-se que $A - \mathbb{N} = \emptyset$ e $A - \mathbb{Z}_{-} = A$. 
+\end{exemplo}
+
+\begin{cuidado}[Cuidado com a Diferença]\label{warn:NaoComutatividadeDiferenca}
+  ALiCIA já está brava só de pensar que você pode achar que a diferença de conjunto é comutativa, ela chama a sua atenção para o Exemplo \ref{exe:DiferencaConjuntos1}, que mostra claramente que a operação de diferença de conjuntos não é comutativa. Então {\color{red}CUIDADO} com o que você responde por ai!!!
+\end{cuidado}
+
+\begin{teorema}\label{teo:BasicoDiferencaConjuntos}
+	Para todo $A$ e $B$ tem-se que:
+	\begin{itemize}
+		\item[i.] $A - B = A \cap \overline{B}$.
+		\item[ii.] Se $B \subset A$  e $A = \mathbb{U}$, então $A - B = \overline{B}$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+	Dado os conjuntos $A$ e $B$ segue que:
+	\begin{itemize}
+		\item[i.] Por definição para todo $x \in A - B$ tem-se que $x \in A$ e $x \notin B$, mas isto só é possível se, e somente se, $x \in A$ e $x \in \overline{B}$, e por sua vez, isto só é possível se, e somente se, $x \in A \cap \overline{B}$, portanto, tem-se que $A - B = A \cap \overline{B}$.
+		\item[ii.] Suponha que $B \subset A$, ou seja, todo $x \in B$ e tal que $x \in A$. Agora note que todo $x \in A - B$ é tal que $x \in A$ e $x \notin B$, e portanto, pela Definição \ref{def:DiferencaConjuntos} e pela hipótese de $B \subset A$ é claro que $A - B = \overline{B}$.
+	\end{itemize}
+\end{proof}
+
+A seguir são apresentadas duas séries de igualdades notáveis relacionadas a diferença entre conjuntos.
+
+\begin{teorema}\label{teo:ElementarDiferencaConjuntos1}
+	Sejam $A$ e $B$ conjuntos sobre um discurso $\mathbb{U}$, tem-se que:
+	\begin{itemize}
+		\item[a.] $A - \emptyset = A$ e $\emptyset - A = \emptyset$.
+		\item[b.] $A - \mathbb{U} = \emptyset$ e $\mathbb{U} - A = \overline{A}$.
+		\item[c.] $A - A = \emptyset$.
+		\item[d.] $A - \overline{A} = A$.
+		\item[e.] $\overline{(A - B)} = \overline{A} \cup B$.
+		\item[f.] $A - B = \overline{B} - \overline{A}$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+  Para todas as equações a seguir suponha que $A$ e $B$ são conjuntos sobre um discurso $\mathbb{U}$ assim segue que:
+  \begin{itemize}
+      \item[a.]
+		  \begin{eqnarray*}
+			  A - \emptyset & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& A \cap \overline{\emptyset} \\
+			  & = & A \cap \mathbb{U} \\
+			  & \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_5)}{=} & A
+		  \end{eqnarray*}
+		  e também tem-se que,
+		  \begin{eqnarray*}
+			  \emptyset - A &\stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& \emptyset \cap \overline{A}\\
+			  &\stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_6)}{=}& \emptyset
+		  \end{eqnarray*}
+      \item[b.] A prova tem um raciocínio similar a demonstração do item anterior, assim será deixado como exercício ao leitor.
+		  \item[c.] Trivial pela própria Definição \ref{def:DiferencaConjuntos}.
+      \item[d.]
+      \begin{eqnarray*}
+			  A - \overline{A} &\stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& A \cap \overline{\overline{A}}\\
+			  &\stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(iii)}{=}& A \cap A\\
+			  &\stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_1)}{=}& A
+		  \end{eqnarray*}
+      \item[e.]
+      \begin{eqnarray*}
+			  \overline{(A - B)} &\stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& \overline{(A \cap \overline{B})}\\
+			  &\stackrel{\textbf{(DM2)}}{=}& \overline{A} \cup \overline{\overline{B}}\\
+			  &\stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(iii)}{=}&  \overline{A} \cup  B
+		  \end{eqnarray*}
+      \item[f.]
+      \begin{eqnarray*}
+			  A - B &\stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& A \cap \overline{B}\\
+			  &\stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2)}{=}& \overline{B} \cap A\\
+			  &\stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(iii)}{=}& \overline{B} \cap \overline{\overline{A}}\\
+			  &\stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}&  \overline{B} - \overline{A}
+		  \end{eqnarray*}
+  \end{itemize}
+  E assim a prova está concluída.
+\end{proof}
+
+\begin{nota}[Referências em provas equacionais]
+  Na demonstração do Teorema \ref{teo:ElementarDiferencaConjuntos1} apresentada anteriormente, algumas vezes foi escrito o símbolo de $=$ com um texto acima, isso é uma técnica comum na escrita de demonstrações matemáticas, o entendimento que leitor precisa ter é que ao escrever $\stackrel{\kappa}{=}$ significa que a igualdade segue (ou é garantida) pela propriedade ou resultado $\kappa$. Durante este texto em algumas demonstrações uma escrita similar irá aparecer para outros símbolos além da igualdade, por exemplo, para o símbolo de implicação, que será introduzidos no decorrer deste documento.
+\end{nota}
+
+\begin{teorema}\label{teo:ElementarDiferencaConjuntos2}
+	Sejam $A, B$ e $C$ subconjuntos de um discurso $\mathbb{U}$, tem-se que:
+	\begin{itemize}
+		\item[a.] $(A - B) - C = A - (B \cup C)$.
+		\item[b.] $A - (B - C) = (A - B) \cup (A \cap C)$.
+		\item[c.] $A \cup (B - C) = (A \cup B) - (C - A)$.
+		\item[d.] $A \cap (B - C) = (A \cap B) - (A \cap C)$.
+		\item[e.] $A - (B \cup C) = (A - B) \cap (A - C)$.
+		\item[f.] $A - (B \cap C) = (A - B) \cup (A - C)$.
+		\item[g.] $(A \cup B) - C = (A - C) \cup (B - C)$.
+		\item[h.] $(A \cap B) - C = (A - C) \cap (B - C)$.
+		\item[i.] $A - (A - B) = A \cap B$.
+		\item[j.] $(A - B) - B = A - B$.
+	\end{itemize}
+\end{teorema}
+
+\begin{proof}
+  Para todas as equações a seguir suponha que $A, B$ e $C$ são subconjuntos de um universo $\mathbb{U}$ assim segue que:
+  \begin{itemize}
+		\item[a.]
+		\begin{eqnarray*}
+			(A - B) - C & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & (A \cap \overline{B}) \cap \overline{C}\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_3)}{=} & A \cap (\overline{B} \cap \overline{C})\\
+			& \stackrel{\textbf{(DM1)}}{=} & A \cap \overline{(B \cup C)}\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & A - (B \cup C)
+		\end{eqnarray*}
+		\item[b.]
+		\begin{eqnarray*}
+			A - (B - C) & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & A \cap \overline{(B - C)} \\
+			& \stackrel{Teo. \ \ref{teo:ElementarDiferencaConjuntos1}(e)}{=} & A \cap (\overline{B} \cup C)\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=} & (A \cap \overline{B}) \cup (A \cap C)\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & (A - B) \cup (A \cap C)
+		\end{eqnarray*}
+		\item[c.]
+		\begin{eqnarray*}
+			A \cup (B - C) & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & A \cup (B \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=} &  (A \cup B) \cap (A \cup \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2)}{=} & (A \cup B) \cap (\overline{C} \cup A)\\
+			& \stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(iii)}{=}& (A \cup B) \cap (\overline{C} \cup \overline{\overline{A}})\\
+			& \stackrel{\textbf{(DM2)}}{=}& (A \cup B) \cap \overline{(C \cap \overline{A})}\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A \cup B) - (C \cap \overline{A})\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A \cup B) - (C - A)\\
+		\end{eqnarray*}
+		\item[d.]
+		\begin{eqnarray*}
+			A \cap (B - C) & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& A \cap (B \cap \overline{C})\\
+			& = & \emptyset \cup ( A \cap (B \cap \overline{C}))\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2)}{=} & \emptyset \cup ( (A \cap B) \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_6)}{=} & (\emptyset \cap B) \cup ( (A \cap B) \cap \overline{C})\\
+			& \stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(ii)}{=} & ((A \cap \overline{A}) \cap B) \cup ( (A \cap B) \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2, p_3)}{=} & ((A \cap B) \cap \overline{A}) \cup ( (A \cap B) \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}& (A \cap B) \cap (\overline{A} \cup \overline{C})\\
+			& \stackrel{\textbf{(DM2)}}{=}& (A \cap B) \cap \overline{(A \cap C)}\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A \cap B) - (A \cap C)
+		\end{eqnarray*}
+		\item[e.]
+		\begin{eqnarray*}
+			A - (B \cup C) & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& A \cap \overline{(B \cup C)}\\
+			& \stackrel{\textbf{(DM1)}}{=}& A \cap (\overline{B} \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_1)}{=}& (A \cap A) \cap (\overline{B} \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_3)}{=}& ((A \cap A) \cap \overline{B}) \cap \overline{C}\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2, p_3)}{=}& ((A \cap \overline{B}) \cap A) \cap \overline{C}\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_3)}{=}& (A \cap \overline{B}) \cap (A \cap \overline{C})\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A - B) \cap (A - C)\\
+		\end{eqnarray*}
+		\item[f.]
+		\begin{eqnarray*}
+			A - (B \cap C) & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}&  A \cap \overline{(B \cap C)}\\
+			& \stackrel{\textbf{(DM2)}}{=}& A \cap (\overline{B} \cup \overline{B})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}&  (A \cap \overline{B}) \cup (A \cap \overline{C})\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}&  (A - B) \cup (A - C)
+		\end{eqnarray*}
+		\item[g.]
+		\begin{eqnarray*}
+			(A \cup B) - C & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A \cup B) \cap \overline{C}\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}& (A \cap \overline{C}) \cup (B \cap \overline{C})\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & (A - C) \cup (B - C)
+		\end{eqnarray*}
+		\item[h.]
+		\begin{eqnarray*}
+			(A \cap B) - C & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A \cap B) \cap \overline{C}\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}& (A \cap B) \cap (\overline{C} \cap \overline{C})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2, p_3)}{=}& (A \cap \overline{C}) \cap (B \cap \overline{C})\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=}& (A - C) \cap (B - C)
+		\end{eqnarray*}
+		\item[i.]
+		\begin{eqnarray*}
+			A - (A - B) & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & A \cap \overline{(A \cap \overline{B})}\\
+			& \stackrel{\textbf{(DM2)}}{=}& A \cap (\overline{A} \cup \overline{\overline{B}})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}& (A \cap \overline{A}) \cup (A \cap \overline{\overline{B}})\\
+			& \stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(ii)}{=}& \emptyset  \cup (A \cap \overline{\overline{B}})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_5)}{=}& A \cap \overline{\overline{B}}\\
+			& \stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(iii)}{=}& A \cap B
+		\end{eqnarray*}
+		\item[j.]
+		\begin{eqnarray*}
+			(A - B) - B & \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & (A \cap \overline{B}) \cap \overline{B}\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_3)}{=}& A \cap (\overline{B} \cap \overline{B})\\
+			& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_1)}{=}& A \cap \overline{B}\\
+			& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & A - B
+		\end{eqnarray*}
+	\end{itemize}
+\end{proof}
+
+Para prosseguir com esta seção sobre as operações definidas sobre conjuntos será agora apresentada a última operação ``clássica'', sendo esta a diferença simétrica.
+
+\begin{definicao}[Diferença simétrica]\label{def:DiferencaSimetricaConjuntos}
+	Dado dois conjuntos $A$ e $B$, a diferença simétrica de $A$ e $B$, denotado por $A \ominus B$, corresponde ao seguinte conjunto:
+  \begin{eqnarray*}
+    A \ominus B = \{x \mid x \in (A - B) \mbox{ ou } x \in (B - A)\}
+  \end{eqnarray*}
+\end{definicao}
+
+Olhando atentamente a definição anterior é fácil notar que o conjunto da diferença simétrica é exatamente a união das possíveis diferenças entre os conjuntos, isto é, a diferença simétrica corresponde a seguinte igualdade: $A \ominus B = (A - B) \cup (B - A)$.
+
+\begin{exemplo}\label{exe:DiferencaSimetricaConjuntos1}
+  Seja $A = \{1, 2, 3\}$ e $B = \{3, 4, 5, 2\}$ tem-se que $A \ominus B = \{1, 4, 5\}$.
+\end{exemplo}
+
+A seguir será apresentada uma série de importantes resultados com respeito a diferença simétrica.
+
+\begin{teorema}\label{teo:PropriedadeBasicaDifSimetrica}
+	Sejam $A$ e $B$ subconjuntos quaisquer de um determinado universo $\mathbb{U}$, tem-se que $A \ominus B = (A \cup B) \cap \overline{(A \cap B)}$.
+\end{teorema}
+
+\begin{proof}
+	Dado $A$ e $B$ dois subconjuntos quaisquer de um determinado universo $\mathbb{U}$ segue que:
+	\begin{eqnarray*}
+		A \ominus B & = &  (A - B) \cup (B - A)\\
+		& \stackrel{Teo. \  \ref{teo:BasicoDiferencaConjuntos}(i)}{=} & (A \cap \overline{B}) \cup (B \cap \overline{A})\\
+		& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}& (A \cup (B \cap \overline{A})) \cap (\overline{B} \cup (B \cap \overline{A}))\\
+		& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_4)}{=}& ((A \cup B) \cap (A \cup \overline{A})) \cap ((\overline{B} \cup B) \cap (\overline{B} \cup \overline{A}))\\
+		& \stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(i)}{=}& ((A \cup B) \cap \mathbb{U}) \cap (\mathbb{U} \cap (\overline{B} \cup \overline{A}))\\
+		& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_1, p_5)}{=}& (A \cup B) \cap (\overline{B} \cup \overline{A})\\
+		& \stackrel{\textbf{(DM2)}}{=}& (A \cup B) \cap \overline{(B \cap A)}
+	\end{eqnarray*}
+\end{proof}
+
+\begin{corolario}\label{col:DiferencaSimetrica}
+  Sejam $A$ e $B$ subconjuntos quaisquer de um determinado discurso $\mathbb{U}$, tem-se que $A \ominus B = (A \cup B) - (A \cap B)$.
+\end{corolario}
+
+\begin{proof}
+	Pelo Teorema \ref{teo:PropriedadeBasicaDifSimetrica} tem-se que $A \ominus B = (A \cup B) \cap \overline{(A \cap B)}$, mas pelo Teorema \ref{teo:BasicoDiferencaConjuntos} (i) segue que $(A \cup B) \cap \overline{(A \cap B)} = (A \cup B) - (A \cap B)$, e portanto, $A \ominus B = (A \cup B) - (A \cap B)$.
+\end{proof}
+
+O próximo resultado mostra que a operação de diferença simétrica entre conjunto possui elemento neutro, isto é, existe um conjunto que quando operado com qualquer outro conjunto $A$, o resultado é o próprio conjunto $A$.
+
+\begin{teorema}\label{teo:NeutroDiferencaSimetrica}
+	Para todo $A$ tem-se que $A \ominus \emptyset = A$.
+\end{teorema}
+
+\begin{proof}
+	Dado um conjunto $A$ qualquer pelo Corolário \ref{col:DiferencaSimetrica} tem-se que $A \ominus \emptyset = (A \cup \emptyset) - (A \cap \emptyset)$, mas pelas propriedades apresentadas na Tabela \ref{tab:PropriedadesUniaoIntersecao} tem-se: $A \cup \emptyset = A$ e $A \cap \emptyset = \emptyset$. Logo $A \ominus \emptyset = A - \emptyset$, por fim, pelo Teorema \ref{teo:ElementarDiferencaConjuntos1} (a) tem-se que $A - \emptyset = A$, consequentemente, $A \ominus \emptyset = A$.
+\end{proof}
+
+Seguindo com as propriedades que a operação de diferença simétrica possui, o próximo resultado mostra a existência de um elemento que neste texto será chamado de \textbf{alternador}, isto é, existe um conjunto que quando operado com qualquer outro conjunto $A$, o resultado é o complemento deste conjunto $A$.
+
+\begin{teorema}\label{teo:InversorDiferencaSimetrica}
+	Para todo $A$ tem-se que $A \ominus \mathbb{U} = \overline{A}$.
+\end{teorema}
+
+\begin{proof}
+	Similar a demonstração do Teorema \ref{teo:NeutroDiferencaSimetrica}, ficando assim como exercício ao leitor.
+\end{proof}
+
+O teorema a seguir mostra que a diferença simétrica entre um conjunto $A$ e seu complementar $\overline{A}$ é exatamente igual a totalidade do universo do discurso em que estes conjuntos estão inseridos.
+
+\begin{teorema}
+  Para todo $A$ tem-se que $A \ominus \overline{A} = \mathbb{U}$.
+\end{teorema}
+
+\begin{proof}
+	Dado um conjunto $A$ qualquer e seu complementar $\overline{A}$ tem-se pelo Corolário \ref{col:DiferencaSimetrica}  que 	$A \ominus \emptyset = (A \cup \overline{A}) - (A \cap \overline{A})$, mas pelo Teorema \ref{teo:PropriedadesComplemento} tem-se que $A \cup \overline{A} = \mathbb{U}$ e $A \cap \overline{A} = \emptyset$, consequentemente,  $A \ominus \emptyset = \mathbb{U} -  \emptyset$, mas pelo Teorema \ref{teo:ElementarDiferencaConjuntos1} tem-se que $\mathbb{U} -  \emptyset = \mathbb{U}$, e portanto, $A \ominus \overline{A} = \mathbb{U}$.
+\end{proof}
+
+Continuando a estudar a diferença simétrica o próximo teorema mostra que a diferença simétrica entre um conjunto $A$ e ele mesmo é exatamente igual ao conjunto vazio.
+
+\begin{teorema}
+  Para todo $A$ tem-se que $A \ominus A = \emptyset$.
+\end{teorema}
+
+\begin{proof}
+	Dado um conjunto $A$ qualquer tem-se pelo Corolário \ref{col:DiferencaSimetrica} que vale a seguinte igualdade,  $A \ominus A = (A \cup A) - (A \cap A)$. Mas pelas propriedades apresentadas na Tabela \ref{tab:PropriedadesUniaoIntersecao} tem-se que $(A \cup A) = (A \cap A) = A$, logo $A \ominus A =  A - A$, mas pelo Teorema \ref{teo:ElementarDiferencaConjuntos1} tem-se que $A - A = \emptyset$, portanto, $A \ominus A = \emptyset$.
+\end{proof}
+
+Anteriormente foi mostrado que a diferença entre conjuntos não era comutativa (Exemplo \ref{exe:DiferencaConjuntos1}), o próximo resultado contrasta esse fato com respeito a diferença simétrica.
+
+\begin{teorema}
+	Para todo $A$ e $B$ tem-se que $A \ominus B = B \ominus A$.
+\end{teorema}
+
+\begin{proof}
+	Dado dois conjuntos $A$ e $B$ tem-se pelo Corolário \ref{col:DiferencaSimetrica} que vale a seguinte igualdade,  $A \ominus B = (A \cup B) - (A \cap B)$, mas pela propriedade de comutatividade de $\cup$ e de $\cap$ (ver Tabela \ref{tab:PropriedadesUniaoIntersecao}) tem-se que $A \cup B = B \cup A$ e $A \cap B = B \cap A$, logo tem-se que $A \ominus B = (B \cup A) - (B \cap A)$, mas pelo Corolário \ref{col:DiferencaSimetrica} tem-se que $(B \cup A) - (B \cap A) = B \ominus A$, e portanto, $A \ominus B = B \ominus A$.
+\end{proof}
+
+\begin{teorema}
+	Para todo $A, B$ e $C$ tem-se que $(A \ominus B) \ominus C = A \ominus (B \ominus C)$.
+\end{teorema}
+
+\begin{proof}
+	A prova deste teorema sai direto da definição de diferença simétrica e assim ficará como exercício ao leitor.
+\end{proof}
+
+\begin{teorema}
+	Para todo $A$ e $B$ tem-se que $\overline{(A \ominus B)} = (A \cap B) \cup (\overline{A} \cap \overline{B})$.
+\end{teorema}
+
+\begin{proof}
+	Para todo $A$ e $B$ segue que:
+	\begin{eqnarray*}
+		\overline{(A \ominus B)} & \stackrel{Teo. \ \ref{teo:PropriedadeBasicaDifSimetrica}}{=} & \overline{((A \cup B) \cap \overline{(A \cap B)})}\\
+		& \stackrel{\textbf{(DM2)}}{=}& \overline{(A \cup B)} \cup \overline{\overline{(A \cap B)}}\\
+		& \stackrel{\textbf{(DM1)}}{=}& (\overline{A} \cap \overline{B}) \cup \overline{\overline{(A \cap B)}}\\
+		& \stackrel{\textbf{(DM2)}}{=}& (\overline{A} \cap \overline{B}) \cup \overline{(\overline{A} \cup \overline{B})}\\
+		& \stackrel{\textbf{(DM1)}}{=}& (\overline{A} \cap \overline{B}) \cup (\overline{\overline{A}} \cap \overline{\overline{B}})\\
+		& \stackrel{Tab. \ \ref{tab:PropriedadesUniaoIntersecao}(p_2)}{=}& (\overline{\overline{A}} \cap \overline{\overline{B}}) \cup (\overline{A} \cap \overline{B})\\
+		& \stackrel{Teo. \ \ref{teo:PropriedadesComplemento}(iii)}{=}& (A \cap B) \cup (\overline{A} \cap \overline{B})
+	\end{eqnarray*}
+\end{proof}
+
+\section{Partes e Partições}\label{sec:PartesParticoes}
+
+Para concluir esta breve introdução à teoria ingênua dos conjuntos, nesta seção serão trabalhados dois importantes conceitos, as ideias de partes e partições. Ambos conceitos são conjuntos em que os elementos destes são também conjuntos. 
+
+O conceito de partes é de suma importância em diversos ramos da matemática, tais como Topologia\cite{lipschutz1971-Topo} e linguagens formais\cite{linz2006, benjaLivro2010}. Já as partições são de interesse tanto teoricos\cite{carmo2013,halmos2001} quanto práticos, em especial, na área de agrupamento de dados\cite{celebi2014, fern2004}.
+
+\begin{definicao}[Conjunto das partes]\label{def:ConjuntoDasPartes}
+	Seja $A$ um conjunto. O conjunto das partes\footnote{Em alguns livros é usado o termo conjunto potência em vez do termo conjunto das partes, nesse caso é usado a notação $2^A$ para denotar o conjunto partes, por exemplo ver \cite{lipschutz2013-MD}.} de $A$, é denotada por $\wp(A)$, e corresponde ao seguinte conjunto:
+  \begin{eqnarray*}
+    \wp(A) = \{x \mid x \subseteq A\}
+  \end{eqnarray*}
+\end{definicao}
+
+Uma propriedade interessante do conjuntos das partes como dito em \cite{lipschutz1978-TC}, é que se $A$ for da forma $A = \{x_1, \cdots, x_n\}$ para algum $n \in \mathbb{N}$, então pode-se mostrar que $\wp(A)$ terá exatamente $2^n$ elementos.
+
+\begin{exemplo}\label{exe:ConjuntoDasPartes1}
+  Seja $A = \{a, b, c\}$ tem-se que o conjunto das parte de $A$ corresponde ao conjunto $\{\emptyset, \{a\}, \{b\}, \{c\}, \{a, b\},\{a, c\}, \{c, b\},$ $\{a, b, c\}\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:ConjuntoDasPartes2}
+  Dado o conjunto $X = \{1\}$ tem-se que $\wp(X) = \{\emptyset, \{1\}\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:ConjuntoDasPartes3}
+  Seja $A = \emptyset$ tem-se que $\wp(A) = \{\emptyset\}$.
+\end{exemplo}
+
+Além do conjunto das partes, os conjuntos gerados pela ideia da partição de um conjunto é de extrama importância em diversos segmentos do conhecimento, como comentado anteriormente, a seguir é apresentado formalmente a ideia de partições.
+
+\begin{definicao}[Partição]\label{def:ParticaoConjuntos}
+	Seja $A$ um conjunto não vazio, uma partição é um conjunto não vazio de subconjuntos disjuntos de $A$, ou seja, uma partição é da forma $\{x_i \mid x_i \subseteq A\}$ tal que as seguintes condições são satisfeitas:
+	\begin{itemize}
+		\item[(1)] Para todo $y \in A$ tem-se que existe um único $i$ tal que $y \in x_i$ para algum $x_i \subseteq A$.
+		\item[(2)] Para todo $i$ e todo $j$ sempre que $i \neq j$, então $x_i \cap x_j = \emptyset$.
+	\end{itemize}
+\end{definicao}
+
+É fácil notar pela Definição   \ref{def:ParticaoConjuntos}  que partições são conjuntos, além disso, como dito em \cite{lipschutz2013-MD} os elementos em uma partição são chamados de \textbf{células}, isto é, dado um conjunto $A$ os subconjuntos na partição de $A$ são vistos como as células que formam o próprio conjunto $A$. O resultado a seguir garante que sempre é possível obter pelo menos uma partição de um conjunto.
+
+\begin{teorema}\label{teo:ParticaoTrivial}
+	Se $A$ é um conjunto não vazio, então existe pelo menos uma partição de $A$.
+\end{teorema}
+
+\begin{proof}
+	Suponha que o conjunto $A$ seja não vazio, assim defina o conjunto $PT_A = \{\{x\} \mid x \in A\}$, agora claramente tem-se que $PT_A$ é uma família e satisfaz todas as condições da Definição \ref{def:ParticaoConjuntos} e, portanto, $PT_A$ é uma partição do conjunto $A$.
+\end{proof}
+
+\begin{nota}[Uma partição especial]
+  Apesar de não ter um nome específico a partição descrita no Teorema \ref{teo:ParticaoTrivial}, é muito importante como ponto de partida para a construção de partições mais complexas, por esse fato neste documento será chamada de \textbf{partição trivial}.
+\end{nota}
+
+\section{Questionário}\label{sec:Questionario1part1}
+
+\begin{questao}\label{test:Conjuntos1}
+	Para cada um dos conjuntos a seguir, determine uma propriedade que define o conjunto e escreva os conjuntos na notação compacta.
+\end{questao}
+
+\begin{exerList}
+	\item $\{0,2,4,6,8,1,3,5,7,9\}$.
+	\item $\{-2, -4, -6, -8, 0, 6, 4, 8, 2\}$.
+	\item $\{3, 5, 7, 9, 11, 13, 15, 17, \cdots\}$.
+	\item $\{a, c, s\}$
+	\item $\{2, 3, 5, 7, 11, 13, 17, 19, \cdots\}$.
+	\item $\{1, 4, 9, 16, 25, 36, 64, 81, 100\}$.
+	\item $\{3, 6, 9, 12, 15, 18, 21, \cdots\}$.
+	\item $\Big\{\frac{1}{2}, \frac{2}{4}, \frac{3}{6}, \frac{4}{8}, \frac{5}{10}, \cdots\Big\}$
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos2}
+	Escreva os seguintes conjuntos em notação compacta.
+\end{questao}
+
+\begin{exerList}
+	\item Conjunto de todos os países da América do sul.
+	\item Conjunto de planetas do sistema solar.
+	\item Conjunto dos números reais maiores que 1 e menores que 2.
+	\item Conjunto de estados brasileiros cujo nome começa com a letra ``R''.
+	\item Conjunto dos times nordestinos que já foram campões da primeira divisão do campeonato brasileiro de futebol.
+\end{exerList}
+
+
+\begin{questao}\label{test:Conjuntos3}
+	Escreva as sentenças a seguir de forma apropriada usando a linguagem da teoria dos conjuntos.
+\end{questao}
+
+\begin{exerList}
+	\item $x$ não pertence ao conjunto $A$.
+	\item $-2$ não é um número natural.
+	\item O símbolo $\pi$ representa um número real.
+	\item O conjunto das vogais não é subconjunto do conjunto das consoantes.
+	\item $y$ é um número inteiro, porém não é um número maior que $10$.
+	\item $D$ é o conjunto de todos os múltiplos de $-3$ que são maiores que $1$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos4}
+	Considere o conjunto de letras $K = \{b, t, s\}$ responda falso ou verdadeiro e justifique sua resposta:
+\end{questao}
+
+\begin{exerList}
+	\item $s \in K$?
+	\item $t \subset K$?
+	\item $K \not\subseteq K$?
+	\item $\{b\} \in K$?
+	\item $K - \{a\} = K$?
+\end{exerList}
+
+\begin{questao}
+  Identifique se o conjunto é Homogêneo ou Heterogêneo.
+\end{questao}
+
+\begin{exerList}
+  \item $\{x, y, z, w\}$
+  \item $\{2, 4, 6, 8, 10\}$
+  \item $\{3, 5, 7, 9, 11\}$
+  \item $\{1, a, 3.14, \text{``hello''}\}$
+  \item $\{red, green, blue, yellow\}$
+  \item $\{15, 20, 25, 30\}$
+  \item $\{apple, banana, orange, pear\}$
+  \item $\{x, y, 3, 5, 7\}$
+  \item $\{100, 200, 300, 400\}$
+  \item $\{0.5, 1.25, 3, 5, 7\}$
+  \item $\{black, white, gray, brown\}$
+  \item $\{cat, dog, fish, bird\}$
+  \item $\{a, e, i, o, u\}$
+  \item $\{January, February, March, April\}$
+  \item $\{1, 2, 4, 8, 16\}$
+  \item $\{x, y, z, 10, 20\}$
+  \item $\{Monday, Tuesday, Wednesday, Thursday, Friday\}$
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos5}
+	Considere cada conjunto a seguir e escreva todos os seus subconjuntos.
+\end{questao}
+
+\begin{exerList}
+	\item $B = \{1, 2, 3\}$.
+	\item $F = \{a, b, c, d\}$.
+	\item $N = \{\emptyset\}$.
+	\item $R = \{\emptyset, \{\emptyset\}\}$.
+	\item $P = \{\{a, b\}, \{c, d\}, \{a, f\}, \{a, b, c\}, \emptyset\}$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos6}
+	Considerando o universo dos números naturais, dado os subconjuntos:  $A = \{1, 2, 3, 4, 5\}$, $B = \{x \in \mathbb{N} \mid x^2 = 9\}$, $C = \{x \in \mathbb{N} \mid x^2 - 4x + 6 = 0\}$ e $D = \{x \in \mathbb{N} \mid  x = 2k \mbox{ para algum } k \in \mathbb{N}\}$, complemente as palavras com os símbolos $\subseteq$ e $\not\subseteq$.
+\end{questao}
+
+\begin{exerList}
+	\item $A \ \underline{ \ \ \ \ \ \ } \ B$.
+	\item $C \ \underline{ \ \ \ \ \ \ } \ B$.
+	\item $D \ \underline{ \ \ \ \ \ \ } \ C$.
+	\item $B \ \underline{ \ \ \ \ \ \ } \ A$.
+	\item $A \ \underline{ \ \ \ \ \ \ } \ D$.
+	\item $C \ \underline{ \ \ \ \ \ \ } \ A$.
+	\item $D \ \underline{ \ \ \ \ \ \ } \ B$.
+	\item $B \ \underline{ \ \ \ \ \ \ } \ \mathbb{N}$.
+	\item $\mathbb{N} \ \underline{ \ \ \ \ \ \ } \ D$.
+	\item $A \ \underline{ \ \ \ \ \ \ } \ \mathbb{N}$.
+	\item $A \ \underline{ \ \ \ \ \ \ } \ \mathbb{Z}_-$.
+	\item $\mathbb{N} \ \underline{ \ \ \ \ \ \ } \ D$.
+	\item $\mathbb{N} \ \underline{ \ \ \ \ \ \ } \ C$.
+	\item $C \ \underline{ \ \ \ \ \ \ } \ \mathbb{N}$.
+	\item $\{6\} \ \underline{ \ \ \ \ \ \ } \ C$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos7}
+	Complete as palavras da teoria dos conjuntos com $\in, \subseteq$ e $\not\subseteq$.
+\end{questao}
+
+\begin{exerList}
+\item $\{2, \emptyset\} \underline{ \ \ \ \ \ \ } \{1, 2, 3\}$.
+	\item $\{2\} \underline{ \ \ \ \ \ \ } \{1, 2, 3\}$.
+	\item $\{1\} \underline{ \ \ \ \ \ \ } \{\{1\}, \{2\}, \{3\}\}$.
+	\item $\emptyset \underline{ \ \ \ \ \ \ } \{1\}$.
+	\item $\emptyset \underline{ \ \ \ \ \ \ } \{\emptyset\}$.
+	\item $\{3\} \underline{ \ \ \ \ \ \ } \emptyset$.
+	\item $\mathbb{N} \underline{ \ \ \ \ \ \ } \{2, 3, 6\}$.
+	\item $\{\{\emptyset\}, \emptyset\} \underline{ \ \ \ \ \ \ } \{\{\{\emptyset\}, \emptyset\}, \emptyset\}$.
+  \item $\{a\} \underline{ \ \ \ \ \ \ } \{\{a\}, \{b\} \} \underline{ \ \ \ \ \ \ } \{a, b, c\}$.
+  \item $\{\{0\}\} \underline{ \ \ \ \ \ \ }  \mathbb{Z}_+^*$.
+  \item $\Big\{\frac{1}{0}, -4\} \underline{ \ \ \ \ \ \ }  \mathbb{Q}$.
+	\item $\{0,1\} \underline{ \ \ \ \ \ \ } \{0,1, 2, 5\} \underline{ \ \ \ \ \ \ } \mathbb{N}$.
+	\item $\mathbb{N} \underline{ \ \ \ \ \ \ } \wp(\mathbb{N})$
+	\item $\emptyset \underline{ \ \ \ \ \ \ }  \emptyset$.
+	\item $\{1, 2, 4\} \underline{ \ \ \ \ \ \ }  \{2, 4, 6\} \underline{ \ \ \ \ \ \ } \{y \mid y = 2x \mbox{ para algum } x \in \mathbb{N}\}$.
+	\item $\{1\} \underline{ \ \ \ \ \ \ }  \mathbb{R}$.
+  \item $\Big\{\frac{3}{4}\Big\} \underline{ \ \ \ \ \ \ }  \mathbb{N}$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos8}
+	Justifique as seguintes afirmações.
+\end{questao}
+
+\begin{exerList}
+	\item $\Big\{\frac{2}{x} \mid x - 1 > 0 \mbox{ com } x \in \mathbb{N}\Big\}$ não é subconjunto de $\mathbb{N}$.
+	\item $\{2, 3, 4, 6, 8\}$ não é subconjunto de $\{x \in \mathbb{N} \mid  x = 2k \mbox{ para algum } k \in \mathbb{N}\}$.
+	\item $\{1, 2, 3\}$ é um subconjunto próprio do conjunto $\{1, 2, 3, 4, 5, 6, 7,8,9,0\}$.
+	\item $\{0, 5\}$ é subconjunto de $\mathbb{Z}$ mas não é subconjunto de $\mathbb{Z}^*$.
+	\item $\{ x \mid x + x = x\}$ é subconjunto próprio de $\mathbb{N}$.
+	\item Existem exatamente 15 subconjuntos próprios do conjunto $\{2, 3, 5, 7\}$.
+	\item Não existem subconjuntos próprios do conjunto $\emptyset$.
+	\item Sempre que $A \subset B$ e $A_0 \subset A$, tem-se que $A_0$ é também um subconjunto próprio de $B$.
+	\item O conjunto $\{2\}$ tem um único subconjunto próprio.
+	\item O conjunto $\{x \in \mathbb{N} \mid 0 < x < 3\}$ tem exatamente 3 subconjuntos próprios.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos9}
+	Considerando o universo $\mathbb{U} = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 0\}$ e seus subconjuntos $A = \{2, 4, 6, 8\}$, $B = \{1, 3, 5, 7, 9\}$, $C = \{1, 2, 3, 4, 0\}$ e $D = \{0, 1\}$ exiba os conjuntos a seguir.
+\end{questao}
+
+\begin{exerList}
+	\item $A \cup B$.
+	\item $C \cup D$.
+	\item $D \cap A$.
+	\item $B \cap C$.
+	\item $A \cap (B \cup D)$.
+	\item $D \cap (A \cap C)$.
+	\item $(A \cap B) \cup (D \cap C)$.
+	\item $(\mathbb{U} \cap A) \cup D$.
+	\item $(D \cup A) \cap C$
+	\item $D \cap (B \cup A)$
+	\item $A \cup \overline{B}$.
+	\item $\overline{(C \cap B)} \cup D$.
+	\item $\overline{D \cap A}$.
+	\item $B \cap \overline{C}$.
+	\item $A \cap \overline{(\overline{B} \cup D)}$.
+	\item $D \cap (A \cap C)$.
+	\item $\overline{(A \cap B)} \cup (\overline{D} \cap C)$.
+	\item $\overline{(\mathbb{U} \cap \overline{A})} \cup D$.
+	\item $(D \cup A) \cap \overline{C}$
+	\item $\overline{D \cap (B \cup A)}$
+	\item $\overline{D - A}$.
+	\item $(A - B) \cap \overline{C}$.
+	\item $A \cap \overline{(\overline{B} - D)}$.
+	\item $D \cap (A - C)$.
+	\item $\overline{C} - D$.
+	\item $D - A$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos10}
+	Considerando o universo $\mathbb{U} = \{a, b, c, d, e, f, g, h, i, j\}$ e seus subconjuntos $A = \{b, d, f, h\}$, $B = \{a, c, e, g, i\}$, $C = \{a, b, c, d, j\}$ e $D = \{a, j\}$ exiba os seguintes conjuntos.
+\end{questao}
+
+\begin{exerList}
+	\item $\overline{B} - C$.
+	\item $A - (B \cup D)$.
+	\item $(A - (A \cap B)) - ((\overline{D} \cap C) - A)$
+	\item $\overline{(\mathbb{U} - \overline{C})} - D$
+	\item $A \ominus (B \cup D)$.
+	\item $(A \ominus (A \cap B)) \ominus ((\overline{D} \cap C) \ominus A)$
+	\item $\overline{(\mathbb{U} \ominus \overline{C})} \ominus D$
+	\item $\overline{D \ominus A}$.
+	\item $(A \ominus B) \cap \overline{C}$.
+	\item $\overline{C} \ominus D$.
+	\item $D \ominus A$.
+	\item $\overline{B} \ominus C$.
+	\item $A \cap \overline{(\overline{B} \ominus D)}$.
+	\item $D \cap (A \ominus C)$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos11}
+	Uma aluna do curso de Ciência da Computação realizou uma pesquisa sobre três ritmos (A, B e C) presentes no aplicativo de música \textit{Spotify} com seus colegas de classe para seu trabalho na disciplina de estatística,  e levantou os dados expostos na Tabela \ref{tab:TabelaDeDados}.
+\end{questao}
+
+\begin{table}[h]
+	\scriptsize
+	\centering
+	\begin{tabular}{ccccccccc}
+		\hline
+		Total de&Ouvem&Ouvem&Ouvem&Ouvem&Ouvem&Ouvem&Ouvem&Não\\
+		entrevistados&A&B&C&A e B&A e C&B e C&A, B&ouvem\\
+    & & & & & & &e C&nenhum\\
+		\hline
+		23 & 8 & 4 & 6 & 2 & 3 & 1 & 1 & 10\\
+		\hline
+	\end{tabular}
+	\caption{Tabela com dados fictício da pesquisa sobre ritmos no \textit{Spotify}.}
+	\label{tab:TabelaDeDados}
+\end{table}
+
+\begin{exerList}
+	\item Qual é o número de entrevistados que escutam apenas o ritmo A?
+	\item Qual é o número de entrevistados que escutam o ritmo A e não escutam o ritmo B?
+	\item Quantos entrevistados não escutam o ritmo C?
+	\item Qual é o número de entrevistados que escutam algum dos ritmos?
+	\item Quantos entrevistados escutam o ritmo B ou C, mas não escutam o ritmo A?
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos12}
+	Dado os conjuntos $A = \{1, 2, 3\}, B = \{3,4,5\}$ e $C = \{1, 5, 6\}$ construa um conjunto $X$ com exatamente $4$ elementos tal que $A \cap X = \{3\}$, $B \cap X =\{3, 5\}$ e $C \cap X = \{5, 6\}$.
+\end{questao}
+
+\begin{questao}\label{test:Conjuntos13}
+	Considere o banco de dados representado na Tabela  \ref{tab:TabelaBaseDeDados1}. para esboçar o conjunto gerado por cada  \textit{Query} detalhada abaixo, relacionando as mesmas com as operações sobre conjuntos..
+\end{questao}
+
+\begin{exerList}
+	\item O conjuntos dos id's onde o sexo é igual a F e o salário não é inferior a $2.000,00$.
+	\item O conjunto dos salários em que a idade não é superior a $35$ ou o sexo é igual a M.
+	\item O conjunto de todos os nome em que a idade não é maior que $30$ ou id é menor que $65$.
+\end{exerList}
+
+\begin{table}[h]
+	\centering
+	%\scriptsize
+	\begin{tabular}{ccccc}
+		\hline
+		id & Nome & Salário & Idade & Sexo \\
+		\hline
+		23 & Júlio & 2.300,00 & 34 & M \\
+		102 & Patrícia & 4.650,00 & 23 & F \\
+		33 & Daniel & 1.375,00 & 20 & M \\
+		43 & Renata & 6.400,00 & 24 & F \\
+		53 & Rafaela & 1.800,00 & 19 & F \\
+		57 & Tadeu & 14.450,00 & 54 & M \\
+		\hline
+	\end{tabular}
+	\caption{Uma base de dados representada como uma tabela.}
+	\label{tab:TabelaBaseDeDados1}
+\end{table}
+
+\begin{questao}\label{test:Conjuntos14}
+	Exiba os seguintes conjuntos.
+\end{questao}
+
+\begin{exerList}
+	\item $\wp(\{1, 2, 3\})$.
+	\item $\wp(\wp(\{0,1\}))$.
+	\item $\wp(\{\mathbb{N}\})$.
+	\item $\wp(\{1, \{2\}, \{1, \{2\}\}\})$.
+	\item $\wp(\{1, \{1\}, \{2\}, \{3, 4\}\})$.
+	\item $\wp(\wp(\{1, 2\})) - \wp(\{0, 1\})$.
+	\item $\wp(\{a, b, c, g\} \ominus \{g, e, f, d\})$.
+	\item $\wp(\wp(\wp(\{0,1\})) \cup \wp(\{1, 2, 3\}))$.
+	\item $\wp(\wp(\emptyset) - \emptyset)$.
+	\item $\wp(\{2, 3, 4\} \cap (\{-1, 3\} \cup \{-5\}))$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos15}
+	Considere o universo $\mathbb{U} = \{a, b, c, d, e, f, g\}$ e seus subconjuntos $A = \{d, e, g\}, B = \{a, c\}, C =\{b, e, g\}$ calcule e exiba os seguintes conjuntos.
+\end{questao}
+
+\begin{exerList}
+	\item $\wp(C)$.
+	\item $\wp(A) - \wp(\overline{B})$.
+	\item $\wp((A \cup B) \ominus C)$.
+	\item $\wp((\overline{A} \cup B)) \ominus \wp(C)$.
+	\item $\wp(\overline{(C \cap B)} - (\overline{A} \cap C))$
+	\item $\wp(C) - (\wp(A) \ominus \wp(B))$.
+	\item $\wp(\overline{A}) \ominus ((\wp(C) \cap \wp(B))  -  \wp(A))$.
+	\item $\wp(\wp(A)) - \wp(\wp(B))$.
+	\item $\wp(\wp(\overline{C})) \ominus \wp(\wp(B))$.
+	\item $\wp(\mathbb{U})$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos16}
+	Dado o conjunto $A = \{a, b, c, d, e, f, g\}$ diga se as famílias de conjuntos a seguir são ou não partições de $A$, justifique todas as suas resposta.
+\end{questao}
+
+\begin{exerList}
+	\item $P_1 = \{\{a, c, e\}, \{b\}, \{d, g\}\}$.
+	\item $P_2 = \{\{a, g, e\}, \{c, d\}, \{b, e, f\}\}$.
+	\item $P_3 = \{\{a, b, e, g\}, \{c\}, \{d, f\}\}$.
+	\item $P_4 = \{\{a, b, c, d, e, f, g\}\}$.
+	\item $P_5 = \{\{a, b, d, e, g\}, \{f, c\}\}$.
+	\item $P_6 = \{\{a, b, c, d, e\}, \{e, f, g\}\}$.
+	\item $P_7 = \{\{b, c, d, e, f, g\}, \{a\}, \{b, a,c\}\}$.
+	\item $P_8 = \{\{a, b, c, d, e, f, g\}, \{e, d\}\}$.
+	\item $P_9 = \{\{a\}, \{b\}, \{c\}, \{d,e\}, \{f\}, \{g\}\}$.
+	\item $P_{10} = \{\{a\}, \{b\}, \{c\}, \{d\}, \{e\}, \{f\}, \{g\}\}$.
+\end{exerList}
+
+\begin{questao}\label{test:Conjuntos17}
+	Considere o universo $\mathbb{U} = \{a, b, c, d, e, f, g\}$ e seus subconjuntos $A = \{d, e, g\}, B = \{a, c\}, C =\{b, e, g\}$ exiba duas partições diferentes da partição trivial para cada um dos conjuntos a seguir.
+\end{questao}
+
+\begin{exerList}
+	\item $C - \overline{A}$.
+	\item $A - \overline{B}$.
+	\item $(A \cup B) \ominus C$.
+	\item $(\overline{A} \cup B)) \ominus C$.
+	\item $\overline{(C \cap B)} - (\overline{A} \cap C)$
+	\item $C - (A \ominus B)$.
+	\item $\overline{A} \ominus ((C \cap B)  - A)$.
+	\item $A - B$.
+	\item $\overline{C} \ominus B$.
+	\item $\wp(\mathbb{U})$.
+\end{exerList}

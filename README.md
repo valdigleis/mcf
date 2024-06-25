@@ -36,7 +36,7 @@ Este documento vem sendo construído aos poucos (em passos de tartaruga), obviam
 
 ## Para sugestões, apontamentos e críticas
 
-Uma vez que este documento ainda é um projeto em andamento e possivelmente sua escrita nunca será realmente concluída com total aprovação de seu autor, é claro que você poderá encontrar diversos erros, que com toda certeza, você leitor, irá me enviar [e-mails](mailto:valdigleis.costa@univasf.edu.br) ou [issues](https://github.com/valdigleis/mcf/issues) com reports de tais erros. No caso de ser meu aluno também pode fazer apontamentos através da comunidade [função](https://funcao.zulipchat.com).
+Uma vez que este documento ainda é um projeto em andamento e possivelmente sua escrita nunca será realmente concluída com total aprovação de seu autor, é claro que você poderá encontrar diversos erros, que com toda certeza, você leitor, irá me enviar [e-mails](mailto:valdigleis.costa@univasf.edu.br) ou [issues](https://github.com/valdigleis/mcf/issues) com reports de tais erros. No caso de ser meu aluno também pode fazer apontamentos através da comunidade [extraclasse](https://www.valdigleis.site/extraclasse).
 
 ## Sobre a ALiCIA
 
@@ -49,17 +49,18 @@ Durante o texto você irá encontrar uma personagem de forma recorrente, ela cha
 
 Este projeto é mantido por mim «[Valdigleis](https://www.valdigleis.site)», com o suporte de todos os eleitores que gentilmente me mandam correções e sugestões valiosas para o texto, abaixo faço questão de listar todas as ações de ajuda que o projeto recebeu, note que é possível que uma mesma pessoa apareça mais de uma vez na lista.
 
-- [Raul S. Martins](https://github.com/raulpy271) — Discente Univasf «Apontou correções de conteúdo» (em 2021)
-- Matheus B. Rosa — Discente UNIVASF «Apontou correções ortográficas no texto» (em 2022)
-- Gabriel F. Rodrigues — Discente UNIVASF «Apresentou problemas de nomenclatura» (em 2022)
-- Athams M. Ferreira — Discente UNIVASF «Apontou correção em questões» (em 2023)
-- Emanuel F. L. Oliveira — Discente UNIVASF «Apontou correções em exemplos» (em 2023)
-- Marcileide F. Oliveira — Discente UNIVASF «Apontou correções em exemplos» (em 2023)
-- Maria Verônica — Discente UNIVASF «Apontou correções em exemplos» (em 2023)
-- Manoel N. M. Filhoi Discente UNIVASF «Apontou correções em exemplos» (em 2023)
-- [Catarina C. Sampaio](https://github.com/SamCatarina) [[lattes](http://lattes.cnpq.br/4818210117452848)] — Discente UNIVASF «Apontou correções em exemplos» (em 2023)
-- [Hellen Samara Pereira Costa](https://github.com/mzhellen) — Discente UNIVASF «Apontou correções em um exercício» (em 2024)
-- [Anderson Vicente De Freitas](https://github.com/4ndersu) — Discente UNIVASF «Apontou correções em exemplos» (em 2024)
-- [Lucas Lins de Oliveira](https://github.com/LLucas46) — Discente UNIVASF «Apontou correções textuais» (em 2024)
-- [Emidio Daniel Pereira Leandro](https://github.com/emidiodotcom) — Discente UNIVASF «Apontou diversas correções textuais» (em 2024)
-- [Felipe Peixoto](https://github.com/JF532) — Discente UNIVASF «Apontou correções em exemplos» (em 2024)
+- [Raul S. Martins](https://github.com/raulpy271) — Discente Univasf «*Apontou erros em exemplos*» (em 2019)
+- [Raul S. Martins](https://github.com/raulpy271) — Discente Univasf «*Apontou correções de conteúdo*» (em 2021)
+- Matheus B. Rosa — Discente UNIVASF «*Apontou correções ortográficas no texto*» (em 2022)
+- Gabriel F. Rodrigues — Discente UNIVASF «*Apresentou problemas de nomenclatura*» (em 2022)
+- Athams M. Ferreira — Discente UNIVASF «*Apontou correção em questões*» (em 2023)
+- Emanuel F. L. Oliveira — Discente UNIVASF «*Apontou correções em exemplos*» (em 2023)
+- Marcileide F. Oliveira — Discente UNIVASF «*Apontou correções em exemplos*» (em 2023)
+- Maria Verônica — Discente UNIVASF «*Apontou correções em exemplos*» (em 2023)
+- Manoel N. M. Filhoi Discente UNIVASF «*Apontou correções em exemplos*» (em 2023)
+- [Catarina C. Sampaio](https://github.com/SamCatarina) [[lattes](http://lattes.cnpq.br/4818210117452848)] — Discente UNIVASF «*Apontou correções em exemplos*» (em 2023)
+- [Hellen Samara Pereira Costa](https://github.com/mzhellen) — Discente UNIVASF «*Apontou correções em um exercício*» (em 2024)
+- [Anderson Vicente De Freitas](https://github.com/4ndersu) — Discente UNIVASF «*Apontou correções em exemplos*» (em 2024)
+- [Lucas Lins de Oliveira](https://github.com/LLucas46) — Discente UNIVASF «*Apontou correções textuais*» (em 2024)
+- [Emidio Daniel Pereira Leandro](https://github.com/emidiodotcom) — Discente UNIVASF «*Apontou diversas correções textuais*» (em 2024)
+- [Felipe Peixoto](https://github.com/JF532) — Discente UNIVASF «*Apontou correções em exemplos*x» (em 2024)

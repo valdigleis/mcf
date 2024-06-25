@@ -43,7 +43,7 @@ Uma vez que este documento ainda é um projeto em andamento e possivelmente sua 
 Durante o texto você irá encontrar uma personagem de forma recorrente, ela chama-se ALiCIA (um acrônimo para Autômatos, Linguagens, Complexidade, Informação e Algoritmos). 
 
 > [!WARNING]\
-> AliCIA é uma criação do autor deste livro e todas as imagens da mesma são de propriedade do autor, não sendo permitido o usado das imagens por terceiros sem autorização assinada pelo autor deste documento.
+> ALiCIA é uma criação do autor deste material e todas as imagens da mesma são de propriedade do autor, não sendo permitido o uso das imagens por terceiros sem autorização assinada pelo autor deste material.
 
 ## Que faz o projeto?
 

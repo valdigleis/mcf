@@ -15,6 +15,7 @@ Este documento vem sendo construído aos poucos (em passos de tartaruga), obviam
 
 > [!IMPORTANT]\ 
 > Atualmente o manuscrito conta com capítulos tratando dos seguintes tópicos:
+
 * Conjuntos
 * Métodos de demonstração
 * Relação e Funções
@@ -22,8 +23,9 @@ Este documento vem sendo construído aos poucos (em passos de tartaruga), obviam
 * Cardinalidade
 
 
-> [!IMPORTANT]\ 
+> [!IMPORTANT]\
 > Em momentos futuros serão gradativamente adicionados: partes, capítulos e seções, tratando dos seguintes tópicos:
+
 * Teoria dos Grafos
 * $\Sigma$-Álgebras
 * Lógica Clássica
@@ -40,4 +42,4 @@ Uma vez que este documento ainda é um projeto em andamento e possivelmente sua 
 Durante o texto você irá encontrar uma personagem de forma recorrente, ela chama-se ALiCIA (um acrônimo para Autômatos, Linguagens, Complexidade, Informação e Algoritmos). 
 
 > [!WARNING]\
-> Ela é uma criação do autor deste livro e todas as imagens da mesma são de propriedade do autor, não sendo permitido o usado das imagens por terceiros sem autorização assinada pelo autor deste documento.
+> AliCIA é uma criação do autor deste livro e todas as imagens da mesma são de propriedade do autor, não sendo permitido o usado das imagens por terceiros sem autorização assinada pelo autor deste documento.

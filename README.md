@@ -13,6 +13,7 @@ Este «manuscrito» está sendo construído aos poucos, tendo como base diversas
 
 Este documento vem sendo construído aos poucos (em passos de tartaruga), obviamente não está concluído ou mesmo perto disto. Atualmente os tópicos teoricos da matemática e ciência da computação que eu ([Valdigleis](https://www.valdigleis.site)), gostaria de tratar neste projeto podem ser divididos em: (1) já presentes no documento e (2) para inserir futuramente.
 
+
 > [!IMPORTANT]\ 
 > Atualmente o manuscrito conta com capítulos tratando dos seguintes tópicos:
 

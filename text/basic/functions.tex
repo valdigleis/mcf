@@ -893,7 +893,7 @@ Apesar da Definição \ref{def:UniaoGeneralizada} não apresentar de forma expl�
 \begin{definicao}\label{def:IntersecaoGeneralizada}
 	Seja $U$ um universo do discurso e seja $\{{A_i}\}_{i \in I}$ uma família tal que para todo $i$ tem-se que $A_i \subseteq U$. A intersecção da família de conjuntos $\{{A_i}\}_{i \in I}$, denotada por $\bigcap_{i \in I} A_i$, corresponde ao conjunto de todos os $x \in U$ tal que existe $i \in I$ de forma que $x \in A_i$, matematicamente tem-se que:
 	\begin{eqnarray*}
-		\bigcap_{i \in \{1, 2, 3\}} A_i = \{x \in U \mid (\forall i \in I)[x \in A_i]\}
+		\bigcap_{i \in I} A_i = \{x \in U \mid (\forall i \in I)[x \in A_i]\}
 	\end{eqnarray*}
 \end{definicao}
 
@@ -906,7 +906,7 @@ Apesar da Definição \ref{def:UniaoGeneralizada} não apresentar de forma expl�
 	\begin{eqnarray*}
 		\bigcap_{i \in \{1, 2\}} C_i & = & C_1 \cap C_2\\
 		& = & \{cc0133, cc0131, cc0134, cc0132, cc0135, cc0136\} \cap\\
-		& = & \{ec1011, ec1012, cc0131, cc0134, ec1013, ec1015\}\\
+		&   & \{ec1011, ec1012, cc0131, cc0134, ec1013, ec1015\}\\
 		& = & \{cc0131, cc0134\}
 	\end{eqnarray*}
 \end{exemplo}

@@ -29,10 +29,12 @@ Este documento vem sendo construído aos poucos (em passos de tartaruga), obviam
 
 * Teoria dos Grafos
 * $\Sigma$-Álgebras
-* Lógica Clássica
+* Lógicas
 * Autômatos Finitos
 * Computabilidade e Decidibilidade
 * Categorias
+* Teoria da informação
+* Teoria dos códigos
 
 ## Para sugestões, apontamentos e críticas
 

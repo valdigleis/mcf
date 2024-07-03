@@ -3,7 +3,7 @@
 Este documento está sendo construído aos poucos, tendo como base as diversas notas de aula manuscritas por mim ([Valdigleis](https://www.valdigleis.site)), estas notas haviam sido preparadas a mão para ministrar cursos nas graduações em Ciência da Computação, Engenharia da Computação, Engenharia de Produção e Matemática (Licenciatura e Bacharelado) nos últimos 7 anos. Com o incentivo de meus alunos de Ciência da Computação, optei por digitalizar tais notas na forma de um documento digital minimamente organizado com edição e formatação próprias, assim nasceu este projeto no dia 01/06/2019.
 
 > [!NOTE]\
-> Este material é licenciado sob a Licença Atribuição-NãoComercial-CompartilhaIgual 3.0 Não Adaptada (CC BY-NC-SA 4.0). Você pode obter uma copia da licença acessando a página:
+> Este material é licenciado sob a [Licença Atribuição-NãoComercial-CompartilhaIgual 4.0 Não Adaptada](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.pt) (CC BY-NC-SA 4.0). Você pode obter uma copia da licença acessando a página:
 ><div style="text-align: center;">
 ><img src="fig/license.png" alt="Texto alternativo" width="100"/>
 ></div>

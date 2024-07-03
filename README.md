@@ -11,7 +11,7 @@ Este documento está sendo construído aos poucos, tendo como base as diversas n
 
 ## Sobre os tópicos abordados
 
-Atualmente os tópicos sobre matemática e ciência da computação que eu ([Valdigleis](https://www.valdigleis.site)) neste projeto podem ser divididos em: (1) já presentes no documento e (2) para inserir futuramente. A seguir listo como andam as duas partes do texto:
+Atualmente os tópicos sobre matemática e ciência da computação que eu ([Valdigleis](https://www.valdigleis.site)) quero tratar neste documento podem ser divididos em: (1) já presentes no documento e (2) para inserir futuramente. A seguir listo como andam as duas partes do texto:
 
 
 > [!IMPORTANT]\

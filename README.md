@@ -1,6 +1,6 @@
 # Sobre este projeto
 
-Este «manuscrito» está sendo construído aos poucos, tendo como base diversas notas de aula que eu ([Valdigleis](https://www.valdigleis.site)), preparei para ministrar cursos nas graduações em Ciência da Computação, Engenharia de Produção e Matemática (Licenciatura e Bacharelado) nos últimos 6 anos.
+Este documento está sendo construído aos poucos, tendo como base as diversas notas de aula manuscritas por mim ([Valdigleis](https://www.valdigleis.site)) para ministrar cursos nas graduações em Ciência da Computação, Engenharia da Computação, Engenharia de Produção e Matemática (Licenciatura e Bacharelado) nos últimos 7 anos.
 
 > [!NOTE]\
 > Este material é licenciado sob a Licença Atribuição-NãoComercial-CompartilhaIgual 3.0 Não Adaptada (CC BY-NC-SA 4.0). Você pode obter uma copia da licença acessando a página:
@@ -11,7 +11,7 @@ Este «manuscrito» está sendo construído aos poucos, tendo como base diversas
 
 ## Sobre os tópicos abordados
 
-Este documento vem sendo construído aos poucos (em passos de tartaruga), obviamente não está concluído ou mesmo perto disto. Atualmente os tópicos teoricos da matemática e ciência da computação que eu ([Valdigleis](https://www.valdigleis.site)), gostaria de tratar neste projeto podem ser divididos em: (1) já presentes no documento e (2) para inserir futuramente.
+Atualmente os tópicos sobre matemática e ciência da computação que eu ([Valdigleis](https://www.valdigleis.site)) neste projeto podem ser divididos em: (1) já presentes no documento e (2) para inserir futuramente. A seguir listo como andam as duas partes do texto:
 
 
 > [!IMPORTANT]\

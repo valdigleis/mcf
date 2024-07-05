@@ -32,3 +32,10 @@
 \newenvironment{refute}[1][\textit{Refutação}]
 {\renewcommand\qedsymbol{$\blacksquare$}\proof[#1]}
 {\endproof}
+
+%---------------------------------------------------------------------------------------
+% Cria o comando para printar quando minutos se passaram desde a meia-noite
+%---------------------------------------------------------------------------------------
+\newcommand{\MinutesAfterMidnight}{%
+  \the\numexpr\currenthour*60+\currentminute\relax
+}

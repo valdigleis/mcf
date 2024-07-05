@@ -47,7 +47,7 @@ Durante o texto você irá encontrar uma personagem de forma recorrente, ela cha
 > [!WARNING]\
 > ALiCIA é uma criação do autor deste material e todas as imagens da mesma são de propriedade do autor, não sendo permitido o uso das imagens por terceiros sem autorização assinada pelo autor deste material.
 
-## Que faz o projeto?
+## Quem faz o projeto?
 
 Este projeto é mantido por mim «[Valdigleis](https://www.valdigleis.site)», com o suporte de todos os eleitores que gentilmente me mandam correções e sugestões valiosas para o texto, abaixo faço questão de listar todas as ações de ajuda que o projeto recebeu, note que é possível que uma mesma pessoa apareça mais de uma vez na lista.
 

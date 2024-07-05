@@ -32,6 +32,14 @@ if [ -f "$FILENAME.toc" ]; then
   rm -r "$FILENAME.toc"
 fi
 
+if [ -f "$FILENAME.fdb_latexmk" ]; then
+  rm -r "$FILENAME.fdb_latexmk"
+fi
+
+if [ -f "$FILENAME.fls" ]; then
+  rm -r "$FILENAME.fls"
+fi
+
 # Comandos para compilar usadno lualatex e bibtex
 lualatex "$FILENAME.tex"
 bibtex "$FILENAME.aux"

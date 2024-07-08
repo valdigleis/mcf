@@ -23,7 +23,7 @@ Para demonstrar que uma determinada propriedade \textbf{P} acontece para qualque
 	Então, para todo $n \in \mathbb{N}$  tem-se que $\textbf{P}(n)$ é verdadeiro.
 \end{definicao}
 
-Em termos da escrita usada na lógica de primeira ordem (ver \ref{cap:LogicaPredicados}) o princípio da indução fraca é da forma $(\textbf{P}(0) \land (\forall k \in \mathbb{N})[\textbf{P}(k) \Rightarrow \textbf{P}(k+1)]) \Rightarrow (\forall n \in \mathbb{N})[\textbf{P}(n)]$.  O procedimento (ou método) de se demonstrar alguma propriedade por indução consiste em,  informar que a prova será feita usado indução, depois deve-ser usar os três passos descritos na definição, sendo tais passos:
+Em termos da escrita usada na lógica de primeira ordem o princípio da indução fraca é da forma $(\textbf{P}(0) \land (\forall k \in \mathbb{N})[\textbf{P}(k) \Rightarrow \textbf{P}(k+1)]) \Rightarrow (\forall n \in \mathbb{N})[\textbf{P}(n)]$.  O procedimento (ou método) de se demonstrar alguma propriedade por indução consiste em,  informar que a prova será feita usado indução, depois deve-ser usar os três passos descritos na definição, sendo tais passos:
 
 \begin{itemize}
 	\item[ ] \textbf{(B)}ase: Neste passo é provado que a proposição vale para $0$, ou seja, deve-se provar que $\textbf{P}(0)$ realmente é verdadeira.
@@ -93,7 +93,9 @@ No que se segue serão apresentados alguns exemplos sobre a aplicação do méto
 			\begin{eqnarray*}
 				\sum_{i = 0}^{k+1} i & = & \Big(\sum_{i = 0}^{k} i\Big) + (k+1)\\
 				& \stackrel{\textbf{(H)}}{=} & \frac{k(k+1)}{2} + (k+1)\\
-				& = & \frac{(k+1)(k + 2)}{2}\\
+        & = & \frac{(k+1)(k + 2)}{2}
+      \end{eqnarray*}
+      \begin{eqnarray*}
 				& = & \frac{(k+1)((k+1) + 1)}{2}
 			\end{eqnarray*}
 		\end{itemize}
@@ -132,7 +134,10 @@ Agora como dito em \cite{carmo2013}, em algumas situações para se provar por i
 	Então, para todo $n \in \mathbb{N}$  tem-se que $\textbf{P}(n)$ é verdadeiro.
 \end{definicao}
 
-Usando a escrita da lógica de primeira ordem, o princípio da indução forte pode ser especificado da seguinte forma, $(\textbf{P}(0) \land (\forall k \in \mathbb{N})[(\forall i \leq k)[\textbf{P}(k)] \Rightarrow \textbf{P}(k+1)]) \Rightarrow (\forall n \in \mathbb{N})[\textbf{P}(n)]$. Utilizando o conceito de sequência apresentado no Capítulo \ref{cap:Funcoes}, pode-se dizer que na indução forte assume-se que uma sequência  de hipótese é totalmente verdadeira, ou seja, que todas as hipóteses na sequência $($\textbf{P}$(i))_{i \leq k}$ são verdadeiras. 
+Usando a escrita da lógica de primeira ordem, o princípio da indução forte pode ser especificado da seguinte forma: 
+$$(\textbf{P}(0) \land (\forall k \in \mathbb{N})[(\forall i \leq k)[\textbf{P}(i)] \Rightarrow \textbf{P}(i+1)]) \Rightarrow (\forall n \in \mathbb{N})[\textbf{P}(n)]$$ 
+
+Utilizando o conceito de sequência apresentado no Capítulo \ref{cap:Functions}, pode-se dizer que na indução forte assume-se que uma sequência  de hipótese é totalmente verdadeira, ou seja, que todas as hipóteses na sequência $($\textbf{P}$(i))_{i \leq k}$ são verdadeiras. 
 
 A seguir serão apresentados alguns exemplos sobre o uso da estratégia de indução forte como um método de demonstração, depois nas próximas seções serão apresentados respectivamente a equivalência entre a indução fraca e forte, e alguns cuidados que devem ser tomados ao se usar indução.
 
@@ -151,15 +156,15 @@ A seguir serão apresentados alguns exemplos sobre o uso da estratégia de indu�
 			\item[ ] \textbf{(B)}ase: Pela definição da sequência tem-se que $a_0 = 1$, mas desde que $2\cdot 0 + 1 = 1$, tem-se pela transitividade da igualdade que $a_0 = 2\cdot 0 + 1$. 
 			\item[ ] \textbf{(H)}ipótese indutiva:  Suponha para $k \in \mathbb{N}$ que $P(0), \cdots, P(k)$ são todas verdadeiras, ou seja, $a_i = 2i + 1$ para todo $0 \leq i \leq k$.
 			\item[ ] \textbf{(P)}asso indutivo:  Agora note que:
-			\begin{eqnarray*}
-				a_{k+1} & \stackrel{Def.}{=} & 2a_{k} - a_{k-1}\\
-				& \stackrel{\textbf{(H)}}{=} &  2(2k+1) - (2(k-1) + 1)\\
-				& = & 4k + 2 - 2k + 2 - 1\\
-				& = & 4k - 2k + 3\\
-				& = & 2k + 3\\
-				& = & 2(k + 1) + 1
-			\end{eqnarray*}
 		\end{itemize}
+    \begin{eqnarray*}
+			a_{k+1} & \stackrel{Def.}{=} & 2a_{k} - a_{k-1}\\
+			& \stackrel{\textbf{(H)}}{=} &  2(2k+1) - (2(k-1) + 1)\\
+			& = & 4k + 2 - 2k + 2 - 1\\
+      & = & 4k - 2k + 3\\
+			& = & 2k + 3\\
+			& = & 2(k + 1) + 1
+		\end{eqnarray*}
 		Consequentemente $P(k+1)$ é verdadeiro.  Agora desde que $k$ em \textbf{(H)} e \textbf{(P)} é um elemento genérico qualquer de $\mathbb{N}$ e também pelo resultado particular em  \textbf{(B)} pode-se concluir que para qualquer que seja $n \in \mathbb{N}$ tem-se que $P(n)$ é verdadeira, concluindo assim a prova.
 	\end{proof}
 \end{exemplo}

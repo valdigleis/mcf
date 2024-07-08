@@ -47,7 +47,7 @@ A ideia de dar um rótulo ao conjunto se faz necessário visto o grande trabalho
   O Conjunto de todos os primos de Ana pode ser representado por $A_{primos}$, $ANA_{p}$ ou ainda $A_p$.
 \end{exemplo}
 
-Em diversas situações ao se trabalhar com conjuntos, como as apresentadas no capítulo inicial de \cite{lipschutz1978-TC}, é necessário descrever um conjunto não por seu apelido (ou nome\footnote{No caso dos conjuntos numérico note que eles possuem nomes próprios, sendo: Naturais, Inteiros, Reais e etc. Sendo que o ``apelido'' para tais conjuntos são respectivamente os símbolos $\mathbb{N}, \mathbb{Z}$ e $\mathbb{R}$, tais símbolos funcionam como {\bf palavras reservadas} dentro da teoria ingênua dos conjuntos, além dos conjuntos numéricos, o conjunto vazio também possui seu rótulo, sendo tal rótulo o símbolo $\emptyset$.}), mas sim apresentando uma forma que descreva o conjunto de forma precisa e curta, seja listando (geralmente entre chaves e separados por vírgula) os elementos que juntos formam o referido conjunto, ou através da descrição da propriedade que descreve o conjunto, esta forma de representação costuma ser chamada representação compacta\footnote{Em outra obras como dito \cite{fmcbook} na notação compacta é chamada de \itshape{Set builder}.}.
+Em diversas situações ao se trabalhar com conjuntos, como as apresentadas no capítulo inicial de \cite{lipschutz1978-TC}, é necessário descrever um conjunto não por seu apelido (ou nome\footnote{O conjunto vazio, por exemplo, possui uma palavra ou símbolo reservado para ser seu rótulo, sendo este o símbolo $\emptyset$.}), mas sim apresentando uma forma que descreva o conjunto de forma precisa e curta, seja listando (geralmente entre chaves e separados por vírgula) os elementos que juntos formam o referido conjunto, ou através da descrição da propriedade que descreve o conjunto, esta forma de representação costuma ser chamada representação compacta\footnote{Em outra obras como dito \cite{fmcbook} na notação compacta é chamada de \itshape{Set builder}.}.
 
 \begin{exemplo}\label{exe:SetBuilder1}
   O conjunto dos números naturais\footnote{Neste documento em virtude da formação acadêmica de seu autor, o número zero $(0)$ é um número natural, esse ponto é discutível em outras obras.} menores que 10 é escrito na notação compacta como  $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$, Já o conjunto dos naturais menores que 5 e maiores que 3 pode ser escrito usando a notação compacta como $\{x \mid 3 < x < 5\}$.
@@ -143,7 +143,7 @@ Note que a Definição \ref{def:InclusaoConjuntos} estabelece a escrita,
 onde os espaços em {\color{red}vermelho} devem ser preenchidos com rótulos de conjuntos ou com a representação compacta, a seguir são apresentados usos da relação de inclusão.
 
 \begin{exemplo}\label{exe:InclusaoConjuntos1}
-  Dado o conjunto $\mathbb{Z}$ tem-se que o conjunto,  
+  Dado o conjunto dos inteiros ($\mathbb{Z}$) tem-se que o conjunto,  
   $$N = \{x \mid x = 2k \mbox{ para algum } k \in \mathbb{Z}\}$$ 
   é claramente um subconjunto de $\mathbb{Z}$, pois todo número par é também um número inteiro.
 \end{exemplo}
@@ -163,9 +163,9 @@ onde os espaços em {\color{red}vermelho} devem ser preenchidos com rótulos de 
 \begin{exemplo}\label{exe:InclusaoPropria1}
 	As seguintes relações de inclusão se verificam:
 	\begin{itemize}
-		\item[(a)] $\{1, 2\} \subset \mathbb{R}$.
+    \item[(a)] $\{1, 2\} \subset \{1, 2, 3, 4, 5, 6, 7, 8, 9, 0\}$.
 		\item[(b)] $\{x \mid x \mbox{ é uma cidade do PE}\} \subset \{x \mid x \mbox{ é uma cidade do Brasil}\}$.
-		\item[(c)] $\mathbb{Z}^+ \subset \mathbb{Z}$.
+    \item[(c)] $\{a, e\} \subset \{a, b, c, d, e, f\}$.
 	\end{itemize}
 \end{exemplo}
 
@@ -705,6 +705,19 @@ Além do conjunto das partes, os conjuntos gerados pela ideia da partição de u
 \begin{nota}[Uma partição especial]
   Apesar de não ter um nome específico a partição descrita no Teorema \ref{teo:ParticaoTrivial}, é muito importante como ponto de partida para a construção de partições mais complexas, por esse fato neste documento será chamada de \textbf{partição trivial}.
 \end{nota}
+
+\section{Conjuntos Numéricos e Palavras Reservadas}
+
+Como este documento irá  utilizar a linguagem da teoria ingênua de conjunto como sendo linguagem básica padrão para o desenvolvimento inicial aqui proposto, é conveninte apresentar ao leitor as palavras reservadas para representar os conjuntos numéricos em tal teoria, a seguir são listas as palavras reservadas básicas.
+
+\begin{itemize}
+  \item $\mathbb{N}$, representa o conjunto dos números naturais\footnote{Lembre-se que aqui neste documento $0$ é obrigatoriamente um número natural}.
+  \item $\mathbb{Z}$, representa o conjunto dos números inteiro.
+  \item $\mathbb{Q}$, representa o conjunto dos números racionais.
+  \item $\mathbb{I}$, representa o conjunto dos números irracionais.
+  \item $\mathbb{R}$, representa o conjunto dos números reais.
+  \item $\mathbb{C}$, representa o conjunto dos números Complexos.
+\end{itemize}
 
 \section{Questionário}\label{sec:Questionario1part1}
 

@@ -50,7 +50,7 @@ A ideia de dar um rótulo ao conjunto se faz necessário visto o grande trabalho
 Em diversas situações ao se trabalhar com conjuntos, como as apresentadas no capítulo inicial de \cite{lipschutz1978-TC}, é necessário descrever um conjunto não por seu apelido (ou nome\footnote{O conjunto vazio, por exemplo, possui uma palavra ou símbolo reservado para ser seu rótulo, sendo este o símbolo $\emptyset$.}), mas sim apresentando uma forma que descreva o conjunto de forma precisa e curta, seja listando (geralmente entre chaves e separados por vírgula) os elementos que juntos formam o referido conjunto, ou através da descrição da propriedade que descreve o conjunto, esta forma de representação costuma ser chamada representação compacta\footnote{Em outra obras como dito \cite{fmcbook} na notação compacta é chamada de \itshape{Set builder}.}.
 
 \begin{exemplo}\label{exe:SetBuilder1}
-  O conjunto dos números naturais\footnote{Neste documento em virtude da formação acadêmica de seu autor, o número zero $(0)$ é um número natural, esse ponto é discutível em outras obras.} menores que 10 é escrito na notação compacta como  $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$, Já o conjunto dos naturais menores que 5 e maiores que 3 pode ser escrito usando a notação compacta como $\{x \mid 3 < x < 5\}$.
+  O conjunto dos números naturais menores que 10 é escrito na notação compacta como  $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$, Já o conjunto dos naturais menores que 5 e maiores que 3 pode ser escrito usando a notação compacta como $\{x \mid 3 < x < 5\}$.
 \end{exemplo}
 
 \begin{exemplo}\label{exe:SetBuilder2}
@@ -90,7 +90,7 @@ Em diversas situações ao se trabalhar com conjuntos, como as apresentadas no c
 
 Para prosseguir, é interessante notar que nos itens ``a'', ``b'' e ``c'' apresentado no Exemplo \ref{exe:SetBuilder2}, os elementos no conjunto têm a mesma natureza (ou tipo), por outro lado, os itens ``d'' e ``e'' apresentam a propriedade dos elementos no conjunto serem de tipos diferentes. 
 
-No primeiro caso, quando todos os elementos têm o mesmo tipo\footnote{Tipo aqui pode ser interpretado como um segmentar os elementos do conjunto em diferentes ``espécies'', não faz menção a área de matemática chamada teoria dos tipos \cite{nederpelt2014}.}, é dito que o conjunto é \textbf{homogêneo}. Já no segundo caso, ou seja, quando os elementos no conjunto possuem tipos diferentes, é dito que o conjunto é \textbf{heterogêneo}. A seguir, mais exemplos são apresentados deste conceito.
+No primeiro caso, quando todos os elementos têm o mesmo tipo\footnote{Tipo aqui pode ser interpretado como uma forma de segmentar os elementos do conjunto em diferentes ``espécies'', não faz menção a área de matemática chamada teoria dos tipos \cite{nederpelt2014}.}, é dito que o conjunto é \textbf{homogêneo}. Já no segundo caso, ou seja, quando os elementos no conjunto possuem tipos diferentes, é dito que o conjunto é \textbf{heterogêneo}. A seguir, mais exemplos são apresentados deste conceito.
 
 \begin{exemplo}\label{exe:ConjuntoHomogeneo1}
   A seguir alguns conjuntos homogêneos, 
@@ -336,7 +336,7 @@ Além das propriedades apresentadas no Teorema \ref{teo:PropriedadesComplemento}
 	\end{tabular}
 \end{table*}
 
-Seguindo com este texto, uma outra importante operação sobre conjuntos é a diferença entre dois conjuntos. A diferença entre conjunto apresenta duas formas, a primeira considerada por muito com a diferença natural \cite{carmo2013}, Já a segunda forma existente, é conhecida por diferença simétrica, esta segunda forma em um certo sentido, pode ser usada para medir a  dissimetria entre conjuntos, ambas as operações são definidas formalmente a seguir.
+Seguindo com este texto, uma outra importante operação sobre conjuntos é a diferença entre dois conjuntos. A diferença entre conjunto apresenta duas formas, a primeira considerada por muito com a diferença natural \cite{carmo2013}, já a segunda forma existente, é conhecida por diferença simétrica. %esta segunda forma em um certo sentido, pode ser usada para medir a  dissimetria entre conjuntos, ambas as operações são definidas formalmente a seguir.
 
 \begin{definicao}[Diferença de conjuntos]\label{def:DiferencaConjuntos}
 	Dado dois conjuntos $A$ e $B$, a diferença de $A$ e $B$, denotado por $A - B$, corresponde ao seguinte conjunto:
@@ -430,9 +430,7 @@ A seguir são apresentadas duas séries de igualdades notáveis relacionadas a d
   E assim a prova está concluída.
 \end{proof}
 
-\begin{nota}[Referências em provas equacionais]
-  Na demonstração do Teorema \ref{teo:ElementarDiferencaConjuntos1} apresentada anteriormente, algumas vezes foi escrito o símbolo de $=$ com um texto acima, isso é uma técnica comum na escrita de demonstrações matemáticas, o entendimento que leitor precisa ter é que ao escrever $\stackrel{\kappa}{=}$ significa que a igualdade segue (ou é garantida) pela propriedade ou resultado $\kappa$. Durante este texto em algumas demonstrações uma escrita similar irá aparecer para outros símbolos além da igualdade, por exemplo, para o símbolo de implicação, que será introduzidos no decorrer deste documento.
-\end{nota}
+Na demonstração do Teorema \ref{teo:ElementarDiferencaConjuntos1} apresentada anteriormente, algumas vezes foi escrito o símbolo de $=$ com um texto acima, isso é uma técnica comum na escrita de demonstrações matemáticas, o entendimento que leitor precisa ter é que ao escrever $\stackrel{\kappa}{=}$ significa que a igualdade segue (ou é garantida) pela propriedade ou resultado $\kappa$. Durante este texto em algumas demonstrações uma escrita similar irá aparecer para outros símbolos além da igualdade, por exemplo, para o símbolo de implicação, que será introduzidos no decorrer deste documento.
 
 \begin{teorema}\label{teo:ElementarDiferencaConjuntos2}
 	Sejam $A, B$ e $C$ subconjuntos de um discurso $\mathbb{U}$, tem-se que:
@@ -587,7 +585,7 @@ O próximo resultado mostra que a operação de diferença simétrica entre conj
 \end{teorema}
 
 \begin{proof}
-	Dado um conjunto $A$ qualquer pelo Corolário \ref{col:DiferencaSimetrica} tem-se que $A \ominus \emptyset = (A \cup \emptyset) - (A \cap \emptyset)$, mas pelas propriedades apresentadas na Tabela \ref{tab:PropriedadesUniaoIntersecao} tem-se: $A \cup \emptyset = A$ e $A \cap \emptyset = \emptyset$. Logo $A \ominus \emptyset = A - \emptyset$, por fim, pelo Teorema \ref{teo:ElementarDiferencaConjuntos1} (a) tem-se que $A - \emptyset = A$, consequentemente, $A \ominus \emptyset = A$.
+	Dado um conjunto $A$ qualquer, trivialmente tem-se a seguinte igualdade $A \ominus \emptyset \stackrel{Cor. \ \ref{col:DiferencaSimetrica}}{=} (A \cup \emptyset) - (A \cap \emptyset) = A$.
 \end{proof}
 
 Seguindo com as propriedades que a operação de diferença simétrica possui, o próximo resultado mostra a existência de um elemento que neste texto será chamado de \textbf{alternador}, isto é, existe um conjunto que quando operado com qualquer outro conjunto $A$, o resultado é o complemento deste conjunto $A$.
@@ -706,18 +704,74 @@ Além do conjunto das partes, os conjuntos gerados pela ideia da partição de u
   Apesar de não ter um nome específico a partição descrita no Teorema \ref{teo:ParticaoTrivial}, é muito importante como ponto de partida para a construção de partições mais complexas, por esse fato neste documento será chamada de \textbf{partição trivial}.
 \end{nota}
 
-\section{Conjuntos Numéricos e Palavras Reservadas}
+\section{Conjuntos Numéricos e Palavras Reservadas}\label{sec:ConjuntoNumericoPalavrasReservadas}
 
 Como este documento irá  utilizar a linguagem da teoria ingênua de conjunto como sendo linguagem básica padrão para o desenvolvimento inicial aqui proposto, é conveninte apresentar ao leitor as palavras reservadas para representar os conjuntos numéricos em tal teoria, a seguir são listas as palavras reservadas básicas.
 
 \begin{itemize}
-  \item $\mathbb{N}$, representa o conjunto dos números naturais\footnote{Lembre-se que aqui neste documento $0$ é obrigatoriamente um número natural}.
-  \item $\mathbb{Z}$, representa o conjunto dos números inteiro.
-  \item $\mathbb{Q}$, representa o conjunto dos números racionais.
-  \item $\mathbb{I}$, representa o conjunto dos números irracionais.
-  \item $\mathbb{R}$, representa o conjunto dos números reais.
-  \item $\mathbb{C}$, representa o conjunto dos números Complexos.
+  \item[(a)] $\mathbb{N}$, representa o conjunto dos números naturais\footnote{Lembre-se que aqui neste documento $0$ é obrigatoriamente um número natural}.
+  \item[(b)] $\mathbb{Z}$, representa o conjunto dos números inteiro.
+  \item[(c)] $\mathbb{Q}$, representa o conjunto dos números racionais.
+  \item[(d)] $\mathbb{I}$, representa o conjunto dos números irracionais.
+  \item[(e)] $\mathbb{R}$, representa o conjunto dos números reais.
+  \item[(f)] $\mathbb{C}$, representa o conjunto dos números Complexos.
 \end{itemize}
+
+Além destes conjuntos básicos, alguns subconjuntos deles também merecem destaque, e por isso tem palavras reservadas para eles.
+
+\begin{itemize}
+  \item[(a)] $\mathbb{Z}^*$, representa o conjuntos números inteiros sem o zero, ou seja, $\mathbb{Z}^* = \mathbb{Z} - \{0\}$.
+  \item[(b)] $\mathbb{Q}^*$, representa o conjuntos números racionais sem o zero.
+  \item[(c)] $\mathbb{R}^*$, representa o conjuntos números reais sem o zero.
+  \item[(d)] $\mathbb{Z}_-$ e $\mathbb{Z}_+$, representam respectivamente o conjuntos números inteiros menores e maiores que o zero, ou seja, $\mathbb{Z}_- = \{x \in \mathbb{Z} \mid x < 0\}$ e $\mathbb{Z}_+ = \{x \in \mathbb{Z} \mid x > 0\}$.
+  \item[(e)] $\mathbb{Q}_-, \mathbb{Q}_+, \mathbb{R}_-, \mathbb{R}_+$, tem significado similar ao item anterior, alterando apenas do conjunto dos inteiros para os racionais e reais respectivamente.
+\end{itemize}
+
+Agora como dito em \cite{carmo2013}, os símbolos podem ser combinados para representar conjuntos ainda mais especificos, por exemplo, o conjuntos do números reais positivos não nulos, isto é, o conjunto de todos os reais positivos maiores que $0$, é representado por $\mathbb{R}^*_+$, que nada mais é, do que uma combinação dos símbolos $\mathbb{R}^*$ e $\mathbb{R}_+$.
+
+%\section{Conjuntos Numéricos e Intervalos}\label{sec:ConjuntoNumericoIntervalos}
+
+%Um tipo específico de conjunto que é de sua importância para a matemática e áreas afim, são os intervalos numérico, tais conjuntos tem um representação própria dentro da teoria do conjuntos. Antes de formalizar o conceito de intervalo numérico, é interessante apresentar a noção de reta real. 
+
+%A reta real como tido em \cite{lipschutz1978-TC} é uma representação do conjunto dos números reais na forma de uma reta onde estão dispostos os elementos de $\mathbb{R}$, o elemento $0$ encontra-se no centro da reta, sendo esta infinita à esquerda e à direita do $0$, ressaltando que o $0$ é chamado de origem da reta real. 
+
+
+%\begin{figure}[h]
+%	\centering
+%	\begin{tikzpicture}
+		% Reta
+%		\draw[-] (-5,0) -- (5,0);
+%		\draw[thick] (5.5,0.2) node[below] {$\cdots$};
+%		\draw[thick] (-5.5,0.2) node[below] {$\cdots$};
+		% Marcadores
+%		\draw[thick] (0,0) node {$|$};
+%		\draw[thick] (1,0) node {$|$};
+%		\draw[thick] (1.41,0) node {$|$};
+%		\draw[thick] (2,0) node {$|$};
+%		\draw[thick] (2.5,0) node {$|$};
+%		\draw[thick] (4.5,0) node {$|$};
+%		\draw[thick] (-1,0) node {$|$};
+%		\draw[thick] (-2.7,0) node {$|$};
+%		\draw[thick] (-4,0) node {$|$};
+%		\draw[thick] (-5,0) node {$|$};
+		% Os números
+%		\draw[thick] (0,-0.5) node {$0$};
+%		\draw[thick] (1,-0.5) node {$1$};
+%		\draw[thick] (1.41,-0.5) node {$\sqrt{2}$};
+%		\draw[thick] (2,-0.5) node {$2$};
+%		\draw[thick] (2.5,-0.5) node {$2.5$};
+%		\draw[thick] (3.14,-0.5) node {$\pi$};
+%		\draw[thick] (4.5,-0.5) node {$4.5$};
+%		\draw[thick] (-1.1,-0.5) node {$-1$};
+%		\draw[thick] (-2.8,-0.5) node {$-e$};
+%		\draw[thick] (-4.1,-0.5) node {$-4$};
+%		\draw[thick] (-5.1,-0.5) node {$-5$};
+%	\end{tikzpicture}
+%	\caption{Uma representação parcial da reta real, exibindo a localização de alguns números reais.}
+%	\label{fig:RetaReal}
+%\end{figure}
+
+
 
 \section{Questionário}\label{sec:Questionario1part1}
 
@@ -931,7 +985,15 @@ Como este documento irá  utilizar a linguagem da teoria ingênua de conjunto co
 	Uma aluna do curso de Ciência da Computação realizou uma pesquisa sobre três ritmos (A, B e C) presentes no aplicativo de música \textit{Spotify} com seus colegas de classe para seu trabalho na disciplina de estatística,  e levantou os dados expostos na Tabela \ref{tab:TabelaDeDados}.
 \end{questao}
 
-\begin{table}[h]
+\begin{exerList}
+	\item Qual é o número de entrevistados que escutam apenas o ritmo A?
+	\item Qual é o número de entrevistados que escutam o ritmo A e não escutam o ritmo B?
+	\item Quantos entrevistados não escutam o ritmo C?
+	\item Qual é o número de entrevistados que escutam algum dos ritmos?
+	\item Quantos entrevistados escutam o ritmo B ou C, mas não escutam o ritmo A?
+\end{exerList}
+
+\begin{table}[H]
 	\scriptsize
 	\centering
 	\begin{tabular}{ccccccccc}
@@ -946,14 +1008,6 @@ Como este documento irá  utilizar a linguagem da teoria ingênua de conjunto co
 	\caption{Tabela com dados fictício da pesquisa sobre ritmos no \textit{Spotify}.}
 	\label{tab:TabelaDeDados}
 \end{table}
-
-\begin{exerList}
-	\item Qual é o número de entrevistados que escutam apenas o ritmo A?
-	\item Qual é o número de entrevistados que escutam o ritmo A e não escutam o ritmo B?
-	\item Quantos entrevistados não escutam o ritmo C?
-	\item Qual é o número de entrevistados que escutam algum dos ritmos?
-	\item Quantos entrevistados escutam o ritmo B ou C, mas não escutam o ritmo A?
-\end{exerList}
 
 \begin{questao}\label{test:Conjuntos12}
 	Dado os conjuntos $A = \{1, 2, 3\}, B = \{3,4,5\}$ e $C = \{1, 5, 6\}$ construa um conjunto $X$ com exatamente $4$ elementos tal que $A \cap X = \{3\}$, $B \cap X =\{3, 5\}$ e $C \cap X = \{5, 6\}$.

@@ -15,7 +15,7 @@
 .*.lb
 
 # Ignore o arquivo compilado
-#mcf.pdf
+mcf.pdf
 
 # Ignore Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

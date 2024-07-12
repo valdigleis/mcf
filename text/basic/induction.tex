@@ -248,7 +248,48 @@ Agora esta seção irá se dedicar a tarefa de apresentar ao leitor a relação 
 
 \section{Indução Bem fundada}\label{sec:InducaoBoaOrdem}
 
-Escrever depois . . . 
+Nesta seção o conceito de indução será generalizado, de forma que, a indução pode ser executada sobre conjuntos munidos de uma relação bem fundada, sendo que, tais conjuntos não sejam necessariamente o conjunto do números naturais. Para iniciar essa apresentação deve-se considerar o seguinte resultado.
+
+\begin{teorema}[Indução bem fundada]\label{teo:InducaoBemFundada}
+	Seja $X$ um conjunto munido de uma relação bem fundada $\unlhd$. O conjunto $X$ satisfaz a seguinte propriedade\footnote{Nomeada indução bem fundada, como dito em \cite{carmo2013}.}: Se $A \subseteq X$ é tal que
+	\begin{itemize}
+		\item[(i)] todos os minimais de $X$ pertencem a $A$ e
+		\item[(ii)] qualquer que seja $x \in X$ não minimal, se $\{y \in X \mid y \unlhd x\} \subseteq A$, então $x \in A$.
+	\end{itemize}
+	Então $X = A$.
+\end{teorema}
+
+\begin{proof}
+	Suponha por absurdo que $X$ é um conjunto munido de uma relação bem fundada $\unlhd$ que satisfaz (i) e (ii), mas que $X \neq A$. Agora pelo fato de que $X \neq A$, tem-se que $X - A \neq \emptyset$ e pelo Teorema \ref{teo:CaracterizacaoRelacaoBemFundada} é claro que $X - A$ possui elementos minimais. Agora deixe $m \in X - A$ ser um minimal, por definição é claro que $m \notin A$, logo por (i) $m$ não pode ser um minimal de $X$. Agora, considere que $y  \in X$ tal que $y \unlhd m$, agora se $y \in X - A$, então como $y \unlhd m$, tem-se que $m$ não seria um minimal de $X - A$, o que implica que necessariamente $y \in A$. Mas assim, por (ii) tem-se que $m \in A$, o que é um absurdo e, portanto, $X$ satisfaz a propriedade de Indução bem fundada.
+\end{proof}
+
+Quando a relação bem fundada sobre $X$ for uma boa ordem, então a indução bem fundada (Teorema \ref{teo:InducaoBemFundada}) pode ser simplificada para o resultado exposto a seguir.
+
+\begin{corolario}
+	Seja $\unlhd$ uma boa ordem sobre um conjunto não vazio $X$. Se $A \subseteq X$ é tal que
+	\begin{itemize}
+		\item[(i)] $min(X) \in A$ e
+		\item[(ii)] qualquer que seja $x \in X$ tal que $x \neq min(X)$, se $\{y \in X \mid y \unlhd x\} \subseteq A$, então $x \in A$.
+	\end{itemize}
+	Então $X = A$.
+\end{corolario}
+
+\begin{proof}
+	Direto do Teorema \ref{teo:InducaoBemFundada} pelo fato simples de $\unlhd$ ser uma boa ordem sobre $X$. Pois isto implica que $X$ só possui um elemento minimal e este coincide com o mínimo (ver os Teoremas \ref{teo:CaracterizacaoRelacaoBemFundada} e \ref{teo:RelacoesBemFundada-BoaOrdem}).
+\end{proof}
+
+Pode-se então pensar na indução bem fundada em termos das propriedades dos elementos em algum universo, isto é, dado um universo $A = \{x \mid P(x)\}$, pode-se definir o princípio da indução bem fundada sobre um determinado universo do discusso da seguinte forma.
+
+\begin{definicao}[Princípio da Indução Bem Fundada]\label{def:InducaoBemFundada}
+	Seja $\unlhd$ uma relação bem fundada sobre um conjunto $X$ e seja $P(x)$ uma propriedade observável sobre todos os elementos de $X$. Se:
+	\begin{itemize}
+		\item[(i)] $P(x)$ se verifica para todos os minimais (com respeito a $\unlhd$) de $X$ e
+		\item[(ii)] Para todo $x$ não minimal de X, se $P(y)$ é verdadeiro e $y \unlhd x$, então $P(x)$ é verdadeiro.
+	\end{itemize}
+	Então para todo $x \in X$ tem-se que $P(x)$ é verdadeiro.
+\end{definicao}
+
+Agora será apresentado o uso do princípio da indução bem fundada como mecanismo de demonstração, de forma similar ao que foi feito com a indução forte e fraca na seção anterior deste documento.
 
 \section{Estruturas Indutivamente Geradas}\label{sec:InducaoEstrutural}
 

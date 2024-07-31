@@ -1,0 +1,119 @@
+\chapter{Fundamentos de Álgebra Universal}
+
+\epigraph{``Não deve haver, entre os teoremas da matemática, um enunciado que, em certo sentido, não tenha sido provado de uma maneira algébrica.''}{David Hilbert.}
+
+\section{Introdução}
+
+%Na matemática, uma álgebra é um objeto estrutural, ou seja, é uma estrutura com partes bem definidas. 
+
+Matemáticos em geral dizem simplesmente que, uma álgebra consiste em um ou mais conjuntos de objetos e uma ou mais operações sobre esses objetos \cite{lang2008}. Já para os cientistas da computação (e também alguns lógicos\footnote{O autor tem bons amigos lógicos com esse pensamento.}), a álgebra tem o significado mais mecânico, ela é, na verdade, uma máquina abstrata, onde os conjuntos de objetos, são os dados sobre os quais a máquina trabalha, e as operações são os programas que a máquina consegue executar.
+
+Independente da visão adotada, estamos interessados nas propriedades das operações (programas) envolvidas, por exemplo, quais são suas aridades e quais leis ou axiomas elas satisfazem. Obviamente, como é um objeto matemático, as álgebras podem ser tipadas, assim, qualquer álgebra tem um tipo associado a ela. E será o tipo que especifica o número de operações (programas) que a álgebra possui, além de, fornecer informações sobre a aridade de cada operação (programa). 
+
+A maioria dos estudantes de matemática em sua graduação estuda uma disciplina chamada álgebra abstrata, que é nada mais que o estudo de grupos e aneis, sendo estes, entretanto, apenas dois tipos de álgebras \cite{stanley1981}. Por outro lado, a álgebra não se resume a aneis e grupos, de fato a ágebra é uma área bem mais ampla, e o estudo das álgebras em sua totalidade, isto é, sem se prender a um tipo de álgebra particular é a área da matemática que hoje é chamada de álgebra universal \cite{klaus2001, benja-Logica}, que será o assunto estudo a partir da próxima seção deste documento.
+
+%\section{Introdução aos Reticulados}\label{sec:Reticulados}
+
+%Como já dito em \cite{stanley1981}, quando são estudadas as propriedades comuns a todas os tipos de estruturas algébricas (como grupos, anéis, etc.), ou mesmo quando são estudadas as propriedades específicas que distinguem diferentes tipos de álgebras, os reticulados aparecem de forma essencial e natural em tais estudos\footnote{Em particular, os reticulados de congruência têm um papel importante nesse estudo. Eles ajudam a entender como diferentes partes de uma estrutura algébrica podem ser congruentes, ou seja, equivalentes em um certo sentido, detalhes em \cite{stanley1981}.}. Além disso, como será visto em momentos futuros os reticulados são eles próprios um tipo importante de álgebras, e são de suma importância para a ciência da computação, lógica e diversas áreas da matemática. Devido a isto antes de entrar no estudo das álgebras.
+
+
+\section{Definições Fundamentais}
+
+%Para dar um \textit{spoiler} ao leitor, uma $\Sigma$-álgebra é um objeto matemático que descreve uma linguagem\footnote{Na ciência da computação um objeto que descreve uma linguagem é chamado de máquina ou programa.} \cite{stanley1981}, ela (a $\Sigma$-álgebra) é o objeto responsável por dar sintaxe e semântica a uma linguagem. 
+
+Este texto começa então apresentando os conceito relacionados a sintaxe da álgebra sem se preocupar inicialmente com a semântica, para isso primeiro será apresentado o conceito de assinatura algébrica, ou simplesmente, $\Sigma$-assinatura (ou apenas assinatura).
+
+\begin{definicao}[Assinatura]\label{def:SigmaAssinatura}
+  Uma $\Sigma$-Assinatura, ou simplesmente, assinatura, é uma estrutura $\langle \Sigma, arid \rangle$, onde $\Sigma$ é um conjunto enumerável de símbolos e $arid : \Sigma \rightarrow \mathbb{N}$ é uma função total, tal que para cada $f \in \Sigma$ tem-se que $arid(f)$ representa a aridade\footnote{Aridade de um símbolo $f$ é a quantidade de argumentos (outros símbolos) que podem ser associados por vez ao símbolo $f$.} de $f$.
+\end{definicao}
+
+\begin{exemplo}\label{exe:SigmaAssinatura1}
+  As estruturas abaixo são ambas assinaturas,
+  \begin{itemize}
+    \item[(a)] $\langle \{+, -, *, p \}, arid_1 \rangle$ com $arid_1(+) = arid_1(-) = arid_1(*) = arid_1(p) = 2$.
+    \item[(b)] $\langle \{|, a, +\}, arid_2 \rangle$ com $arid_2(|) = 2,  arid_2(a) = 0$ e $arid_2(+) = 4$.
+  \end{itemize}
+  Por outro lado, a estrutura $\langle \{+, 0, 1, 2\}, arid_3 \rangle$ onde tem-se a definição 
+  $$arid_3(0) = arid_3(1) = arid_3(2) = 0$$ 
+  não é uma assinatura.
+\end{exemplo}
+
+Obviamente, ficar escrevendo a estrutura completa de uma assinatura, isto é, escrever $\langle \Sigma, arid \rangle$, é algo tedioso e muitas vezes desnecessário, assim a menos que seja de suma importância, sempre que for necessário falar de uma assinatura será escrito apenas o $\Sigma$ ficando a existência da função $arid$ subentendida.
+
+\begin{nota}[Nomenclatura]
+  ALiCIA, além de, adorar matemática abstrata, também gosta muito de programação, assim para termos um vocabulário próximo da programação ela decidiu que deste ponto em diante os símbolos em $\Sigma$ serão chamados de símbolos funcionais.
+\end{nota}
+
+A Definição \ref{def:SigmaAssinatura} apresenta os símbolos (os funcionais) que foram parte do alfabeto básico da linguagem que será descrita por uma $\Sigma$-álgebra, note também que, além dos funcionais as regras sintáticas já foram apresentadas de forma não detalhada, a seguir tais regras são apresentadas de forma explícita.
+
+\begin{definicao}\label{def:SintaxeAlgebra}
+  Seja $\Sigma$ uma assinatura, a sintaxe descrita por $\Sigma$ é formada pelas seguintes regras: 
+  \begin{itemize}
+    \item[i.] Todo $f \in \Sigma$ com $arid(f) = 0$ é tal que $f$ é uma palavra válida.
+    \item[ii.] Para todo $f \in \Sigma$ se $arid(f) = n$, então a palavra $f(x_1, \cdots, x_n)$ é uma palavra válida, onde todo $x_i$ com $1 \leq i \leq n$ é uma palavra válida, um símbolo de uma variável, ou um símbolo de um conjunto não vazio dado.
+  \end{itemize}
+\end{definicao}
+
+Antes de prosseguir é interessante falar sobre a escrita de palavra válidas usando funcionais de aridade $2$. Para estes funcionais existe duas formas muito utilizadas na literatura (ver \cite{klaus2001, stanley1981}) para escrever palavras válidas: 
+
+\begin{enumerate}
+  \item A forma que é apresentada no item (ii) da Definição \ref{def:SintaxeAlgebra} que é chamada de \textbf{escrita prefixa}, que nada mais é do que a escrita natural de funções que foi já apresentada no Capítulo \ref{cap:Functions}. 
+  \item A forma \textbf{infixa}: na forma infixa um funcional $f$ de aridade $2$ seria usando entre os objetos que estão com ele relacionados, isto é, a palavra válida seria da forma $x_1 f x_2$\footnote{Muitas linguagens de programação como Haskell \cite{learnHaskell2011, beginningHaskell} e provadores de teoremas tais como Coq \cite{coq2013} permite usar tanto a notação prefixa como a notação infixa.}.
+\end{enumerate}
+
+Agora para continuar o estudo das $\Sigma$-álgebra será necessário que a seguinte concessão seja feita, para todo conjunto não vazio $A$ tem-se que $A^0 = \{\emptyset\}$, tendo feito essa concessão pode-se finalmente apresentar a definição a seguir.
+
+\begin{definicao}[$\Sigma$-Álgebra]\label{def:SigmaAlgebra}
+  Seja $\Sigma$ uma assinatura, uma $\Sigma$-álgebra é uma estrutura $\langle A, \Sigma_A \rangle$, onde:
+  \begin{itemize}
+    \item[(i)] $A$ um conjunto não vazio e 
+    \item[(ii)] $\Sigma_A = \{f: A^n \rightarrow A  \mid n \in \mathbb{N} \land f \in \Sigma\}$ é um conjunto finito e não vazio de funções totais\footnote{Aqui está sendo usado apenas a assinaturas das funções por critérios de simplificação de escrita, mas o leitor deve lembrar que uma função é uma estrutura bem mais rica (se necessário visite o capítulo \ref{cap:Functions}).}, chamado conjunto de interpretação de $\Sigma$.
+  \end{itemize}
+\end{definicao}
+
+Com a Definição \ref{def:SigmaAssinatura} são apresentados símbolos funcionais, depois na Definição \ref{def:SintaxeAlgebra} é apresentado como usar tais símbolos para criar palavras válidas dentro da linguagem descrita pela $\Sigma$-álgebra, entretanto, não se tinha qualquer tipo de significado para os símbolos funcionais, ou seja, eles eram objetos puramente sintáticos. Na Definição \ref{def:SigmaAlgebra} usando um conjunto base (os dados) $A$ é dado significado aos símbolos funcionais através do conjunto $\Sigma_A$, eles (os funcionais) se tornam verdadeiramente objetos (funções) com um significado, ou seja, a $\Sigma$-álgebra de fato atribui sintaxe e semântica para uma linguagem, observe entretanto, que a semântica é definida pelo conjunto base e apenas por ele. 
+
+Para entender melhor o que foi dito no parágrafo anterior, considere por exemplo, uma assinatura $\langle \{+\}, arid \rangle$ com $arid(+)  = 2$, note que, dado o conjunto dos números naturais $\mathbb{N}$ e o conjunto $Por$ das palavras da linguagem portuguesa pode-se definir duas $\{+\}$-álgebras, sendo elas: $\langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$ e $\langle Por, \{+ :Por^2 \rightarrow Por\} \rangle$, note que a Definição \ref{def:SigmaAlgebra} impõem que o funcional $+$ seja uma função total em ambas as álgebras, porém, $+$ terá interpretações (significado) diferentes em cada álgebra, neste caso particular em $\mathbb{N}$ o funcional pode ser interpretado com a soma usual de números naturais, por outro lado, poderia ser interpretado como a concatenação\footnote{A concatenação de duas palavras $a_1\cdots a_m$ e $b_1\cdots b_n$ é a operação que produz a palavra $a_1\cdots a_mb_1\cdots b_n$ como resultado.} de palavras, o que importa que o leitor perceba é que o funcional $+$ será interpretado de forma diferente em cada álgebra isoladamente.
+
+\begin{nota}[Um super poder da álgebra.]
+  Como $\Sigma$-álgebras são linguagens\footnote{Máquinas na linguagem da ciência da computação.} isolado, pode-se ter duas álgebras distintas para o mesmo conjunto de funcionais usando o mesmo conjunto básico de dados para dar semântica aos funcionais, por exemplo, considere a assinatura $\langle \{+\}, arid \rangle$ com $arid(+)  = 2$ e o conjunto dos naturais $\mathbb{N}$, pode-se apresentar duas (ou até mais) $\Sigma$-álgebras $A = \langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$ e $B = \langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$, na álgebra $A$ a interpretação de $+$ pode sem problemas ser a soma padrão de naturais, já na álgebra $B$ o funcional $+$ poderia ser interpretado (ou seja, definido em $\Sigma_\mathbb{N}$) usando notação infixa, para todo $x, y \in \mathbb{N}$ da seguinte forma:
+  \begin{eqnarray*}
+    x + y = \left\{\begin{array}{ll}	0, & \hbox{se } x = y\\1,  & \hbox{senão}\end{array}\right.
+  \end{eqnarray*}
+  Assim a definição de $\Sigma$-álgebra, permite criar álgebras distintas usando a mesma $\Sigma$-assinatura e o mesmo conjunto base $X$, o que muda é apenas a interpretação dos funcionais, ou seja, o conjunto $\Sigma_X$ é o que irá difereir nas $\Sigma$-álgebras.
+\end{nota}
+
+\begin{exemplo}\label{exe:AlgebraUniversal1}
+  A estrutura da forma $\langle \mathbb{Z}, \{S : \mathbb{Z}^3 \rightarrow \mathbb{Z}, P : \mathbb{Z} \rightarrow \mathbb{Z}, t:\{\emptyset\} \rightarrow \mathbb{Z} \} \rangle$ com as seguintes interpretações:
+  \begin{itemize}
+    \item $S(x, y, z) = 2x + z - y$.
+    \item $P(x) = x - 1$.
+    \item $t(\emptyset) = 14$.
+  \end{itemize}
+  Onde $+$ e $-$ são interpretados com a soma e a subtração usual dos inteiros, é um exemplo bem definido de $\Sigma$-Álgebra.
+\end{exemplo}
+
+Agora como tido em \cite{klaus2001}, dado uma $\Sigma$-ágebra $\langle A, \Sigma_A \rangle$, para todos os símbolos funcionais $f \in \Sigma$ com $arid(f) = 0$, sempre irá existir um elemento $a \in A$, tal que $f(\emptyset) = a$, nesse caso é comum escreve o funcional como $f_a$ ou simplesmente como $a$, em vez, do símbolo funcional $f$ explicitamente, em outras palavras, os funcionais de aridade $0$ representam valores constantes dentro de qualquer álgebra\footnote{Provalmente o leitor já teve um contato com essa ideia anteriormente, por exemplo, o símbolo $\pi$ pode ser facilmente interpretado como sendo um funcional de aridade $0$ que representa um valor real constante, cujo valor é aproximadamente $3.14$.}.
+
+\begin{nota}[Rótulos para $\Sigma$-álgebras.]
+  Da mesma forma que aparece no Capítulo \ref{cap:Sets}, onde rótulo são usados para representar conjuntos, as $\Sigma$-álgebras também podem receber um rótulo (apelido ou nome), isso é feito apresentando o rótulo seguindo do símbolo de igualdade e da estrutura da $\Sigma$-álgebra, por exemplo, se é necessário rotular a $\Sigma$-álgebra $\langle A, \Sigma_A \rangle$ pelo símbolo $\mathcal{A}$, basta mencionar que $\mathcal{A} = \langle A, \Sigma_A \rangle$, e depois disso sempre que esta álgebra for mencionada pode-se usar simplesmente o símbolo $\mathcal{A}$ para se referir a álgebra, em vez de, ficar escrevendo a estrutura $\langle A, \Sigma_A \rangle$.
+\end{nota}
+
+O próximo passo no estuado da álgebra universal é a entender a tarefa de classificar as $\Sigma$-álgebras em diferentes tipos (ou classes), e isto é exposto na definição a seguir.
+
+\begin{definicao}[Tipo de uma $\Sigma$-álgebra]
+  Seja $\mathcal{A} = \langle A, \Sigma_A \rangle$ uma $\Sigma$-álgebra, o tipo de $\mathcal{A}$ é uma família sequêncial de números naturais $\{x_i\}_{i \in I}$ com $I \subseteq \mathbb{N}$, tal que para todo $i, j \in I$ tem-se que se $i \leq j$, então $x_i \geq x_j$ com $arid(f) = x_i$ e $arid(g) = x_j$ sendo que $f, g 
+  \in \Sigma$.
+\end{definicao}
+
+\begin{exemplo}\label{exe:TipoSigmaAlgebra1}
+  A $\Sigma$-álgebra $\langle A, \Sigma_A \rangle$ onde $\Sigma = \{ *, \mid, e \}$ com $arid(*) = 1, arid(\mid) = 2$ e $arid(e) = 0$ é do tipo $\{2, 1, 0\}$
+\end{exemplo}
+
+\begin{exemplo}\label{exe:TipoSigmaAlgebra2}
+  A $\Sigma$-álgebra $\langle \wp(\mathbb{N}), \Sigma_{\wp(\mathbb{N})} \rangle$ onde $\Sigma = \{ \cup, \cap, \vee, \wedge, \{0\}, \emptyset \}$ com $arid(\emptyset) = arid(\{0\}) = 0$ e $arid(x) = 2$ sendo que $x \in \{\cup, \cap, \vee, \wedge\}$ e $arid(e) = 0$ é do tipo $\{2, 2, 2, 2, 0, 0\}$.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:TipoSigmaAlgebra3}
+  A $\Sigma$-álgebra $\langle \{0, 1, 2, 3, 4\}, \Sigma_{\{0, 1, 2, 3, 4\}} \rangle$ onde $\Sigma = \{ max, p, 4, 3 \}$ com $arid(max) = 2, arid(p) = 4$, $arid(3) = 0$ e $arid(4) = 0$ é do tipo $\{4, 2, 0, 0\}$.
+\end{exemplo}

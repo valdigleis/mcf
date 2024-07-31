@@ -31,22 +31,22 @@
 \input{configs/boxes}
 \input{configs/lists}
 
-% -------------------------------------------------------------------------
-% Estilo das bibliográficas
-% -------------------------------------------------------------------------
-%\bibliographystyle{abbrv}
-
 
 % Informações básicas
-\title{Sobre Conjuntos, Relações e Funções}
-\author{Valdigleis S. Costa} % Author
-\newcommand{\edition}{1.0} % Book edition
+\title{Matemática e Computação Formal}
+ % Author
+\author{Valdigleis S. Costa}
+% Book edition
+\newcommand{\edition}{1.0}
 
 
 \begin{document}
 	
 	\frontmatter
+
+	% -------------------------------------------------------------------------
 	% Pre-texto
+	% -------------------------------------------------------------------------
 	\input{pre/cover}
 	\input{pre/copyright}	
 	\input{pre/disclaimer}
@@ -55,9 +55,14 @@
 	\tableofcontents
 	%\listoffigures
 	
+	% -------------------------------------------------------------------------
 	% Texto Principal
+	% -------------------------------------------------------------------------
 	\mainmatter
 	
+	% -------------------------------------------------------------------------
+	% Parte I
+	% -------------------------------------------------------------------------
 	\part{A Linguagem Básica}
 	% Chapter naive sets theory
 	\input{text/basic/set}	
@@ -74,11 +79,19 @@
 	% Chatpter induction
 	\input{text/basic/induction}
 
+	% -------------------------------------------------------------------------
+	% Parte II
+	% -------------------------------------------------------------------------
+	\part{Álgebras}
+	% Chapter intro to universal algebra
+	\input{text/languages/algebra.tex}
 
-	% Referências bibliográficas
-	\bibliographystyle{abbrv}
-	\bibliography{references/referencias}
+	% -------------------------------------------------------------------------
+	% Referências bibliográficas 
+	% -------------------------------------------------------------------------
+	\bibliographystyle{abbrv} 								% Estilo das bibliográficas
+	\bibliography{references/referencias}			% Arquivo das referências
 	\phantomsection
 	\addcontentsline{toc}{chapter}{\bibname}
-		
+
 \end{document}

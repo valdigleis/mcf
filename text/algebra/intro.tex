@@ -1,4 +1,4 @@
-\chapter{Fundamentos de Álgebra Universal}
+\chapter{Fundamentos}
 
 \epigraph{``Não deve haver, entre os teoremas da matemática, um enunciado que, em certo sentido, não tenha sido provado de uma maneira algébrica.''}{David Hilbert.}
 
@@ -12,14 +12,8 @@ Independente da visão adotada, estamos interessados nas propriedades das opera�
 
 A maioria dos estudantes de matemática em sua graduação estuda uma disciplina chamada álgebra abstrata, que é nada mais que o estudo de grupos e aneis, sendo estes, entretanto, apenas dois tipos de álgebras \cite{stanley1981}. Por outro lado, a álgebra não se resume a aneis e grupos, de fato a ágebra é uma área bem mais ampla, e o estudo das álgebras em sua totalidade, isto é, sem se prender a um tipo de álgebra particular é a área da matemática que hoje é chamada de álgebra universal \cite{klaus2001, benja-Logica}, que será o assunto estudo a partir da próxima seção deste documento.
 
-%\section{Introdução aos Reticulados}\label{sec:Reticulados}
-
-%Como já dito em \cite{stanley1981}, quando são estudadas as propriedades comuns a todas os tipos de estruturas algébricas (como grupos, anéis, etc.), ou mesmo quando são estudadas as propriedades específicas que distinguem diferentes tipos de álgebras, os reticulados aparecem de forma essencial e natural em tais estudos\footnote{Em particular, os reticulados de congruência têm um papel importante nesse estudo. Eles ajudam a entender como diferentes partes de uma estrutura algébrica podem ser congruentes, ou seja, equivalentes em um certo sentido, detalhes em \cite{stanley1981}.}. Além disso, como será visto em momentos futuros os reticulados são eles próprios um tipo importante de álgebras, e são de suma importância para a ciência da computação, lógica e diversas áreas da matemática. Devido a isto antes de entrar no estudo das álgebras.
-
 
 \section{Definições Fundamentais}
-
-%Para dar um \textit{spoiler} ao leitor, uma $\Sigma$-álgebra é um objeto matemático que descreve uma linguagem\footnote{Na ciência da computação um objeto que descreve uma linguagem é chamado de máquina ou programa.} \cite{stanley1981}, ela (a $\Sigma$-álgebra) é o objeto responsável por dar sintaxe e semântica a uma linguagem. 
 
 Este texto começa então apresentando os conceito relacionados a sintaxe da álgebra sem se preocupar inicialmente com a semântica, para isso primeiro será apresentado o conceito de assinatura algébrica, ou simplesmente, $\Sigma$-assinatura (ou apenas assinatura).
 
@@ -40,11 +34,15 @@ Este texto começa então apresentando os conceito relacionados a sintaxe da ál
 
 Obviamente, ficar escrevendo a estrutura completa de uma assinatura, isto é, escrever $\langle \Sigma, arid \rangle$, é algo tedioso e muitas vezes desnecessário, assim a menos que seja de suma importância, sempre que for necessário falar de uma assinatura será escrito apenas o $\Sigma$ ficando a existência da função $arid$ subentendida.
 
-\begin{nota}[Nomenclatura]
-  ALiCIA, além de, adorar matemática abstrata, também gosta muito de programação, assim para termos um vocabulário próximo da programação ela decidiu que deste ponto em diante os símbolos em $\Sigma$ serão chamados de símbolos funcionais.
+\begin{nota}[Nomenclatura.]
+  ALiCIA, além de, adorar matemática abstrata, também gosta muito de programação! Assim, para este texto ficar com um vocabulário próximo da programação, ela decidiu que deste ponto em diante, os símbolos em $\Sigma$ serão chamados de símbolos funcionais.
 \end{nota}
 
 A Definição \ref{def:SigmaAssinatura} apresenta os símbolos (os funcionais) que foram parte do alfabeto básico da linguagem que será descrita por uma $\Sigma$-álgebra, note também que, além dos funcionais as regras sintáticas já foram apresentadas de forma não detalhada, a seguir tais regras são apresentadas de forma explícita.
+
+\
+
+\
 
 \begin{definicao}\label{def:SintaxeAlgebra}
   Seja $\Sigma$ uma assinatura, a sintaxe descrita por $\Sigma$ é formada pelas seguintes regras: 
@@ -67,7 +65,7 @@ Agora para continuar o estudo das $\Sigma$-álgebra será necessário que a segu
   Seja $\Sigma$ uma assinatura, uma $\Sigma$-álgebra é uma estrutura $\langle A, \Sigma_A \rangle$, onde:
   \begin{itemize}
     \item[(i)] $A$ um conjunto não vazio e 
-    \item[(ii)] $\Sigma_A = \{f: A^n \rightarrow A  \mid n \in \mathbb{N} \land f \in \Sigma\}$ é um conjunto finito e não vazio de funções totais\footnote{Aqui está sendo usado apenas a assinaturas das funções por critérios de simplificação de escrita, mas o leitor deve lembrar que uma função é uma estrutura bem mais rica (se necessário visite o capítulo \ref{cap:Functions}).}, chamado conjunto de interpretação de $\Sigma$.
+    \item[(ii)] $\Sigma_A = \{f: A^n \rightarrow A  \mid n \in \mathbb{N}, f \in \Sigma, arid(f) = n\}$ é um conjunto finito e não vazio de funções totais\footnote{Aqui está sendo usado apenas a assinaturas das funções por critérios de simplificação de escrita, mas o leitor deve lembrar que uma função é uma estrutura bem mais rica (se necessário visite o capítulo \ref{cap:Functions}).}, chamado conjunto de interpretação de $\Sigma$.
   \end{itemize}
 \end{definicao}
 
@@ -115,5 +113,75 @@ O próximo passo no estuado da álgebra universal é a entender a tarefa de clas
 \end{exemplo}
 
 \begin{exemplo}\label{exe:TipoSigmaAlgebra3}
-  A $\Sigma$-álgebra $\langle \{0, 1, 2, 3, 4\}, \Sigma_{\{0, 1, 2, 3, 4\}} \rangle$ onde $\Sigma = \{ max, p, 4, 3 \}$ com $arid(max) = 2, arid(p) = 4$, $arid(3) = 0$ e $arid(4) = 0$ é do tipo $\{4, 2, 0, 0\}$.
+  A $\Sigma$-álgebra $\langle \{0, 1, 2, 3, 4\}, \Sigma_{\{0, 1, 2, 3, 4\}} \rangle$ onde $\Sigma = \{ max, p, 4, 3 \}$ com $arid(max) = 2, arid(p) = 4$, $arid(3) = 0$ e $arid(4) = 0$ é do tipo $\{4, 2, 0, 0\}$. Onde $max$ é o máximo usual sobre os reais, $p(a, b, c, d) = min(max(a, d), max(b, c))$ para todo $a, b, c, d \in \{0, 1, 2, 3, 4\}$ e $3$ e $4$ são constantes.
 \end{exemplo}
+
+Apesar de no Exemplos \ref{exe:TipoSigmaAlgebra3} anterior ter sido exposta um funcional de aridade 4 (a saber o funcional $p$), isso não acontece com muita frequência nas estruturas das $\Sigma$-álgebras, pois, como dito em \cite{stanley1981}, é comum (mas não obrigatório\footnote{O próprio \cite{stanley1981}, apresenta em \textsection \ Exemplo 8, um funcional com aridade maior que 2.}) os funcionais terem aridade menor ou igual a 2.
+
+Agora uma vez que, dado uma $\Sigma$-álgebra $\langle A, \Sigma_A \rangle$, na definição de assinatura o conjunto $\Sigma$ não é necessariamente ordenado, e devido a isso, a interpretação $\Sigma_A$ também não será necessariamente um conjunto ordenado. Entretanto, como dito em \cite{carmo2013}, sempre que $\Sigma$ é um conjunto finito, o mesmo é visto como sendo um conjunto ordenado, onde a ordem dos símbolos obdece extamente a tipagem da $\Sigma$-álgebra associada, isto é, os elementos elementos de $\Sigma$ são ordenado de forma decrescente com respeito a imagem de $arid$. E neste cenário como mostrado em \cite{carmo2013, klaus2001, stanley1981}, se $\Sigma = \{f_1, \cdots, f_n\}$ com $aird(f_i) \geq arid(f_{i+1})$ para todo $1 \leq i \leq n-1$, então para todo conjunto $A$ a $\Sigma$-álgebra é escrita na forma (do açúcar sintático) $\langle A, f_1, \cdots, f_n \rangle$. 
+
+\begin{nota}
+  Dado uma $\Sigma$-álgebra $\mathcal{A} = \langle A, \Sigma_A \rangle$, é dita que $\mathcal{A}$ é uma álgebra finita quando $A$ é finito, e no caso particular de $\#A = 1$, é dito que $\mathcal{A}$ é uma álgebra trivial.
+\end{nota}
+
+\section{subálgebras}\label{sec:SubAlgebras}
+
+O próximo aspecto de importante relevância dentro do estuda da teoria das álgebras universais é o conceito de subálgebra, formalizado a seguir. 
+
+\begin{definicao}[subálgebra]\label{def:SubAlgebras}
+  Seja $\mathcal{B} = \{B, \Sigma_B\}$ uma $\Sigma$-álgebra de tipo $\rho$, a estrutura $\mathcal{A} = \{A, \Sigma_A\}$ é uma sub-ágebra de $\mathcal{B}$, denotado por $\mathcal{A} \preccurlyeq  \mathcal{B}$, se e somente se, ela satisfaz as seguintes condições:
+  \begin{itemize}
+    \item[i.] $\mathcal{A}$ também é do tipo $\rho$.
+    \item[ii.] $A \subseteq B$ e
+    \item[iii.] Para todo $f \in \Sigma$ tem-se a relação\footnote{Aqui usa-se as notações $f_\mathcal{A}$ e $f_\mathcal{B}$ para denotar a interpretação do funcional $f$ na $\Sigma$-álgebra $\mathcal{A}$ e na $\Sigma$-álgebra $\mathcal{B}$ respectivamente.} $ima(f_\mathcal{A}) \subseteq ima(f_\mathcal{B})$.
+  \end{itemize}
+\end{definicao}
+
+O resultado a seguir apresenta uma forma de checar se uma $\Sigma$-álgebra é subálgebra de outra $\Sigma$-álgebra, tal resultado é em geral nomeado como criterio de sub-ágebra.
+
+\begin{teorema}[Criterio de sub-ágebra]
+  A estrutura $\mathcal{A} = \{A, \Sigma_A\}$ é uma sub-ágebra de $\mathcal{B} = \{B, \Sigma_B\}$ se, e somente se, para todo $n \in \mathbb{N}$ e todo $X \subseteq A^n$, para todo  $f \in \Sigma$ sempre que $arid(f) = n$ tem-se que $\overrightarrow{f_\mathcal{B}}[X] \subseteq A$.
+\end{teorema}
+
+\begin{proof}
+  $(\Rightarrow)$ Suponha que $\mathcal{A} = \{A, \Sigma_A\}$ é uma sub-ágebra de $\mathcal{B} = \{B, \Sigma_B\}$, assim pela Definição \ref{def:SubAlgebras} tem-se que:
+  \begin{itemize}
+    \item[i.] $\mathcal{A}$ também é do tipo $\rho$.
+    \item[ii.] $A \subseteq B$ e
+    \item[iii.] Para todo $f \in \Sigma$ tem-se a relação\footnote{Aqui usa-se as notações $f_\mathcal{A}$ e $f_\mathcal{B}$ para denotar a interpretação do funcional $f$ na $\Sigma$-álgebra $\mathcal{A}$ e na $\Sigma$-álgebra $\mathcal{B}$ respectivamente.} $ima(f_\mathcal{A}) \subseteq ima(f_\mathcal{B})$.
+  \end{itemize}
+  Agora, uma vez que, $\mathcal{A}$ e $\mathcal{B}$ tem o mesmo tipo, tem-se obviamente que para todo $f$, sua interpretação terá a mesma quantidade de elementos como entrada da função, ou seja, se $arid(f) = n$ segue que $(x_1, \cdots, x_n) \in A^n$  e $(x'_1, \cdots, x'_n) \in B^n$ são as entradas de $f_\mathcal{A}$ e $f_\mathcal{B}$ respectivamente, agora por $(ii)$ é claro que $(x_1, \cdots, x_n) \in B^n$, finalmente, uma vez que, por $(iii)$ tem-se  que $ima(f_\mathcal{A}) \subseteq ima(f_\mathcal{B})$ e as funções $f_\mathcal{A}$ e $f_\mathcal{B}$ são totais tais que $ima(f_\mathcal{A}) \subseteq A$ e $ima(f_\mathcal{B}) \subseteq B$, é claro que, $f_\mathcal{B}(x_1, \cdots, x_n) \in A$ e desde que $(x_1, \cdots, x_n) \in A^n$, pode-se concluir que para todo $n \in \mathbb{N}$ e todo $X \subseteq A^n$, para todo  $f \in \Sigma$ sempre que $arid(f) = n$ tem-se que $\overrightarrow{f_\mathcal{B}}[X] \subseteq A$.
+
+  $(\Leftarrow)$ Fica como exercício ao leitor.
+\end{proof}
+
+Imediatamente desde resultado pode-se concluir os dois importantes resultados da teoria das $\Sigma$-álgebras expostos a seguir.
+
+\begin{corolario}
+  Sejam $\mathcal{A} = \{A, \Sigma_A\}, \mathcal{B} = \{B, \Sigma_B\}$ e $\mathcal{C} = \{C, \Sigma_C\}$ três $\Sigma$-álgebras de tipo $\rho$, tem-se que:
+  \begin{itemize}
+    \item[(a)] Se $\mathcal{A} \preccurlyeq  \mathcal{B}$ e $\mathcal{B} \preccurlyeq  \mathcal{C}$, então $\mathcal{A} \preccurlyeq  \mathcal{C}$.
+    \item[(b)] Se $A \subseteq B \subseteq C$ e $\mathcal{A} \preccurlyeq  \mathcal{C}$ e $\mathcal{B} \preccurlyeq  \mathcal{C}$, então $\mathcal{A} \preccurlyeq  \mathcal{C}$.
+  \end{itemize}
+\end{corolario}
+
+\begin{proof}
+  A prova fica como exercício de fixação ao leitor.
+\end{proof}
+
+\begin{corolario}
+  A interseção de uma família $\{\mathcal{A}_i\}_{i \in I}$ de subálgebras de uma $\Sigma$-álgebra $\mathcal{B}$ de tipo $\rho$ é também uma subálgebra de $\mathcal{B}$.
+\end{corolario}
+
+\begin{proof}
+  A prova fica como exercício de fixação ao leitor.
+\end{proof}
+
+Agora, para poder prosseguir é necessário considerar uma $\Sigma$-álgebra $\mathcal{B}$ de tipo $\rho$ e um subconjunto não vazio $X$ de seu conjunto base $B$. Convém questionar, \textbf{será existe uma ``menor'' subálgebra de $\mathcal{B}$ cujo conjunto base contém o conjunto $X$}? A resposta para essa pergunta é sim! Para entender, entretanto tal resposta, considere a seguinte definição.
+
+\begin{definicao}
+  Dado uma $\Sigma$-álgebra $\langle B, \Sigma_B \rangle$, para todo $X \subseteq B$ tem-se que:
+  \begin{eqnarray*}
+    Sg(X) = \bigcap \{ A \mid X \subseteq A, \langle A, \Sigma_A \rangle \preccurlyeq  \langle B, \Sigma_B \rangle \}
+  \end{eqnarray*}
+\end{definicao}

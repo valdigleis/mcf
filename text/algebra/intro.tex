@@ -1,8 +1,8 @@
-\chapter{Fundamentos}
+\chapter{Fundamentos}\label{cap:FundamentsAlgebra}
 
 \epigraph{``Não deve haver, entre os teoremas da matemática, um enunciado que, em certo sentido, não tenha sido provado de uma maneira algébrica.''}{David Hilbert.}
 
-\section{Introdução}
+\section{Introdução}\label{sec:IntroAlgebra}
 
 %Na matemática, uma álgebra é um objeto estrutural, ou seja, é uma estrutura com partes bem definidas. 
 
@@ -10,10 +10,10 @@ Matemáticos em geral dizem simplesmente que, uma álgebra consiste em um ou mai
 
 Independente da visão adotada, estamos interessados nas propriedades das operações (programas) envolvidas, por exemplo, quais são suas aridades e quais leis ou axiomas elas satisfazem. Obviamente, como é um objeto matemático, as álgebras podem ser tipadas, assim, qualquer álgebra tem um tipo associado a ela. E será o tipo que especifica o número de operações (programas) que a álgebra possui, além de, fornecer informações sobre a aridade de cada operação (programa). 
 
-A maioria dos estudantes de matemática em sua graduação estuda uma disciplina chamada álgebra abstrata, que é nada mais que o estudo de grupos e aneis, sendo estes, entretanto, apenas dois tipos de álgebras \cite{stanley1981}. Por outro lado, a álgebra não se resume a aneis e grupos, de fato a ágebra é uma área bem mais ampla, e o estudo das álgebras em sua totalidade, isto é, sem se prender a um tipo de álgebra particular é a área da matemática que hoje é chamada de álgebra universal \cite{klaus2001, benja-Logica}, que será o assunto estudo a partir da próxima seção deste documento.
+A maioria dos estudantes de matemática em sua graduação estuda uma disciplina chamada álgebra abstrata, que é nada mais que o estudo de grupos e aneis, sendo estes, entretanto, apenas dois tipos de álgebras \cite{stanley1981}. Por outro lado, a álgebra não se resume a aneis e grupos, de fato a ágebra é uma área bem mais ampla, e o estudo das álgebras em sua totalidade, isto é, sem se prender a um tipo de álgebra particular é a área da matemática que hoje é chamada de álgebra universal \cite{klaus2001, benja-Logica}, a seguir será apresentado apenas alguns conceito básicos de álgebra universal e nos capítulos seguintes o texto se focará em apresentar estruturas algébricas especifica e suas teorias associadas.
 
 
-\section{Definições Fundamentais}
+\section{Sintaxe Algébrica}\label{sec:AlgebraSintaxe}
 
 Este texto começa então apresentando os conceito relacionados a sintaxe da álgebra sem se preocupar inicialmente com a semântica, para isso primeiro será apresentado o conceito de assinatura algébrica, ou simplesmente, $\Sigma$-assinatura (ou apenas assinatura).
 
@@ -59,7 +59,9 @@ Antes de prosseguir é interessante falar sobre a escrita de palavra válidas us
   \item A forma \textbf{infixa}: na forma infixa um funcional $f$ de aridade $2$ seria usando entre os objetos que estão com ele relacionados, isto é, a palavra válida seria da forma $x_1 f x_2$\footnote{Muitas linguagens de programação como Haskell \cite{learnHaskell2011, beginningHaskell} e provadores de teoremas tais como Coq \cite{coq2013} permite usar tanto a notação prefixa como a notação infixa.}.
 \end{enumerate}
 
-Agora para continuar o estudo das $\Sigma$-álgebra será necessário que a seguinte concessão seja feita, para todo conjunto não vazio $A$ tem-se que $A^0 = \{\emptyset\}$, tendo feito essa concessão pode-se finalmente apresentar a definição a seguir.
+\section{Semântica}\label{sec:AlgebraSematics}
+
+Agora para continuar o estudo das estruturas algébricas será necessário que as seguintes concessões sejam feitas, para todo conjunto não vazio $A$ tem-se que $A^0 = \{\emptyset\}$ e $A^1 = A$, tendo feito essas concessões pode-se continuar apresentado os conceitos relacionados a semântica das estruturas algébricas, isto é, a noção de $\Sigma$-álgebras.
 
 \begin{definicao}[$\Sigma$-Álgebra]\label{def:SigmaAlgebra}
   Seja $\Sigma$ uma assinatura, uma $\Sigma$-álgebra é uma estrutura $\langle A, \Sigma_A \rangle$, onde:
@@ -69,12 +71,12 @@ Agora para continuar o estudo das $\Sigma$-álgebra será necessário que a segu
   \end{itemize}
 \end{definicao}
 
-Com a Definição \ref{def:SigmaAssinatura} são apresentados símbolos funcionais, depois na Definição \ref{def:SintaxeAlgebra} é apresentado como usar tais símbolos para criar palavras válidas dentro da linguagem descrita pela $\Sigma$-álgebra, entretanto, não se tinha qualquer tipo de significado para os símbolos funcionais, ou seja, eles eram objetos puramente sintáticos. Na Definição \ref{def:SigmaAlgebra} usando um conjunto base (os dados) $A$ é dado significado aos símbolos funcionais através do conjunto $\Sigma_A$, eles (os funcionais) se tornam verdadeiramente objetos (funções) com um significado, ou seja, a $\Sigma$-álgebra de fato atribui sintaxe e semântica para uma linguagem, observe entretanto, que a semântica é definida pelo conjunto base e apenas por ele. 
+Com a Definição \ref{def:SigmaAssinatura} são apresentados símbolos funcionais, depois na Definição \ref{def:SintaxeAlgebra} é apresentado como usar tais símbolos para criar palavras válidas dentro da linguagem descrita pela $\Sigma$-álgebra, entretanto, não se tinha qualquer tipo de significado para os símbolos funcionais, ou seja, eles eram objetos puramente sintáticos. Na Definição \ref{def:SigmaAlgebra} usando um conjunto base (os dados) $A$ é dado significado aos símbolos funcionais através do conjunto $\Sigma_A$, eles (os funcionais) se tornam verdadeiramente objetos (funções) com um significado, ou seja, a $\Sigma$-álgebra de fato atribui semântica para uma linguagem cuja palavras são escrita a partir da $\Sigma$-assinatura. 
 
 Para entender melhor o que foi dito no parágrafo anterior, considere por exemplo, uma assinatura $\langle \{+\}, arid \rangle$ com $arid(+)  = 2$, note que, dado o conjunto dos números naturais $\mathbb{N}$ e o conjunto $Por$ das palavras da linguagem portuguesa pode-se definir duas $\{+\}$-álgebras, sendo elas: $\langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$ e $\langle Por, \{+ :Por^2 \rightarrow Por\} \rangle$, note que a Definição \ref{def:SigmaAlgebra} impõem que o funcional $+$ seja uma função total em ambas as álgebras, porém, $+$ terá interpretações (significado) diferentes em cada álgebra, neste caso particular em $\mathbb{N}$ o funcional pode ser interpretado com a soma usual de números naturais, por outro lado, poderia ser interpretado como a concatenação\footnote{A concatenação de duas palavras $a_1\cdots a_m$ e $b_1\cdots b_n$ é a operação que produz a palavra $a_1\cdots a_mb_1\cdots b_n$ como resultado.} de palavras, o que importa que o leitor perceba é que o funcional $+$ será interpretado de forma diferente em cada álgebra isoladamente.
 
 \begin{nota}[Um super poder da álgebra.]
-  Como $\Sigma$-álgebras são linguagens\footnote{Máquinas na linguagem da ciência da computação.} isolado, pode-se ter duas álgebras distintas para o mesmo conjunto de funcionais usando o mesmo conjunto básico de dados para dar semântica aos funcionais, por exemplo, considere a assinatura $\langle \{+\}, arid \rangle$ com $arid(+)  = 2$ e o conjunto dos naturais $\mathbb{N}$, pode-se apresentar duas (ou até mais) $\Sigma$-álgebras $A = \langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$ e $B = \langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$, na álgebra $A$ a interpretação de $+$ pode sem problemas ser a soma padrão de naturais, já na álgebra $B$ o funcional $+$ poderia ser interpretado (ou seja, definido em $\Sigma_\mathbb{N}$) usando notação infixa, para todo $x, y \in \mathbb{N}$ da seguinte forma:
+  Como $\Sigma$-álgebras são linguagens\footnote{Máquinas na linguagem da ciência da computação.} isolado, pode-se ter duas álgebras distintas para o mesmo conjunto de funcionais usando o mesmo conjunto básico de dados para dar semântica aos funcionais, por exemplo, considere a assinatura $\langle \{+\}, arid \rangle$ com $arid(+)  = 2$ e o conjunto dos naturais $\mathbb{N}$, pode-se apresentar duas (ou até mais) $\Sigma$-álgebras $\mathcal{A} = \langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$ e $\mathcal{B} = \langle \mathbb{N}, \{+ :\mathbb{N}^2 \rightarrow \mathbb{N}\} \rangle$, na álgebra $\mathcal{A}$ a interpretação de $+$ pode sem problemas ser a soma padrão de naturais, já em $\mathcal{B}$ o funcional $+$ poderia ser interpretado (ou seja, definido em $\Sigma_\mathbb{N}$) usando notação infixa, para todo $x, y \in \mathbb{N}$ da seguinte forma:
   \begin{eqnarray*}
     x + y = \left\{\begin{array}{ll}	0, & \hbox{se } x = y\\1,  & \hbox{senão}\end{array}\right.
   \end{eqnarray*}
@@ -104,10 +106,6 @@ O próximo passo no estuado da álgebra universal é a entender a tarefa de clas
   \in \Sigma$.
 \end{definicao}
 
-\begin{exemplo}\label{exe:TipoSigmaAlgebra1}
-  A $\Sigma$-álgebra $\langle A, \Sigma_A \rangle$ onde $\Sigma = \{ *, \mid, e \}$ com $arid(*) = 1, arid(\mid) = 2$ e $arid(e) = 0$ é do tipo $\{2, 1, 0\}$
-\end{exemplo}
-
 \begin{exemplo}\label{exe:TipoSigmaAlgebra2}
   A $\Sigma$-álgebra $\langle \wp(\mathbb{N}), \Sigma_{\wp(\mathbb{N})} \rangle$ onde $\Sigma = \{ \cup, \cap, \vee, \wedge, \{0\}, \emptyset \}$ com $arid(\emptyset) = arid(\{0\}) = 0$ e $arid(x) = 2$ sendo que $x \in \{\cup, \cap, \vee, \wedge\}$ e $arid(e) = 0$ é do tipo $\{2, 2, 2, 2, 0, 0\}$.
 \end{exemplo}
@@ -118,70 +116,22 @@ O próximo passo no estuado da álgebra universal é a entender a tarefa de clas
 
 Apesar de no Exemplos \ref{exe:TipoSigmaAlgebra3} anterior ter sido exposta um funcional de aridade 4 (a saber o funcional $p$), isso não acontece com muita frequência nas estruturas das $\Sigma$-álgebras, pois, como dito em \cite{stanley1981}, é comum (mas não obrigatório\footnote{O próprio \cite{stanley1981}, apresenta em \textsection \ Exemplo 8, um funcional com aridade maior que 2.}) os funcionais terem aridade menor ou igual a 2.
 
-Agora uma vez que, dado uma $\Sigma$-álgebra $\langle A, \Sigma_A \rangle$, na definição de assinatura o conjunto $\Sigma$ não é necessariamente ordenado, e devido a isso, a interpretação $\Sigma_A$ também não será necessariamente um conjunto ordenado. Entretanto, como dito em \cite{carmo2013}, sempre que $\Sigma$ é um conjunto finito, o mesmo é visto como sendo um conjunto ordenado, onde a ordem dos símbolos obdece extamente a tipagem da $\Sigma$-álgebra associada, isto é, os elementos elementos de $\Sigma$ são ordenado de forma decrescente com respeito a imagem de $arid$. E neste cenário como mostrado em \cite{carmo2013, klaus2001, stanley1981}, se $\Sigma = \{f_1, \cdots, f_n\}$ com $aird(f_i) \geq arid(f_{i+1})$ para todo $1 \leq i \leq n-1$, então para todo conjunto $A$ a $\Sigma$-álgebra é escrita na forma (do açúcar sintático) $\langle A, f_1, \cdots, f_n \rangle$. 
+Agora uma vez que, dado uma $\Sigma$-álgebra $\langle A, \Sigma_A \rangle$, na definição de assinatura o conjunto $\Sigma$ não é necessariamente ordenado, e devido a isso, a interpretação $\Sigma_A$ também não será necessariamente um conjunto ordenado. Entretanto, como dito em \cite{carmo2013}, sempre que $\Sigma$ é um conjunto finito, o mesmo é visto como sendo um conjunto ordenado, onde a ordem dos símbolos obdece extamente a tipagem da $\Sigma$-álgebra associada, isto é, os elementos elementos de $\Sigma$ são ordenado de forma decrescente com respeito a imagem de $arid$. E neste cenário como mostrado em \cite{carmo2013, klaus2001, stanley1981,fmcbook}, se $\Sigma = \{f_1, \cdots, f_n\}$ com $aird(f_i) \geq arid(f_{i+1})$ para todo $1 \leq i \leq n-1$, então para todo conjunto $A$ a $\Sigma$-álgebra é escrita na forma (do açúcar sintático) $\langle A, f_1, \cdots, f_n \rangle$, ressaltando que no caso dos funcionais de aridade $0$ é comum escrever a imagem de tais funcioanis em vez do próprio símbolo funcional. 
+
+\begin{exemplo}
+  Seja $\Sigma = \{f, g, h, e\}$ com $arid(f) = arid(g) = 2$, $arid(h) = 1$ e $arid(e) = 0$ tem-se as estruturas, $\mathcal{M} = \langle A, f, h, i\rangle$ e $\mathcal{N} = \langle \mathbb{N}, g, 5\rangle$\footnote{Na $\Sigma$-álgebra $\mathcal{N}$ o símbolo $e$ é interpretado diretamente como sendo o número natural 5.} são ambas $\Sigma$-álgebras, escrita usando o açúcar sintático.
+\end{exemplo}
+
+\begin{exemplo}
+  Sabe-se que a multiplicação $(\cdot)$ é uma função total sobre os inteiros com aridade exatamente igual a $2$, além disso, pode-se ver o inteiro $1$ como sendo a imagem de um funcional $e$ de aridade $0$, assim a estrutura $\langle \mathbb{Z}, \cdot, 1 \rangle$ é uma $\Sigma$-álgebra onde $\Sigma = \{\cdot, e\}$.
+\end{exemplo}
+
+Dado uma $\Sigma$-álgebra $\mathcal{A} = \langle A, \Sigma_A \rangle$, é dita que $\mathcal{A}$ é uma álgebra finita quando $A$ é finito, e no caso particular de $\#A = 1$, é dito que $\mathcal{A}$ é uma $\Sigma$-álgebra trivial.
 
 \begin{nota}
-  Dado uma $\Sigma$-álgebra $\mathcal{A} = \langle A, \Sigma_A \rangle$, é dita que $\mathcal{A}$ é uma álgebra finita quando $A$ é finito, e no caso particular de $\#A = 1$, é dito que $\mathcal{A}$ é uma álgebra trivial.
+  Uma vez que em qualquer $\Sigma$-álgebra os funcionais da mesma estão sempre explicito, deste ponto em diante, será omitido o termo $\Sigma$ ao se falar de uma $\Sigma$-álgebra, isso será feito para evitar que a leitura se torne cansativa, assim ao ler a palavra álgebra o leitor tenha em mente que a mesma obviamente possui associada a ela um conjunto de funcionais $\Sigma$.
 \end{nota}
 
-\section{subálgebras}\label{sec:SubAlgebras}
+\section{Subálgebra}\label{sec:SubAlgebra}
 
-O próximo aspecto de importante relevância dentro do estuda da teoria das álgebras universais é o conceito de subálgebra, formalizado a seguir. 
-
-\begin{definicao}[subálgebra]\label{def:SubAlgebras}
-  Seja $\mathcal{B} = \{B, \Sigma_B\}$ uma $\Sigma$-álgebra de tipo $\rho$, a estrutura $\mathcal{A} = \{A, \Sigma_A\}$ é uma sub-ágebra de $\mathcal{B}$, denotado por $\mathcal{A} \preccurlyeq  \mathcal{B}$, se e somente se, ela satisfaz as seguintes condições:
-  \begin{itemize}
-    \item[i.] $\mathcal{A}$ também é do tipo $\rho$.
-    \item[ii.] $A \subseteq B$ e
-    \item[iii.] Para todo $f \in \Sigma$ tem-se a relação\footnote{Aqui usa-se as notações $f_\mathcal{A}$ e $f_\mathcal{B}$ para denotar a interpretação do funcional $f$ na $\Sigma$-álgebra $\mathcal{A}$ e na $\Sigma$-álgebra $\mathcal{B}$ respectivamente.} $ima(f_\mathcal{A}) \subseteq ima(f_\mathcal{B})$.
-  \end{itemize}
-\end{definicao}
-
-O resultado a seguir apresenta uma forma de checar se uma $\Sigma$-álgebra é subálgebra de outra $\Sigma$-álgebra, tal resultado é em geral nomeado como criterio de sub-ágebra.
-
-\begin{teorema}[Criterio de sub-ágebra]
-  A estrutura $\mathcal{A} = \{A, \Sigma_A\}$ é uma sub-ágebra de $\mathcal{B} = \{B, \Sigma_B\}$ se, e somente se, para todo $n \in \mathbb{N}$ e todo $X \subseteq A^n$, para todo  $f \in \Sigma$ sempre que $arid(f) = n$ tem-se que $\overrightarrow{f_\mathcal{B}}[X] \subseteq A$.
-\end{teorema}
-
-\begin{proof}
-  $(\Rightarrow)$ Suponha que $\mathcal{A} = \{A, \Sigma_A\}$ é uma sub-ágebra de $\mathcal{B} = \{B, \Sigma_B\}$, assim pela Definição \ref{def:SubAlgebras} tem-se que:
-  \begin{itemize}
-    \item[i.] $\mathcal{A}$ também é do tipo $\rho$.
-    \item[ii.] $A \subseteq B$ e
-    \item[iii.] Para todo $f \in \Sigma$ tem-se a relação\footnote{Aqui usa-se as notações $f_\mathcal{A}$ e $f_\mathcal{B}$ para denotar a interpretação do funcional $f$ na $\Sigma$-álgebra $\mathcal{A}$ e na $\Sigma$-álgebra $\mathcal{B}$ respectivamente.} $ima(f_\mathcal{A}) \subseteq ima(f_\mathcal{B})$.
-  \end{itemize}
-  Agora, uma vez que, $\mathcal{A}$ e $\mathcal{B}$ tem o mesmo tipo, tem-se obviamente que para todo $f$, sua interpretação terá a mesma quantidade de elementos como entrada da função, ou seja, se $arid(f) = n$ segue que $(x_1, \cdots, x_n) \in A^n$  e $(x'_1, \cdots, x'_n) \in B^n$ são as entradas de $f_\mathcal{A}$ e $f_\mathcal{B}$ respectivamente, agora por $(ii)$ é claro que $(x_1, \cdots, x_n) \in B^n$, finalmente, uma vez que, por $(iii)$ tem-se  que $ima(f_\mathcal{A}) \subseteq ima(f_\mathcal{B})$ e as funções $f_\mathcal{A}$ e $f_\mathcal{B}$ são totais tais que $ima(f_\mathcal{A}) \subseteq A$ e $ima(f_\mathcal{B}) \subseteq B$, é claro que, $f_\mathcal{B}(x_1, \cdots, x_n) \in A$ e desde que $(x_1, \cdots, x_n) \in A^n$, pode-se concluir que para todo $n \in \mathbb{N}$ e todo $X \subseteq A^n$, para todo  $f \in \Sigma$ sempre que $arid(f) = n$ tem-se que $\overrightarrow{f_\mathcal{B}}[X] \subseteq A$.
-
-  $(\Leftarrow)$ Fica como exercício ao leitor.
-\end{proof}
-
-Imediatamente desde resultado pode-se concluir os dois importantes resultados da teoria das $\Sigma$-álgebras expostos a seguir.
-
-\begin{corolario}
-  Sejam $\mathcal{A} = \{A, \Sigma_A\}, \mathcal{B} = \{B, \Sigma_B\}$ e $\mathcal{C} = \{C, \Sigma_C\}$ três $\Sigma$-álgebras de tipo $\rho$, tem-se que:
-  \begin{itemize}
-    \item[(a)] Se $\mathcal{A} \preccurlyeq  \mathcal{B}$ e $\mathcal{B} \preccurlyeq  \mathcal{C}$, então $\mathcal{A} \preccurlyeq  \mathcal{C}$.
-    \item[(b)] Se $A \subseteq B \subseteq C$ e $\mathcal{A} \preccurlyeq  \mathcal{C}$ e $\mathcal{B} \preccurlyeq  \mathcal{C}$, então $\mathcal{A} \preccurlyeq  \mathcal{C}$.
-  \end{itemize}
-\end{corolario}
-
-\begin{proof}
-  A prova fica como exercício de fixação ao leitor.
-\end{proof}
-
-\begin{corolario}
-  A interseção de uma família $\{\mathcal{A}_i\}_{i \in I}$ de subálgebras de uma $\Sigma$-álgebra $\mathcal{B}$ de tipo $\rho$ é também uma subálgebra de $\mathcal{B}$.
-\end{corolario}
-
-\begin{proof}
-  A prova fica como exercício de fixação ao leitor.
-\end{proof}
-
-Agora, para poder prosseguir é necessário considerar uma $\Sigma$-álgebra $\mathcal{B}$ de tipo $\rho$ e um subconjunto não vazio $X$ de seu conjunto base $B$. Convém questionar, \textbf{será existe uma ``menor'' subálgebra de $\mathcal{B}$ cujo conjunto base contém o conjunto $X$}? A resposta para essa pergunta é sim! Para entender, entretanto tal resposta, considere a seguinte definição.
-
-\begin{definicao}
-  Dado uma $\Sigma$-álgebra $\langle B, \Sigma_B \rangle$, para todo $X \subseteq B$ tem-se que:
-  \begin{eqnarray*}
-    Sg(X) = \bigcap \{ A \mid X \subseteq A, \langle A, \Sigma_A \rangle \preccurlyeq  \langle B, \Sigma_B \rangle \}
-  \end{eqnarray*}
-\end{definicao}
+{\color{red} Escrever depois!!!!}

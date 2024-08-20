@@ -1,0 +1,244 @@
+\chapter{Introdução à Lógica}\label{cap:IntroLogic}
+
+\epigraph{``Se você sabe que está morto, você está morto.\\ Mas se você sabe que está morto, você não está morto,\\ portanto você não sabe se está morto ou não.''}{Zenão de Citio (334-262 a.C.)}
+
+\section{O que é Lógica?}\label{sec:WhatIsLogic}
+
+Antes de apresentar uma descrição histórica da lógica, este texto começa pela árdua tarefa de apresentar de forma sucinta uma resposta para a pergunta, \textbf{``o que é a lógica?}''. Como dito em \cite{benja-Logica, copi1981}, a palavra lógica e suas derivações são familiares a quase todas (se não todas) as pessoas, de fato, é comum durante o cotidiano do dia a dia as pessoas recorrerem ao uso do termo lógica ou de seu derivados, sendo que na maioria das vezes seu uso está ligada à ideia de obviedade (ou certeza), por exemplo nas frases:
+
+\begin{itemize}
+  \item[(a)] É lógico que vou na festa.
+  \item[(b)] É lógico que ciência da computação é um curso difícil.
+  \item[(c)] Logicamente o Vasco não pode ganhar o título da primeira divisão nacional em 2021.
+  \item[(d)] Logicamente se eu tomar banho, vou ter que me molhar.
+\end{itemize}
+
+Essa forma de usar os derivados da palavra lógica enquanto entidades para transmissão de certeza pode ser usada como gatilho ``fácil e preguiçoso'' para enunciar que a lógica se trata de uma ciência (ou disciplina) acerca das certezas sobre os fatos do mundo real.
+
+Existem outras respostas comumente encontradas na literatura acadêmica (ver \cite{abe2002-logica, benja-Logica, joaoPavao2014}) para o que seria a lógica, entre essas respostas, esta aquela que descreve a lógica como sendo um mecanismo utilizado durante o raciocínio estruturado e correto\footnote{Uma visão semelhante a este é descrita em \cite{magnus2020}, que diz que a lógica está preocupada com a avaliação de argumentos, com a separação dos argumentos bons dos argumentos mal (ou ruins).}, isto é, uma ferramenta do raciocínio que possibilita a inferência de conclusões a partir de premissas \cite{abe2002-logica, copi1981, hodges1997}, por exemplo, dado as premissas:
+
+\begin{itemize}
+	\item[(a)] Toda quinta-feira é servido peixe no almoço.
+	\item[(b)] Hoje é quarta-feira
+\end{itemize}
+
+O raciocínio munido da ``ferramenta de inferência'' contida na lógica permite deduzir a afirmação: \textbf{Amanhã será servido peixo no almoço}, como conclusão. Note que esta segunda resposta estabelece que a lógica é um tipo de procedimento mental capaz de transformar informações de entrada (as premissas) em informações de saída (a conclusão), usando uma ferramenta de inferência.
+
+Essas duas formas de encarar a lógica não estão totalmente erradas, entretanto, também não exibem de forma completa o real significado do que seria a lógica em si. Uma terceira resposta para a pergunta ``O que é a lógica?'' aparece na edição de 1953 da Encyclopædia Britannica na seguinte forma: ``\textit{Logic is the systematic study of the structure of propositions and of the general conditions of valid inference by a method which abstracts from the content or matter of the propositions and deals only with their logical form}''. Note que essa resposta utiliza-se de autorreferência\footnote{Autorreferência é um fenômeno que ocorre na língua natural e nas linguagens formais, tal fenômeno consiste de uma oração ou fórmula que refere-se a si mesma de forma direta ou através de alguma sub-frase ou fórmula intermediária, ou ainda por meio de alguma codificação.}, pois a mesma tenta definir o que é a lógica em função do termo ``forma lógica''.
+
+Apesar dessa definição recursiva\footnote{Em matemática a ideia de definição recursiva está ligada a ideia de uma estrutura que apresenta autorreferência.}, a resposta da Encyclopædia Britannica apresenta duas características muitos marcantes para a apresentação da lógica enquanto ciência (ou disciplina) nos dias atuais. A primeira característica é a validade das afirmações derivadas (ou concluídas) pelo mecanismos de inferência. A segunda característica é a importância da forma de representação (a escrita) dos termos lógicos. 
+
+A validade remonta a ideia de um significado dual (verdadeiro e falso) para as afirmações, ou seja, fornece indícios da existência de interpretações das afirmações, e isto significa que existem diferentes significados para as afirmações a depender de um fator que pode ser chamado de contexto, por exemplo considere a seguinte afirmação: 
+
+\begin{center}
+	``\textbf{O atual presidente americano é um democrata}''.
+\end{center}
+
+Note que o contexto temporal muda drasticamente o valor lógico interpretativo (semântico) dessa afirmação pois em 2021 essa afirmação pode ser interpretada como verdadeira, porém no ano de 2019 a mesma era falsa. Assim os valores interpretativos (semânticos) dentro do universo da lógica não são imutáveis, isto é, os valores das interpretações da lógica são passiveis de mudança a depender do contexto.
+
+Dado então estes componentes sintáticos e semânticos pode-se concluir a partir das definições linguísticas que a \textbf{lógica é uma linguagem}, entretanto, vale salientar que não é uma linguagem natural como o português, como será visto nós próximos capítulos a lógica é uma linguagem formal \cite{benjaLivro2010}, no sentido de que todas as construções linguísticas possuem uma forma precisa e sem ambiguidade determinada por uma gramática geradora \cite{hopcroft2008, linz2006},  pode-se inclusive estabelece que a lógica é a linguagem da ciência da inferência racional, ou seja, a linguagem usada para representar argumentos, inferência e conclusões sobre um certo universo do discurso.
+
+\section{Um Pouco de História}\label{sec:LogicsHistory}
+
+A historia do desenvolvimento da lógica remonta até a Grécia antiga e a nomes como: Aristóteles (384-322 a.C.), Sócrates (469-399 a.C.), Zenão de Eléia (490-420 a.C.), Parmenides (515-445 a.C.), Platão (428-347 a.C.), Eudemus de Rodes (350-290 a.C.), Teofrastus de Lesbos (378-287 a.C.), Euclides de Megara (435-365 a.C.) e  Eubulides de Mileto\footnote{A quem é creditado o paradoxo do mentiroso.} (384-322 a.C.). De fato o nome lógica vem do termo grego \textit{logike}, cunhado por Alexandre de Afrodisias no fim do século II depois de Cristo. Como explicado em \cite{abe2002-logica}, os mais antigos registros sobre o estudo da lógica como uma disciplina (ciência) são encontrado exatamente na obra de Aristóteles intitulado como ``$\Gamma$ da metafísica''. Todavia, após seu desenvolvimento inicial dado pelos gregos antigos, a lógica permaneceu quase que intocada\footnote{Aqui não está sendo levando em conta as tentativas de Gottfried Wilhelm Leibniz (1646-1716) de desenvolver uma linguagem universal através da precisão matemática.} por mais de 1800 anos.
+
+Os primeiros a profanar a santidade da lógica de forma contundente, abalando as estruturas da ideia que a lógica era uma ciência completa\footnote{No sentido de que não havia nada novo a se fazer, estudar ou provar.} foram os matemáticos George Boole (1815-1864) e Augustus De Morgan (1806-1871), que introduziram a moderna ideia da lógica como uma ciência simbólica, isto é, eles semearam os conceitos iniciais que depois iriam convergir para as ideias da lógica enquanto linguagem formal apresentadas pelo matemático e filósofo alemão Gottlob Frege (1848-1925), que via a lógica como uma linguagem, que continha em seu interior todo o rigor da matemática.
+
+Ainda no século XIX os maiores defensores das ideias de Frege, os britânicos Alfred Whitehead (1861-1947) e Betrand Russel (1872-1970),  usaram muitas de suas ideias e sua linguagem na publicação monumental em três volumes intitulada ``\textit{Principia Mathematica}'' \cite{russel1910principia}, que é ainda hoje considerada por muitos o maior tratado matemático do século XIX. Como dito em \cite{benja-Logica}, outro influenciado por Frege que apresentou importantes contribuições foi filósofo austríaco Ludwig Wittgenstein (1889-1951), que em seu ``\textit{Tractatus Logico-Philosophicus}'' apresentou pela primeira vez a lógica proposicional através das tabelas verdade. Muitos autores, como é o caso de \cite{abe2002-logica}, consideram que a lógica moderna se iniciou verdadeiramente com a publicação do \textit{Principia}, de fato, alguns usam exatamente a visão de Whitehead que diz: ``A lógica atual está para a lógica aristotélica como a matemática moderna está para a aritmética das tribos primitivas''.
+
+Outra vertente emergente na lógica do século XIX era aquela apoiada puramente por interesses matemáticos, isto é, a visão da lógica não apenas como linguagem, mas também como um objeto algebrizável (um cálculo). Tal escola de lógica encontra alguns de seus expoentes nos nomes de: Erns Zermelo\footnote{Zermelo junto com Fraenkel desenvolveu o sistema formal hoje conhecido como teoria axiomática dos conjuntos.} (1871-1953), Thoralf Skolem (1887-1963), Ludwig Fraenkel-Conrad (1910-1999), John von Neumman (1903-1957), Arend Heyting (1898-1980) entre outros. Uma das grandes contribuições feitas por essa escola foi incluir uma formulação explícita e precisa das regras de inferência no desenvolvimentos de sistemas axiomáticos.
+
+Uma ramificação desta escola ``matemática'' ganhou força na Polônia sobre a tutela e liderança do lógica e filósofo Jan \L{}ukasiewics (1878-1956), o foco da escola polonesa era como dito em \cite{benja-Logica}, analisar os sistemas axiomáticos da lógica proposicional, lógica modal e das álgebras booleanas. Foi esta escola que primeiro considerou interpretações alternativas da linguagem (da lógica) e questões da meta-lógica tais como: consistência, corretude e completude. Por fim, foi na escola polonesa que houve pela primeira vez duas visões separadas sobre a lógica, uma em que a lógica era vista puramente como uma linguagem, e a segunda visão que via a lógica puramente como um cálculo \cite{benja-Logica}.
+
+Instigado pelo problema número dois da lista Hilbert\footnote{A lista de Hilbert é um lista inicialmente composta por 10 problemas e depois expandida para 23, que foi apresentada pelo matemático alemão David Hilbert (1862-1943) como uma forma de guia a atenção dos matemáticos no século XX.} o jovem matemático e lógico austríaco Kurt Gödel (1906-1978) fez grandes contribuições para a lógica, inicialmente ele provou o teorema da completude para a lógica de primeira ordem em sua tese de doutorado em 1929, tal resultado estabelece que uma fórmula de primeira ordem é dedutível se e somente se ela é universalmente válida \cite{benja-Logica}. Outra contribuição monumental de Gödel são seus teoremas da incompletude \cite{godel1931}, em especial o primeiro que deu uma resposta negativa ao problema número dois da lista Hilbert, de forma sucinta o resultado de Gödel estabelece que não pode haver uma sistematização completa da Aritmética, ou seja, sempre vão existir sentença verdadeiras porém indemonstráveis \cite{abe2002-logica, magnus2020}.
+
+Outros contemporâneos de Gödel também contribuíram fortemente para a lógica, Alfred Tarski (1901-1983) foi o responsável pela matematização do conceito de verdade como correspondência \cite{abe2002-logica, tarski1983}, já o francês Jacques Herbrand (1908-1931) introduziu as funções recursivas e apresentou os resultados hoje chamados de teoria de Herbrand. Entre os resultados de Herbrand se encontra o teorema que relaciona um conjunto insatisfatível de fórmulas da lógica de primeira ordem com um conjunto insatisfatível de fórmulas proposicionais.
+
+Outra enorme revolução matemática do século XX que foi escrita na linguagem da lógica foi a prova da independência entre a hipótese do \textit{continuum}\footnote{A hipótese do \textit{continuum} é uma conjectura proposta por Georg Cantor e que fazia parte da lista inicial de 10 problemas estabelecida por David Hilbert. Esta conjectura consiste no seguinte enunciado: \textbf{Não existe nenhum conjunto com cardinalidade maior que a do conjunto dos números inteiros e menor que a do conjunto dos números reais}.} e o axioma da escolha da teoria de conjuntos de Zermelo–Fraenkel ou teoria dos conjuntos axiomática como também é chamada.
+
+De forma sucinta pode-se então concluir que a lógica uma ciência nascida na Grécia antiga se desenvolveu de forma exponencial após o século XIX, e que seu desenvolvimento foi em boa parte guiado por matemáticos, de fato, pode-se dizer que a lógica contemporânea se caracteriza pela tendência da matematização da lógica \cite{barreto}. Muitos outros estudiosos, além dos que foram aqui mencionados, também apresentaram resultados diretos em lógica ou em área correlatas como a teoria da prova e a teoria da recursão, tornando a lógica e suas ramificações e aplicações um dos assuntos dominantes no séculos XX e XXI. 
+
+\section{Argumentos, Proposições e Predicados}\label{sec:LogicsComponents}
+
+Como qualquer outra disciplina para entender de fato o que é a lógica deve-se estudar a mesma \cite{copi1981}, antes de qualquer coisa é bom saber que diferente de outras ciências, a lógica não apresentar fronteiras bem definidas, na verdade como dito em \cite{joaoPavao2014}, a lógica pode ser compreendida como a tênue linha que separa as ciências da filosofia e da matemática, no que diz respeito a isto, este manuscrito irá se debruçar primariamente sobre os aspectos matemáticos da lógica.
+
+É sabido que para se estudar uma ciência deve-se saber quais são as entidades fundamentais de interesse dessa ciência, no caso da lógica, estas entidades fundamentais são os argumentos em um discurso. 
+
+\begin{definicao}[Argumento]\label{def:Argumento}
+	Um argumento é par formado por dois componentes básicos, a saber:
+	\begin{itemize}
+		\item[(1)] Um conjunto de frases declarativas, em que cada frase é chamada de premissa.
+		\item[(2)] Uma frase declarativa, chamada de conclusão.
+	\end{itemize}
+\end{definicao}
+
+Para representar um argumento pode-se como visto em \cite{copi1981, joaoPavao2014} usar uma organização de linhas, por exemplo, para representar um argumento que possua $n$ premissas primeiro serão distribuídas nas $n$ primeiras linhas as tais premissas do argumento depois na linha $n+1$ é usado o símbolo $\wasytherefore$ para separar as premissas da conclusão\footnote{Como dito em \cite{magnus2020} o símbolo $\wasytherefore$ como ``portanto''.}, sendo esta última colocada na linha $n+2$.
+
+\begin{exemplo}\label{exe:Argumento1}
+	A construção:
+  \begin{center} 
+    Toda quarta-feira é servida sopa para as crianças.\\
+    Hoje é quinta-feira.\\
+    $\wasytherefore$\\
+    Ontem as crianças tomaram sopa.
+  \end{center}
+	É um argumento.
+\end{exemplo}
+
+As frases declarativas usadas para construção de argumentos são aquelas que como dito em \cite{joaoPavao2014}, enunciam como as entidades em um certo discurso são ou poderia ter sido, em outras palavras, as frase declarativas falam sobre as propriedades das entidades.
+
+\begin{exemplo}\label{exe:FrasesDeclarativas}
+	As frase:
+	\begin{itemize}
+		\item A lua é feita de queijo.
+		\item O Flamengo é um time carioca.
+	\end{itemize}
+	São ambas frases declarativas. Por outro lado, as frase:
+	\begin{itemize}
+		\item Que horas são?
+		\item Forneça uma resposta para o exercício.
+		\item Faça exatamente o que eu mandei.
+		\item Cuidado!
+	\end{itemize}
+	Não são frases declarativas.
+\end{exemplo}
+
+Uma forma de identificar se uma frase é declarativa é verificado se a mesma admite ser classificada como verdadeira ou falso.  Na lógica as frase declarativas podem ser ``tipadas'' com dois rótulos: \textbf{proposições} e \textbf{predicados}. 
+
+\begin{definicao}[Proposição]\label{def:Proposicao}
+	Uma proposição é uma frase declarativa sobre as propriedades de indivíduos específicos em um discurso.
+\end{definicao}
+
+\begin{exemplo}\label{exe:Proposicoes}
+	São exemplos de proposições:
+	\begin{itemize}
+		\item[(a)] $3 < 5$.
+		\item[(b)] A lua é feita de queijo.
+		\item[(c)] Albert Einstein era francês.
+		\item[(d)] O Brasil é penta campeão de futebol masculino.
+	\end{itemize}
+\end{exemplo}
+
+\begin{definicao}[Predicados]\label{def:Predicados}
+	Predicados são frase declarativas sobre as propriedades de indivíduos não específicos em um discurso.
+\end{definicao}
+
+Pela Definição \ref{def:Predicados} pode-se entender que um predicado fala das propriedades de indivíduos sem explicitamente dar nomes a tais indivíduos.
+
+\begin{exemplo}\label{exe:Predicados}
+	São exemplos de predicados:
+	\begin{itemize}
+		\item[(a)] Para qualquer $x \in \mathbb{N}$ tem-se que $x < x + 1$.
+		\item[(b)] Para todo $x \in \mathbb{R}$ sempre existem dois números $y_1, y_2 \in \mathbb{R}$ tal que $y_1 < x < y_2$.
+		\item[(c)] Existe algum professor cujo nome da mãe é Maria de Fátima.
+		\item[(d)] Há um estado brasileiro que não tem litoral.
+	\end{itemize}
+\end{exemplo}
+
+Agora note que nas frase (a) e (b) do Exemplo \ref{exe:Predicados} o símbolo $x$ se torna um mecanismo que faz o papel dos números naturais e reais respectivamente, mas sem ser os próprios números em si, o mesmo vale para $y_1$ e $y_2$. Similarmente na frase (c) o termo \textbf{professor} representa todo um conjunto de pessoas, mas nunca sendo uma pessoa em particular, já na frase (d) o termo \textbf{estado brasileiro} representa novamente todos os indivíduos de um conjunto, mas ele nunca é um indivíduo particular. Os termos em um predicado que tem essa capacidade de representação são chamados de \textbf{variáveis do predicado}.
+
+\begin{nota}
+  Um predicado que tem suas variáveis substituídas por valores específicos se torna uma proposição. 
+\end{nota}
+
+\begin{exemplo}\label{exe:AtribuirVariavelPredicado1}
+	Considere o predicado: ``\textbf{Existe algum professor cujo nome da mãe é Maria de Fátima}''. Se for atribuído o valor  \textbf{Valdigleis} no lugar da variável \textbf{professor} será gerado a proposição: \textbf{O nome da mãe de Valdigleis é Maria de Fátima}.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:AtribuirVariavelPredicado2}
+	Considere o predicado: Para todo $x \in \mathbb{N}$, tem-se que $x > x + 1$. Ao atribuir o valor $2$ a variável $x$ teremos a proposição $2 > 2 + 1$\footnote{Obviamente se for feita a avaliação do termo $2 + 1$, poderia ser escrito a proposição como $2 > 3$.}.
+\end{exemplo}
+
+\section{Conectivos, Quantificadores e Negação}\label{sec:LogicsConnectives}
+
+As proposições e os predicados podem ser classificados em duas categorias: simples ou composto. Uma proposição (ou predicado) é dita(o) composta(o) sempre que for possível dividi a (o) proposição (predicado) em proposições (predicados) menores. E no caso contrário é dito que a proposição (ou predicado) é simples (ou atômicas).
+
+\begin{definicao}[Conectivos]\label{def:Conectivos}
+	Conectivos são termos linguísticos que fazem a ligação entre as proposições ou (e) predicados.
+\end{definicao}
+
+Os principais conectivos são: a conjunção, a disjunção e a implicação. E a depender do idioma\footnote{Idioma aqui, diz respeito, a linguagem natural (português por exemplo) que tem papel de meta-linguagem para falar sobre a lógica.} mais de um termo da linguagem pode representar um determinado conectivos. 
+
+A seguir são listados os termos na língua portuguesa que são conectivos, ressaltamos que o símbolo $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ será usado como meta-variável para representar a posição de proposições (ou predicados).
+
+\begin{table}[h]
+	\centering
+	\label{tab:ConectivosPT-BR}
+	\begin{tabular}{cl}
+		\hline
+		\textbf{Conectivo}  & \textbf{Termo em Portugu\^es} \\ \hline
+		\multirow{4}{*}{Conjunção}             & $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ e $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ mas $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\ 
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ tamb\'em $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\ 
+		&$\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ além disso $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\ \hline
+		Disjun\c{c}\~ao             & $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ ou $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\ \hline
+		\multirow{7}{*}{Implicação}
+		& Se $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$, ent\~ao $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ implica $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$    \\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ logo, $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ s\'o se $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ somente se $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$segue de $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ \\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ \'e uma condi\c{c}\~ao suficiente para $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& Basta $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ para $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\'e uma condi\c{c}\~ao necess\'aria para $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ \\ \hline
+	\end{tabular}
+	\caption{Termos em português que representamos conectivos.}
+\end{table}
+
+\begin{exemplo}\label{exe:Conectivos}
+	Usando as proposições do Exemplo \ref{exe:Proposicoes} e os predicados do Exemplo \ref{exe:Predicados} pode-se criar:
+	\begin{itemize}
+		\item[(a)] $3 < 5$ {\color{teal}e} para qualquer $x \in\mathbb{N}$ tem-se que $x < x + 1$.
+		\item[(b)] Há um estado brasileiro que não tem litoral {\color{teal}ou} O Brasil é penta campeão de futebol masculino.
+		\item[(c)] {\color{teal}Se} para todo $x \in \mathbb{R}$ sempre existem dois números $y_1, y_2 \in \mathbb{R}$ tal que $y_1 < x < y_2$, {\color{teal}então} Albert Einstein era francês.
+		\item[(e)] {\color{teal}Se} a lua é feita de queijo {\color{teal}ou} $3 < 5$, {\color{teal}então} há um estado brasileiro que não tem litoral.
+	\end{itemize}
+  Neste exemplo, os conectivos estão destacados na cor \textit{{\color{teal} teal}}.
+\end{exemplo}
+
+Como já mencionado antes um predicado não especifica diretamente os indivíduos, em vez disso, usa variáveis para não mencionar os indivíduos especificamente. Essas variáveis por sua vez, estão conectadas a termos da linguagem que determinam a quantidade de elementos que podem vim a ser atribuído a tais variáveis, tais termos são chamados de quantificadores. Os quantificadores por sua vez, podem ser tipados em duas categoria: universais e existenciais. 
+
+Quando uma variável é ligada a um quantificador universal significa que o predicado será verdadeiro se para a atribuição de cada um  dos elementos do universo discurso a proposição gerada com a atribuição é também verdadeira, no caso contrário o predicado é falso. Por outro lado, quando uma variável é ligada a um quantificador existencial significa que tal predicado será verdadeiro se para pelo menos um dos elementos do discurso ao ser atribuído a variável gera uma proposição verdadeira, e no caso contrário o predicado será falso.
+
+De forma similar aos conectivos os quantificadores também são ``representados'' por termos da língua portuguesa como mostrado na tabela a seguir.
+
+\begin{table}[h]
+	\centering
+	\label{tab:QuantificadoresPT-BR}
+	\begin{tabular}{cl}
+		\hline
+		\textbf{Quantificador}  & \textbf{Termo em Portugu\^es} \\ \hline
+		\multirow{3}{*}{Universal}    & Para todo(a) $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& Para qualquer $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& Para cada $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\ \hline
+		\multirow{3}{*}{Existencial} & Existe $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& Para algum $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		& Para um $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\ \hline
+	\end{tabular}
+	\caption{Termos em português que representamos quantificadores.}
+\end{table}
+
+Anteriormente já foi dito que na lógica as proposições e predicados podem ser interpretados como sendo verdadeiros ou falsos, dito isto, para qualquer proposição ou predicado sempre é possível obter uma proposição ou predicado com um valor de interpretação oposta, isto é, se a proposição (ou predicado) original for verdadeira a proposição (ou predicado) oposta será falsa, ou vice-versa. Esse operador que gerar as proposições (ou predicados) opostas(os) é chamado de negação e a tabela a seguir exibe como os termos na língua portuguesa podem ser usados para representar a negação.
+
+\begin{table}[h]
+	\label{tab:NegacaoPortugues}
+	\centering
+	\begin{tabular}{c}
+		\hline
+		\textbf{Termos em português}\\
+		\hline
+		Não $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ \\
+		É falso que $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$\\
+		Não é verdade que $\underline{ \ \ \ \ \ \ \ \ \ \ \ \ }$ \\ \hline
+	\end{tabular}
+	\caption{Termos em português para designar a negação de uma proposição ou predicado.}
+\end{table}
+
+\section{Representação Simbólica}\label{sec:LogicsSimbolic}
+
+A lógica simbólica é o estudo das propriedades lógica sem se preocupar com o que cada proposição e(ou) predicado de fato enuncia, em tal perspectiva as abstrações simbólicas capturam as características formais (sintaxe e semântica) das proposições e predicados, além de, representar de forma sucinta e precisa as abordagens para a inferência lógica aplicada a qualquer argumento \cite{russel1910principia, hamilton1988logic}.
+
+\begin{definicao}\label{def:SimbolosProposicionais}
+  Na lógica simbólica as letras maiúsculas do alfabeto latino com ou sem indexação representam  proposições simples.
+\end{definicao}

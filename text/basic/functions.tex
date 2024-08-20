@@ -853,7 +853,6 @@ Outra classe de famílias que é bastante importante, são as família ditas com
 	\end{itemize}
 \end{exemplo}
 
-
 As famílias não sequenciais são particularmente importante para as linguagens de programação, pois são essas famílias que descrevem matematicamente o conceito de \textbf{registros} (ou \textbf{estruturas}) presentes nas linguagens de programação, o exemplo a seguir ilustra o uso deste tipo de família na linguagem de programação C.
 
 \begin{figure}[h]
@@ -911,9 +910,40 @@ Apesar da Definição \ref{def:UniaoGeneralizada} não apresentar de forma expl�
 	\end{eqnarray*}
 \end{exemplo}
 
+\section{Funções Restritas}\label{sec:FuncoesRestritas}
 
+Um conceito importante no estudo de funções é a noção de restrições, como apresentado em \cite{lipschutz1978-TC}, existem situações em que é de interesse entender o comportamento de uma função apenas em uma certa região de seu domínio, e não no domínio inteiro.
 
+\begin{definicao}
+	Seja $f: A \rightarrow B$ uma função e seja $X \subseteq A$, a função $f$ restrita a entradas no conjunto $X$, dentoda, por $f_{\mid_X}$, é exatamente a função $f$ recebendo apenas elementos de $X$ como entrada.
+\end{definicao}
 
+Note que restringir uma função a um suconjunto de seu domínio, é similar a criar uma outra função a partir da primeira, que herda o comportamente da primeira função, mas não necessariamente todas as suas propriedades. Considere por exemplo, uma função de naturais em naturais definida como $f(x) = x - 1$, obviamente este função não é total, agora considere um conjunto $A = \{x \in \mathbb{N} \mid x > 5 \}$ obiamente tem-se $A \subseteq \mathbb{N}$, por fim, note que a função $f$ quando restrita ao conjunto $A$ passa a ser total, ou seja, $f_{\mid_A}$ é uma função total.
+
+\begin{proposicao}
+	Se $f: A \rightarrow B$ é uma função, então existe $X \subseteq A$ tal que $f_{\mid_A}$ é uma função total.
+\end{proposicao}
+
+\begin{proof}
+	Trivial.
+\end{proof}
+
+Além de alterar as propriedades de classificação\footnote{Aqui classificação diz respeito apenas a função ser total ou parcial.} da função, restrições também pode modificar a relação de mapeamento da função, o Exemplo \ref{exe:FuncaoRestrita1} a seguir ilustra essa ideia, na função $f$ sua relação de mapeamento consiste em, 
+$$\{(x, y) \in  \mathbb{Z} \times \mathbb{N} \mid y = 2x, x \geq 0\} \cup \{(x, y) \in  \mathbb{Z} \times \mathbb{N} \mid y = -2x-1, x < 0\}$$
+já com a restrição a relação de mapeamento é apenas $\{(x, y) \in  \mathbb{Z} \times \mathbb{N} \mid y = 2x\}$.
+
+\begin{exemplo}\label{exe:FuncaoRestrita1}
+	Seja $f: \mathbb{Z} \rightarrow \mathbb{N}$ uma função definida como:
+	\begin{eqnarray*}
+		f(x) = \left\{\begin{array}{ll}
+			2x, & \text{se } x \geq 0\\
+			-2x - 1, & \text{senão}
+		\end{array}\right.
+	\end{eqnarray*}
+	tem-se que se $A = \{x \in \mathbb{Z} \mid x \geq 0 \}$, então $f_{\mid_A}(x) = 2x$.
+\end{exemplo}
+
+Em programação, o conceito de função restrita pode ser aplicado de diversas maneiras \cite{paulo2009algoritmos, pythonOrg}, especialmente nas linguagens de programação que suportam funções como sendo ``entidade'' de primeira classe\footnote{Entidades de primeira classe são entidades da linguagens que podem ser passadas como argumentos e (ou) retornadas por funções}, mas não apenas esse tipo de linguagem, pois com imaginação e talento o programador sempre consegue forma de limitar o uso da função a algum conjunto limitado de dados.
 
 \section{Questionário}\label{sec:Questionario5part1}
 

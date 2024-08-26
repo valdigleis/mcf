@@ -217,7 +217,7 @@ Agora que já foram apresentadas as regras que não agem diretamente sobre os s�
 \end{exemplo}
 
 \begin{exemplo}\label{exe:RegraIntroducaoE2}
-  A prova de $\{P, Q, S\} \vdash Q \land (P \land Q)$ é dada por:
+  A prova de $\{P, Q, S\} \vdash S \land (P \land Q)$ é dada por:
   $$
     \begin{nd}
       \have[1]{a}{P} \by{Premissa}{}
@@ -352,7 +352,7 @@ Usando apenas as regras de inferência apresentadas até este ponto do texto no 
             \have{c}{\alpha} \ae{a}
             \have{d}{\beta \land \alpha} \ai{b,c}
             \close
-            \have{f}{(\alpha \land \beta) \Rightarrow (\beta \land \alpha)} \ii{a--d}
+            \have{f}{(\alpha \land \beta) \Rightarrow (\beta \land \alpha)} \ii{a-d}
         \end{nd}
     $$
     Portanto, para qualquer $\alpha, \beta \in \mathcal{L}$ tem-se que $ \vdash \alpha \land \beta \Rightarrow \beta \land \alpha$, ou seja, a palavra $(\alpha \land \beta) \Rightarrow (\beta \land \alpha)$ é um teorema da linguagem $\mathcal{L}$.
@@ -387,9 +387,303 @@ Prosseguindo com a apresentação das regras de inferência do sistema de deduç
   $$
 \end{exemplo}
 
-O leitor deve ficar atento ao fato de que a Definição \ref{def:EliminacaoImplicacao} especifica que o termo hipotético $\alpha$ deve aparecer na prova antes do termo condicional $\alpha \Rightarrow \beta$, para que se possa aplicar a regra $\Rightarrow$E.
+O leitor deve ficar atento ao fato de que a Definição \ref{def:EliminacaoImplicacao} especifica que o termo hipotético $\alpha$ deve aparecer na prova antes do termo condicional $\alpha \Rightarrow \beta$, para que se possa aplicar a regra $\Rightarrow$E. A próxima regra de inferência do sistema de dedução natural que será apresentada neste texto é chamada de regra de introdução do absurdo, a mesma é utilizada para introduzir na demonstração o símbolo do absurdo\footnote{É comum na literatura em língua inglesa principalmente na área de lógica algébrica achar o símbolo do absurdo sendo chamado  \textit{bottom}.} $(\bot)$. O $\bot$ não é um operador de fato, entretanto, é uma palavra tão importante no estudo da lógica que o mesmo tem uma regra de introdução própria.
 
+\begin{definicao}[Regra de introdução do absurdo ($\bot I$)]\label{def:IntroducaoDoAbsurdo}
+  Se na linha  $i$ de uma prova existe uma palavra $\beta$ e no mesmo escopo de prova na linha $j$ existe uma palavra $\neg \beta$ com $i < j$, então na linha $k$ desta prova é deduzido $\bot$ com $j < k$, em diagrama tem-se:
+  $$
+    \begin{nd}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[i]{a}{\beta}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[j]{b}{\neg \beta} 
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k]{c}{\bot} \by{$\bot$ I}{a,b}
+      \have[\vdots]{skip1}{\vdots} 
+    \end{nd}
+  $$
+\end{definicao}
 
+\begin{exemplo}\label{exe:RegraIntroducaoDoAbsurdo}
+  Uma prova de $\{P \land Q, R \land \neg P\} \vdash \bot$ é dado pelo seguinte diagrama:
+  $$
+    \begin{nd}
+      \have{a}{P \land Q} \by{Premissa}{}
+      \hypo{b}{R \land \neg P} \by{Premissa}{}
+      \have{c}{P} \ae{a}
+      \have{d}{\neg P} \ae{b}
+      \have{e}{\bot} \by{$\bot$ I}{c,d}
+    \end{nd}
+  $$
+\end{exemplo}
+
+\begin{cuidado}
+  O leitor deve ficar atendo ao fato da Definição \ref{def:IntroducaoDoAbsurdo} estabelecer que a palavra $\alpha$ deve vim antes da palavra $\neg \alpha$ no escopo da prova.  
+\end{cuidado}
+
+\begin{definicao}[Regra $\neg I$]\label{def:IntroducaoNegacao}
+  Se existe uma sub-prova iniciada com $\alpha$ na linha $i$ que deduz $\bot$ em uma linha $j$  tal que $i < j$, então pode-se fechar a sub-prova e na linha $j+1$ introduzir a palavra $\neg \alpha$. Em notação de diagrama de Fitch tem-se:
+  $$
+      \begin{nd}
+          \have[\vdots]{skip1}{\vdots}
+          \open
+          \hypo[i]{a}{\alpha}
+          \have[\vdots]{skip1}{\vdots}
+          \have[j]{b}{\bot}
+          \close
+          \have[j+1]{c}{\neg \alpha} \ni{a-b}
+          \have[\vdots]{skip1}{\vdots}
+      \end{nd}
+  $$
+\end{definicao}
+
+\begin{exemplo}\label{exe:IntroducaoNegacao}
+  Uma prova de $\{P \Rightarrow \neg Q, Q\} \vdash \neg P$ é descrita pelo diagrama a seguir.
+  $$
+    \begin{nd}
+      \have{a}{P \Rightarrow \neg Q} \by{Premissa}{}
+      \hypo{b}{Q} \by{Premissa}{}
+      \open
+      \hypo{c}{P} \by{Assuma}{}
+      \have{d}{P \Rightarrow \neg Q}  \by{REI}{a}
+      \have{e}{Q}  \by{REI}{b}
+      \have{f}{\neg Q} \ie{c,d}
+      \have{g}{\bot} \by{$\bot$ I}{e,f}
+      \close
+      \have{h}{\neg P} \ni{c-g}
+    \end{nd}
+  $$
+\end{exemplo}
+
+\begin{definicao}[Regra $\neg E$]\label{def:EliminacaoDaNegacao}
+  Sempre que existir uma palavra $\neg \neg \alpha$ em uma linha $i$, então em uma linha $j$ pode-se deduzir $\alpha$ com $i < j$. Em notação de diagrama tem-se:
+  $$
+    \begin{nd}
+      \have[\vdots]{skip1}{\vdots}
+      \have[i]{a}{\neg \neg \alpha}
+      \have[\vdots]{skip1}{\vdots}
+      \have[j]{b}{\alpha} \ne{a}
+      \have[\vdots]{skip1}{\vdots}
+    \end{nd}
+  $$
+\end{definicao}
+
+E possível interpretar esta regra como representado a ideia de que negar uma palavra (argumento) duas vezes é o mesmo que afirmar tal palavra (argumento).
+
+\begin{exemplo}
+  O seguinte resultado $\vdash (P \land \neg P) \Rightarrow Q$ é um dos mais famosos e controversos teoremas envolvendo o operador de implicação, para detalhes ver \cite{joaoPavao2014}, na demostração pode-se ver o uso da regra de eliminação da negação para provar tal teorema.
+    
+  $$
+    \begin{nd}
+      \hypo{a}{P \land \neg P} \by{Assuma}{}
+      \open
+      \hypo{b}{\neg Q} \by{Assuma}{}
+      \have{c}{P \land \neg P}  \by{REI}{a}
+      \have{d}{P} \ae{c}
+      \have{e}{\neg P} \ae{c}
+      \have{g}{\bot} \by{$\bot$ I}{d,e}
+      \close
+      \have{h}{\neg \neg Q} \ni{b-g}
+      \have{i}{Q} \ne{h}
+      \close
+      \have{j}{(P \land \neg P) \Rightarrow Q} \ii{a-i}
+    \end{nd}
+  $$
+\end{exemplo}
+
+Por fim, serão agora apresentadas as regras de introdução e eliminação para a disjunção para o sistema de dedução natural. Pela regra de eliminação da disjunção é um pouco mais complicada\footnote{Complicada no sentido de que tal regra para ser realizada invoca duas sub-provas hipotéticas.}, ela será apresentada primeiro.
+
+\begin{definicao}[Regra $\lor E$]\label{def:EliminacaoDisjuncao}
+  Sempre que existe uma palavra $\alpha \lor \beta$ na $i$-ésima linha da prova e for possível deduz $\gamma$ a partir de sub-provas iniciadas com $\alpha$ e $\beta$ como hipótese, então na linha $n$ tal que $i < n$ é possível deduzir a palavra $\gamma$. Na notação de diagramas tem-se que:
+  $$
+    \begin{nd}
+      \have[i]{a}{\alpha \lor \beta}
+      \have[\vdots]{skip1}{\vdots}
+      \open
+      \hypo[j]{b}{\alpha}
+      \have[\vdots]{skip1}{\vdots}  
+      \have[j + l_1]{c}{\gamma}
+      \close
+      \open
+      \hypo[k]{d}{\beta}
+      \have[\vdots]{skip1}{\vdots}  
+      \have[k + l_2]{e}{\gamma}
+      \close
+      \have[\vdots]{skip1}{\vdots}  
+      \have[n]{f}{\gamma} \oe{a, (b-c, d-e)}
+    \end{nd}
+  $$
+\end{definicao}
+
+\begin{exemplo}\label{exe:EliminacaoDisjuncao}
+  A prova de $\vdash ((P \lor Q) \land \neg P) \Rightarrow Q$ usa a regra de eliminação da disjunção.
+  $$
+    \begin{nd}
+      \hypo{a}{(P \lor Q) \land \neg P} \by{Assuma}{}
+      \have{b}{P \lor Q} \ae{a}
+      \have{c}{\neg P} \ae{a}
+      \open
+      \hypo{d}{P} \by{Assuma}{}
+      \open
+      \hypo{e}{\neg Q} \by{Assuma}{}
+      \have{f}{P} \by{REI}{d}
+      \have{g}{\neg P} \by{REI}{c}
+      \have{h}{\bot} \by{$\bot$ I}{f,g}
+      \close
+      \have{i}{\neg \neg Q} \ni{e-h}
+      \have{j}{Q} \ne{i}
+      \close
+      \open
+      \hypo{k}{Q} \by{Assuma}{}
+      \have{l}{Q} \by{REI}{k}
+      \close
+      \have{m}{Q}  \oe{b, (d-j, k-l)}
+      \close
+      \have{n}{((P \lor Q) \land \neg P) \Rightarrow Q} \ii{a-m}
+    \end{nd}
+  $$
+\end{exemplo}
+
+A próxima regra é reponsável por introduzir a disjunção, em alguma obras tais como \cite{carmo2013} é mencionado que ela também é conhecida como regra aditiva, por ser capaz de introduzir símbolos que não estava inicialmente expostos no conjunto de premissas. A introdução da disjunção apesar de apresentar duas formas de aplicação, é muito mais simples\footnote{Simples no sentido de que a mesma não apresenta sub-provas.} que a regra remoção apresentada anteriormente.
+
+\begin{definicao}[Regra $\lor I$]\label{def:IntroducaoDisjuncao}
+  Se em uma prova aparece na linha $i$ uma palavra $\alpha$, então em uma linha $j$ tal que $i < j$ pode-se deduzir para algum $\beta \in \mathcal{L}$ uma das seguintes palavras: $\alpha \lor \beta$ ou $\beta \lor \alpha$. Na notação do diagrama de Fitch tem-se:
+  
+  \begin{minipage}{.40\textwidth} %
+    $$
+      \begin{nd}
+        \have[\vdots]{skip1}{\vdots}  
+        \have[i]{a}{\alpha}
+        \have[\vdots]{skip1}{\vdots}  
+        \have[j]{b}{\alpha \lor \beta} \oi{a}
+        \have[\vdots]{skip1}{\vdots} 
+      \end{nd}
+    $$
+  \end{minipage} %
+  ou
+  \begin{minipage}{.40\textwidth} %
+    $$
+      \begin{nd}
+        \have[\vdots]{skip1}{\vdots}  
+        \have[i]{a}{\alpha}
+        \have[\vdots]{skip1}{\vdots}  
+        \have[j]{b}{\beta \lor \alpha} \oi{a}
+        \have[\vdots]{skip1}{\vdots} 
+      \end{nd}
+    $$
+  \end{minipage}
+\end{definicao}
+
+\begin{exemplo}
+  A prova de $\{P, (Q \land S)\} \vdash S \lor \neg P$ é dada por:
+  $$
+    \begin{nd}
+      \have{a}{P} \by{Premissa}{}
+      \hypo{b}{Q \land S} \by{Premissa}{}
+      \have{c}{S} \ae{b}
+      \have{d}{S \lor \neg P} \oi{c}
+    \end{nd}
+  $$
+\end{exemplo}
+
+\begin{exemplo}\label{exe:IntroducaoDisjuncao}
+  Uma simples prova da relação de consequência sintática $\{\neg S \Rightarrow (P \land Q), \neg S\} \vdash Q \lor \neg R$ utilizando a regra de introdução da disjunção pode ser vista a seguir.
+  $$
+    \begin{nd}
+      \have{a}{\neg S} \by{Premissa}{}
+      \hypo{b}{\neg S \Rightarrow (P \land Q)} \by{Premissa}{}
+      \have{c}{P \land Q} \ie{a,b}
+      \have{d}{Q} \ae{c}
+      \have{e}{Q \lor \neg R} \oi{d}
+    \end{nd}
+  $$
+\end{exemplo}
+
+Para prosseguir serão apresentadas as propriedades do sistema dedutivo, os próximos resultados são meta-teoremas do sistema em si, isto é, são resultados  da natureza do sistema dedutivo em si e não palavras que podem ser deduzidas de um conjunto vazio de hipóteses.
+
+\begin{teorema}[Teorema da dedução]\label{teo:TeoremaDeducaoSintatico}
+  Seja $\Gamma \subseteq \mathcal{L}$ e $\alpha, \beta \in \mathcal{L}$. Se $\Gamma \cup \{\alpha\} \vdash \beta$, então $\Gamma \vdash \alpha \Rightarrow \beta$.
+\end{teorema}
+
+\begin{proof}
+  Suponha que $\Gamma \cup \{\alpha\} \vdash \beta$, assim existe um diagrama da forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[m]{b}{\delta_m} \by{Premissa}{}
+      \hypo[m+1]{c}{\alpha} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[n]{d}{\beta}
+    \end{nd}
+  $$
+  com $\delta_i \in \Gamma$ para todo $i \leq m$. Assim pode-se iniciar uma nova prova a partir das premissas $\delta_1, \cdots, \delta_m$ do conjunto $\Gamma$, em seguida é iniciada uma sub-prova hipotética tomando $\alpha$ como hipótese, ou seja, começa-se a desenvolver o seguinte diagrama:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \open
+      \hypo[m+1]{c}{\alpha} \by{Assuma}{}
+    \end{nd}
+  $$
+  Em seguida usando a regra REI é possível ``copiar'' todas as premissas para o escopo da sub-prova, atualizando o diagrama para a forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \open
+      \hypo[m+1]{c}{\alpha} \by{Assuma}{}
+      \have[m+1+1]{d}{\delta_1} \by{REI}{a}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[2m+1]{e}{\delta_m} \by{REI}{b}
+    \end{nd}
+  $$
+  Agora basta desenvolver a sub-prova utilizando exatamente a mesma sequência de regras utilizadas\footnote{Vale destacar que obviamente devem ser atualizadas as informações sobre as linhas de aplicação das regras, com respeito as linha do novo diagrama.} na prova original de $\Gamma \cup \{\alpha\} \vdash \beta$, e assim será possível deduzir a palavra $\beta$ na sub-prova após $n$ linhas depois da última premissa copiada com REI, ou seja, o diagrama fica com a seguinte forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \open
+      \hypo[m+1]{c}{\alpha} \by{Assuma}{}
+      \have[m+1+1]{d}{\delta_1} \by{REI}{a}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[2m+1]{e}{\delta_m} \by{REI}{b}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[2m+n+1]{f}{\beta}
+    \end{nd}
+  $$
+  Portanto, utilizando a regra de introdução da implicação entre as linhas $m+1$ e $2m+n+1$, é obtida na linha $2m+n+2$ a palavra $\alpha \Rightarrow \beta$, ou seja, tem-se o seguinte diagrama:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \open
+      \hypo[m+1]{c}{\alpha} \by{Assuma}{}
+      \have[m+1+1]{d}{\delta_1} \by{REI}{a}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[2m+1]{e}{\delta_m} \by{REI}{b}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[2m+n+1]{f}{\beta}
+      \close
+      \have[2m+n+2]{g}{\alpha \Rightarrow \beta} \ii{c-f}
+    \end{nd}
+  $$
+  O que mostra que, $\Gamma \vdash \alpha \Rightarrow \beta$, concluindo assim a prova.
+\end{proof}
+
+O resultado que se segue é uma consequência direta do Teorema da dedução.
+
+\begin{corolario}\label{col:DeducaoSintatica}
+  Seja $\Gamma \subseteq \mathcal{L}$ tal que $\Gamma = \{\alpha_1, \cdots, \alpha_n\}$ e $\beta \in \mathcal{L}$. Se $\Gamma \vdash \beta$, então $\vdash \alpha_1 \Rightarrow ( \cdots ( \alpha_n \Rightarrow \beta))$.
+\end{corolario}
+
+\begin{proof}
+  A prova deste corolário consiste simplesmente de $n$ aplicações do Teorema da dedução (Teorema \ref{teo:TeoremaDeducaoSintatico}).
+\end{proof}
 
 
 

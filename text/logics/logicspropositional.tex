@@ -685,13 +685,282 @@ O resultado que se segue é uma consequência direta do Teorema da dedução.
   A prova deste corolário consiste simplesmente de $n$ aplicações do Teorema da dedução (Teorema \ref{teo:TeoremaDeducaoSintatico}).
 \end{proof}
 
+\begin{teorema}\label{teo:TeoremaDeducaoSintatico2}
+  Seja $\Gamma \subseteq \mathcal{L}$ e $\alpha, \beta \in \mathcal{L}$. Se $\Gamma \vdash \alpha \Rightarrow \beta$, então $\Gamma \cup \{\alpha\}  \vdash \beta$.
+\end{teorema}
 
+\begin{proof}
+  A prova deste teorema apresenta uma simetria de raciocínio com o raciocínio apresentado pela prova do Teorema da dedução, assim sendo, a prova deste teorema irá ficar como exercício ao leitor.
+\end{proof}
 
+\begin{nota}
+  Durante a prova do Teorema \ref{teo:TrasitividadeSintatica} a seguir, o símbolo $\Sigma$ irá denotar o somatório e não o alfabeto proposicional. 
+\end{nota}
 
+\begin{teorema}[Transitividade de $\vdash$]\label{teo:TrasitividadeSintatica}
+    Seja $\Gamma \subseteq \mathcal{L}$ e $\alpha_1,\cdots,\alpha_n, \beta \in \mathcal{L}$. Se $\Gamma \vdash \alpha_1, \cdots, \Gamma \vdash \alpha_n$ e $\{\alpha_1, \cdots, \alpha_n\} \vdash \beta$, então $\Gamma \vdash \beta$.
+\end{teorema}
 
+\begin{proof}
+  Assuma que para todo $1 \leq i \leq n$ tem-se que $\Gamma \vdash \alpha_i$, ou seja, para cada $\alpha_i$ existe um diagrama da forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k_i]{c}{\alpha_i}
+    \end{nd}
+  $$
+  com $\delta_c \in \Gamma$ para todo $1 \leq c \leq m$ e $k_i \in \mathbb{N}$ tal que $k_i > m$. Além disso, assuma também que $\{\alpha_1, \cdots, \alpha_n\} \vdash \beta$, ou seja, assuma que existe um diagrama da forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\alpha_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[n]{b}{\alpha_n} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[l]{c}{\beta}
+    \end{nd}
+  $$
+  Assim é possível construir um novo diagrama em que as linhas de 1 até $m$ contém exatamente as premissas que formam o conjunto $\Gamma$. Além disso, as linhas de $m+1$ até $k_1$ serão idênticas as linhas do diagrama para a prova de $\Gamma \vdash \alpha_1$. Seguindo a construção deste novo diagrama para cada $2 \leq j \leq n$, as linha de $m+1$ até $k_j$ dos diagramas das prova de $\Gamma \vdash \alpha_j$ são dispostas sequencialmente no novo diagrama da mesma forma que estão em seus diagramas originais \footnote{Exceto pelo fato de que a referência das linhas de aplicação das regras de dedução natural precisam ser atualizadas para as linhas do novo diagrama}, assim o novo diagrama possui neste momento a seguinte forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k_1]{c}{\alpha_1}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[m + \sum_{i=1}^n (k_i - m)]{d}{\alpha_n}
+    \end{nd}
+  $$
+  Aplicando então a regra REI $n$ vezes pode-se copiar as palavras $\alpha_1, \cdots, \alpha_n$ para as linhas de $m + \sum_{i=1}^n (k_i - m) + 1$ até $m + \sum_{i=1}^n (k_i - m) + n$, atualizando assim o novo diagrama para a forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k_1]{c}{\alpha_1}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[m + \sum_{i=1}^n (k_i - m)]{d}{\alpha_n}
+      \have[ ]{skip1}{} 
+      \have[\Big(m + \sum_{i=1}^n (k_i - m)\Big) + 1]{e}{\alpha_1} \by{REI}{c}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[\Big(m + \sum_{i=1}^n (k_i - m)\Big) + n]{e}{\alpha_n} \by{REI}{d}
+    \end{nd}
+  $$
+  Agora basta repetir no novo diagrama todas as linhas de $n$ até $l$ do diagrama da prova de $\{\alpha_1, \cdots, \alpha_n\} \vdash \beta$ exatamente como estão dispostas, atualizando apenas as referência das aplicações das regra de dedução natural, assim o diagrama assumi a forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\delta_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\delta_m} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k_1]{c}{\alpha_1}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[m + \sum_{i=1}^n (k_i - m)]{d}{\alpha_n}
+      \have[ ]{skip1}{} 
+      \have[\Big(m + \sum_{i=1}^n (k_i - m)\Big) + 1]{e}{\alpha_1} \by{REI}{c}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[\Big(m + \sum_{i=1}^n (k_i - m)\Big) + n]{e}{\alpha_n} \by{REI}{d}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[\Big(m + \sum_{i=1}^n (k_i - m)\Big) + n + l]{e}{\beta}
+    \end{nd}
+  $$
+  E tal diagrama é exatamente a prova de $\Gamma \vdash \beta$, o que conclui a demonstração.
+\end{proof}
 
+Seguindo com a apresentação das propriedades do sistema dedutivo, a seguir serão exposto duas diferente formas de apresentar e demonstrar a noção de monotonicidade de $\vdash$.
 
+\begin{teorema}
+  [Teorema da monotonicidade (versão 1)]\label{teo:MonotonicidadeSintaticaV1}
+    Sejam $\Gamma_1$ e $\Gamma_2$ dois subconjuntos de $\mathcal{L}$ e seja $\alpha \in \mathcal{L}$. Se $\Gamma_1 \vdash \alpha$, então $\Gamma_1 \cup \Gamma_2 \vdash \alpha$.
+\end{teorema}
 
+\begin{proof}
+  Sem perda de generalidade assuma que $\Gamma_1 = \{\alpha_1, \cdots, \alpha_m\}$ e que $\Gamma_2 = \{\beta_1, \cdots, \beta_n\}$ com $\Gamma_1 \cap \Gamma_2 = \emptyset$. Agora suponha que $\Gamma_1 \vdash \alpha$, logo existe um diagrama na forma:
+  $$
+    \begin{nd}
+      \have[1]{a}{\alpha_1} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \hypo[m]{b}{\alpha_m} \by{Premissa}{}
+      \have[\vdots]{skip1}{\vdots} 
+      \have[k]{c}{\alpha}
+    \end{nd}
+  $$
+  Agora é claro que é possível construir um novo diagrama em que além das premissas $\alpha_1, \cdots, \alpha_m$ são também usadas as premissas do conjunto $\Gamma_2$, de forma que este diagrama inicialmente seja da forma:
+  $$
+    \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots} 
+        \have[m]{b}{\alpha_m} \by{Premissa}{}
+        \have[m+1]{b}{\beta_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[m+n]{d}{\beta_n} \by{Premissa}{}
+    \end{nd}
+  $$
+  Agora basta atualizar\footnote{A atualização deve indexar corretamente a aplicação das provas com respeito as linhas do novo diagrama.} este diagrama repetindo todas as linhas de $m+1$ até a linha $k$ do diagrama da prova de $\Gamma_1 \vdash \alpha$, e dessa forma o novo diagrama será atualizado para a forma:
+  $$
+    \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots} 
+        \have[m]{b}{\alpha_m} \by{Premissa}{}
+        \have[m+1]{b}{\beta_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[m+n]{d}{\beta_n} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[m+n+(k-m+1)]{e}{\alpha}
+    \end{nd}
+  $$
+  Mas tal diagrama é exatamente uma prova de $\Gamma_1 \cup \Gamma_2 \vdash \alpha$.
+\end{proof}
 
+Para prosseguir é necessário antes considerar a definição de conjunto das palavras deduzíveis apresentada a seguir.
+
+\begin{definicao}
+  Seja $\Gamma \subseteq \mathcal{L}$ o conjunto de todas as palavras deduzíveis de $\Gamma$, denotada por $Th(\Gamma)$, é o conjunto de todas as palavras que são consequência sintática de $\Gamma$, ou seja, $Th(\Gamma) = \{ \alpha \in \mathcal{L} \mid \Gamma \vdash \alpha\}$.
+\end{definicao}
+
+\begin{teorema}
+  Para qualquer que seja $\Gamma \subseteq \mathcal{L}$ tem-se que $Th(\Gamma)$ é infinito.
+\end{teorema}
+
+\begin{proof}
+  Não é difícil verificar que $Th(\Gamma) \neq \emptyset$ para qualquer que seja $\Gamma \subseteq \mathcal{L}$\footnote{O leitor pode treinar seu raciocínio de construção de provas demonstrando essa afirmação.}, dessa forma existe pelo menos um $\alpha \in Th(\Gamma)$. Agora escolhendo qualquer $\beta \in \mathcal{L}$ considere agora uma palavra $\alpha \lor \beta$, e uma vez que, $\Gamma \vdash \alpha$, é claro pela regra de introdução da disjunção que $\Gamma \vdash \alpha \lor \beta$, e portanto, $\alpha \lor \beta \in Th(\Gamma)$. Uma vez que existem infinitos $\beta \in \mathcal{L}$ tem-se que $Th(\Gamma)$ é infinito.
+\end{proof}
+
+\begin{teorema}[Teorema da monotonicidade (versão 2)]\label{teo:MonotonicidadeSintaticaV2}
+  Sejam $\Gamma_1$ e $\Gamma_2$ dois subconjuntos de $\mathcal{L}$. Se $\Gamma_1 \subset \Gamma_2$, então $Th(\Gamma_1) \subset Th(\Gamma_2)$.
+\end{teorema}
+
+\begin{proof}
+  Suponha que $\Gamma_1 \subset \Gamma_2$, agora para qualquer $\alpha \in Th(\Gamma_1)$, uma vez que, $\Gamma_1 \vdash \alpha$ pelo Teorema \ref{teo:MonotonicidadeSintaticaV1} tem-se que $\Gamma_1 \cup \Gamma_2 \vdash \alpha$, entretanto, pelas propriedades da união de conjuntos, como $\Gamma_1 \subset \Gamma_2$ tem-se que $\Gamma_2 = \Gamma_1 \cup \Gamma_2$, e portanto, $\Gamma_2 \vdash \alpha$, consequentemente, $\alpha \in Th(\Gamma_2)$. E assim tem-se que $Th(\Gamma_1) \subset Th(\Gamma_2)$.
+\end{proof}
+
+\begin{teorema}[Teorema da compacidade]\label{teo:TeoremaDaCompacidade}
+  $\Gamma \vdash \alpha$ se, e somente se, existe um conjunto finito $\Gamma_0 \subseteq \Gamma$ tal que $\Gamma_0 \vdash \alpha$.
+\end{teorema}
+
+\begin{proof}
+  ($\Rightarrow$) Assuma que $\Gamma \vdash \alpha$ assim existe uma diagrama de Fitch que prova tal afirmação, mas uma vez que, um diagrama tem um número finito de linhas tem-se que existe $n$ premissas de $\Gamma$ usadas no diagrama, e portanto, existe um $\Gamma_0$ que é formado exatamente pelas premissas usadas, o que implica que $\Gamma_0$ é finito e $\Gamma_0 \vdash \alpha$, e além disso, por definição de subconjunto é claro que $\Gamma_0 \subseteq \Gamma$.
+  
+  ($\Leftarrow$) Suponha que $\Gamma_0 \subseteq \Gamma$ e que $\Gamma_0 \vdash \alpha$ pelo Teorema \ref{teo:MonotonicidadeSintaticaV2} tem-se que todo $\alpha \in Th(\Gamma_0)$ é tal que $\alpha \in Th(\Gamma)$, mas assim por definição $\Gamma \vdash \alpha$ o que completa a prova.
+\end{proof}
+
+\begin{teorema}[Teorema do ponto fixo]\label{teo:PontoFixo}
+  $Th(\Gamma) = Th(Th(\Gamma))$ para qualquer $\Gamma$.
+\end{teorema}
+
+\begin{proof}
+  Primeiro note que para qualquer $\alpha \in Th(\Gamma)$, uma vez que, usando a regra REI pode-se demonstrar que $\{\alpha\} \vdash \alpha$, dessa forma tem-se que $\alpha \in Th(Th(\Gamma))$, e portanto, $Th(\Gamma) \subset Th(Th(\Gamma))$. Por outro lado, suponha por absurdo que $Th(Th(\Gamma)) \not\subset Th(\Gamma)$, assim existe um $\alpha \in Th(Th(\Gamma))$ tal que $\alpha \not\in Th(\Gamma)$, mas por definição $\alpha$ necessariamente deve ser deduzidas de um conjunto de premissas $\{\beta_1, \cdots, \beta_n\} \subset Th(\Gamma)$, e nessas condições pelo Teorema \ref{teo:MonotonicidadeSintaticaV2} tem-se que $\alpha \in Th(\Gamma)$ o que contradiz a hipótese, e portanto, $Th(Th(\Gamma)) \subset Th(\Gamma)$. Agora uma vez que, $Th(\Gamma) \subset Th(Th(\Gamma))$ e $Th(Th(\Gamma)) \subset Th(\Gamma)$, tem-se que $Th(\Gamma) = Th(Th(\Gamma))$, completando assim a prova.
+\end{proof}
+
+\section{Sistemas Axiomáticos}\label{sec:SistemaAxiomatico}
+
+Uma abordagem alternativa para o sistema de dedução natural são os chamados sistemas axiomáticos\footnote{Em algumas referências como por exemplo \cite{benja-Logica, leonidas2002} é usado o termo teorias formais em vez de sistemas axiomáticos.}, esses sistemas introduzidos inicialmente pelo matemático alemão David Hilbert (1862-1943), consistem em adotar um conjunto finito de axiomas e um número reduzido de regras de inferência \cite{joaoPavao2014, sernadas2006}.
+
+Antes de prosseguir para definir precisamente a noção de sistemas axiomáticos é necessário antes falar sobre provas para o sistemas axiomáticos.
+
+\begin{definicao}[Provas em sistemas axiomáticos]\label{def:ProvaAxiomatica}
+  \cite{leonidas2002} Uma prova de uma palavra $\alpha$ em um sistema axiomático $T$ é uma sequência com $n$ linhas, cada linha possui tem $3$ informações: (1) o número da linha, (2) uma palavra da linguagem do sistema axiomático $T$ e (3) se a palavra contida na linha é uma premissa, uma instância de axioma ou a regra de inferência e as linhas usadas para obter tal palavra. 
+\end{definicao}
+
+Note que a Definição \ref{def:ProvaAxiomatica} menciona a noção de linguagem do sistema $T$, isso faz referência ao fato de que cada sistema axiomático considera apenas um subconjunto de conectivos lógicos apresentados na Definição \ref{def:AlfabetoProposicional}, assim as palavras que ocorrem na linguagem do sistema axiomático é restrita as palavras com tais conectivos. Vale ressaltar que isso não diminui o poder de dedução dos sistemas axiomáticos, pois como explicado em \cite{benja-Logica}, existe uma relação entre os conectivos que torna sempre possível obter um usando os outros, isso é possível usando abreviações como descrito a seguir. 
+
+\begin{definicao}\label{def:Abreviacoes}
+  Seja $\Sigma_s$ da mesma forma que apresentado na Definição \ref{def:AlfabetoProposicional} para todo $\alpha, \beta \in \Sigma_s \cup \{\bot\}$ são estabelecidas as seguintes abreviações:
+  \begin{itemize}
+      \item $\alpha \land \beta \equiv_{abr} \neg (\neg \alpha \lor \neg \beta)$.
+      \item $\alpha \lor \beta \equiv_{abr} \neg (\neg \alpha \land \neg \beta)$.
+      \item $\alpha \Rightarrow \beta \equiv_{abr} \neg \alpha \lor \beta$.
+      \item $\neg \alpha \equiv_{abr} \alpha \Rightarrow \bot$.
+  \end{itemize}
+\end{definicao}
+
+Assim as abreviações podem ser vistas como um homomorfismo\footnote{Aqui o homomorfismo preserva as relações de consequência, no sentido de que se em $\mathcal{L}$ existe uma prova de $\Gamma \vdash \alpha$ usando dedução natural, então existe uma prova em $\mathcal{L}_T$ de $Abr(\Gamma) \vdash_T Abr(\alpha)$ em um determinado sistema axiomático $T$ e sendo $Abr(\Gamma)$ e $Abr(\alpha)$ respectivamente a aplicação de abreviações sobre as palavras de $\Gamma$ e sobre a palavra $\alpha$. Deste fato, o usa de uma linguagem formal $\mathcal{L}_T$ e um sistema axiomático $T$ não prejudica a generalidade da lógica proposicional.} da linguagem $\mathcal{L}$ para a linguagem $\mathcal{L}_T$ de algum sistema axiomático $T$. A seguir são formalizados os conceitos de sistema axiomático e de consequência para o sistema axiomático.
+
+\begin{definicao}[Sistema axiomático]\label{def:SistemaAxiomatico}
+  Um sistema axiomático $T$ é uma estrutura da forma $\langle \mathcal{L}_T, Axi, Reg \rangle$ onde:
+  \begin{itemize}
+      \item $\mathcal{L}_T$ é a linguagem do sistema axiomático.
+      \item $Axi$ é um conjunto finito de axiomas, de forma que todas as instâncias de $Axi$ são um suconjunto de $\mathcal{L}_T$.
+      \item $Reg$ é um conjunto de regras de inferência.
+  \end{itemize}
+\end{definicao}
+
+\begin{definicao}[Consequência em sistemas axiomáticos]\label{def:ConsequenciaAxiomatica}
+  Seja $T$ um sistema axiomático e seja $\Gamma \subseteq \mathcal{L}_T$ e $\alpha \in \mathcal{L}_T$, é dito que $\alpha$ é consequência sintática de $\Gamma$ no sistema $T$, denotado por $\Gamma \vdash_T \alpha$, se existir uma prova partindo das premissas em $\Gamma$ que deduza $\alpha$.
+\end{definicao}
+
+A seguir é apresentado o sistema axiomático conhecido como sistema $L$ o mesma é definida sobre a linguagem $\mathcal{L}_\Rightarrow$, ou como também é conhecida linguagem implicativa.
+
+\begin{definicao}[Linguagem $\mathcal{L}_\Rightarrow$]\label{def:LinguagemL}
+  Dado o conjunto $\Sigma_s \cup \{\bot\}$, a linguagem $\mathcal{L}_\Rightarrow$ é o menor conjunto indutivamente gerado pelas regras:
+  \begin{itemize}
+      \item[(a)] Se $\alpha \in \Sigma_s \cup \{\bot\}$, então $\alpha \in \mathcal{L}_\Rightarrow$.
+      \item[(b)] Se $\alpha \in \mathcal{L}_\Rightarrow$, então $(\neg \alpha) \in \mathcal{L}_\Rightarrow$.
+      \item[(c)] Se $\alpha, \beta \in \mathcal{L}_\Rightarrow$, então $(\alpha \Rightarrow \beta) \in \mathcal{L}_\Rightarrow$.
+  \end{itemize}
+\end{definicao}
+
+\ 
+
+O leitor mais atento pode notar que a linguagem implicativa é na verdade a linguagem $\mathcal{L}$ sem a conjunção e a disjunção, ou seja, $\mathcal{L}$ é reescrita usando abreviações.
+
+\begin{definicao}[Sistema $L$]\label{def:SistemaL}
+  \cite{mendelson2009livro} O sistema $L$ é a  estrutura $\langle \mathcal{L}_\Rightarrow, Axi, \{ \Rightarrow E\}\rangle$ onde: 
+  \begin{eqnarray*}
+    Axi & = & \Big\{\alpha \Rightarrow (\beta \Rightarrow \alpha),\\
+    & & (\alpha \Rightarrow (\beta \Rightarrow \gamma)) \Rightarrow ((\alpha \Rightarrow \beta) \Rightarrow (\alpha \Rightarrow \gamma)),\\ 
+    & & (\neg \beta \Rightarrow \neg \alpha) \Rightarrow ((\neg \beta \Rightarrow \alpha) \Rightarrow \beta)\Big\}
+  \end{eqnarray*}
+\end{definicao}
+
+Para ficar melhor de justificar durante as demonstrações no sistema $L$ são adotados os seguintes apelidos para os axiomas do sistema:
+
+\begin{itemize}
+  \item[($A_1$)] $\alpha \Rightarrow (\beta \Rightarrow \alpha)$.
+  \item[($A_2$)] $(\alpha \Rightarrow (\beta \Rightarrow \gamma)) \Rightarrow ((\alpha \Rightarrow \beta) \Rightarrow (\alpha \Rightarrow \gamma))$.
+  \item[($A_3$)] $(\neg \beta \Rightarrow \neg \alpha) \Rightarrow ((\neg \beta \Rightarrow \alpha) \Rightarrow \beta)$.
+\end{itemize}
+
+\begin{exemplo}
+  Uma prova de $ \vdash_L$ P $\Rightarrow$ P é dada por:
+  \begin{logicproof}{0}
+    $P \Rightarrow ((P \Rightarrow P) \Rightarrow P)$ & Instância de $A_1$\\
+    $(P \Rightarrow ((P \Rightarrow P) \Rightarrow P)) \Rightarrow ((P \Rightarrow (P \Rightarrow P)) \Rightarrow (P \Rightarrow P))$ & Instância de $A_2$\\
+    $P \Rightarrow (P \Rightarrow P)$ & Instância de $A_1$\\
+    $(P \Rightarrow (P \Rightarrow P)) \Rightarrow (P \Rightarrow P)$ & $ (\Rightarrow E)  \ 1, 2$\\
+    $P \Rightarrow P$ & $(\Rightarrow E) \ 3, 4$
+  \end{logicproof}
+\end{exemplo}
+
+Para simplificar mais ainda a escrita das demonstrações é comum evitar ficar escrevendo na justificativa ``instância de . . .'', em vez disso, coloca-se apenas o identificador do axioma, o próximo exemplo já faz uso dessa simplificação.
+
+\begin{exemplo}
+  Uma prova de $\{\neg$P $\Rightarrow \neg$P, $\neg$P $\Rightarrow$P$\} \vdash_L$P é dada por:
+  \begin{logicproof}{0}
+    $\neg P \Rightarrow \neg P$ & Premissa\\
+    $\neg P \Rightarrow P$ & Premissa\\
+    $(\neg P \Rightarrow \neg P) \Rightarrow ((\neg P \Rightarrow P) \Rightarrow P)$ & $A_3$\\
+    $(\neg P \Rightarrow P) \Rightarrow P$ & $(\Rightarrow E) \ 1,3$\\
+    $P$ & $(\Rightarrow E) \ 2,4$
+  \end{logicproof}
+\end{exemplo}
+
+O Teorema da dedução (Teorema \ref{teo:TeoremaDeducaoSintatico}) e os demais meta-teoremas provados na seção anterior para linguagem $\mathcal{L}$ usando a dedução natural são válidos para qualquer sistema axiomático $T$ e sua linguagem \cite{benja-Logica}. O próximo exemplo, mostra como empregar o uso do Teorema da dedução durante uma demonstração no sistema $L$.
+
+\begin{exemplo}
+  Uma prova de $\{$P$\Rightarrow$Q, Q$\Rightarrow$R, P$\} \vdash_L$ R é detalhada a seguir:
+  \begin{logicproof}{0}
+    $P \Rightarrow Q$ & Premissa \\
+    $Q \Rightarrow R$ & Premissa \\
+    $P$ & Premissa \\
+    $Q$ & $(\Rightarrow E) \ 1,3$\\
+    $R$ & $(\Rightarrow E) \ 2,4$ 
+  \end{logicproof}
+  Agora pela prova acima e pelo Teorema da dedução (no sistema $L$) tem-se que $\{$P$\Rightarrow$Q, Q$\Rightarrow$ R$\} \vdash_L$ P$\Rightarrow$ R.
+\end{exemplo}
 
 

@@ -856,7 +856,7 @@ Para prosseguir é necessário antes considerar a definição de conjunto das pa
   Primeiro note que para qualquer $\alpha \in Th(\Gamma)$, uma vez que, usando a regra REI pode-se demonstrar que $\{\alpha\} \vdash \alpha$, dessa forma tem-se que $\alpha \in Th(Th(\Gamma))$, e portanto, $Th(\Gamma) \subset Th(Th(\Gamma))$. Por outro lado, suponha por absurdo que $Th(Th(\Gamma)) \not\subset Th(\Gamma)$, assim existe um $\alpha \in Th(Th(\Gamma))$ tal que $\alpha \not\in Th(\Gamma)$, mas por definição $\alpha$ necessariamente deve ser deduzidas de um conjunto de premissas $\{\beta_1, \cdots, \beta_n\} \subset Th(\Gamma)$, e nessas condições pelo Teorema \ref{teo:MonotonicidadeSintaticaV2} tem-se que $\alpha \in Th(\Gamma)$ o que contradiz a hipótese, e portanto, $Th(Th(\Gamma)) \subset Th(\Gamma)$. Agora uma vez que, $Th(\Gamma) \subset Th(Th(\Gamma))$ e $Th(Th(\Gamma)) \subset Th(\Gamma)$, tem-se que $Th(\Gamma) = Th(Th(\Gamma))$, completando assim a prova.
 \end{proof}
 
-\section{Sistemas Axiomáticos}\label{sec:SistemaAxiomatico}
+\section{Sistema Axiomático L}\label{sec:SistemaAxiomatico}
 
 Uma abordagem alternativa para o sistema de dedução natural são os chamados sistemas axiomáticos\footnote{Em algumas referências como por exemplo \cite{benja-Logica, leonidas2002} é usado o termo teorias formais em vez de sistemas axiomáticos.}, esses sistemas introduzidos inicialmente pelo matemático alemão David Hilbert (1862-1943), consistem em adotar um conjunto finito de axiomas e um número reduzido de regras de inferência \cite{joaoPavao2014, sernadas2006}.
 
@@ -962,5 +962,91 @@ O Teorema da dedução (Teorema \ref{teo:TeoremaDeducaoSintatico}) e os demais m
   \end{logicproof}
   Agora pela prova acima e pelo Teorema da dedução (no sistema $L$) tem-se que $\{$P$\Rightarrow$Q, Q$\Rightarrow$ R$\} \vdash_L$ P$\Rightarrow$ R.
 \end{exemplo}
+
+\begin{nota}
+  Todo sistema axiomático permite o uso de hipótese adicionais as premissas durante uma demonstração, ver Exemplo 4.3.2 de \cite{benja-Logica}.  
+\end{nota}
+
+Outro importante sistema axiomático sobre a linguagem implicativa é o sistema $M$ de Meridith \cite{meredith1954}. Já o matemático David Hilbert e seu aluno Wilhelm Ackermann (1896-1962) no livro \cite{hilbert1999}, apresentam um sistema axiomático sobre a linguagem $\mathcal{L}_\lor$ descrita em \cite{benja-Logica}, além desses, diversos outros sistemas axiomáticos podem ser consultados em \cite{benja-Logica} e em \cite{sernadas2006}.
+
+\section{Sistema Semântico}\label{sec:SistemaSemantico}
+
+A semântica da lógica proposicional foi descrita inicialmente pelo matemático inglês George Boole (1815-1864) em seu trabalho \cite{boole1854, boole1957}, entretanto, uma formulação mais rigorosa para computar os valores lógicos das palavras da linguagem proposicional foi apresenta somente em 1936 pelo lógico, matemático e filósofo polonês Alfred Tarski\footnote{O artigo de Tarski pode ser consultado na versão re-editada em \cite{tarski1983}.} (1901-1983). 
+
+A semântica é responsável por introduzir significado para as palavras de uma linguagem formal, no caso da linguagem proposicional clássica\footnote{Clássica aqui diz respeito a lógica como apresentada pelo  matemático, lógico e filósofo alemão Gottlob Frege (1848-1925) no final do século 19.}, as palavras podem ter seu significado como verdadeiro ou falso. Antes de apresentar formalmente o conceito de semântica da linguagem proposicional é necessário definir a ideia de função de  valoração.
+
+\begin{definicao}[Valoração]\label{def:Valoracao}
+  Uma valoração dos símbolos proposicionais é uma função total $\rho : \Sigma_s \rightarrow \{0,1\}$.
+\end{definicao}
+
+O conjunto $\{0,1\}$ na Definição \ref{def:Valoracao} é chamado de conjunto dos valores de representação de verdade, em muitas apresentações de lógica usam V e F para representar os dois valores de verdade (a saber, verdadeiro e falso) em vez de usar $0$ e $1$. Neste texto, entretanto, se optou por usar $1$ (verdade) e $0$ (falso), para assim, evitar confusão com variáveis em fórmulas e metavariáveis em regras de inferência, que podem ocorrer ao usar V e F. O uso de $1$ e $0$ também é interessante, uma vez que, tais valores tem uso comum no design de circuitos digitais \cite{capuano2018, holdsworth2002, lourencco1996} e em discussões sobre design e arquitetura de computadores \cite{murdocca2001, stallings2010}, duas áreas intimamente ligadas a lógica clássica.
+
+A semântica da linguagem proposicional como destacado em \cite{joaoPavao2014} se baseia na noção de interpretação\footnote{A definição de semântica apresentada neste texto é uma definição equacional, no sentido de que, sempre existe uma equação que determina o valor semântico para qualquer que seja a palavra de $\mathcal{L}$.}, sendo que, uma interpretação nada mais é do que a extensão de uma dada valoração $\rho$ para a linguagem proposicional, usando alguma álgebra booleana \cite{boole1854, boole1957}.
+
+\begin{definicao}[Interpretação]\label{def:interpretacat}
+  Dada uma valoração $\rho$, uma interpretação é uma função $I_\rho : \mathcal{L} \rightarrow \{0,1\}$ definida para todo $\alpha, \beta \in \mathcal{L}$ recursivamente como:
+  \begin{itemize}
+       \item Se $\alpha = \bot$, então $I_\rho(\alpha) = 0$.
+       \item Se $\alpha \in \Sigma_s$, então $I_\rho(\alpha) = \rho(\alpha)$.
+       \item $I_\rho(\neg \alpha) = 1 - I_\rho(\alpha)$.
+       \item $I_\rho(\alpha \land \beta) = min(I_\rho(\alpha), I_\rho(\beta))$.
+       \item $I_\rho(\alpha \lor \beta) = max(I_\rho(\alpha) \oplus I_\rho(\beta))$.
+       \item $I_\rho(\alpha \Rightarrow \beta) = max(1 - I_\rho(\alpha), I_\rho(\beta))$.
+  \end{itemize}
+\end{definicao}
+
+\begin{exemplo}
+  Considere uma valoração $\rho$ tal que $\rho(P) = 0, \rho(Q) = 1$ e $\rho(R) = 1$ o valor de significado da palavra $\neg(P \Rightarrow (R \land Q))$ é calculado por:
+  \begin{eqnarray*}\label{eq:ExemploValoracaoA}
+    I_\rho(\neg(P \Rightarrow (R \land Q))) & = & 1 - I_\rho(P \Rightarrow (R \land Q))\\
+    & = & 1 - max(1 - I_\rho(P), min(I_\rho(R), I_\rho(Q)))\\
+    & = & 1 - max(1 - \rho(P), min(\rho(R), \rho(Q)))\\
+    & = & 1 - max(1 - 0, min(1, 1))\\
+    & = & 1 - max(1, 1)\\
+    & = & 0
+  \end{eqnarray*}
+\end{exemplo}
+
+Outra forma de apresentar a semântica para a lógica proposicional é através do uso de tabelas verdade \cite{judith2021}, em um primeiro momento pode-se pensar que, a noção de semântica por tabelas verdades e a definição de semântica equacional apresentada na Definição \ref{def:interpretacat} não tem similaridade, entretanto, isso não é verdade! Pois, como dito em \cite{joaoPavao2014}, as leis expressas nas tabelas verdades são derivadas das equações de álgebras booleanas, assim também podem ser derivadas das equações da Definição \ref{def:interpretacat}, uma vez que tais equações formam uma álgebra booleana \cite{carmo2013}.
+
+Antes de prosseguir para explicar a construção das tabelas verdade e explicar sua relação com a Definição \ref{def:interpretacat} é conveniente introduzir alguns conceitos chaves.
+
+\begin{definicao}[Conjunto de sub-palavras]
+  Seja $\alpha \in \mathcal{L}$ o conjunto das sub-palavras de $\alpha$, denotado por $Sub_{\alpha}$, é o conjunto gerado pelas seguintes regras:
+  \begin{itemize}
+       \item[R1.] Se $\alpha \in \Sigma_s \cup \{\bot\}$, então $Sub_\alpha = \{\alpha\}$.
+       \item[R2.] Se $\alpha = \neg \beta$, então $Sub_\alpha = \{\neg \beta\} \cup Sub_\beta$.
+       \item[R3.] Se $\alpha = \beta \bullet \gamma$  com $\bullet \in \{\land, \lor, \Rightarrow\}$, então $Sub_\alpha = \{\beta \bullet \gamma\} \cup Sub_\beta \cup Sub_\gamma$.
+  \end{itemize}
+\end{definicao}
+
+\begin{exemplo}
+  Considere a palavra $(P \Rightarrow \neg Q) \lor S$, tem-se que:
+  \begin{eqnarray*}
+    Sub_{(P \Rightarrow \neg Q) \lor S} & = & \{(P \Rightarrow \neg Q) \lor S\} \cup Sub_{P \Rightarrow \neg Q} \cup Sub_S\\
+    & = & \{(P \Rightarrow \neg Q) \lor S\} \cup (\{P \Rightarrow \neg Q\} \cup Sub_{P} \cup Sub_{\neg Q}) \cup \{S\}\\
+    & = & \{(P \Rightarrow \neg Q) \lor S, S\} \cup (\{P \Rightarrow \neg Q\} \cup \{P\} \cup (\{\neg Q\} \cup Sub_{Q}))\\
+    & = & \{(P \Rightarrow \neg Q) \lor S, S\} \cup (\{P \Rightarrow \neg Q, P\} \cup (\{\neg Q\} \cup \{Q\}))\\
+    & = & \{(P \Rightarrow \neg Q) \lor S, S\} \cup (\{P \Rightarrow \neg Q, P\} \cup \{\neg Q, Q\})\\
+    & = & \{(P \Rightarrow \neg Q) \lor S, S\} \cup \{P \Rightarrow \neg Q, P, \neg Q, Q\}\\
+    & = & \{(P \Rightarrow \neg Q) \lor S, S, P \Rightarrow \neg Q, P, \neg Q, Q\}
+  \end{eqnarray*}
+\end{exemplo}
+
+Para realizar a construção da tabela verdade de uma fórmula $\alpha$, deve-se indexar as colunas da tabela com os elementos de $Sub_\alpha$, assim uma tabela verdade para uma fórmula $\alpha$ terá exatamente $\# Sub_\alpha$ colunas. Como os elementos de $Sub_\alpha$ não possuem uma ordenação, em geral é usado a regra de distribuir as palavras da esquerda para à direita de forma crescente de acordo com o tamanho das mesmas, assim as palavras mais à esquerda sempre terão tamanho $1$, enquanto que a palavra mais à direita será sempre a maior palavra, isto é, a própria palavra $\alpha$. 
+
+\begin{exemplo}
+  Seguindo as regras mencionados no parágrafo anterior, a tabela para a palavra $(P \Rightarrow \neg Q) \lor S$ terá exatamente $6$ colunas, uma vez que, $\# Sub_{(P \Rightarrow \neg Q) \lor S} = 6$, e pode ser da forma: 
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+      \hline
+      $P$ & $Q$ & $S$ & $\neg Q$ & $P \Rightarrow \neg Q$ & $(P \Rightarrow \neg Q) \lor S$\\
+      \hline
+    \end{tabular}
+  \end{table} 
+\end{exemplo}
+
 
 

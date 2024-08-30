@@ -983,14 +983,14 @@ O conjunto $\{0,1\}$ na Definição \ref{def:Valoracao} é chamado de conjunto d
 
 A semântica da linguagem proposicional como destacado em \cite{joaoPavao2014} se baseia na noção de interpretação\footnote{A definição de semântica apresentada neste texto é uma definição equacional, no sentido de que, sempre existe uma equação que determina o valor semântico para qualquer que seja a palavra de $\mathcal{L}$.}, sendo que, uma interpretação nada mais é do que a extensão de uma dada valoração $\rho$ para a linguagem proposicional, usando alguma álgebra booleana \cite{boole1854, boole1957}.
 
-\begin{definicao}[Interpretação]\label{def:interpretacat}
+\begin{definicao}[Interpretação]\label{def:interpretacao}
   Dada uma valoração $\rho$, uma interpretação é uma função $I_\rho : \mathcal{L} \rightarrow \{0,1\}$ definida para todo $\alpha, \beta \in \mathcal{L}$ recursivamente como:
   \begin{itemize}
        \item Se $\alpha = \bot$, então $I_\rho(\alpha) = 0$.
        \item Se $\alpha \in \Sigma_s$, então $I_\rho(\alpha) = \rho(\alpha)$.
        \item $I_\rho(\neg \alpha) = 1 - I_\rho(\alpha)$.
        \item $I_\rho(\alpha \land \beta) = min(I_\rho(\alpha), I_\rho(\beta))$.
-       \item $I_\rho(\alpha \lor \beta) = max(I_\rho(\alpha) \oplus I_\rho(\beta))$.
+       \item $I_\rho(\alpha \lor \beta) = max(I_\rho(\alpha), I_\rho(\beta))$.
        \item $I_\rho(\alpha \Rightarrow \beta) = max(1 - I_\rho(\alpha), I_\rho(\beta))$.
   \end{itemize}
 \end{definicao}
@@ -1007,9 +1007,9 @@ A semântica da linguagem proposicional como destacado em \cite{joaoPavao2014} s
   \end{eqnarray*}
 \end{exemplo}
 
-Outra forma de apresentar a semântica para a lógica proposicional é através do uso de tabelas verdade \cite{judith2021}, em um primeiro momento pode-se pensar que, a noção de semântica por tabelas verdades e a definição de semântica equacional apresentada na Definição \ref{def:interpretacat} não tem similaridade, entretanto, isso não é verdade! Pois, como dito em \cite{joaoPavao2014}, as leis expressas nas tabelas verdades são derivadas das equações de álgebras booleanas, assim também podem ser derivadas das equações da Definição \ref{def:interpretacat}, uma vez que tais equações formam uma álgebra booleana \cite{carmo2013}.
+Outra forma de apresentar a semântica para a lógica proposicional é através do uso de tabelas verdade \cite{judith2021}, em um primeiro momento pode-se pensar que, a noção de semântica por tabelas verdades e a definição de semântica equacional apresentada na Definição \ref{def:interpretacao} não tem similaridade, entretanto, isso não é verdade! Pois, como dito em \cite{joaoPavao2014}, as leis expressas nas tabelas verdades são derivadas das equações de álgebras booleanas, assim também podem ser derivadas das equações da Definição \ref{def:interpretacao}, uma vez que tais equações formam uma álgebra booleana \cite{carmo2013}.
 
-Antes de prosseguir para explicar a construção das tabelas verdade e explicar sua relação com a Definição \ref{def:interpretacat} é conveniente introduzir alguns conceitos chaves.
+Antes de prosseguir para explicar a construção das tabelas verdade e explicar sua relação com a Definição \ref{def:interpretacao} é conveniente introduzir alguns conceitos chaves.
 
 \begin{definicao}[Conjunto de sub-palavras]
   Seja $\alpha \in \mathcal{L}$ o conjunto das sub-palavras de $\alpha$, denotado por $Sub_{\alpha}$, é o conjunto gerado pelas seguintes regras:
@@ -1033,9 +1033,9 @@ Antes de prosseguir para explicar a construção das tabelas verdade e explicar 
   \end{eqnarray*}
 \end{exemplo}
 
-Para realizar a construção da tabela verdade de uma fórmula $\alpha$, deve-se indexar as colunas da tabela com os elementos de $Sub_\alpha$, assim uma tabela verdade para uma fórmula $\alpha$ terá exatamente $\# Sub_\alpha$ colunas. Como os elementos de $Sub_\alpha$ não possuem uma ordenação, em geral é usado a regra de distribuir as palavras da esquerda para à direita de forma crescente de acordo com o tamanho das mesmas, assim as palavras mais à esquerda sempre terão tamanho $1$, enquanto que a palavra mais à direita será sempre a maior palavra, isto é, a própria palavra $\alpha$. 
+Para realizar a construção da tabela verdade de uma fórmula $\alpha$, deve-se indexar as colunas da tabela com os elementos de $Sub_\alpha$, assim uma tabela verdade para uma fórmula $\alpha$ terá exatamente $\# Sub_\alpha$ colunas. Como os elementos de $Sub_\alpha$ não possuem uma ordenação, em geral é usado a regra de distribuir as palavras da esquerda para à direita de forma crescente de acordo com o tamanho das mesmas ordenadas pela ordem lexigráfica de $\Sigma_s$, assim as palavras mais à esquerda sempre terão tamanho $1$, enquanto que a palavra mais à direita será sempre a maior palavra, isto é, a própria palavra $\alpha$. 
 
-\begin{exemplo}
+\begin{exemplo}\label{exe:TabelaVerdade1}
   Seguindo as regras mencionados no parágrafo anterior, a tabela para a palavra $(P \Rightarrow \neg Q) \lor S$ terá exatamente $6$ colunas, uma vez que, $\# Sub_{(P \Rightarrow \neg Q) \lor S} = 6$, e pode ser da forma: 
 
   \begin{table}[H]
@@ -1048,5 +1048,374 @@ Para realizar a construção da tabela verdade de uma fórmula $\alpha$, deve-se
   \end{table} 
 \end{exemplo}
 
+Uma vez que as colinas são inseridas e indexadas pelas palavras de $Sub_\alpha$, o próximo passo é preencher as demais linhas, onde na linha $i$ de coluna indexada por $\beta$ estará disposto o valor de $I_{\rho_i}(\beta)$, onde $\rho_i$ é a $i$-ésima valoração que atribuito diferentes valores para os átomos da palavra $\alpha$. É usado  a ordem lexicográfica das palavras do código binário com palavras de tamanho tamanho $n$ onde $n$ é o número de átomos $\alpha$, para determinar a ordenação das valorações $\rho$. 
+
+\begin{exemplo}\label{exe:TabelaVerdade2}
+  Considere a tabela iniciada no Exmeplo \ref{exe:TabelaVerdade1}, agora usando a regra de ordenar as valorações $\rho$ usando a ordem lexicográfica do código binário\footnote{Não é necessário identificar as linhas em uma tabela verdade, isso foi feito nesse exemplo apenas para ficar mais didático.}, tem-se a seguinte ordem para as valorações:
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|lc|c|c|c|c|c|c|}
+      \hline
+      & & $P$ & $Q$ & $S$ & $\neg Q$ & $P \Rightarrow \neg Q$ & $(P \Rightarrow \neg Q) \lor S$\\
+      $\rho_1$ & & $0$ & $0$ & $0$ & & & \\
+      $\rho_2$ & & $0$ & $0$ & $1$ & & & \\
+      $\rho_3$ & & $0$ & $1$ & $0$ & & & \\
+      $\rho_4$ & & $0$ & $1$ & $1$ & & & \\
+      $\rho_5$ & & $1$ & $0$ & $0$ & & & \\
+      $\rho_6$ & & $1$ & $0$ & $1$ & & & \\
+      $\rho_7$ & & $1$ & $1$ & $0$ & & & \\
+      $\rho_8$ & & $1$ & $1$ & $1$ & & & \\
+      \hline
+    \end{tabular}
+  \end{table}
+
+  Agora basta computar os valores usando a Definição \ref{def:interpretacao}, ficando então a tabela com a seguinte forma final:
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|lc|c|c|c|c|c|c|}
+      \hline
+      & & $P$ & $Q$ & $S$ & $\neg Q$ & $P \Rightarrow \neg Q$ & $(P \Rightarrow \neg Q) \lor S$\\
+      $\rho_1$ & & $0$ & $0$ & $0$ & $1$ & $1$ & $1$ \\
+      $\rho_2$ & & $0$ & $0$ & $1$ & $1$ & $1$ & $1$ \\
+      $\rho_3$ & & $0$ & $1$ & $0$ & $0$ & $1$ & $1$ \\
+      $\rho_4$ & & $0$ & $1$ & $1$ & $0$ & $1$ & $1$ \\
+      $\rho_5$ & & $1$ & $0$ & $0$ & $1$ & $1$ & $1$ \\
+      $\rho_6$ & & $1$ & $0$ & $1$ & $1$ & $1$ & $1$ \\
+      $\rho_7$ & & $1$ & $1$ & $0$ & $0$ & $0$ & $0$ \\
+      $\rho_8$ & & $1$ & $1$ & $1$ & $0$ & $0$ & $1$ \\
+      \hline
+    \end{tabular}
+  \end{table}
+\end{exemplo}
+
+\begin{exemplo}
+  Para a palavra $P \Rightarrow ((\neg P) \land Q)$ tem-se a seguinte tabela verdade.
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      $P$ & $Q$ & $\neg P$ & $\neg P \land Q$ & $P \Rightarrow ((\neg P) \land Q)$ \\ \hline
+      0 & 0 & 1 & 0 & 1 \\ \hline
+      0 & 1 & 1 & 1 & 1 \\ \hline
+      1 & 0 & 0 & 0 & 0 \\ \hline
+      1 & 1 & 0 & 0 & 0 \\ \hline
+    \end{tabular}
+  \end{table}
+\end{exemplo}
+
+Obviamente o método (ou algoritmo) responsável para construir as tabelas que foi apresentado e usando aqui não é muito eficiente, de fato o mesmo tem uma complexidade exponencial na ordem de $2^{\#Ato_\alpha} \cdot \# Sub_\alpha$ onde $Ato_\alpha$ denota o conjunto de átomos de $\alpha$. Em \cite{benja-Logica, leonidas2002}, é apresentado um método mais eficiente para a construção de tabelas verdade com tamanho reduzido, as chamadas tabelas abreviadas, aqui não será apresentado tal método, mas ficam as referências listadas para o leitor se quiser estudar sobre o assunto.
+
+Como muito bem exposto em \cite{edgar2002, nunes2008}, as propriedades semânticas das palavras de $\mathcal{L}$, permitem construir três categorias ou classes, apresentadas a seguir
+
+\begin{definicao}[Tautologia]
+  Uma palavra $\alpha \in \mathcal{L}$ é uma tautologia quando para toda interpretação $I_\rho$ tem-se que $I_\rho(\alpha) = 1$.
+\end{definicao}
+
+\begin{definicao}[Contradição]
+  Uma palavra $\alpha \in \mathcal{L}$ é uma contradição quando para toda interpretação $I_\rho$ tem-se que $I_\rho(\alpha) = 0$.
+\end{definicao}
+
+\begin{exemplo}
+  As palavras $P \lor \neg P$  e $P \land \neg P$ são respectivamente uma tautologia e uma contradição, como pode ser visto nas tabelas abaixo.
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{cccc}
+        \begin{tabular}{|c|c|c|}
+          \hline
+          $P$ & $\neg P$ & $P \lor \neg P$ \\ \hline
+          0 & 1 & 1\\ \hline
+          1 & 0 & 1\\ \hline
+        \end{tabular}
+        & &
+        \begin{tabular}{|c|c|c|}
+          \hline
+          $P$ & $\neg P$ & $P \land \neg P$ \\ \hline
+          0 & 1 & 0\\ \hline
+          1 & 0 & 0\\ \hline
+        \end{tabular}
+    \end{tabular}
+  \end{table}
+\end{exemplo}
+
+\begin{proposicao}
+  Para todo $\alpha \in \mathcal{L}$ tem-se que $\alpha$ é uma tautologia se e somente se $\neg \alpha$ é uma contradição.
+\end{proposicao}
+
+\begin{proof}
+  Trivial.
+\end{proof}
+
+\begin{definicao}[Contingência]
+  Uma palavra $\alpha \in \mathcal{L}$ é uma contingência quando não é uma tautologia e nem uma contradição.
+\end{definicao}
+
+Usando a noção de interpretação é possível definir formalmente a noção de palavra satisfatível.
+
+\begin{definicao}[Palavra satisfatível]
+  Uma palavra $\alpha \in \mathcal{L}$ é dita satisfatível quando existe uma interpretação $I_\rho$ tal que $I_\rho(\alpha) = 1$.
+\end{definicao}
+
+\begin{proposicao}
+  Uma palavra $\alpha \in \mathcal{L}$ é satisfatível se, e somente se, $\alpha$ é uma Contingência ou uma tautologia.
+\end{proposicao}
+
+\begin{proof}
+  Trivial.
+\end{proof}
+
+\begin{exemplo}
+  A palavra $P \Rightarrow Q$ é satisfatível pois existe uma interpretação $I_\rho$ com a valoração $\rho$ definido $\rho(Q) = 1$, e é claro pela Definição \ref{def:interpretacat} que tal interpretação torna o significado da palavra $P \Rightarrow Q$ como sendo verdadeiro, isto é, $I_\rho(P \Rightarrow Q) = 1$.
+\end{exemplo}
+
+\begin{definicao}[Conjunto satisfatível]
+  Um conjunto $\Gamma \subseteq \mathcal{L}$ é dito satisfatível se existe uma interpretação $I_\rho$ tal que para todo $\alpha \in \Gamma$ tem-se que $I_\rho(\alpha) = 1$.
+\end{definicao}
+
+\begin{exemplo}
+  O conjunto $\Gamma = \{P, Q, \neg P \lor Q\}$ é satisfatível pois a interpretação $I_\rho$ tal que $I_\rho(P) = 1$ e $I_\rho(Q) = 1$ é capaz de satisfazer todas as palavras de $\Gamma$.
+\end{exemplo}
+
+\begin{definicao}[Conjunto Contraditório]
+  Um conjunto $\Gamma \subseteq \mathcal{L}$ é dito contraditório se não existe nenhuma interpretação $I_\rho$ que satisfaça $\Gamma$.
+\end{definicao}
+
+\begin{exemplo}
+  O Conjunto $\Gamma = \{\neg \neg P, \neg P\}$ é contraditório, pois não existe nenhuma interpretação\footnote{Provar essa afirmação é um ótimo exercício para o leitor.} capaz de satisfazer todas as palavras em $\Gamma$.
+\end{exemplo}
+
+\begin{definicao}[Modelo]
+  Seja $\Gamma \subseteq \mathcal{L}$, se $\Gamma$ é satisfatível para uma certa interpretação $I_\rho$. Então é dito que $I_\rho$ é um modelo para $\Gamma$.
+\end{definicao}
+
+Pode-se então agora formalizar a ideia de consequência do ponto de vista semântico, a consequência semântica é o mecanismo que determina se uma conclusão (ou tese) segue (ou é consequência) de um conjunto de premissas, formalmente isto é definido como se segue.
+
+\begin{definicao}[Consequência Semântica]\label{def:ConsequenciaSemantica}
+  Seja $\Gamma \subseteq \mathcal{L}$ e $\alpha \in \mathcal{L}$, é dito que $\alpha$ é consequência semântica de $\Gamma$, denotado por $\Gamma \vDash \alpha$, sempre que todo modelo $I_\rho$ de $\Gamma$, for também um modelo para o conjunto unitário $\{\alpha\}$.
+\end{definicao}
+
+\begin{nota}
+  Quando $\alpha$ é uma tautologia verifica-se que $\emptyset \vDash \alpha$, isto é, $\alpha$ é consequência semântica do conjunto vazio. Este fato também pode ser denotado por $\vDash \alpha$.
+\end{nota}
+
+\begin{exemplo}
+  Seja $\Gamma = \{P, \neg P \lor Q \}$ tem-se que $\Gamma \vDash Q \lor \neg Q$, para verificar isso primeiro considere a seguinte tabela verdade\footnote{Aqui as tabelas verdades das palavras $\neg P$ e $\neg P \lor Q$ foram claramente concatenadas e reorganizadas.}:
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|c|c|c|}
+             \hline
+             $P$ & $Q$ & $\neg P$ & $\neg P \lor Q $ \\ \hline
+             0 & 0 & 1 & 1\\ \hline
+             0 & 1 & 1 & 1\\  \hline
+             1 & 0 & 0 & 0\\  \hline
+             \rowcolor{gray}
+             1 & 1 & 0 & 1\\  \hline
+        \end{tabular}
+    \end{table}
+    
+    Note que, a linha em destaque é a única em que $P$ e $\neg P \lor Q $ são ambos verdadeiras, assim tal linha é o \textbf{único} modelo de $\Gamma$, isto é, tem-se que o modelo de $\Gamma$ é a interpretação $I_\rho$ tal que  $I_\rho(P) = 1$ e $I_\rho(Q) = 1$, pois com essa interpretação todas as palavras do conjunto $\Gamma$ são satisfeitas. Agora assumindo esse mesmo modelo tem-se que: 
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|c|}
+             \hline
+             $Q$ & $\neg Q$ & $Q \lor \neg Q$ \\ \hline
+             1 & 0 & 1 \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    E assim $\{Q \lor \neg Q\}$ também é satisfeito pelo mesmo modelo, como pode ser observado pela tabela verdade acima. Assim de fato tem-se que $\Gamma \vDash Q \lor \neg Q$.
+\end{exemplo}
+
+\begin{exemplo}
+  Dado o conjunto $\Gamma = \{P, Q \lor R\}$ tem-se que $\neg P \land R$ não é consequência semântica de $\Gamma$, denotado por $\Gamma \not\vDash \neg P \land R$, pois se $\Gamma$ é satisfatível para $I_\rho$ tem-se que $I_\rho(P) = 1$, mas isso implicada que $I_\rho(\neg P) = 0$, e portanto, $I_\rho(\neg P \land R) = 0$, consequentemente, $\Gamma \not\vDash \neg P \land R$.
+\end{exemplo}
+
+\begin{dica}
+  Como para a consequência sintática a consequência semântica pode ser vista como uma relação no sentido usual da teoria dos conjunto, ou seja, tem-se que $\vDash \subseteq \wp(\mathcal{L}) \times \mathcal{L}$.
+\end{dica}
+
+\begin{teorema}[Teorema da refutação]\label{teo:TeoremaRefutacao}
+  Seja $\Gamma \subseteq \mathcal{L}$ e $\alpha \in \mathcal{L}$. $\Gamma \vDash \alpha$ se, e somente se, $\Gamma \cup \{\neg \alpha\}$ não é satisfatível. 
+\end{teorema}
+
+\begin{proof}
+  ($\Rightarrow$) Suponha que  $\Gamma \vDash \alpha$ acontece, assim para todo $I_\rho$ que satisfaz $\Gamma$ tem-se que $I_\rho(\alpha) = 1$, mas pelo Definição \ref{def:interpretacao} tem-se que $I_\rho(\neg \alpha) = 0$, e portanto, nenhum $I_\rho$ será capaz de satisfazer $\Gamma \cup \{\neg \alpha\}$. 
+  
+  ($\Leftarrow$) Suponha que $\Gamma \cup \{\neg \alpha\}$ não é satisfatível, assim para qualquer interpretação $I_\rho$ que satisfaça $\Gamma$ obrigatoriamente não pode satisfazer $\{\neg \alpha\}$, ou seja, $I_\rho(\neg \alpha) = 0$, mas pela Definição \ref{def:interpretacao} tem-se que $I_\rho( \alpha) = 1$, e portanto, $\Gamma \vDash \alpha$.
+\end{proof}
+
+\begin{teorema}[Teorema da dedução (semântico)]\label{teo:TeoremaDeducaoSemantico}
+  Para todo $\alpha, \beta \in \mathcal{L}$ tem-se que $\{\alpha\} \vDash \beta$ se, e somente se,  $\vDash \alpha \Rightarrow \beta$.
+\end{teorema}
+
+\begin{proof}
+  ($\Rightarrow$) Suponha que $\{\alpha\} \vDash \beta$, assim para toda interpretação $I_\rho$ tal que $I_\rho(\alpha) = 1$ tem-se que $I_\rho(\beta) = 1$, logo pela Definição \ref{def:interpretacao} tem-se que $I_\rho(\alpha \Rightarrow \beta) = 1$, e portanto, é modelo de $\{\alpha \Rightarrow \beta\}$, assim por vacuidade é claro que $\vDash \alpha \Rightarrow \beta$.
+  
+  ($\Leftarrow$) Suponha que $\vDash \alpha \Rightarrow \beta$, assim existe um modelo $I_\rho$ tal que $I_\rho(\alpha \Rightarrow \beta) = 1$, de fato existe $I_\rho(\alpha) = I_\rho(\beta) = 1$, mas por esta interpretação é também modelo para $\{\alpha\}$ e $\{\beta\}$, portanto, conclui-se que  $\{\alpha\} \vDash \beta$.
+\end{proof}
+
+\begin{corolario}\label{col:TeoremaDeducaoSemantico}
+  Para todo $\alpha_1, \cdots, \alpha_{n-1}, \alpha_n, \beta \in \mathcal{L}$ tem-se que $\{\alpha_1, \cdots, \alpha_{n-1}, \alpha_n\} \vDash \beta$ se, e somente se, $\{\alpha_1, \cdots, \alpha_{n-1}\} \vDash \alpha_n \Rightarrow \beta$.
+\end{corolario}
+
+\begin{proof}
+  ($\Rightarrow$) Suponha que $\{\alpha_1, \cdots, \alpha_{n-1}, \alpha_n\} \vDash \beta$, assim existe um modelo $I_\rho$ para $\{\alpha_1, \cdots, \alpha_{n-1}, \alpha_n\}$ e $\{\beta\}$, logo por definição tem-se para todo $i \leq n$ que $I_\rho(\alpha_i) = I_\rho(\beta) = 1$, consequentemente $I_\rho(\alpha_n) \leq I_\rho(\beta)$, dessa forma tem-se que $I_\rho(\alpha_n \Rightarrow \beta) = 1$, assim $I_\rho$ é um modelo para $\{\alpha_n \Rightarrow \beta\}$, e portanto, $\{\alpha_1, \cdots, \alpha_{n-1}\} \vDash \alpha_n \Rightarrow \beta$.
+  
+  ($\Leftarrow$) Suponha que  $\{\alpha_1, \cdots, \alpha_{n-1}\} \vDash \alpha_n \Rightarrow \beta$ logo existe um modelo $I_\rho$ que satisfaz $\{\alpha_1, \cdots, \alpha_{n-1}\} $ e $\{\alpha_n \Rightarrow \beta\}$, assuma que este modelo é tal que $I_\rho(\alpha_n) = I_\rho(\beta) = 1$, assim claramente tem-se que este modelo satisfaz $\{\alpha_1, \cdots, \alpha_{n-1}, \alpha_n\}$ e também satisfaz $\{\beta\}$, portanto, $\{\alpha_1, \cdots, \alpha_{n-1}, \alpha_n\} \vDash \beta$.
+\end{proof}
+
+\begin{proposicao}\label{prop:DeducaoSemantica}
+  Dado $\Gamma \subseteq \mathcal{L}$ tal que $\Gamma = \{\alpha_1, \cdots, \alpha_n\}$ e $\beta \in \mathcal{L}$ tem-se que $\Gamma \vDash \beta$ se, e somente, se $\vDash \alpha_1 \Rightarrow ( \cdots ( \alpha_n \Rightarrow \beta))$.
+\end{proposicao}
+
+\begin{proof}
+  A demonstração desse resultado pode ser verificada com $n$ aplicações de Corolário \ref{col:TeoremaDeducaoSemantico}.
+\end{proof}
+
+Um aspecto semântico importante do sistema axiomático $L$ é exposto pelos dois resultados a seguir.
+
+\begin{teorema}\label{teo:AxiomasTautologiaEmL}
+  Todos os axiomas do sistema axiomática $L$ são tautologias.
+\end{teorema}
+
+\begin{proof}
+  Trivial, basta o leitor construir as tabelas verdades.
+\end{proof}
+
+\begin{corolario}\label{col:AxiomasTautologiaEmL}
+  O conjunto de axiomas do sistema axiomática $L$ é satisfatível.
+\end{corolario}
+
+\begin{proof}
+  Direto Teorema \ref{teo:AxiomasTautologiaEmL} e da definição de conjunto satisfaztível.
+\end{proof}
+
+Outro importante aspecto semântico entre as palavras de $\mathcal{L}$ é a noção de equivalência semântica definida formalmente a seguir.
+
+\begin{definicao}[Equivalência semântica]\label{def:EquivalenciaSemantica}
+  Dado $\alpha, \beta \in \mathcal{L}$ é dito que $\alpha$ e $\beta$ são equivalente, denotado por $\alpha \equiv_\vDash \beta$, quando para toda interpretação $I_\rho$ tem-se que $I_\rho(\alpha) = I_\rho(\beta)$.
+\end{definicao}
+
+\begin{exemplo}
+  As palavras $\alpha \Rightarrow \beta$ e $\neg \alpha \lor \beta$ são semanticamente equivalentes como pode ser verificado na tabela a seguir.
+
+  \begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $P$ & $Q$ & $\neg P$ & $P \Rightarrow Q$ & $\neg P \lor Q$\\
+        \hline
+        0 & 0 & 1 & 1 & 1\\ \hline
+        0 & 1 & 1 & 1 & 1\\ \hline
+        1 & 0 & 0 & 0 & 0\\ \hline
+        1 & 1 & 0 & 1 & 1\\ \hline
+    \end{tabular}
+  \end{table}
+\end{exemplo}
+
+Em alguns textos (como \cite{benja-Logica}) é feita uma distinção entre lógica proposicional e a linguagem proposicional, isso acontece pois nesse tipo de texto é empregada a visão da lógica proposicional como sendo a ciência que estudo o raciocínio proposicional correto (ou verdadeiro), assim as palavras que não são tautologias não são diretamente interessantes no estudo da lógica proposicional nesta visão, entretanto, considerar o estudo da linguagem proposicional como um todo ou apenas de suas tautologia não há qualquer diferença\footnote{Isso ocorre pelo conjunto de tautologias e seu complemento serem ambos decidíveis. Assim a união dos dois (que é a própria linguagem proposicional) é também um conjunto decidível, e portanto, as propriedades válidas (meta-teoremas) checáveis para o conjunto das tautologia também são checáveis para a linguagem proposicional.} como apontado pelos professores Aho e Ullman em \cite{ullman1992}.
+
+\section{Corretude e Completude}\label{sec:CorretudeCompletudeProposicional}
+
+Antes de introduzir os conceitos e resultados de completude e corretude é conveniente antes, apresentar algumas noções sobre o sistema sintático e o sistema semântico, apresentados nas seções anteriores. 
+
+A ideia apresentada nas demonstrações do sistema sintático é o uso das regras de inferência para \textbf{derivar} palavras da linguagem proposicional, assim o sistema sintático, através da relação $\vdash$, de pode ser visto como um sistema de reescrita \cite{ayala2014}. Por outro lado, como discutido anteriormente o sistema semântico apresenta o mecanismo (a relação $\vDash$) para \textbf{validar} o significado das palavras da linguagem proposicional. Agora é momento em que o leitor perspicaz faz o questionamento: ``As relações $\vdash$ e $\vDash$ interagem de alguma forma?''. A resposta a esse questionamento é afirmativa e tais interações acontecem exatamente através da corretude e da completude como será mostrado nesta seção, a Figura \ref{fig:LogicaProposicional} a seguir ilustras as interações mencionadas neste parágrafo.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=2.0cm, on grid,
+auto, state/.append style={minimum size=2em}, thick]
+    \node[state, rectangle]        (A)               {$\mathcal{L}$};
+    \node[ ]                       (D)[below of=A]   {};
+    \node[state, rectangle]        (B)[left of=D]   {Derivabilidade ($\vdash$)};
+    \node[state, rectangle]        (C)[right of=D]   {Validade ($\vDash$)};
+    %\path[->] (A) +(-1,0) edge (A)
+    \path[->] 
+    (A) edge 			  				node [left]  {Sintaxe} 				    (B)
+    (A) edge 			  				node [right] {Semântica} 				  (C)
+    (B) edge [bend left]    node         {Corretude}          (C)
+    (C) edge [bend left]    node         {Completude}         (B);
+  \end{tikzpicture}
+  \caption{Relacionamento das estruturas que compõem a lógica proposicional.}
+  \label{fig:LogicaProposicional}
+\end{figure}
+
+Este texto irá prosseguir primeiro mostrando que a lógica proposicional é correta, isto é, será demonstrado o teorema da corretude. De forma amigável tal teorema pode ser interpretado da seguinte forma, se existir uma prova de $\Gamma \vdash \alpha$, isto é, se for possível deduzir $\alpha$ a partir das premissas em $\Gamma$, isso significa que todo modelo de $\Gamma$ é também um modelo para o conjunto $\{\alpha\}$.
+
+\begin{teorema}[Teorema da Corretude]\label{teo:CorretudeProposicional}
+  Para quaisquer $\Gamma \subseteq \mathcal{L}$ e $\alpha \in \mathcal{L}$ se $\Gamma\vdash \alpha$, então $\Gamma \vDash \alpha$.
+\end{teorema}
+
+\begin{proof}
+  A prova será feita por indução sobre o tamanho dos diagramas do sistema dedutivo, ou seja, a quantidade de linhas dos diagramas, em que serão aplicadas as regras do sistema de dedução natural.
+  \begin{itemize}
+    \item[ ] \textbf{(B)}ase: Na base da indução estão as demonstrações cujo diagrama tem apenas uma linha, ou seja, obrigatoriamente o diagrama é da forma:
+    $$
+    \begin{nd}
+      \have[1]{h}{\alpha} \by{Premissa}{}
+    \end{nd}
+    $$
+    Ou seja, $\Gamma = \{\alpha\}$, agora trivialmente é claro que $\Gamma \vDash \alpha$.
+    \item[ ] \textbf{(H)}ipótese indutiva: Assuma que para qualquer prova com $n$ linhas de $\Gamma \vdash \alpha$ tem-se que $\Gamma \vDash \alpha$, sendo $n \in \mathbb{N}$.
+    \item[ ] \textbf{(P)}asso indutivo: Dado uma prova de $\{a_1, \cdots, \alpha_n\} \vdash \alpha$ com um número de linhas maior que $n$ é necessário analisar cada aplicação das regras do sistema dedutivo que finalizou a prova de forma separada.
+    \begin{itemize}
+      \item Para a \textbf{regra das premissas}, uma vez que, a prova de $\Gamma \vdash \alpha$ tem $n + 1$ linhas, $\Gamma$ deverá ser obrigatoriamente da forma $\Gamma = \{\alpha_1, \cdots, \alpha_n, \alpha_{n+1}\}$ e $\alpha = \alpha_{n+1}$, assim tem-se que tal diagrama é da forma:
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[n]{a}{\alpha_{n}} \by{Premissa}{}
+        \have[n+1]{a}{\alpha_{n+1}} \by{Premissa}{}
+      \end{nd}
+      $$
+      agora dado que é impossível você ter um modelo para $\{\alpha_1, \cdots, \alpha_n, \alpha_{n+1}\}$ que não seja modelo de $\{a_{n+1}\}$ trivialmente tem-se que $\Gamma\vDash \alpha$, concluíndo esta etapa da prova.
+      \item Para a \textbf{regra de reiteração}, uma vez que, a prova de $\Gamma \vdash \alpha$ tem $n+1$ linhas, significa assumido sem perda de generalidade, que o conjunto de premissas é da forma $\Gamma = \{\alpha_1, \cdots, \alpha_i\}$, tem-se que a prova de $\Gamma \vdash \alpha$ é da forma,
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{i}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[n]{j}{\alpha}{ }
+        \have[n+1]{a}{\alpha} \by{REI}{j}
+      \end{nd}
+      $$
+      mas isso implica que existe uma prova com $n$ passos para $\Gamma \vdash \alpha$, e por \textbf{(H)}, sabe-se que para tal prova condiciona que $\Gamma \vDash \alpha$, dado que o conjunto de premissas é o mesmo para a prova com $n+1$ passos pode-se concluir novamente que $\Gamma \vDash \alpha$.
+      \item Para a \textbf{$\land$I}, uma vez que, a prova de $\Gamma \vdash \alpha$ tem $n+1$ linhas, tem-se que obrigatariamente $\alpha$ é uma palavra $\beta \land \gamma$, e assim a prova de $\Gamma \vdash \alpha$ é um diagrama da forma, 
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{b}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[j]{c}{\beta}
+        \have[\vdots]{skip1}{\vdots}
+        \have[k]{d}{\gamma}  
+        \have[\vdots]{skip1}{\vdots} 
+        \have[n+1]{e}{\beta \land \gamma} \ai{c;d}
+      \end{nd}
+      $$
+      mas isso implica que existe uma prova de $\Gamma \vdash \beta$ e outra para $\Gamma \vdash \gamma$, em que a maior da duas teria no máximo $n$ linhas, e assim por \textbf{(H)}, tem-se que $\Gamma \vDash \beta$ e $\Gamma \vDash \gamma$, para para qualquer modelo $I_\rho$ de $\{\beta, \gamma\}$ tem-se por definição que este também seria um modelo para $\{\beta \land \gamma\}$, e portanto, $\Gamma \vDash \beta \land \gamma$, ou seja, $\Gamma \vDash \alpha$ concluído assim, essa etapa da prova.
+      \item Para a regra \textbf{$\land$E}, uma vez que, a prova de $\Gamma \vdash \alpha$ possui $n+1$ linhas, tem-se que obrigatariamente $\alpha$ é uma palavra $\beta$ (ou $\gamma$), sem perda de generalidade assuma que $alpha$ com sendo $\beta$, e assim a prova de $\Gamma \vdash \alpha$ é um diagrama da forma, 
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{b}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[n]{c}{\beta \land \gamma}
+        \have[n+1]{d}{\beta} \ae{c}
+      \end{nd}
+      $$
+      assim existe uma prova com $n$ linhas para $\Gamma \vdash \beta \land \gamma$, logo por \textbf{(H)}, tem-se que $\Gamma \vDash \beta \land \gamma$, mas é fácil notar pela Definição \ref{def:interpretacao} que todo modelo de $\beta \land \gamma$ é modelo de $\beta$ (e também de $\gamma$), o que implica que é impossível que exista um modelo para $\Gamma$ que não seja modelo de $\beta$, concluido essa etapa da prova.
+      \item Para a regra \textbf{$\Rightarrow$I}, considere que $\alpha$ é a palavra $\beta \Rightarrow \gamma$, além disso, assuma inicialmente que exista uma prova de $\Gamma \cup \{\beta\} \vdash \gamma$ com exatamente $n$ linhas, assim por \textbf{(H)}, tem-se que $\Gamma \cup \{\beta\} \vDash \gamma$. Dito isso, pelo Teorema \ref{teo:TeoremaDeducaoSintatico}, existe uma prova de $\Gamma \vdash \beta \Rightarrow \gamma$, sendo que tal prova tem mais de $n$ linhas (vê a demonstração do Teorema \ref{teo:TeoremaDeducaoSintatico}). Suponha agora por absurdo que exista um modelo $I_\rho$ de $\Gamma$ que não é modelo de $\beta \Rightarrow \gamma$, assim tem-se que $I_\rho(\beta \Rightarrow \gamma) = 0$, mas isso só é possível, quando $I_\rho(\beta) = 1$ e $I_\rho(\gamma) = 0$, ou seja, só possível se $I_\rho$ é um modelo para $\Gamma \cup \{\beta\}$ mas não é um modelo para $\gamma$, o que é um absurdo, e portanto, $I_\rho(\gamma)$ deve ser igual a $1$, implicado que $I_\rho(\beta \Rightarrow \gamma) = 1$, e portanto, sendo modelo para $\{\beta \Rightarrow \gamma\}$, possibilitando concluir que $\Gamma \vDash \beta \Rightarrow \gamma$, o que completa mais um ponto da prova.
+    \end{itemize}
+  \end{itemize}
+\end{proof}
 
 

@@ -65,4 +65,5 @@ Este projeto é mantido por mim «[Valdigleis](https://www.valdigleis.site)», c
 - [Anderson Vicente De Freitas](https://github.com/4ndersu) — Discente UNIVASF «*Apontou correções em exemplos*» (em 2024)
 - [Lucas Lins de Oliveira](https://github.com/LLucas46) — Discente UNIVASF «*Apontou correções textuais*» (em 2024)
 - [Emidio Daniel Pereira Leandro](https://github.com/emidiodotcom) — Discente UNIVASF «*Apontou diversas correções textuais*» (em 2024)
-- [Felipe Peixoto](https://github.com/JF532) — Discente UNIVASF «*Apontou correções em exemplos*x» (em 2024)
+- [Felipe Peixoto](https://github.com/JF532) — Discente UNIVASF «*Apontou correções em exemplos*» (em 2024)
+- [Daniel de Lima Franceschetti](https://github.com/danielsource) — Discente UNIVASF «*Realizou correções*» (em 2024)

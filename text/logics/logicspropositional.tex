@@ -818,7 +818,7 @@ Seguindo com a apresentação das propriedades do sistema dedutivo, a seguir ser
 
 Para prosseguir é necessário antes considerar a definição de conjunto das palavras deduzíveis apresentada a seguir.
 
-\begin{definicao}
+\begin{definicao}\label{def:ConjuntoTeoria}
   Seja $\Gamma \subseteq \mathcal{L}$ o conjunto de todas as palavras deduzíveis de $\Gamma$, denotada por $Th(\Gamma)$, é o conjunto de todas as palavras que são consequência sintática de $\Gamma$, ou seja, $Th(\Gamma) = \{ \alpha \in \mathcal{L} \mid \Gamma \vdash \alpha\}$.
 \end{definicao}
 
@@ -1160,7 +1160,7 @@ Usando a noção de interpretação é possível definir formalmente a noção d
 \end{definicao}
 
 \begin{proposicao}
-  Uma palavra $\alpha \in \mathcal{L}$ é satisfatível se, e somente se, $\alpha$ é uma Contingência ou uma tautologia.
+  Uma palavra $\alpha \in \mathcal{L}$ é satisfatível se, e somente se, $\alpha$ é uma contingência ou uma tautologia.
 \end{proposicao}
 
 \begin{proof}
@@ -1168,7 +1168,7 @@ Usando a noção de interpretação é possível definir formalmente a noção d
 \end{proof}
 
 \begin{exemplo}
-  A palavra $P \Rightarrow Q$ é satisfatível pois existe uma interpretação $I_\rho$ com a valoração $\rho$ definido $\rho(Q) = 1$, e é claro pela Definição \ref{def:interpretacat} que tal interpretação torna o significado da palavra $P \Rightarrow Q$ como sendo verdadeiro, isto é, $I_\rho(P \Rightarrow Q) = 1$.
+  A palavra $P \Rightarrow Q$ é satisfatível pois existe uma interpretação $I_\rho$ com a valoração $\rho$ definido $\rho(Q) = 1$, e é claro pela Definição \ref{def:interpretacao} que tal interpretação torna o significado da palavra $P \Rightarrow Q$ como sendo verdadeiro, isto é, $I_\rho(P \Rightarrow Q) = 1$.
 \end{exemplo}
 
 \begin{definicao}[Conjunto satisfatível]
@@ -1187,7 +1187,7 @@ Usando a noção de interpretação é possível definir formalmente a noção d
   O Conjunto $\Gamma = \{\neg \neg P, \neg P\}$ é contraditório, pois não existe nenhuma interpretação\footnote{Provar essa afirmação é um ótimo exercício para o leitor.} capaz de satisfazer todas as palavras em $\Gamma$.
 \end{exemplo}
 
-\begin{definicao}[Modelo]
+\begin{definicao}[Modelo]\label{def:Modelo}
   Seja $\Gamma \subseteq \mathcal{L}$, se $\Gamma$ é satisfatível para uma certa interpretação $I_\rho$. Então é dito que $I_\rho$ é um modelo para $\Gamma$.
 \end{definicao}
 
@@ -1348,11 +1348,11 @@ auto, state/.append style={minimum size=2em}, thick]
 Este texto irá prosseguir primeiro mostrando que a lógica proposicional é correta, isto é, será demonstrado o teorema da corretude. De forma amigável tal teorema pode ser interpretado da seguinte forma, se existir uma prova de $\Gamma \vdash \alpha$, isto é, se for possível deduzir $\alpha$ a partir das premissas em $\Gamma$, isso significa que todo modelo de $\Gamma$ é também um modelo para o conjunto $\{\alpha\}$.
 
 \begin{teorema}[Teorema da Corretude]\label{teo:CorretudeProposicional}
-  Para quaisquer $\Gamma \subseteq \mathcal{L}$ e $\alpha \in \mathcal{L}$ se $\Gamma\vdash \alpha$, então $\Gamma \vDash \alpha$.
+  Para qualquer conjunto finito $\Gamma \subseteq \mathcal{L}$ e qualquer $\alpha \in \mathcal{L}$ se $\Gamma\vdash \alpha$, então $\Gamma \vDash \alpha$.
 \end{teorema}
 
 \begin{proof}
-  A prova será feita por indução sobre o tamanho dos diagramas do sistema dedutivo, ou seja, a quantidade de linhas dos diagramas, em que serão aplicadas as regras do sistema de dedução natural.
+  Para o caso em que $\Gamma$ é vazio a prova é trivial por vacuidade e não será apresentada aqui, quando $\Gamma$ não é vazio a prova será feita por indução sobre o tamanho dos diagramas do sistema dedutivo, ou seja, a quantidade de linhas dos diagramas, em que serão aplicadas as regras do sistema de dedução natural.
   \begin{itemize}
     \item[ ] \textbf{(B)}ase: Na base da indução estão as demonstrações cujo diagrama tem apenas uma linha, ou seja, obrigatoriamente o diagrama é da forma:
     $$
@@ -1401,7 +1401,7 @@ Este texto irá prosseguir primeiro mostrando que a lógica proposicional é cor
       \end{nd}
       $$
       mas isso implica que existe uma prova de $\Gamma \vdash \beta$ e outra para $\Gamma \vdash \gamma$, em que a maior da duas teria no máximo $n$ linhas, e assim por \textbf{(H)}, tem-se que $\Gamma \vDash \beta$ e $\Gamma \vDash \gamma$, para para qualquer modelo $I_\rho$ de $\{\beta, \gamma\}$ tem-se por definição que este também seria um modelo para $\{\beta \land \gamma\}$, e portanto, $\Gamma \vDash \beta \land \gamma$, ou seja, $\Gamma \vDash \alpha$ concluído assim, essa etapa da prova.
-      \item Para a regra \textbf{$\land$E}, uma vez que, a prova de $\Gamma \vdash \alpha$ possui $n+1$ linhas, tem-se que obrigatariamente $\alpha$ é uma palavra $\beta$ (ou $\gamma$), sem perda de generalidade assuma que $alpha$ com sendo $\beta$, e assim a prova de $\Gamma \vdash \alpha$ é um diagrama da forma, 
+      \item Para a regra \textbf{$\land$E}, uma vez que, a prova de $\Gamma \vdash \alpha$ possui $n+1$ linhas, tem-se que obrigatariamente $\alpha$ é uma palavra $\beta$ (ou $\gamma$), sem perda de generalidade assuma que $\alpha$ com sendo $\beta$, e assim a prova de $\Gamma \vdash \alpha$ é um diagrama da forma, 
       $$
       \begin{nd}
         \have[1]{a}{\alpha_1} \by{Premissa}{}
@@ -1414,8 +1414,330 @@ Este texto irá prosseguir primeiro mostrando que a lógica proposicional é cor
       $$
       assim existe uma prova com $n$ linhas para $\Gamma \vdash \beta \land \gamma$, logo por \textbf{(H)}, tem-se que $\Gamma \vDash \beta \land \gamma$, mas é fácil notar pela Definição \ref{def:interpretacao} que todo modelo de $\beta \land \gamma$ é modelo de $\beta$ (e também de $\gamma$), o que implica que é impossível que exista um modelo para $\Gamma$ que não seja modelo de $\beta$, concluido essa etapa da prova.
       \item Para a regra \textbf{$\Rightarrow$I}, considere que $\alpha$ é a palavra $\beta \Rightarrow \gamma$, além disso, assuma inicialmente que exista uma prova de $\Gamma \cup \{\beta\} \vdash \gamma$ com exatamente $n$ linhas, assim por \textbf{(H)}, tem-se que $\Gamma \cup \{\beta\} \vDash \gamma$. Dito isso, pelo Teorema \ref{teo:TeoremaDeducaoSintatico}, existe uma prova de $\Gamma \vdash \beta \Rightarrow \gamma$, sendo que tal prova tem mais de $n$ linhas (vê a demonstração do Teorema \ref{teo:TeoremaDeducaoSintatico}). Suponha agora por absurdo que exista um modelo $I_\rho$ de $\Gamma$ que não é modelo de $\beta \Rightarrow \gamma$, assim tem-se que $I_\rho(\beta \Rightarrow \gamma) = 0$, mas isso só é possível, quando $I_\rho(\beta) = 1$ e $I_\rho(\gamma) = 0$, ou seja, só possível se $I_\rho$ é um modelo para $\Gamma \cup \{\beta\}$ mas não é um modelo para $\gamma$, o que é um absurdo, e portanto, $I_\rho(\gamma)$ deve ser igual a $1$, implicado que $I_\rho(\beta \Rightarrow \gamma) = 1$, e portanto, sendo modelo para $\{\beta \Rightarrow \gamma\}$, possibilitando concluir que $\Gamma \vDash \beta \Rightarrow \gamma$, o que completa mais um ponto da prova.
+      \item Para a regra \textbf{$\Rightarrow$E}, considere que existe uma prova de $\Gamma \vdash \alpha$ com $n + 1$ linhas da forma, 
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{b}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[j]{c}{\beta}
+        \have[\vdots]{skip1}{\vdots}
+        \have[n]{d}{\beta \Rightarrow \alpha}
+        \have[n+1]{e}{\alpha} \ie{c,d}
+      \end{nd}
+      $$
+      assim existe uma prova de $\Gamma \vdash \beta$ e uma prova  de $\Gamma \vdash \beta \Rightarrow \alpha$ com no máximo $n$ linhas, assim por \textbf{(H)}, tem-se que $\Gamma \vDash \beta$ e $\Gamma \vDash \beta \Rightarrow \alpha$, assim pela semântica da implicação é impossível que exista um modelo de $\Gamma$ que não seja modelo de $\alpha$, concluido mais um passo para a demonstração.
+      \item Para a regra \textbf{$\neg$I}, considere que existe uma prova de $\Gamma \vdash \alpha$ onde $\alpha$ é uma palavra da forma $\neg \beta$ com $n + 1$ linhas da forma, 
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{b}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \open
+        \hypo[j]{c}{\beta} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[n]{d}{\bot}
+        \close
+        \have[n+1]{e}{\neg \beta} \ni{c-d}
+      \end{nd}
+      $$
+      entretanto, pela definição da regra \textbf{$\neg$I}, essa prova só existe se, existirem duas provas $\Gamma \vdash \beta \Rightarrow \gamma$ e $\Gamma \vdash \beta \Rightarrow \neg\gamma$ com $n$ ou menos linhas, e assim por \textbf{(H)}, tem-se que, $\Gamma \vDash \beta \Rightarrow \gamma$ e $\Gamma \vDash \beta \Rightarrow \neg\gamma$. Agora suponha por absurdo que exista um modelo $I_\rho$ de $\Gamma$ que não é modelo para $\{\neg \beta\}$, assim obrigatariamente, $I_\rho$ será modelo de $\{\beta\}$, o que é um abusrdo, visto que $\Gamma \vDash \beta \Rightarrow \gamma$ e $\Gamma \vDash \beta \Rightarrow \neg\gamma$, e portanto, tem-se que $\Gamma \vDash \neg\beta$, isto é,  $\Gamma \vDash \alpha$, o que termina essa etapa da prova.
+      \item Para a regra \textbf{$\neg$E}, considere que existe uma prova de $\Gamma \vdash \alpha$ com $n+1$ linhas, mas tal prova é exatamente da forma:
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{b}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[n]{c}{\neg\neg\alpha}
+        \have[n+1]{d}{\alpha} \ne{c}
+      \end{nd}
+      $$
+      logo existe uma prova com exatamente $n$ linhas de $\Gamma \vdash \neg\neg\alpha$, e assim por \textbf{(H)}, tem-se que, $\Gamma \vDash \neg\neg\alpha$, logo todo modelo de $\Gamma$ é modelo para $\{\neg\neg\alpha\}$, agora pelas definições \ref{def:interpretacao} e \ref{def:Modelo} é claro que todo modelo de $\{\neg\neg\alpha\}$ será também modelo de $\{\alpha\}$, consequentemente, $\Gamma \vDash \alpha$, concluindo mais uma etapa da demonstração.
+      \item Para a regra \textbf{$\lor$I}, considere que existe uma prova de $\Gamma \vdash \alpha$ com $n+1$ linhas onde $\alpha$ é uma palavrra da forma $\beta \lor \gamma$, assim sem perda de generalidade, existe uma prova de exatamente $n$ linha de $\Gamma \vdash \beta$, logo por \textbf{(H)}, tem-se que, $\Gamma \vDash \beta$, e pelas definições \ref{def:interpretacao} e \ref{def:Modelo} é claro que todo modelo de $\{\beta\}$ será também modelo de $\{\beta \lor \gamma\}$, consequentemente, $\Gamma \vDash \beta \lor \gamma$, ou seja, $\Gamma \vDash \alpha$, concluindo assim, mais uma etapa da demonstração.
+      \item Para a regra \textbf{$\lor$E}, considere que exista uma prova de que $\Gamma \vdash \alpha$ com $n+1$ linhas, agora pela definição da regra \textbf{$\lor$E} a prova de $\Gamma \vdash \alpha$ será da forma:
+      $$
+      \begin{nd}
+        \have[1]{a}{\alpha_1} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \hypo[i]{b}{\alpha_i} \by{Premissa}{}
+        \have[\vdots]{skip1}{\vdots}
+        \have[j]{c}{\beta \lor \gamma}
+        \open
+        \hypo[k]{d}{\beta}
+        \have[\vdots]{skip1}{\vdots}  
+        \have[k + l]{e}{\alpha}
+        \close
+        \open
+        \hypo[m]{f}{\gamma}
+        \have[\vdots]{skip1}{\vdots}  
+        \have[n]{g}{\alpha}
+        \close
+        \have[n + 1]{h}{\alpha} \oe{c, (d-e, f-g)}
+      \end{nd}
+      $$
+      mas de tal prova fica evidente que existe três provas $\Gamma \vdash \beta \lor \gamma$, $\Gamma \vdash \beta \Rightarrow \alpha$ e $\Gamma \vdash \gamma \Rightarrow \alpha$ com $n$ ou menos linhas, logo por \textbf{(H)}, tem-se que, $\Gamma \vDash \beta \lor \gamma$, $\Gamma \vDash \beta \Rightarrow \alpha$ e $\Gamma \vDash \gamma \Rightarrow \alpha$. Agora suponha por absurdo que exista um modelo $I_\rho$ de $\Gamma$ que não é modelo de $\{\alpha\}$, mas como $\Gamma \vDash \beta \Rightarrow \alpha$ e $\Gamma \vDash \gamma \Rightarrow \alpha$ tem-se então pela Definição \ref{def:interpretacao} que obrigatoriamente, $I_\rho(\beta) = I_\rho(\gamma) = 0$, o que é um absurdo, uma vez que, por \textbf{(H)} tem-se que $\Gamma \vDash \beta \lor \gamma$, consequemente, $\Gamma \vDash \alpha$.
     \end{itemize}
   \end{itemize}
+  Agora desde que $\Gamma \vdash \alpha$ implica que $\Gamma \vDash \alpha$ por todos os casos descritos em  \textbf{(B)}, \textbf{(H)} e \textbf{(P)}, pode-se concluir que a sentença, para qualquer conjunto finito $\Gamma \subseteq \mathcal{L}$ e qualquer $\alpha \in \mathcal{L}$ se $\Gamma\vdash \alpha$, então $\Gamma \vDash \alpha$, é de fato verdadeira.
 \end{proof}
 
+Para tratar da questão da completude, ou seja, para poder exibir um teorema da completude para a lógica proposicional, antes é necessário adicionar mais alguns conceitos para a sintaxe da linguagem.
 
+\begin{definicao}[Conjunto consistente]\label{def:ConjuntoConsistente}
+  Um conjunto $\Gamma \subseteq \mathcal{L} - \{\bot\}$ é consistente se, e somente se, para nenhum $\alpha \in \mathcal{L} - \{\bot\}$ tem-se que $\Gamma \vdash \alpha \land \neg \alpha$.
+\end{definicao}
+
+\begin{definicao}[Conjunto inconsistente]\label{def:ConjuntoInconsistente}
+  Um conjunto $\Gamma \subseteq \mathcal{L} - \{\bot\}$ é inconsistente se , e somente se, existe $\alpha \in \mathcal{L} - \{\bot\}$ tal que $\Gamma \vdash \alpha \land \neg \alpha$.
+\end{definicao}
+
+\begin{definicao}[Conjunto maximamente consistente]\label{def:ConjuntoMaxConsistente}
+  Um conjunto $\Gamma \subseteq \mathcal{L} - \{\bot\}$ é dito maximamente consistente se , e somente se, para todo $\alpha \in \mathcal{L} - \{\bot\}$ as duas condições a seguir são satisfeitas:
+  \begin{itemize}
+      \item[(a)] $\Gamma$ é consistente;
+      \item[(b)] $\alpha \in \Gamma$ e $\neg \alpha \notin \Gamma$ ou $\neg \alpha \in \Gamma$ e $\alpha \notin \Gamma$.
+  \end{itemize}
+\end{definicao}
+
+Agora como dito em \cite{joaoPavao2014} um conjunto maximamente consistente tem a propriedade de ser o maior possível sem ser inconsistente. 
+
+\begin{teorema}\label{teo:ExtensaomaximamenteConsistente}
+  Qualquer conjunto consistente $\Gamma$ pode ser entendido para um conjunto maximamente consistente $\Gamma_\infty$.
+\end{teorema}
+
+\begin{proof}
+  Antes de qualquer coisa lembre-se que a linguagem $\mathcal{L}$ é também recursivamente enumerável (detalhes em \cite{ullman1992}), portanto, $\mathcal{L} - \{\bot\}$ é também um conjunto recursivamente enumerável, assim as palavras de $\mathcal{L} - \{\bot\}$ podem ser distribuídas em uma sequencia ordenada $\{\alpha_i\}_{i \in \mathbb{N}}$, dito isto, suponha que $\Gamma$ é um conjunto consistente e defina indutivamente os seguintes conjuntos:
+  \begin{eqnarray*}
+    \Gamma_0 & = & \Gamma\\
+    \Gamma_1 & = & \left\{\begin{array}{ll}	\Gamma_0 \cup \{\alpha_1\}, & \hbox{se } \Gamma_1 \cup \{\alpha_1\} \hbox{ é consistente}\\ \Gamma_0 \cup \{\neg \alpha_1\},  & \hbox{senão.}\end{array}\right.\\
+    \Gamma_{n+1} & = & \left\{\begin{array}{ll}	\Gamma_n \cup \{\alpha_{n+1}\}, & \hbox{se } \Gamma_n \cup \{\alpha_{n+1}\} \hbox{ é consistente}\\ \Gamma_n \cup \{\neg \alpha_{n+1}\},  & \hbox{senão.}\end{array}\right.
+  \end{eqnarray*}
+  obviamente por esta construção, para qualquer que seja $i \in \mathbb{N}$ tem-se que $\Gamma_i$ será consistente. Agora considere o conjunto:
+  $$\Gamma_\infty = \bigcup_{i \in \mathbb{N}} \Gamma_i$$
+  suponha por absurdo que $\Gamma_\infty$ não é um conjunto consistente,  assim existe um $\alpha$ tal que $\Gamma_\infty \vdash \alpha \land \neg \alpha$, assuma que $\alpha \land \neg \alpha$ corresponde a palavra $\alpha_j$ da sequência ordenada $\{\alpha_i\}_{i \in \mathbb{N}}$, portanto, é obvio que $\Gamma_j \vdash \alpha \land \neg \alpha$, o que é uma contradição, uma vez que, $\Gamma_j$ é consistente, consequentemente, $\Gamma_\infty$ é consistente. De forma trivial, pela construção de $\Gamma_\infty$ tem-se que este atende a condição (b) da Definição \ref{def:ConjuntoMaxConsistente}. Desde que, $\Gamma_\infty$ é consistente e atende a condição (b), tem-se que $\Gamma_\infty$ é um conjunto maximamente consistente, o que conclui a prova.
+\end{proof}
+
+\begin{teorema}\label{teo:ModeloParaMaximaneteConsistente}
+  Qualquer conjunto maximamente consistente $\Gamma$ tem um modelo.
+\end{teorema}
+
+\begin{proof}
+  Ver a demonstração em \cite{joaoPavao2014}.
+\end{proof}
+
+\begin{lema}\label{lema:Completude}
+  Para todo $\alpha \in \mathcal{L}$ se $\vDash \alpha$, então $\vdash \alpha$.
+\end{lema}
+
+\begin{proof}
+  Assuma por absurdo que $\alpha$ é uma tautologia e que $\Gamma = Th(\emptyset)$ de forma que $\alpha \notin \Gamma$, logo $\Gamma \cup \{\neg \alpha\}$ é um conjunto consiste. Agora pelo Teorema \ref{teo:ExtensaomaximamenteConsistente} existe um conjunto maximamente consistente $\Gamma_\infty$ gerado a partir de $\Gamma \cup \{\neg \alpha\}$ e pelo Teorema \ref{teo:ModeloParaMaximaneteConsistente} existe um modelo $I_\rho$ para o conjunto $\Gamma_\infty$, e assim por definição $I_\rho(\neg \alpha) = 1$, mas desde que $\alpha$ é uma tautologia tem-se que $I_\rho(\alpha) = 1$, o que é uma contradição, portanto, $\alpha$ é um teorema, ou seja, $\vdash \alpha$.
+\end{proof}
+
+\begin{teorema}
+  Para quaisquer $\alpha_1, \cdots, \alpha_n, \alpha \in \mathcal{L}$ se $\{\alpha_1, \cdots, \alpha_n\} \vDash \alpha$, então $\{\alpha_1, \cdots, \alpha_n\} \vdash_L \alpha$.
+\end{teorema}
+
+\begin{proof}
+  Suponha que $\{\alpha_1, \cdots, \alpha_n\} \vDash \alpha$ assim pela Proposição \ref{prop:DeducaoSemantica} tem-se que $\vDash \alpha_1 \Rightarrow ( \cdots ( \alpha_n \Rightarrow \alpha))$ dessa forma pela Lema \ref{lema:Completude} tem-se que $\vdash_L \alpha_1 \Rightarrow ( \cdots ( \alpha_n \Rightarrow \alpha))$, agora aplicando $n$ vezes o Teorema \ref{teo:TeoremaDeducaoSintatico2}  tem-se que $\{\alpha_1, \cdots, \alpha_n\} \vdash_L \alpha$, o que completa a prova.
+\end{proof}
+
+Vale destacar que a completude apresentada pelo teorema acima é a chamada completude fraca pois o conjunto de premissas $\Gamma$ é um conjunto finito, entretanto, este resultado pode ser estendido para um conjunto de premissas infinito com mencionado em \cite{joaoPavao2014}.
+
+\section{Questionário}\label{sec:Questionario2part3}
+
+\begin{questao}\label{test:LPro1}
+  Usando o sistema dedutivo da lógica proposicional demostre as seguintes relações de consequência.
+\end{questao}
+\begin{exerList}
+  \item $\vdash P \Rightarrow (Q \Rightarrow P)$
+  \item $\{P \Rightarrow Q, Q \Rightarrow R\} \vdash P \Rightarrow R$
+  \item $\{P \Rightarrow (Q \Rightarrow R), P \Rightarrow Q\} \vdash P \Rightarrow R$
+  \item $\{(P \Rightarrow Q) \Rightarrow (P \Rightarrow R)\} \vdash P \Rightarrow (Q \Rightarrow R)$
+  \item $\{P \Rightarrow (P \Rightarrow Q)\} \vdash P \Rightarrow Q$
+  \item $\{P \Rightarrow (Q \Rightarrow R)\} \vdash Q \Rightarrow (P \Rightarrow R)$
+  \item $\{P \Rightarrow (Q \Rightarrow (R \Rightarrow S))\} \vdash R \Rightarrow (Q \Rightarrow (P \Rightarrow S))$
+  \item $\{(P \Rightarrow Q) \Rightarrow R\} \vdash P \Rightarrow (Q \Rightarrow R)$
+  \item $\{P \land  Q\} \vdash Q \land  P$
+  \item $\{P \land  (Q \land  R)\} \vdash (P \land  Q) \land  R$
+  \item $\{P \Rightarrow R\} \vdash (P \land  Q) \Rightarrow R$
+  \item $\{P \Rightarrow Q\} \vdash (R \land  P) \Rightarrow (Q \land  R)$
+  \item $\{P \Rightarrow (Q \Rightarrow R)\} \vdash (P \land  Q) \Rightarrow R$
+  \item $\{(P \land  Q) \Rightarrow R\} \vdash P \Rightarrow (Q \Rightarrow R)$
+  \item $\{(P \Rightarrow Q) \Rightarrow R\} \vdash (P \land  Q) \Rightarrow R$
+  \item $\{P \land  (Q \Rightarrow R)\} \vdash (P \Rightarrow Q) \Rightarrow R$
+  \item $\{(P \Rightarrow Q) \land  (P \Rightarrow R)\} \vdash P \Rightarrow (Q \land  R)$
+  \item $\{P \Rightarrow (Q \land  R)\} \vdash (P \Rightarrow Q) \land  (P \Rightarrow R)$
+  \item $\{P \lor P\} \vdash P$
+  \item $\{P \lor Q\} \vdash Q \lor P$
+  \item $\{P \lor (Q \lor R)\} \vdash (P \lor Q) \lor R$
+  \item $\{(Q \lor (P \lor R)) \lor P\} \vdash R \lor (P \lor Q)$
+  \item $\{P \Rightarrow Q\} \vdash P \Rightarrow (Q \lor R)$
+  \item $\{(P \lor Q) \Rightarrow R\} \vdash P \Rightarrow R$
+  \item $\{P \lor Q, P \Rightarrow R, Q \Rightarrow S\} \vdash R \lor S$
+  \item $\{P \Rightarrow R, Q \Rightarrow R\} \vdash (P \lor Q) \Rightarrow R$
+\end{exerList}
+
+\begin{questao}\label{test:LPro2}
+  Demonstre usando o sistema dedutivo da lógica proposicional as relações de consequência.
+\end{questao}
+
+\begin{exerList}
+  \item $\{P \Rightarrow Q\} \vdash (R \lor P) \Rightarrow (Q \lor R)$
+  \item $\{P \land (Q \lor R)\} \vdash (P \land Q) \lor (P \land R)$
+  \item $\{(P \land Q) \lor (P \land R)\} \vdash P \land (Q \lor R)$
+  \item $\{P \lor (Q \land R)\} \vdash (P \lor Q) \land (P \lor R)$
+  \item $\{(P \lor Q) \land (P \lor R)\} \vdash P \lor (Q \land R)$
+  \item $\{P \land Q\} \vdash P \lor Q$
+  \item $\{P \land Q\} \vdash P \Rightarrow Q$
+  \item $\{P\} \vdash P \land (P \lor Q)$
+  \item $\{P \lor (P \land Q)\} \vdash P$
+  \item $\{P \land\bot \} \vdash Q$
+  \item $\{\neg P\} \vdash P \Rightarrow  \bot$
+  \item $\{P \Rightarrow  \bot\} \vdash \neg P$
+  \item $\{P\} \vdash \neg \neg P$
+  \item $\{\neg \neg \neg P\} \vdash \neg P$
+  \item $\{\neg \neg P\} \vdash P$
+  \item $\{P, \neg P\} \vdash Q$
+  \item $\{P \Rightarrow Q, P \Rightarrow \neg Q\} \vdash \neg P$
+  \item $\{\neg \neg P \Rightarrow Q, \neg \neg P \Rightarrow \neg Q\} \vdash \neg P$
+  \item $\{\neg P \Rightarrow Q, \neg P \Rightarrow \neg Q\} \vdash P$
+  \item $\vdash P \lor \neg P$
+  \item $\{P \Rightarrow Q, \neg P \Rightarrow Q\} \vdash Q$
+  \item $\vdash (P \Rightarrow \neg P) \Rightarrow \neg P$
+  \item $\vdash (\neg P \Rightarrow P) \Rightarrow P$
+  \item $\{\neg P \Rightarrow \neg Q, Q\} \vdash P$
+  \item $\{\neg (P \land Q), P\} \vdash \neg Q$
+  \item $\{\neg (P \land Q), Q\} \vdash \neg P$
+\end{exerList}
+
+\begin{questao}\label{test:LPro3}
+  Usando o sistema dedutivo da lógica proposicional prove que:
+\end{questao}
+\begin{exerList}
+  \item $\{\neg (P \land \neg Q), P\} \vdash Q$
+  \item $\{\neg (\neg P \land Q), Q\} \vdash P$
+  \item $\{\neg (P \land (Q \land R)), Q\} \vdash \neg (P \land R)$
+  \item $\{\neg (P \land T \land Q), \neg (R \land \neg T \land S)\} \vdash \neg (P \land Q \land R \land S)$
+  \item $\{P \lor Q, \neg P\} \vdash Q$
+  \item $\{\neg P \lor Q, P\} \vdash Q$
+  \item $\{P \lor Q, \neg Q\} \vdash P$
+  \item $\{P \lor \neg Q, Q\} \vdash P$
+  \item $\{P \lor (T \lor Q), R \lor (\neg T \lor S)\} \vdash (P \lor Q) \lor (R \lor S)$
+  \item $\{\neg P\} \vdash \neg (P \land Q)$
+  \item $\{\neg Q\} \vdash \neg (P \land Q)$
+  \item $\{P\} \vdash \neg (\neg P \land Q)$
+  \item $\{Q\} \vdash \neg (P \land \neg Q)$
+  \item $\{\neg (P \lor Q)\} \vdash \neg P$
+  \item $\{\neg (P \lor Q)\} \vdash \neg Q$
+  \item $\{\neg (\neg P \lor Q)\} \vdash P$
+  \item $\{\neg (P \lor \neg Q)\} \vdash Q$
+  \item $\{P \Rightarrow Q\} \vdash \neg P \lor Q$
+  \item $\{\neg P \Rightarrow Q\} \vdash P \lor Q$
+  \item $\{P \Rightarrow Q\} \vdash \neg (P \land \neg Q)$
+  \item $\{P \Rightarrow \neg Q\} \vdash \neg (P \land Q)$
+  \item $\{P, \neg Q\} \vdash \neg (P \Rightarrow Q)$
+  \item $\{\neg (P \Rightarrow Q)\} \vdash P$
+  \item $\{\neg (P \Rightarrow Q)\} \vdash \neg Q$
+  \item $\{\neg (P \Rightarrow \neg Q)\} \vdash Q$
+  \item $\{\neg P \land \neg Q\} \vdash \neg (P \lor Q)$
+\end{exerList}
+
+% Colocar essas depois
+%\item $\{\neg P \land \neg Q, P \lor Q\} \vdash \neg (\neg P \land \neg Q)$
+%\item $\{\neg (\neg P \land \neg Q)\} \vdash (P \lor Q)$
+%\item $\{P \land Q\} \vdash \neg (\neg P \lor \neg Q)$
+%\item $\{\neg (\neg P \lor \neg Q)\} \vdash (P \land Q)$
+%\item $\{\neg P \lor \neg Q\} \vdash \neg (P \land Q)$
+%\item $\{\neg (P \land Q)\} \vdash \neg P \lor \neg Q$
+%\item $\{\neg (\neg P \land (Q \land \neg R)), Q\} \vdash P \lor R$
+
+\begin{questao}\label{test:LPro4}
+  Usando o sistema dedutivo demonstre que:
+\end{questao}
+
+\begin{exerList}
+  \item Se $\{\alpha, \beta\} \vdash \gamma$, então $\{\neg(\alpha \Rightarrow \neg \beta)\} \vdash \gamma$
+  \item $\{\alpha\} \vdash \neg \neg (\alpha \Rightarrow \neg \beta) \Rightarrow \neg \beta$
+  \item Se $\vdash \alpha \Rightarrow \beta$ e $\vdash \alpha \Rightarrow \gamma$, então $\vdash \alpha \Rightarrow \neg (\beta \Rightarrow \neg \gamma)$
+  \item Se $\Gamma \vdash \alpha$, então $\Gamma \vdash \neg \alpha \Rightarrow \beta$
+  \item Se $\Gamma_1 \vdash \alpha$ e $\Gamma_2 \vDash \alpha \Rightarrow \beta$, então $\Gamma_1 \cup \Gamma_2 \vdash \beta$
+  \item Se $\Gamma \vdash \alpha \Rightarrow \beta$ e $\Gamma \vdash \neg \alpha \Rightarrow \gamma$, então $\Gamma \vdash \beta$ ou $\Gamma \vdash \gamma$
+  \item Se $\Gamma \vdash \beta$ ou $\Gamma \vdash \gamma$, então $\Gamma \vdash \neg \beta \Rightarrow \gamma$
+  \item Se $\Gamma \vdash \alpha$ ou $\Gamma \vdash \beta$, então $\Gamma \vdash \neg (\neg \alpha \land \neg \beta)$
+\end{exerList}
+
+\begin{questao}\label{test:LPro5}
+  Considerando o sistema axiomático L demonstre as seguintes relações de consequência.
+\end{questao}
+
+\begin{exerList}
+  \item $\{\alpha\} \vdash_L \beta \Rightarrow (\neg \alpha \Rightarrow \gamma)$
+  \item $\vdash_L (\beta \Rightarrow \alpha) \Rightarrow ((\neg \alpha \Rightarrow \beta) \Rightarrow \alpha)$
+  \item $\{\alpha, \beta\} \vdash_L \neg (\alpha \Rightarrow \neg \beta)$
+  \item $\{\neg (\alpha \Rightarrow \neg \beta)\} \vdash_L \beta$
+  \item $\{\neg (\alpha \Rightarrow \neg \beta)\} \vdash_L \alpha$
+  \item $\vdash_L (\neg \alpha \Rightarrow \beta) \Rightarrow (\neg \beta \Rightarrow \alpha)$
+  \item $\{P, \neg P\} \vdash_L Q$
+  \item $\{P \Rightarrow Q, P \Rightarrow \neg Q\} \vdash_L \neg P$
+  \item $\{\neg \neg P \Rightarrow Q, \neg \neg P \Rightarrow \neg Q\} \vdash_L \neg P$
+  \item $\{\neg P \Rightarrow Q, \neg P \Rightarrow \neg Q\} \vdash_L P$
+\end{exerList}
+
+
+\begin{questao}\label{test:LPro6}
+  Exiba todas as possíveis valorações para as palavras a seguir.
+\end{questao}
+
+\begin{exerList}
+  \item $P \Rightarrow (Q \lor (R \Rightarrow P))$
+  \item $\neg (P \Rightarrow \neg (P \Rightarrow Q)))$
+  \item $(P \Rightarrow Q) \Rightarrow R) \Rightarrow R$
+  \item $P \Rightarrow (Q \Rightarrow P)$
+  \item $P \Leftrightarrow (\neg P \Leftrightarrow \neg (P \lor Q))$
+  \item $P \Rightarrow ((Q \land \neg R) \Rightarrow S)$
+  \item $((P \land Q) \lor (R \land S)) \Rightarrow (((\neg R \land S) \Rightarrow (S \lor \neg R)) \land ((S \lor \neg R) \Rightarrow (\neg R \land S) ))$
+  \item $\bot \Rightarrow (\neg (P \lor \neg P) \land S)$
+  \item $(X \land \bot) \Rightarrow (P \Leftrightarrow \neg P)$
+  \item $\neg(\neg Q \lor \neg \neg T) \Rightarrow (R \Leftrightarrow \neg Z)$
+  \item $((P \lor Q) \land \neg P) \Rightarrow Q$
+  \item $(P \Rightarrow (Q \Rightarrow R)) \Rightarrow ((P \Rightarrow Q) \Rightarrow (P \Rightarrow R))$
+  \item $(P \Rightarrow P) \Rightarrow P$
+  \item $((\neg Q) \Rightarrow (\neg P)) \Rightarrow \neg (P \Rightarrow Q)$
+  \item $\neg \neg \neg P \Rightarrow \neg (Q \Leftrightarrow \neg \neg R)$
+  \item $\neg (P \land Q) \land (Q \land \neg \neg P)$
+  \item $(\neg R \land T) \lor ((S \lor \neg X)\land(P \lor (Q \Rightarrow \bot)))$
+  \item $(P \land (Q \land R)) \Rightarrow (R \land (P \land Q))$
+  \item $(P \Rightarrow Q) \Leftrightarrow (\neg \neg Q \lor \neg P)$
+  \item $(P \land Q) \Leftrightarrow \neg (Q \Rightarrow \neg P)$
+\end{exerList}
+
+
+\begin{questao}\label{test:LPro7}
+  Demonstre ou refute as afirmações a seguir.
+\end{questao}
+
+\begin{exerList}
+  \item O conjunto $\{\neg (\neg P \lor \neg Q) \Rightarrow Q, \neg R \lor S, \neg P \}$ tem um único modelo.
+  \item O conjunto $\{P \lor (Q \lor R), \neg P \Rightarrow (Q \lor R), Q \Rightarrow \neg(R \lor P)\}$ tem exatamente 3 diferentes modelos.
+  \item O conjunto $\{\neg P \land Q, P \Rightarrow Q, \neg Q \lor (\neg P \lor R)\}$ não possui um modelo.
+  \item O conjunto $\{Q \Rightarrow \neg R, P \Rightarrow (R \lor Q), S, T\}$ não possui um modelo.
+  \item Qualquer valoração é um modelo para o conjunto $\{Q \lor \neg Q, P \Rightarrow P, \neg (\neg R \land R)\}$.
+  \item Não existe modelos para o conjunto $\{P \land Q, Q \lor \neg P, Q \Rightarrow \neg S\}$.
+  \item O conjunto $\{P \Rightarrow \bot, \neg \neg Q \Rightarrow \neg P\}$ não tem nenhum modelo.
+  \item $\{\neg (P \lor Q) \Rightarrow R\} \vDash \neg P \Rightarrow R$
+  \item $\{P \lor Q, P \Rightarrow \neg R, \neg Q \Rightarrow S\} \vDash R \lor \neg S$
+  \item $\{P \Rightarrow R, Q \Rightarrow R\} \vDash (P \lor Q) \Rightarrow R$
+  \item $\{\neg \neg P \Rightarrow Q\} \vDash (R \lor P) \Rightarrow (Q \lor R)$
+  \item $\{P \land (Q \lor R)\} \vDash \neg (\neg P \lor \neg Q) \lor (P \land R)$
+  \item $\{(P \land Q) \lor (P \land R)\} \vDash P \land (Q \lor R)$
+  \item $\{P \lor (Q \land R)\} \vDash (P \lor Q) \land (P \lor R)$
+  \item $\{(P \lor Q) \land (P \lor R)\} \vDash \neg \neg P \lor (Q \land R)$
+  \item $\{\neg P, \neg \neg Q\} \vDash \neg P \Rightarrow Q$
+  \item $\{\neg P, \neg Q\} \vDash \neg (P \lor \neg Q)$
+  \item $\{\neg P, Q\} \vDash \neg (\neg P \Rightarrow Q)$
+  \item $\{P \Rightarrow \neg Q, \neg P, \neg Q \Rightarrow \neg \neg P\} \vDash \neg Q$
+  \item $\{\neg P \Rightarrow Q, \neg (Q \land P),\neg Q\} \vDash \neg P$
+\end{exerList}

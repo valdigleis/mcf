@@ -38,7 +38,7 @@ Atualmente os tópicos sobre matemática e ciência da computação que eu ([Val
 
 ## Para sugestões, apontamentos e críticas
 
-Uma vez que este documento ainda é um projeto em andamento e possivelmente sua escrita nunca será realmente concluída com total aprovação de seu autor, é claro que você poderá encontrar diversos erros, que com toda certeza, você leitor, irá me enviar [e-mails](mailto:valdigleis.costa@univasf.edu.br) ou [issues](https://github.com/valdigleis/mcf/issues) com reports de tais erros. No caso de ser meu aluno também pode fazer apontamentos através da comunidade [extraclasse](https://www.valdigleis.site/extraclasse).
+Uma vez que, este documento ainda é um projeto em andamento e possivelmente sua escrita nunca será realmente concluída com total aprovação de seu autor, é claro que você poderá encontrar diversos erros, que com toda certeza, você leitor, irá me enviar [e-mails](mailto:valdigleis.costa@univasf.edu.br) ou [issues](https://github.com/valdigleis/mcf/issues) com reports de tais erros. No caso de ser meu aluno também pode fazer apontamentos através da comunidade [extraclasse](https://www.valdigleis.site/extraclasse).
 
 ## Sobre a ALiCIA
 
@@ -49,7 +49,7 @@ Durante o texto você irá encontrar uma personagem de forma recorrente, ela cha
 
 ## Quem faz o projeto?
 
-Este projeto é mantido por mim «[Valdigleis](https://www.valdigleis.site)», com o suporte de todos os eleitores que gentilmente me mandam correções e sugestões valiosas para o texto, abaixo faço questão de listar todas as ações de ajuda que o projeto recebeu, note que é possível que uma mesma pessoa apareça mais de uma vez na lista.
+Este projeto é mantido por mim «[Valdigleis](https://www.valdigleis.site)», com o suporte de todos os eleitores (em especial meus alunos) que gentilmente me mandam correções e sugestões valiosas para o texto, abaixo faço questão de listar todas as ações de ajuda que o projeto recebeu, note que é possível que uma mesma pessoa apareça mais de uma vez na lista.
 
 - [Raul S. Martins](https://github.com/raulpy271) — Discente Univasf «*Apontou erros em exemplos*» (em 2019)
 - [Raul S. Martins](https://github.com/raulpy271) — Discente Univasf «*Apontou correções de conteúdo*» (em 2021)

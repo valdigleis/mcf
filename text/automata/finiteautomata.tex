@@ -4,7 +4,7 @@
 
 Como explicado em diversas obras tais como \cite{benjaLivro2010, hopcroft2008, linz2006, menezes1998LFA}, os autômatos finitos podem ser separados em dois tipos bem definidos, a saber Autômato Finito Determinístico (AFD) e Autômato Finito Não-determinístico (AFN).
 
-\subsection{Autômato Finito Determinístico}\label{subsec:AFD}
+\section{Autômato Finito Determinístico}\label{subsec:AFD}
 
 Agora este manuscrito inicia o estudo dos AFD apresentando sua forma algébrica equacional.
 
@@ -258,15 +258,15 @@ Utilizando a definição acima o leitor deve ser capaz de perceber que se um AFD
 		$(\Rightarrow)$ Suponha que $w \in L$ assim $w = a^{2n+1}$, agora por indução sobre o tamanho das palavras tem-se que, 
 		
 		\begin{itemize}
-			\item  \textbf{(B)}ase: Quando $n = 0$ vale a igualdade $w = a^{2\cdot 0+1}$, agora usando a definição do AFD $A$ tem-se que, 
+			\item[ ] \textbf{(B)}ase: Quando $n = 0$ vale a igualdade $w = a^{2\cdot 0+1}$, agora usando a definição do AFD $A$ tem-se que, 
 			\begin{eqnarray*}
 				\widehat{\delta}(q_0, a^{2\cdot 0+1}) = \widehat{\delta}(q_0, a^{1}) = \delta(\widehat{\delta}(q_0, \lambda), a) = \delta(q_0, a) = q_1
 			\end{eqnarray*}
 			e como $q_1 \in F$ tem-se que $a^{2\cdot 0+1} \in \mathcal{L}(A)$, ou seja, $w \in \mathcal{L}(A)$.
 			
-			\item \textbf{(H)}ipótese indutiva: Suponha que para todo $n \in \mathbb{N}$ tem-se que $\widehat{\delta}(q_0, a^{2n+1}) \in F$, ou seja, $\widehat{\delta}(q_0, a^{2n+1}) = q_1$.
+			\item[ ] \textbf{(H)}ipótese indutiva: Suponha que para todo $n \in \mathbb{N}$ tem-se que $\widehat{\delta}(q_0, a^{2n+1}) \in F$, ou seja, $\widehat{\delta}(q_0, a^{2n+1}) = q_1$.
 			
-			\item \textbf{(P)}asso indutivo: Dado $w = a^{2(n+1)+1}$ tem-se que,
+			\item[ ] \textbf{(P)}asso indutivo: Dado $w = a^{2(n+1)+1}$ tem-se que,
 			
 			\begin{eqnarray*}
 				\widehat{\delta}(q_0, a^{2(n+1)+1}) & = & \widehat{\delta}(q_0, a^{2n+1+2})\\
@@ -288,7 +288,7 @@ Pode-se agora formalizar a primeira das classes de linguagens sendo esta a class
 	Uma linguagem $L$ qualquer é dita ser regular se, e somente se, existe um AFD $A$ tal que $L = \mathcal{L}(A)$. A classe de todas as linguagens regulares é denotada por $\mathcal{L}_{Reg}$.
 \end{definicao}
 
-\subsection{Autômatos Finitos Não-determinísticos}\label{subsec:AFN}
+\section{Autômatos Finitos Não-determinísticos}\label{subsec:AFN}
 
 Como explicado por Peter Linz em \cite{linz2006}, um autômato finito não-determinístico, ou simplesmente AFN, é um autômato que se diferencia dos AFD apenas no quesito da função de transição. A diferença consiste no fato de que, enquanto a imagem da função de transição em um AFD é sempre um estado, nos AFN a imagem da  função de transição é um subconjunto de estados, em um sentido moderno da teoria dos autômatos, um AFN seria uma máquina que algumas transições geraria uma superposição de estados \cite{valdi2020phd}. Formalmente um AFN é como se segue.
 
@@ -543,8 +543,8 @@ De forma similar ao que ocorre com os AFD, para mostrar que uma linguagem $L$ é
 
     $(\Leftarrow)$ Suponha que $w \in \mathcal{L}(A)$ assim $s_1 \in \widehat{\delta_N}(s_0, w)$, note porém que $s_1$ só é acessível a partir de duas transições: 
     \begin{itemize}
-			\item (1) $\delta_N(s_0, a)$ e
-			\item (2) $\delta_N(s_2, a)$. 
+			\item[(1)] $\delta_N(s_0, a)$ e
+			\item[(2)] $\delta_N(s_2, a)$. 
 		\end{itemize}
 		Note que devido ao \textit{loop} fornecido pelo fato de que $s_0 \in \delta_N(s_0, a)$ a transição (1) pode ser executada $m$ vezes com $m \geq 1$, em que para cada execução um novo ramo com o estado $s_1$ é gerado na árvore de computação de $A$, entretanto, executar $m$ vezes a transição $\delta_N(s_0, a)$ implica em executar a computação $\widehat{\delta_N}(s_0, a^m)$, pelo fato\footnote{Fica para o leitor a tarefa de provar que para todo $m \geq 1$ tem-se que $s_1 \in \widehat{\delta_N}(s_0, a^m)$.} de que $s_1 \in \widehat{\delta_N}(s_0, a^m)$ tem-se que $a^m \in \mathcal{L}(A)$, e uma vez que $a^m = a^m(ba)^0$ tem-se que a primeira forma de $\widehat{\delta_N}(s_0, w) \cap F \neq \emptyset$ é que $w = a^m(ba)^0$ e assim $w \in L$. Por outro lado, para acessar $s_1$ via a transição (2) é necessário antes chegar a um ramo de computação em que o estado $s_2$ seja uma folha, mas pela definição de $A$ isso só é possível se a transição $\delta_N(s_1, b)$ for usada, note entretanto, que as transições $\delta_N(s_1, b) = \{s_2\}$ e $\widehat{\delta_N}(s_2, a) = \{s_1\}$ também geram um \textit{loop} que pode ser executado $n$ vezes com $n \geq 0$, mas executar esse \textit{loop} $n$ vezes corresponde a executar $\widehat{\delta_N}(s_1, (ba)^n)$, e como dito anteriormente, $s_1$ só é acessível pela definição de $A$ usando a computação $\widehat{\delta_N}(s_0, a^m)$, portanto, para que $s_1 \in \widehat{\delta_N}(s_0, w) \cap F$, obrigatoriamente, $w = a^m(ba)^n$ com $m \geq 1, n \geq 0$, e portanto, $w \in L$.
   \end{proof}
@@ -678,7 +678,7 @@ A seguir o leitor será apresentado a uma melhoria no algoritmo de construção 
   \end{table}
 \end{exemplo}
 
-\subsection{$\lambda$-Autômatos Finitos Não-determinísticos}\label{subsec:LAFN}
+\section{$\lambda$-Autômatos Finitos Não-determinísticos}\label{subsec:LAFN}
 
 Os $\lambda$-Autômatos Finitos Não-determinísticos, ou simplesmente, $\lambda$-AFN são como dito em \cite{menezes1998LFA}, uma generalização do modelo de AFN que foi introduzido na seção anterior e que são permitidas transições entre estados diferentes usando (ou consumindo) a palavra vazia, tais transições recebem o nome de $\lambda$-transições, a seguir tais autômatos serão apresentados formalmente.
 
@@ -826,10 +826,7 @@ Agora usando as definições de $\delta_\lambda$ e $\widehat{\delta_\lambda}$ po
 Assim como para o caso dos AFN uma palavra qualquer $w \in \Sigma^*$ será dita aceita por um $\lambda$-AFN quando a computação da palavra $w$ para em pelo menos um estado final, ou seja, $w$ é reconhecida pelo $\lambda$-AFN sempre que $\widehat{\underline{\delta_N}}(q_0, w) \cap F \neq \emptyset$, e assim pode-se definir formalmente a noção de linguagem para os $\lambda$-AFN.
 
 \begin{definicao}[Linguagem de um $\lambda$-AFN]\label{def:LinguagelLAFN}
-	Seja $A = \langle Q, \Sigma, \underline{\delta_N}, q_0, F\rangle$ um $\lambda$-AFN a linguagem aceita por $A$, denotado por $\mathcal{L}(A)$, corresponde ao seguinte conjunto.
-	\begin{eqnarray}
-		\mathcal{L}(A) = \{w \in \Sigma^* \mid \widehat{\underline{\delta_N}}(q_0, w) \cap F \neq \emptyset\}
-	\end{eqnarray}
+	Seja $A = \langle Q, \Sigma, \underline{\delta_N}, q_0, F\rangle$ um $\lambda$-AFN a linguagem aceita por $A$, denotado por $\mathcal{L}(A)$, corresponde ao seguinte conjunto $\mathcal{L}(A) = \{w \in \Sigma^* \mid \widehat{\underline{\delta_N}}(q_0, w) \cap F \neq \emptyset\}$.
 \end{definicao}
 
 Os aspectos relacionados a mostrar que um $\lambda$-AFN reconhece uma linguagem $L$ são similares ao mesmo aspectos com respeito aos AFN.
@@ -1016,7 +1013,7 @@ Assim como para o caso da transformação de AFN em AFD, o processo de usar a co
   Nestas últimas seções foram usados os símbolos $\delta, \delta_N$ e $\underline{\delta_N}$ para denotar as funções de transições dos AFD, AFN e $\lambda$-AFN respectivamente, entretanto, o motivo disto foi que ALiCIA acho que isso iria tornar o texto mais didático e ajudar na conversão entre os tipos de autômatos, mas é comum encontrar na literatura (ver \cite{benjaLivro2010, hopcroft2008, linz2006}) que independente do tipo de autômato sua função de transição é denotada apenas por $\delta$.
 \end{cuidado}
 
-\subsection{Teorema Myhill-Nerode e a  minimização de AFD}
+\section{Teorema Myhill-Nerode e a  minimização de AFD}
 
 Até agora este manuscrito se preocupou com a tarefa de saber se uma linguagem pode ou não ser reconhecida por um autômato finito,  seja ele determinístico ou não-determinístico. Nesta seção será apresentada ao leitor a questão de eficiência no reconhecimento de linguagens em relação aos autômatos finitos, aqui será mostrado que o problema de encontrar um menor AFD que reconhece uma linguagem $L$ é decidível. 
 
@@ -1379,7 +1376,7 @@ Desde que $\delta^*([q], a) = [\delta(q, a)]$ é um caso particular do resultado
 	A demonstração fica como exercício ao leitor.
 \end{proof}
 
-\subsection{Máquinas de Mealy e Moore como Tradutores Finitos}
+\section{Máquinas de Mealy e Moore como Tradutores Finitos}
 
 Os trabalhos iniciais de Mealy \cite{mealy1955} e Moore \cite{moore1956}, além de serem alicerces fundamentais da teoria dos autômatos finitos, também são os trabalhos responsáveis por formalizar o conceito de tradutores finitos ou autômato finito com saída. 
 
@@ -1580,3 +1577,375 @@ O leitor atento deve ter notado pelas definições que as traduções feitas pel
 
 As definições dadas aqui não apresentam o conceito de estado final, para leitores interessados em máquinas de Mealy e Moore com estados finais ver \cite{menezes1998LFA}.
 
+\section{Questionário}\label{sec:Questionario2part4}
+
+
+{\color{red} \scriptsize \textdbend} Para esse questionário sempre que $w \in \Sigma^*$ e $c \in \Sigma$ a notação $|w|_c$ irá representar o número de $c$'s que existem na palavra $w$.
+
+\ 
+
+\begin{questao}\label{exer:LR8}
+	Considere o autômato na Figura \ref{fig:AutomaExercicioLR8} e responda o que é solicitado.
+\end{questao}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=2.5cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+		\node[state, initial]				(A)               	{$s_0$};
+		\node[state, accepting]				(B) [right of=A] 	{$s_1$};
+		\node[state]				        (C) [right of=B] 	{$s_2$};
+		\node[state, accepting]		        (D) [right of=C] 	{$s_3$};
+		\node[state]				        (E) [above of=C] 	{$s_4$};
+		\path[->] (A) +(-1,0) edge (A)
+		
+		%Transições:
+		%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+		(A) edge [bend right]  				node [below] {$c$}		 (B)
+		(A) edge [loop above]  				node 		 {$a$}		 ( )
+		(A) edge [bend left]  				node [above] {$b$}		 (E)
+		(B) edge [bend right]  				node [above] {$b$}		 (A)
+		(B) edge  							node [below] {$a$}	 	 (C)
+		(B) edge [loop below]  				node 		 {$c$}		 ( )
+		(C) edge [bend left]  				node [above] {$c$}	 	 (D)
+		(C) edge [bend left]  				node [left]  {$b$}		 (E)
+		(C) edge [loop below]  				node 		 {$a$}		 ( )
+		(E) edge [bend left]  				node [right] {$b$}		 (C)
+		(E) edge [bend left]  				node [right] {$c$}	 	 (D)
+		(E) edge [loop above]  				node 		 {$a$}		 ( )
+		(D) edge [loop right]  				node 		 {$c$}       ( )
+		(D) edge [bend left]  				node [below] {$a,b$} 	 (C);
+	\end{tikzpicture}
+	\caption{Autômato para o exercício \ref{exer:LR8}.}
+	\label{fig:AutomaExercicioLR8}
+\end{figure}
+
+\begin{exerList}
+	\item Verifique se as palavras: $abccaaabacab, ccccbacabacbb, bbacabb, aaccca, aaabb, acacabb,$ $bbacac$ e $ccabbbacac$ são aceitas ou não pelo autômato.
+	\item $\lambda$ é aceito por este autômato?
+	\item Traduza o grafo de transição para a notação algébrica.
+\end{exerList}
+
+\begin{questao}\label{exer:LR9}
+	Construa um AFD que compute cada linguagem a seguir.
+\end{questao}
+
+\begin{exerList}
+	\item $L_1 = \{\lambda, 00101111, 11001101, 1\}$.
+	\item $L_2 = \{w10 \in \{0,1\}^* \mid w = (001)^n11 \text{ com } n \in \mathbb{N}\}$.
+	\item $L_3 = \{w \in \{a,b\}^* \mid w = a^{2m}b^{2n+1} \text{ ou } w = aab^{3m + 3}b^n \text{ com } m,n \in \mathbb{N}\}$.
+	\item $L_4 = \{w \in \{a,b,c,d\}^* \mid w \text{ não contém as subcadeias } ab \text{ e } cd\}$.
+	\item $L_5 = \{w \in \{0,1\}^* \mid (\forall n \in \mathbb{N})[|w|_1 \neq 3n]\}$.
+	\item $L_6 = \{w \in \{0,1\}^* \mid w = x_1\cdots x_n \text{ e } x_i = 0 \text{ se } i \text{ for par, senão } x_i = 1 \text{, sendo } n \in \mathbb{N}\}$.
+	\item $L_7 = \{w \in \{x, y, z\}^* \mid \text{Se } w \text{ contém a sub-palavra } zz \text{, então à  direita da sub-palavra }$ $zz \text{ não ocorre a sub-palavra } yy \}$.
+	\item $L_8 = \{aaa, aab, aba, abb, baa, bab, bba, bbb\} \cup \{bbca, ccab, ccab, baba\}$.
+	\item $L_9 = \{uv \in \{0,1\}^* \mid u = 1^m0111, v = 0100^p1 \text{ com } m, p \in \mathbb{N}\}$.
+	\item $L_{10} = \{w \in \{0,1\}^* \mid w \text{ é um número binário multiplo de  } 3\}$.
+\end{exerList}
+
+\begin{questao}\label{exer:LR10}
+	Considerando o alfabeto $\Sigma = \{c, d\}$ para cada uma das linguagens definidas pelas propriedades a seguir construa um AFD que a compute.
+\end{questao}
+
+\begin{exerList}
+	\item $w$ possui exatamente um único símbolo $d$, e este não aparece no final das palavras.
+	\item $w$ tem apenas uma única sub-palavra $dd$.
+	\item $w$ não contém três $d$'s seguidos.
+	\item $w$ possui pelo menos um $c$.
+	\item $w$ possui 6 ou menos símbolos, e não existe as sub-palavras $cc$ e $dd$.
+	\item $w$ tem mais que $4$ símbolos $c$.
+	\item $w$ é da forma $db^4wb^5d$ com $w \in \Sigma^*$.
+	\item $w$ possui tamanho $n$ tal que $n \mod 3 \neq 0$.
+	\item $|w| = n$ com $n \geq 3$ e $|w|_c \mod 2 > 1$.
+	\item $w$ é qualquer palavra tal que $3 \leq |w|_c \leq 6$
+	\item $w$ tem a forma $c^md^n$ tal que $m$ ou $n$ não divisível por $2$.
+	\item $w$ tem a forma $c^md^nc^p$ tal que $mnp > 6$ e $mnp$ seja impar.
+	\item $w$ é tal que $|w|_d = 2$ ou $|w|_c = 1$.
+	\item $w$ tem a forma $c^md^n$ tal que $m+n > mn$.
+	\item $w$ possui a sub-palavra  $ddcd$ e $|w|_d + |w|_c > 6$.
+\end{exerList}
+
+\begin{questao}\label{exer:LR11}
+	Considerando o alfabeto $\Sigma = \{2, 3, 5\}$, demonstre usando AFD que as linguagens definidas pelas propriedades a seguir são regulares.
+\end{questao}
+
+\begin{exerList}
+	\item $L_{pp} = \{w \in \Sigma^* \mid |w|_2, |w|_5 \text{ são ambos pares}\}$.
+	\item $L_{pi} = \{w \in \Sigma^* \mid |w|_2 \cdot |w|_3 \text{ é par e } |w|_5 \text{ é impar}\}$.
+	\item $L_{pip} = \{w \in \Sigma^* \mid |w|_2 \text{ é par,} |w|_3 \text{ é impar e } |w|_5 \text{ é par}\}$.
+	\item $L_{pu} = \{w \in \Sigma^* \mid w = x_1\cdots x_n, x_1 = x_n \text{ com } n \in \mathbb{N}\}$.
+	\item $L_{pud} = \{w \in \Sigma^* \mid w = x_1\cdots x_n, x_1 \neq x_n \text{ com } n \in \mathbb{N}\}$.
+	\item $L_{dif} = \{wuv \in \Sigma^* \mid w,v \in \{3,5\}^*, |u| \geq 3\}$.
+	\item $L_{inv} = \{wuv \in \Sigma^* \mid w \in \{2\}^*,v \in \{3,5\}^+, u \in \{3\}^*\}$.
+\end{exerList}
+
+\begin{questao}\label{exer:LR12}
+	Dado um AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$ qualquer, mostre que para todo $u,v \in \Sigma^*$ tem-se que $\widehat{\delta}(q_0, uv) = \widehat{\delta}(\widehat{\delta}(q_0, u), v)$.
+\end{questao}
+
+\begin{questao}\label{exer:LR13}
+	Considerando os AFN das Figuras  \ref{fig:AFN1}, \ref{fig:AFN2} e \ref{fig:AFN3} execute as computações das palavras $aabbababa, bbababba, bbbbabaabb, bababaaa$ e $ababababbb$.
+\end{questao}
+
+\begin{questao}\label{exer:LR14}
+	Considerando o AFN da Figura  \ref{fig:AFN4} construa as árvores de computação para as palavras $010101$ e $11001101$.
+\end{questao}
+
+\begin{questao}\label{exer:LR15}
+	Converta os AFN das Figuras  \ref{fig:AFN1}, \ref{fig:AFN2}, \ref{fig:AFN3} e \ref{fig:AFN4} para a notação algébrica.
+\end{questao}
+
+\begin{questao}\label{exer:LR16}
+	Encontre os AFD equivalentes aos AFN das Figuras  \ref{fig:AFN1}, \ref{fig:AFN2} e \ref{fig:AFN3}.
+\end{questao}
+
+\begin{questao}\label{exer:LR17}
+	Seja $L = \{01, 012\}$, construa um AFN com $4$ estados (ou menos)  que aceita a linguagem $L^*$.
+\end{questao}
+
+\begin{questao}\label{exer:LR18}
+	Dado a linguagem $L = \{0101^m \mid m \geq 1\} \cup \{010^n \mid n \in \mathbb{N}\}$ construa um AFN com 5 ou menos estados que aceite a linguagem $L$.
+\end{questao}
+
+\begin{questao}\label{exer:LR19}
+	Dado os AFN que você construiu nos Exercícios \ref{exer:LR17} e \ref{exer:LR18}, encontre os AFD equivalentes a ele.
+\end{questao}
+
+\begin{questao}\label{exer:LR20}
+	Considerando o AFN representado pelo grafo de transição na Figura \ref{fig:AutomaExercicioLR20} responda o que é solicitado.
+\end{questao}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=3.0cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+		\node[state, initial]				(A)               	{$q_0$};
+		\node[state]						(B) [right of=A] 	{$q_1$};
+		\node[state]				        (C) [right of=B] 	{$q_2$};
+		\node[state, accepting]		        (D) [right of=C] 	{$q_3$};
+		
+		\path[->] (A) +(-1,0) edge (A)
+		
+		%Transições:
+		%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+		(A) edge 			  				node [below] {$b,a$}	 (B)
+		(A) edge [loop above]  				node 		 {$a$}		 ( )
+		(B) edge 			  				node [below] {$a$}		 (C)
+		(B) edge [loop above]  				node 		 {$a,b$}	 ( )
+		(C) edge 			  				node [below] {$b,a$}	 (D)
+		(C) edge [loop above]  				node 		 {$a$}	 	 ( )
+		(D) edge [loop above]  				node 		 {$a,b$} 	 ( );
+	\end{tikzpicture}
+	\caption{Autômato para o exercício \ref{exer:LR20}.}
+	\label{fig:AutomaExercicioLR20}
+\end{figure}
+
+\begin{exerList}
+	\item Realize a computação para as palavras $aaba$ e $baba$.
+	\item Esboce a árvore de computação para a palavra $abbaabaab$.
+	\item Converta o AFN da Figura \ref{fig:AutomaExercicioLR20} para a notação algébrica.
+	\item Encontre um AFD equivalente ao AFN da Figura \ref{fig:AutomaExercicioLR20}.
+\end{exerList}
+
+\begin{questao}\label{exer:LR21}
+	Considerando o AFN representado pelo grafo de transição na Figura \ref{fig:AutomaExercicioLR21} responda o que é solicitado.
+\end{questao}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=3.0cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+		\node[state, initial]				(A)               	{$q_0$};
+		\node[state, accepting]				(B) [right of=A] 	{$q_1$};
+		\node[state]				        (C) [right of=B] 	{$q_2$};
+		\node[state, accepting]		        (D) [right of=C] 	{$q_3$};
+		
+		\path[->] (A) +(-1,0) edge (A)
+		
+		%Transições:
+		%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+		(A) edge 			  				node {$0$}	 	 (B)
+		(A) edge [bend right]  				node {$0,1$}	 (D)
+		(B) edge [loop above]  				node {$0,1$}	 ( )
+		(B) edge 			  				node {$0,1$} 	 (C)
+		(C) edge [loop above]  				node {$1$}		 ( )
+		(C) edge 							node [below] {$0,1$}	 (D)
+		(D) edge [bend right]				node [above] {$0,1$}	 (C);
+		
+	\end{tikzpicture}
+	\caption{Autômato para o exercício \ref{exer:LR21}.}
+	\label{fig:AutomaExercicioLR21}
+\end{figure}
+
+\begin{exerList}
+	\item Realize a computação para as palavras $01110$ e $1001011$.
+	\item Esboce a árvore de computação para a palavra $110110101$.
+	\item Converta o AFN da Figura \ref{fig:AutomaExercicioLR21} para a notação algébrica.
+	\item Encontre um AFD equivalente ao AFN da Figura \ref{fig:AutomaExercicioLR21}.
+\end{exerList}
+
+\begin{questao}\label{exer:LR22}
+	Considerando o $\lambda$-AFN do Exemplo \ref{exe:LinguagemLAFN1} responda o que é solicitado. 
+\end{questao}
+
+\begin{exerList}
+	\item Calcule $\delta_\lambda(q_0), \delta_\lambda(q_1)$ e $\delta_\lambda(q_2)$.
+	\item Compute $\widehat{\underline{\delta_N}}(q_0, 11233)$.
+	\item Apresente um AFD equivalente ao $\lambda$-AFN.
+\end{exerList}
+
+\begin{questao}\label{exer:LR23}
+	Considerando $\Sigma_1 = \{0, 1\}$  e $\Sigma_2 = \{2, 3\}$ construa um $\lambda$-AFN com um único estado final que aceita a linguagem $\{w \in \Sigma_1^* \mid |w|_1 = 2i, i \in \mathbb{N}\} \cup \{w \in \Sigma_2^* \mid |w|_3 = 2j + 1, j\in \mathbb{N}\} $. 
+\end{questao}
+
+\begin{questao}\label{exer:LR24}
+	Considere o alfabeto $\Sigma = \{a, b, c\}$ e as linguagens  $L_1 = \{w \in \Sigma^* \mid |w|_a \geq 0, |w|_b > 0, |w|_c = 2k, k \in \mathbb{N}\}$ e $L_2 = \{abaccc, ababc, abacab, acbcc, bacbaaa,$ $abb, bba, aaaabbbb, cac, ccba, caccabcac\}$. Para cada uma das linguagens $L_1 \cup L_2$, $L_1L_2$ e $L_2L_1$ construa um $\lambda$-AFN $A$ que as aceite.
+\end{questao}
+
+\begin{questao}\label{exer:LR25}
+	Considerando o $\lambda$-AFN $A = \langle Q, \Sigma, \underline{\delta_N}, q_0, \{q_2\} \rangle$ onde $\underline{\delta_N}$ é especificada pela Tabela \ref{tab:DeltaLAFN-Exe25}, responda o que é solicitado.
+\end{questao}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|cccc}
+		\diagbox{$Q'$}{$\Sigma$}	& $\lambda$ & $a$ & $b$ & $c$\\\hline
+		$q_0$ & $\emptyset$ & $\{q_0\}$ & $\{q_1\}$ & $\{q_2\}$\\
+		$q_1$ & $\{q_0\}$ & $\{q_1\}$ & $\{q_2\}$ & $\emptyset$\\
+		$q_2$ & $\{q_1\}$ & $\{q_2\}$ & $\emptyset$ & $\{q_0\}$ 		
+	\end{tabular}
+	\caption{Tabela da função de transição do $\lambda$-AFN do exercício \ref{exer:LR25}.}
+	\label{tab:DeltaLAFN-Exe25}
+\end{table}
+
+\begin{exerList}
+	\item Para cada estado do autômato calcule $\delta_\lambda$.
+	\item Esboce todos os $w$ pertencentes a linguagem do autômato tal que $|w| \leq 4$.
+	\item Encontre um AFD equivalente $A$. 
+\end{exerList}
+
+\begin{questao}\label{exer:LR26}
+	Considerando o $\lambda$-AFN $S = \langle Q, \Sigma, \underline{\delta_N}, s_0, \{s_2\} \rangle$ onde $\underline{\delta_N}$ é especificada pela Tabela \ref{tab:DeltaLAFN-Exe26}, responda o que é solicitado.
+\end{questao}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c|cccc}
+		\diagbox{$Q'$}{$\Sigma$}	& $\lambda$ & $0$ & $1$ & $2$\\\hline
+		$s_0$ & $\{s_1, s_2\}$ & $\emptyset$  & $\{s_1\}$ & $\{s_2\}$\\
+		$s_1$ & $\emptyset$ & $\{s_0\}$ & $\{s_2\}$ & $\{s_0, s_2\}$ \\
+		$s_2$ & $\emptyset$ & $\emptyset$ & $\emptyset$ & $\emptyset$ 		
+	\end{tabular}
+	\caption{Tabela da função de transição do $\lambda$-AFN do exercício \ref{exer:LR26}.}
+	\label{tab:DeltaLAFN-Exe26}
+\end{table}
+
+\begin{exerList}
+	\item Para cada estado do autômato calcule $\delta_\lambda$.
+	\item Esboce todos os $w$ pertencentes a linguagem do autômato tal que $|w| \leq 3$.
+	\item Encontre um AFD equivalente $S$. 
+\end{exerList}
+
+\begin{questao}\label{exer:LR27}
+	Para as linguagens especificadas pelos enunciados a seguir construa $\lambda$-AFN que as aceite.
+\end{questao}
+
+\begin{exerList}
+	\item A linguagem de todas as palavras que começam e terminam com qualquer letra do alfabeto $\{a,b,c\}$, porém não existe nas palavras dois $a$'s e dois $c$'s seguidos.
+	\item A linguagem de todas as palavras sobre o alfabeto $\{0,1\}$ que iniciam com o prefixo $(01)^n$ e termina com o sufixo $10$ ou começam com o prefixo $(101)^n$ e terminam com o sufixo $00$, sendo $n \in \mathbb{N}$ tal que $n \geq 1$.
+	\item A linguagem de todas as palavras sobre o alfabeto $\{x, y\}$ tal que no mínimo uma das quatro últimas letras da palavra é um $x$.
+	\item A linguagem de todas as palavras sobre o alfabeto $\{x, y, z\}$ tal que no máximo uma das três primeiras letras da palavra é um $y$ ou as duas primeiras são $z$.
+\end{exerList}
+
+\begin{questao}\label{exer:LR28}
+	Encontre o AFD quociente do AFD apresentado no exercício \ref{exer:LR8}.
+\end{questao}
+
+\begin{questao}\label{exer:LR29}
+	Encontre o AFD quociente equivalente ao AFN apresentado no exercício \ref{exer:LR20}.
+\end{questao}
+
+\begin{questao}\label{exer:LR30}
+	Encontre o AFD quociente equivalente ao AFN apresentado no exercício \ref{exer:LR21}.
+\end{questao}
+
+\begin{questao}\label{exer:LR31}
+	Encontre o AFD quociente equivalente ao AFN apresentado no exercício \ref{exer:LR25}.
+\end{questao}
+
+\begin{questao}\label{exer:LR32}
+	Encontre o AFD quociente equivalente ao AFN apresentado no exercício \ref{exer:LR26}.
+\end{questao}
+
+\begin{questao}\label{exer:LR33}
+	Encontre o AFD quociente equivalente ao $\lambda$-AFN da Figura \ref{fig:AutomaExercicioLR33} a seguir.
+\end{questao}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=2.5cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+		\node[state, initial]				(A)               	{$q_0$};
+		\node[state, accepting]				(B) [right of=A] 	{$q_1$};
+		\node[state]				        (C) [right of=B] 	{$q_2$};
+		
+		\path[->] (A) +(-1,0) edge (A)
+		
+		%Transições:
+		%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+		(A) edge [bend left]  				node {$1$}	 			 (B)
+		(B) edge [bend left]  				node {$\lambda, 0$}		 (A)
+		(B) edge [loop above]				node {$1$}				 ( )
+		(B) edge [bend left]				node {$0,1$}			 (C)
+		(C) edge [bend left]				node {$1$}				 (B)
+		(C) edge [loop above]				node {$0$}				 ( );
+	\end{tikzpicture}
+	\caption{Autômato para o exercício \ref{exer:LR33}.}
+	\label{fig:AutomaExercicioLR33}
+\end{figure}
+
+\begin{questao}\label{exer:LR34}
+	Encontre o AFD quociente equivalente ao $\lambda$-AFN da Figura \ref{fig:AutomaExercicioLR34} a seguir.
+\end{questao}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=2.5cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+		\node[state, initial]				(A)               	{$q_0$};
+		\node[state, accepting]				(B) [right of=A] 	{$q_1$};
+		\node[state]				        (C) [right of=B] 	{$q_2$};
+		
+		\path[->] (A) +(-1,0) edge (A)
+		
+		%Transições:
+		%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+		(A) edge [bend left]  			node {$1,0$} 			 (B)
+		(B) edge [bend left]  			node {$\lambda$}		 (A)
+		(B) edge [loop above]				node {$1$}				 ( )
+		(B) edge [bend left]				node {$0,1$}			 (C)
+		(C) edge [bend left]				node {$1, \lambda$}		 (B)
+		(C) edge [loop above]				node {$0$}				 ( );
+	\end{tikzpicture}
+	\caption{Autômato para o exercício \ref{exer:LR34}.}
+	\label{fig:AutomaExercicioLR34}
+\end{figure}
+
+\begin{questao}\label{exer:MM35}
+	Esboce uma máquina de Mealy que converte a representação monetária americana para a representação brasileira. Por exemplo, se o autômatos receber como entrada a palavra $US\$65,010.59$ ela deve devolver como saída a palavra $BR\$65.010,59$.
+\end{questao} 
+
+\begin{questao}\label{exer:LR36}
+	Esboce uma máquina de Moore que implementa um chatbot de \textit{Telegram} para uma empresa que oferece suporte de informática.
+\end{questao}
+
+\begin{questao}\label{exer:LR37}
+	Construa uma máquina de Mealy que, dado um alfabeto $\Sigma = \{0,1\}$, computa a seguinte função: para cada sub-sequência de dois $1$ seguidos, o segundo deve ser traduzido para $A$ se o antecessor não tiver sido traduzido, por exemplo,  uma palavra $010110111$ deve ser traduzida para $0101A01A1$.
+\end{questao}
+
+\begin{questao}\label{exer:LR38}
+	Construa uma máquina de Mealy que, ao receber uma sequência de bits de entrada, inverte o bit atual se o número de bits $1$ já processados for par, e não faz nada se for ímpar.
+\end{questao}
+
+\begin{questao}\label{exer:LR39}
+	Construa uma máquina de Moore que, ao receber uma sequência binária de entrada, em a máquina emite $1$ sempre que a sequência até aquele ponto lido na memória de entrada tiver um número ímpar de $1$'s, caso contrário a máquina deve emitir e $0$ se contiver um número par de $1$'s.
+\end{questao}
+
+\begin{questao}\label{exer:LR40}
+	Apresente um algoritmo de minimização para máquinas de Mealy e Moore, e explique de forma sucinta a sutiliza na diferenca entre os dois algoritmos.
+\end{questao}

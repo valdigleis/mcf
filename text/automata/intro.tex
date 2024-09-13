@@ -21,8 +21,6 @@ Como dito em \cite{valdi2016master, valdi2020phd} uma definição informal do co
 	\item Uma unidade de controle\footnote{Também chamada de unidade central de processamento (UCP).} que  administra o estado atual do autômato e é responsável por executar as instruções (programa) da máquina.
 \end{itemize}
 
-Com respeito as memórias é comum assumir a existência de um \textbf{dispositivo de leitura e (ou) escrita}\footnote{Também é usado a nomenclatura cabeçote \cite{valdi2016master, valdi2020phd}.} que é capaz de acessar uma única célula por vez, e assim pode lê e (ou) escrever na célula. A depender do tipo de autômato podem existir vários dispositivos de leitura/escrita ou apenas um \cite{benjaLivro2010}.
-
 \begin{figure}[H]
 	\centering
 	\begin{tikzpicture}
@@ -69,6 +67,8 @@ Com respeito as memórias é comum assumir a existência de um \textbf{dispositi
 	\caption{Representação informal do conceito de autômato finito com uma única memória retirado de \cite{valdi2020phd}.}
 	\label{fig:AF-Informal}
 \end{figure}
+
+Com respeito as memórias é comum assumir a existência de um \textbf{dispositivo de leitura e (ou) escrita}\footnote{Também é usado a nomenclatura cabeçote \cite{valdi2016master, valdi2020phd}.} que é capaz de acessar uma única célula por vez, e assim pode lê e (ou) escrever na célula. A depender do tipo de autômato podem existir vários dispositivos de leitura/escrita ou apenas um \cite{benjaLivro2010}.
 
 A(s) memória(s) de um autômato finito serve(m) para guarda dados (os símbolos) usados durante o funcionamento do autômato. O funcionamento de um autômato por sua vez, pode ser descrito em tempo discreto \cite{valdi2016master, valdi2020phd}, assim sendo, em qualquer momento  no tempo $t$, a \textbf{unidade de controle} do autômato estará sempre em algum \textbf{estado} interno possível e a(s) \textbf{unidade(s) de leitura/escrita} tem acesso a alguma(s)  \textbf{célula(s)} da(s) memória(s). 
 
@@ -211,16 +211,8 @@ Além das palavras, pode-se também formalizar uma série de operações sobre a
 
 O leitor mais atencioso e maduro matematicamente pode notar que para qualquer que seja $n \in \mathbb{N}$ o conjunto potência tem a propriedade de que todo $w \in \Sigma^n$ é tal que $|w| = n$, além disso, é claro que todo $\Sigma^n$ é sempre finito\footnote{Essa afirmação é facilmente verificável, uma vez que, a mesma nada mais é do que um exemplo de arranjo com repetição.}.
 
-\begin{definicao}
-  [Fecho Positivo e de Kleene]\label{def:FechoPositivoKleene}
-	Seja $\Sigma$ um alfabeto o fecho positivo e o fecho de Kleene de $\Sigma$, denotados respectivamente por $\Sigma^+$ e $\Sigma^*$, correspondem aos conjuntos:
-	\begin{eqnarray}
-		\Sigma^+ & = & \bigcup_{i = 1}^\infty \Sigma^i
-	\end{eqnarray}
-	e
-	\begin{eqnarray}
-		\Sigma^* & = & \bigcup_{i = 0}^\infty \Sigma^i
-	\end{eqnarray}
+\begin{definicao}[Fecho Positivo e de Kleene]\label{def:FechoPositivoKleene}
+	Seja $\Sigma$ um alfabeto o fecho positivo e o fecho de Kleene de $\Sigma$, denotados respectivamente por $\Sigma^+$ e $\Sigma^*$, correspondem aos conjuntos: $\displaystyle\Sigma^+  =  \bigcup_{i = 1}^\infty \Sigma^i$ e $\displaystyle \Sigma^*  =  \bigcup_{i = 0}^\infty \Sigma^i$.
 \end{definicao}
 
 Obviamente como dito em \cite{benjaLivro2010}, o fecho de positivo pode ser reescrito em função do fecho de Kleene usando a operação de diferença de conjunto, isto é, o fecho positivo corresponde a seguinte identidade, $\Sigma^+ = \Sigma^* - \{\lambda\}$. Sobre o fecho de Kleene com destacado em \cite{valdi2020phd} o mesmo corresponde ao monoide livremente\footnote{Relembre que uma álgebra é livremente gerada quando todo elemento possui fatoração única (a menos de isomorfismo).} gerado pelo conjunto $\Sigma$ munida da operação de concatenação.

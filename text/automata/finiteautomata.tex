@@ -1022,8 +1022,561 @@ Até agora este manuscrito se preocupou com a tarefa de saber se uma linguagem p
 
 Na teoria dos autômatos quando se usa a palavra ``menor'', se está querendo dizer simplesmente aquele com o menor número possível de estados, ou seja, o AFD mínimo.  Mais adiante será aqui provado, que esse AFD mínimo é único a menos de isomorfismo, ou seja, se dois AFD reconhecem a mesma linguagem, cada um tendo o menor número possível de estados, então eles são são isomórficos. Isso significa que cada linguagem regular está associada com um AFD mínimo. 
 
-Este resultado da existência de um AFD mínimo recebe o nome de \textbf{Teorema Myhill-Nerode}, em homenagem aos matemáticos John Myhill\footnote{O professor Myhill também é conhecido por seu Teorema de isomorfismo\cite{myhill1957-isomorfismo}, que pode ser visto como um análogo dentro da teoria da computabilidade ao teorema de Cantor–Bernstein–Schroeder e pelo famoso pelo Teorema  de Rice–Myhill–Shapiro, mais comumente conhecido como Teorema de Rice \cite{benjaLivro2010, rice1953-teorema-Rice}.} (1923-1987) e Anil Nerode (1932-), que o provaram na Universidade de Chicago em 1958 no artigo \cite{nerode1958}, de forma geral tal resultado fornece as condições suficientes e necessárias para que uma linguagem $L$ seja regular, para construir tal resultado antes é necessário considerar algumas definições básicas e alguns resultados auxiliares.
+Este resultado da existência de um AFD mínimo recebe o nome de \textbf{Teorema Myhill-Nerode}, em homenagem aos matemáticos John Myhill\footnote{O professor Myhill também é conhecido por seu Teorema de isomorfismo\cite{myhill1957-isomorfismo}, que pode ser visto como um análogo dentro da teoria da computabilidade ao teorema de Cantor-Bernstein-Schroeder e pelo famoso pelo Teorema  de Rice-Myhill-Shapiro, mais comumente conhecido como Teorema de Rice \cite{benjaLivro2010, rice1953-teorema-Rice}.} (1923-1987) e Anil Nerode (1932-), que o provaram na Universidade de Chicago em 1958 no artigo \cite{nerode1958}, de forma geral tal resultado fornece as condições suficientes e necessárias para que uma linguagem $L$ seja regular, para construir tal resultado antes é necessário considerar algumas definições básicas e alguns resultados auxiliares.
 
+\begin{definicao}[A família $\mathcal{H}_L$]\label{def:FamiliaH-L}
+	Seja $L$ uma linguagem qualquer\footnote{Não necessariamente regular.} sobre o alfabeto $\Sigma$, para qualquer palavra $w$ é definido o conjunto $L_w = \{x \mid wx \in L\}$. A família $\{L_w \mid w \in \Sigma^*\}$ construída sobre $L$ será denotada por $\mathcal{H}_L$, ou seja, $\mathcal{H}_L = \{L_w \mid w \in \Sigma^*\}$
+\end{definicao}
 
+Com respeito aos conjuntos $L_w$ o leitor mais atento pode notar que $L_\lambda = L$, além disso,  os conjuntos $L_w$ também apresentam a seguinte propriedade básica.
 
+\begin{proposicao}
+  Dado $L \subseteq \Sigma^*$. Se $L_w = L_{w'}$, então $L_{wa} = L_{w'a}$ para todo $a \in \Sigma$.
+\end{proposicao}
+
+\begin{proof}
+	Suponha que $L_w = L_{w'}$, assim para todo $a \in \Sigma^*$ tem-se que:
+	\begin{eqnarray*}
+		x \in L_{wa} &\Longleftrightarrow & wax \in L\\
+		& \Longleftrightarrow  & ax \in L_w\\
+		& \stackrel{Hip.}{\Longleftrightarrow} & ax \in L_{w'}\\
+		& \Longleftrightarrow  & x \in L_{w'a}
+	\end{eqnarray*}
+	concluindo a prova.
+\end{proof}
+
+Um fato importante sobre AFD que será usado a seguir e que não foi mencionado diretamente até agora é o exposto pelo resultado a seguir.
+
+\begin{proposicao}\label{prop:AssociatividadeDelta}
+	Se $A = \langle Q, \Sigma, \delta, q_0, F\rangle$ é um AFD, então $\widehat{\delta}(q_0, uv) = \widehat{\delta}( \widehat{\delta}(q_0, u), v)$ para todo $u,v \in \Sigma^*$.
+\end{proposicao}
+
+\begin{proof}
+	A prova é por indução sobre o tamanho da palavra $uv$ e ficará como exercício ao leitor.
+\end{proof}
+
+O lema a seguir mostra que $\# \mathcal{H}_L$ é na verdade um limite inferior para o número de estados em um AFD. 
+
+\begin{lema}\label{lema:LimiteInferiorEstados}
+	Se $L = \mathcal{L}(A)$ para algum AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$, então $\# \mathcal{H}_L \leq |Q|$.
+\end{lema}
+
+\begin{proof}
+	Suponha que $L = \mathcal{L}(A)$ para algum AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$, agora para todo $q \in Q$ defina um novo AFD $A_q$ igual ao anterior em todos os aspectos menos no estado inicial pois este será o estado $q$, ou seja,  $A_q = \langle Q, \Sigma, \delta, q, F\rangle$. Agora para toda palavra $w \in \Sigma^*$ suponha que $\widehat{\delta}(q_0, w) = q$, por definição note que, 
+	\begin{eqnarray*}
+		x \in L_w & \stackrel{Def. \ \ref{def:FamiliaH-L}}{\Longleftrightarrow} & wx \in L\\
+		& \Longleftrightarrow & wx \in \mathcal{L}(A)\\
+		& \Longleftrightarrow & \widehat{\delta}(q_0, wx) \in F\\
+		& \stackrel{Prop. \ \ref{prop:AssociatividadeDelta}}{\Longleftrightarrow} & \widehat{\delta}(\widehat{\delta}(q_0, w), x) \in F\\
+		& \stackrel{Hip.}{\Longleftrightarrow} & \widehat{\delta}(q, x) \in F\\
+		& \Longleftrightarrow & x \in \mathcal{L}(A_q)
+	\end{eqnarray*}
+	Dessa forma tem-se que $\mathcal{L}(A_q) = L_w$, e obviamente $\mathcal{L}(A_{q_0}) = L$. Desde que  $A$ é fixo, tem-se que $L_w$ depende apenas do estado obtido quando a computação $w$ começa em $q_0$, e assim o número de $L_w$ distintos, ou seja, os elementos de $\mathcal{H}_L$ não pode ser maior que o número de estados em $A$, portanto, $\#\mathcal{H}_L \leq |Q|$.
+\end{proof}
+
+O próximo lema estabelece que para alguma linguagem $L$ no caso $\mathcal{H}_L$ ser finito, então sua cardinalidade será o limite superior no número de estados em um AFD capaz de reconhecer $L$.
+
+\begin{lema}\label{lema:LimiteSuperiorEstados}
+	Seja $L \subseteq \Sigma^*$. Se $\mathcal{H}_L$ é finito, então existe um AFD $A _L$ tal que $L = \mathcal{L}(A_L)$ e $A_L$ possui exatamente $\#\mathcal{H}_L$ estados.
+\end{lema}
+
+\begin{proof}
+	Dado $L \subseteq \Sigma^*$ assuma que $\mathcal{H}_L$ é finito, dito isto pode-se construir o seguinte AFD $A_L = \langle \mathcal{H}_L, \Sigma, \delta, q_0, F \rangle$ onde:
+	\begin{eqnarray}\label{eq:EstadoInicial}
+		q_0 = L
+	\end{eqnarray}
+	e para todo $L_w \in \mathcal{H}_L$ e $a \in \Sigma$ tem-se
+	\begin{eqnarray}\label{eq:Delta-AL}
+		\delta(L_w, a) = L_{wa}
+	\end{eqnarray}
+	e
+	\begin{eqnarray}\label{eq:EstadosFinais}
+		F = \{L_w \in \mathcal{H}_L \mid \lambda \in L_w\}
+	\end{eqnarray}
+	sobre a definição de $A_L$ por indução sobre o tamanho de $w \in \Sigma^*$ pode-se facilmente verificar que, 
+	\begin{eqnarray}\label{eq:DeltaEstendido-AL}
+		\widehat{\delta}(q_0, w) = L_w
+	\end{eqnarray}
+	além disso, claramente $A_L$ possui exatamente $\#\mathcal{H}_L$ estados, dito isto, note que:
+	\begin{eqnarray*}
+		w \in L & \stackrel{Def. \ \ref{def:FamiliaH-L}}{\Longleftrightarrow} & \lambda \in L_w\\
+		& \stackrel{Eq. (\ref{eq:EstadosFinais})}{\Longleftrightarrow} & L_w \in F\\
+		& \stackrel{Eq. (\ref{eq:DeltaEstendido-AL})}{\Longleftrightarrow} & \widehat{\delta}(q_0, w) \in F\\
+		& \Longleftrightarrow & w \in \mathcal{L}(A_L)
+	\end{eqnarray*}
+	e portanto, $L = \mathcal{L}(A_L)$ concluindo assim a prova.
+\end{proof}
+
+\begin{definicao}[Dimensão de um AFD]
+	Seja $A = \langle Q, \Sigma, \delta', q_0, F \rangle$ um AFD a dimensão de $A$, denotado por $dim(A)$, é igual a quantidade de estados em $A$, isto é, $dim(A) = \# Q$. 
+\end{definicao}
+
+\begin{definicao}[AFD Mínimo]
+	Seja $L$ uma linguagem regular tal que $L = \mathcal{L}(A)$ para algum um AFD $A$. O AFD $A$ será dito ser mínimo se, e somente se,  para todo outro AFD $B$ tal que $L= \mathcal{L}(B)$ tem-se que $dim(A) \leq dim(B)$. 
+\end{definicao}
+
+O próximo resultado mostra que não existe nenhum autômato como menos estados que o AFD construído na prova do Lema \ref{lema:LimiteSuperiorEstados}, ou seja, o método de construção mostrado na  na prova do Lema \ref{lema:LimiteSuperiorEstados} gera o AFD mínimo de qualquer linguagem.
+
+\begin{lema}\label{lema:UnicadadeMinAFD}
+	Seja $L$ uma linguagem regular, assim o  AFD $A_L$ construído no Lema \ref{lema:LimiteSuperiorEstados} é o único (a menos de isomorfismo) mínimo AFD que aceita $L$.
+\end{lema}
+
+\begin{proof}
+	Suponha que existe outro AFD mínimo $N = \langle Q, \Sigma, \delta', q'_0, F' \rangle$ tal que $L = \mathcal{L}(N)$ diferente do AFD $A_L = \langle \mathcal{H}_L, \Sigma, \delta, L, F \rangle$ construído na prova do Lema \ref{lema:LimiteSuperiorEstados}. Agora será definida uma função $f: Q \rightarrow \mathcal{H}_L$ definida simplesmente como: 
+	\begin{eqnarray*}
+		f(q) & = & \left\{\begin{array}{ll}	L, & \hbox{se } q = q_0\\	\mathcal{L}(A_q),  & \hbox{senão}\end{array}\right.
+	\end{eqnarray*}
+	para todo $q \in Q$, onde $\mathcal{L}(A_q)$ é da mesma forma que na prova do Lema \ref{lema:LimiteInferiorEstados} onde o AFD fixo é exatamente $A_L$. Por esta definição é claro que: 
+	\begin{itemize}
+		\item[(1)] Se $q_i \neq q_j$, então tem-se que $f(q_i) \neq f(q_j)$, consequentemente a função $f$ é injetora.
+		\item[(2)] $f$ preserva a condição de estado inicial.
+		\item[(3)] Para $a \in \Sigma, w \in \Sigma^*$ e $q, p \in Q$ assuma que $\delta(q, a) = p$ e $f(q) = \mathcal{L}(A_q) = L_w$ assim para qualquer $u \in \Sigma^*$ tem-se que
+		\begin{eqnarray*}
+			u \in f(p) & \Longleftrightarrow & u \in \mathcal{L}(A_p)\\
+			& \Longleftrightarrow &  \widehat{\delta}(p, u) \in F\\
+			& \Longleftrightarrow &  \widehat{\delta}(\widehat{\delta}(q, a), u) \in F\\
+			& \Longleftrightarrow &  \widehat{\delta}(q, au) \in F\\
+			& \Longleftrightarrow &  au \in \mathcal{L}(A_q)\\
+			& \Longleftrightarrow &  au \in f(q)\\
+			& \Longleftrightarrow &  au \in L_w\\
+			& \Longleftrightarrow &  wau \in L\\
+			& \Longleftrightarrow &  u \in L_{wa}
+		\end{eqnarray*} 
+		portanto, $f(p) = L_{wa}$, ou seja, $f$ preserva transições\footnote{Isto é o mesmo que dizer que $f(\delta'(q, a)) = \delta(f(q), a)$.}.
+		\item[(4)] Agora note que pela definição de estado final e pela construção de $A_L$ tem-se que 
+		$$q \in F' \Longleftrightarrow \widehat{\delta}(q, \lambda) \in F' \Longleftrightarrow  \lambda \in \mathcal{L}(A_q) \Longleftrightarrow \mathcal{L}(A_q) \in F \Longleftrightarrow f(q) \in F$$
+		portanto, a função $f$ preserva estados finais.
+		\item[(5)] Agora dado $w \in \Sigma^*$ assuma que $\widehat{\delta}(q_0, w) = q$, assim pela prova do Lema \ref{lema:LimiteInferiorEstados} para todo $L_w \in \mathcal{H}_L$, ou seja, para todo $L_w \in Ima(f)$ tem-se que $L_w = \mathcal{L}(A_q)$, e portanto, pela definição de $f$ tem-se que existe $q \in D	om(f)$ tal que $L_w = f(q)$, ou seja, $f$ é sobrejetora.
+	\end{itemize}
+	Desde que $f$ é injetora e sobrejetora tem-se que $f$ é uma bijeção, e portanto, $\#Q = \#\mathcal{H}_L$, logo $dim(N) = dim(A_L)$. Agora desde que $f$ preserva o estado inicial, os estados finais e as transições tem-se que $f$ é um isomorfismo do AFN $N$ para o AFD $A_L$, e portanto, eles são o mesmo AFD se diferenciando apenas pela rotulação dos seus estados. 
+\end{proof}
+
+Pode-se agora finalmente enunciar o Teorema Myhill-Nerode que estabelece uma caracterização para as linguagens regulares.
+
+\begin{teorema}[Teorema Myhill-Nerode]\label{teo:Myhill-Nerode}
+	Uma linguagem $L \subseteq \Sigma^*$ será regular se, e somente se, $\mathcal{H}_L$ é finito e existe um AFD mínimo $A$ com exatamente $\# \mathcal{H}_L$ estados tal que $\mathcal{L}(A) = L$.
+\end{teorema}
+
+\begin{proof}
+	Direto dos Lemas \ref{lema:LimiteInferiorEstados}, \ref{lema:LimiteSuperiorEstados} e \ref{lema:UnicadadeMinAFD}.
+\end{proof}
+
+Apesar de extremamente elegante o resultado exposto pelo Teorema Myhill-Nerode apresentado anteriormente, não fornece um procedimento (ou algoritmo) geral explícito para construir um AFD mínimo equivalente a outro AFD dado. Esse processo de obter um AFD mínimo é chamado de minimização \cite{benjaLivro2010}, e o mesmo é baseado na ideia de relação equivalência entre estados e do espaço quociente de estados em um AFD. Primeiro será apresentado a formalização matemática da construção do AFD quociente e depois o pseudo-código de tal construção.
+
+\begin{definicao}[Estados Equivalentes]\label{def:EquivalenciaEstados}
+	Seja $A = \langle Q, \Sigma, \delta, q_0, F\rangle$ um AFD. A relação de equivalência entre dois estados $q, q' \in Q$ será denotado por $q \equiv q'$ e será verdadeira quando para todo $w \in \Sigma^*$ tem-se que $\widehat{\delta}(q, w) \in F \Longleftrightarrow \widehat{\delta}(q', w) \in F$.
+\end{definicao}
+
+O resultado a seguir diz que se dois estados são equivalentes, então seus sucessores também o são.
+
+\begin{lema}\label{lema:SucessoresEquivalentes}
+	Dado um AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$. Se $q \equiv q'$, então $\delta(q, a) \equiv \delta(q', a)$.
+\end{lema}
+
+\begin{proof}
+	Dado $a \in \Sigma$, por contrapositiva será mostrado que: 
+	\begin{center}
+		Se $\delta(q, a) \not\equiv \delta(q', a)$, então $q \not\equiv q'$. 
+	\end{center}
+	Inicialmente assuma que $\delta(q, a) \not\equiv \delta(q', a)$, assim pela Definição \ref{def:EquivalenciaEstados} existe um $w \in \Sigma^*$ tal que um dos dois casos a seguir acontece:
+	\begin{itemize}
+		\item[(1)] $\widehat{\delta}(\delta(q, a), w)  \in F$ e $\widehat{\delta}(\delta(q', a), w)  \notin F$ ou
+		\item[(2)] $\widehat{\delta}(\delta(q, a), w)  \notin F$ e $\widehat{\delta}(\delta(q', a), w)  \in F$.
+	\end{itemize}
+	em particular quando $w = \lambda$, para o primeiro caso (a prova é similar para o caso (2)) tem-se pela Definição \ref{def:DeltaEstendido} que:
+	\begin{eqnarray*}
+		\widehat{\delta}(\delta(q, a), w)  \in F \text{ e } \widehat{\delta}(\delta(q', a), w)  \notin F \Longleftrightarrow \delta(q, a)  \in F \text{ e }\delta(q', a)  \notin F
+	\end{eqnarray*}
+	e desde que $a \in \Sigma^*$ pela Definição \ref{def:EquivalenciaEstados} tem-se que $q \not\equiv q'$, o que conclui a prova da contrapositiva. Desde que a contrapositiva é verdadeira tem-se que afirmação original ``Se $q \equiv q'$, então $\delta(q, a) \equiv \delta(q', a)$'' é também verdadeira.
+\end{proof}
+
+Usando a definição anterior, a seguir será apresentado a definição de  AFD (ou colapso) quociente sobre um determinado AFD dado.
+
+\begin{definicao}[AFD quociente]\label{def:AFD-Quociente}
+	Seja $A = \langle Q, \Sigma, \delta, q_0, F\rangle$ um AFD. O AFD (ou colapso) quociente de $A$ é o AFD $A_{/\equiv} = \langle Q_{/\equiv}, \Sigma, \delta^*, [q_0],  F_{/\equiv}\rangle$ e para todo $q \in Q$ e $a \in \Sigma$ tem-se que $\delta^*([q], a) = [\delta(q, a)]$ e  $F_{/\equiv} = \{[q] \mid q \in F\}$.
+\end{definicao}
+
+\begin{teorema}\label{teo:ExtensaoDeltaEstrela}
+	Seja  $A_{/\equiv} = \langle Q_{/\equiv}, \Sigma, \delta^*, [q_0],  F_{/\equiv}\rangle$ o AFD quociente obtido a partir de um AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$. Então para todo $w \in \Sigma^*$ tem-se que $\widehat{\delta^*}([q], w) = [\widehat{\delta}(q, w)]$.
+\end{teorema}
+
+\begin{proof}
+	Por indução sobre o tamanho de $w \in \Sigma^*$ será mostrado a seguinte igualdade $\widehat{\delta^*}([q], w) = [\widehat{\delta}(q, w)]$.
+	\begin{itemize}
+		\item[ ] \textbf{(B)}ase: Quando $|w| = 0$ ($w = \lambda$) tem-se trivialmente que $\widehat{\delta^*}([q], \lambda) = [q] = [\widehat{\delta}(q, \lambda)]$.
+		
+		\item[ ] \textbf{(H)}ipótese indutiva: Suponha que para todo $w \in \Sigma^*$ com $|w| \geq 0$ tem-se que $\widehat{\delta^*}([q], w) = [\widehat{\delta}(q, w)]$.
+		\item[ ] \textbf{(P)}asso indutivo: Dado $w = ua$ com $u \in \Sigma^*$, $|u| \geq 0$ e $a \in \Sigma$ tem-se que, 
+		\begin{eqnarray*}
+			\widehat{\delta^*}([q], w) & = & \widehat{\delta^*}([q], ua)\\
+			& = & \delta^*(\widehat{\delta^*}([q], u),a)\\
+			& \stackrel{\textbf{(HI)}}{=} & \delta^*([\widehat{\delta}(q, u)],a)\\
+			& = & [\delta(\widehat{\delta}(q, u),a)]\\
+			& = & [\widehat{\delta}(q, ua)]\\
+			& = & [\widehat{\delta}(q, w)]
+		\end{eqnarray*}
+	\end{itemize}
+	Agora por  \textbf{(B)}, \textbf{(H)} e \textbf{(P)} pode-se efetivamente enunciar  que para todo $w \in \Sigma^*$ tem-se que $\widehat{\delta^*}([q], w) = [\widehat{\delta}(q, w)]$, o que completa a prova.
+\end{proof}
+
+\begin{teorema}\label{teo:FinalQuociente}
+	Seja  $A_{/\equiv} = \langle Q_{/\equiv}, \Sigma, \delta^*, [q_0],  F_{/\equiv}\rangle$ o AFD quociente obtido a partir de um AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$. Então $q \in F \Longleftrightarrow [q] \in F_{/\equiv}$
+\end{teorema}
+
+\begin{proof}
+	$(\Rightarrow)$ Trivial pela própria definição de $ F_{/\equiv}$. $(\Leftarrow)$ É suficiente mostrar que se $q \equiv p$ e $q \in F$, então $p \in F$. Para provar isto, suponha que $q \equiv p$ e $q \in F$, mas note que $q \in F \Longleftrightarrow \widehat{\delta}(q, \lambda) \in F$, mas como $q \equiv p$, por definição tem-se para todo $w \in \Sigma^*$ que $\widehat{\delta}(q, w) \in F \Longleftrightarrow \widehat{\delta}(p, w) \in F$, assim no particular quando $w = \lambda$ tem-se que  $\widehat{\delta}(p, \lambda) \in F$, mas $\widehat{\delta}(p, \lambda) = p$, portanto, $p \in F$.
+\end{proof}
+
+O próximo resultado mostra que o colapso de um AFD para seu AFD quociente preserva a linguagem aceita pelo autômato. 
+
+\begin{teorema}\label{teo:LinguagemQuociente}
+	Seja  $A_{/\equiv} = \langle Q_{/\equiv}, \Sigma, \delta^*, [q_0],  F_{/\equiv}\rangle$ o AFD quociente obtido a partir de um AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$. Então $\mathcal{L}(A_{/\equiv}) = \mathcal{L}(A)$.
+\end{teorema}
+
+\begin{proof}
+	Basta notar que para qualquer $w \in \Sigma^*$ tem-se que:
+	\begin{eqnarray*}
+		w \in \mathcal{L}(A_{/\equiv}) & \Longleftrightarrow & \widehat{\delta^*}([q_0], w) \in F_{/\equiv}\\
+		& \stackrel{Teo. \ \ref{teo:ExtensaoDeltaEstrela}}{\Longleftrightarrow} & [\widehat{\delta}(q_0, w)] \in F_{/\equiv}\\
+		& \stackrel{Teo. \ \ref{teo:FinalQuociente}}{\Longleftrightarrow} & \widehat{\delta}(q_0, w) \in F\\
+		& \Longleftrightarrow & w \in \mathcal{L}(A)
+	\end{eqnarray*}
+	Portanto, $\mathcal{L}(A_{/\equiv}) = \mathcal{L}(A)$.
+\end{proof}
+
+Um fato importante sobre o AFD quociente é que ele é mínimo a menos de isomorfismo \cite{martin2003}, isto é, a construção do quociente é equivalente ao Teorema Myhill-Nerode.
+
+\begin{algorithm}[H]
+	\Entrada{Um AFD $A = \langle Q, \Sigma, \delta, q_0, F\rangle$}
+	\Saida{O AFD quociente $A_{/\equiv} = \langle Q_{/\equiv}, \Sigma, \delta^*, [q_0],  F_{/\equiv}\rangle$}
+	\Inicio{
+		Defina uma matriz $M$ de ordem $\#Q \times \#Q$\\
+		\ParaCada{$(i, j) \in \{0, \cdots, \#Q-1\} \times \{0, \cdots, \#Q-1\}$ tal que $j > i$}{
+			\Se{$(q_i \in F, q_j \notin F)$ ou $(q_i \notin F, q_j \in F)$}{
+				Marque a posição $M(i,j)$ com um $X$
+			}
+		}
+		\ParaCada{$(i, j) \in \{0, \cdots, \#Q-1\} \times \{0, \cdots, \#Q-1\}$ tal que $j > i$}{
+			\Se{$M(i,j)$ não foi marcado}{
+				\ParaCada{$a \in \Sigma$}{
+					\Se{$(\delta(q_i, a) \in F, \delta(q_j, a) \notin F)$ ou $(\delta(q_i, a) \notin F, \delta(q_j, a) \in F)$}{
+						Marque a posição $M(i,j)$ com um $X$
+					}
+				}
+			}
+		}
+		Defina $T = \{0, \cdots, \#Q \}$\\
+		Defina $Q_{/\equiv}$ como sendo vazio\\
+		\Enqto{$T \neq \emptyset$}{
+			Selecione o menor $i \in T$\\
+			\Se{$\nexists [q] \in Q_{/\equiv}$ tal que $q_i \in [q]$}{
+				Defina uma classe de equivalência $[q_i] = \{q_i\}$\\
+				\ParaTodo{$j \in T$ tal que $i \neq j$}{
+					\Se{$M(i,j)$ não estiver marcado}{
+						Adicione $q_j$ na classe de equivalência $[q_i]$\\
+						Remova $j$ de $T$\\
+					}
+				}
+			}
+			Remova $i$ de $T$\\
+		}
+		\ParaCada{$([q], a) \in Q_{/\equiv} \times \Sigma$}{
+			Defina $\delta^*([q], a) = [\delta(q, a)]$
+		}
+		Considere inicialmente $F_{/\equiv}$ como vazio\\
+		\ParaCada{$[q] \in Q_{/\equiv}$}{
+			\Se{$q \in F$}{
+				Adicione $[q]$ ao conjunto $F_{/\equiv}$ 
+			}
+		}
+		\Retorna{$A_{/\equiv} = \langle Q_{/\equiv}, \Sigma, \delta^*, [q_0],  F_{/\equiv}\rangle$}
+	}
+	\caption{Algoritmo para construção do AFD quociente.}
+	\label{alg:AFD-Quociente}
+\end{algorithm}
+
+\begin{exemplo}\label{exe:AFDMinimizacao}
+	Inicialmente considere que o Algoritmo \ref{alg:AFD-Quociente} recebe como entrada o  AFD representado pelo grafo de transições esboçado pela Figura \ref{fig:Linguagem-AFDM-1} a seguir.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=2.0cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+			\node[state, initial]				(A)               	{$q_0$};
+			\node[state, accepting]				(B) [right of=A] 	{$q_1$};
+			\node[state]				        (C) [right of=B] 	{$q_2$};
+			\node[state]				        (D) [below of=A] 	{$q_3$};
+			\node[state, accepting]				(E) [right of=D] 	{$q_4$};
+			\node[state]				        (F) [right of=E] 	{$q_5$};
+			\path[->] (A) +(-1,0) edge (A)
+			
+			%Transições:
+			%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+			(A) edge [bend left]  				node 		 {$1$} (B)
+			(B) edge [bend left]  				node 		 {$1$} (A)
+			(B) edge [bend left]  				node 		 {$0$} (C)
+			(C) edge [bend left]  				node 		 {$0$} (B)
+			(A) edge [bend left]  				node 		 {$0$} (D)
+			(D) edge [bend left]  				node 		 {$0$} (A)
+			(C) edge [bend left]  				node 		 {$1$} (F)
+			(F) edge [bend left]  				node 		 {$1$} (C)
+			(D) edge [bend left]  				node 		 {$1$} (E)
+			(E) edge [bend left]  				node 		 {$1$} (D)
+			(E) edge [bend left]  				node 		 {$0$} (F)
+			(F) edge [bend left]  				node 		 {$0$} (E);
+		\end{tikzpicture}
+		\caption{Grafo do AFD do Exemplo \ref{exe:LinguagemLAFN1}.}
+		\label{fig:Linguagem-AFDM-1}
+	\end{figure}
+	
+	O algoritmo gera a matriz representada na Tabela \ref{tab:AFD-Minimizacao} a seguir, em que a $i$-ésima linha (coluna) representa o estado $q_{i-1}$, e os espaço marcados com $-$ são aqueles não considerados pelo algoritmo, as posições com $X$ representam os estados não equivalentes, e as posições $(i,j)$ em branco representam os estados equivalentes.	
+		
+	\begin{table}[H]
+		\scriptsize
+		\centering
+		\begin{tabular}{|c|c|c|c|c|c|}
+			\hline
+			- & X & X &   & X & X\\ \hline
+			- & - & X & X &   & X\\ \hline
+			- & - & - & X & X & \\ \hline
+			- & - & - & - & X & X\\ \hline
+			- & - & - & - & - & X\\ \hline
+			- & - & - & - & - & -\\ \hline
+		\end{tabular}
+		\caption{Matriz de equivalência $M$ para o AFD \ref{fig:Linguagem-AFDM-1}.}
+		\label{tab:AFD-Minimizacao}
+	\end{table}
+	
+	A partir desta Tabela \ref{tab:AFD-Minimizacao} o Algoritmo \ref{alg:AFD-Quociente} gera as seguintes classes de equivalência: $[q_0] = \{q_0, q_3\}$, $[q_1] = \{q_1, q_4\}$ e $[q_2] = \{q_2, q_5\}$, depois define as transições e o conjunto de estados finais como esboçadas pelo grafo de Transição na Figura \ref{fig:Linguagem-AFDM-2}.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=3.0cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+			\node[state, initial]				(A)               	{$[q_0]$};
+			\node[state, accepting]				(B) [right of=A] 	{$[q_1]$};
+			\node[state]				        (C) [right of=B] 	{$[q_2]$};
+			\path[->] (A) +(-1,0) edge (A)
+			
+			%Transições:
+			%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+			(A) edge [bend left]  				node 		 {$1$} (B)
+			(A) edge [loop above]				node		 {$0$} ( )
+			(B) edge [bend left]  				node 		 {$1$} (A)
+			(B) edge [bend left]  				node 		 {$0$} (C)
+			(C) edge [bend left]  				node 		 {$0$} (B);
+		\end{tikzpicture}
+		\caption{Grafo do AFD do Exemplo \ref{exe:LinguagemLAFN1}.}
+		\label{fig:Linguagem-AFDM-2}
+	\end{figure}
+\end{exemplo}
+
+Desde que $\delta^*([q], a) = [\delta(q, a)]$ é um caso particular do resultado obtido no Teorema \ref{teo:ExtensaoDeltaEstrela}, e pela condição suficiente e necessária apresentada no Teorema \ref{teo:FinalQuociente}, tem-se que a corretude do Algoritmo \ref{alg:AFD-Quociente} se resumi a demonstrar o teorema a seguir.
+
+\begin{teorema}[Corretude do Algoritmo \ref{alg:AFD-Quociente}]
+	Seja $A = \langle Q, \Sigma, \delta, q_0, F\rangle$ um AFD. Considerando o Algoritmo \ref{alg:AFD-Quociente} e os índices $j > i$ tem-se que,  $M(i, j)$ está marcado com $X$ se, e somente se, $q_i \not\equiv q_j$.
+\end{teorema}
+
+\begin{proof}
+	A demonstração fica como exercício ao leitor.
+\end{proof}
+
+\subsection{Máquinas de Mealy e Moore como Tradutores Finitos}
+
+Os trabalhos iniciais de Mealy \cite{mealy1955} e Moore \cite{moore1956}, além de serem alicerces fundamentais da teoria dos autômatos finitos, também são os trabalhos responsáveis por formalizar o conceito de tradutores finitos ou autômato finito com saída. 
+
+Diferente dos autômatos sem saída vistos nas seções \ref{subsec:AFD}, \ref{subsec:AFN} e \ref{subsec:LAFN} as máquinas de Mealy e Moore são capazes de apresentar saídas mais complexas que as típicas saídas booleanas (aceita/rejeita) dos AFD, AFN e $\lambda$-AFN. As máquinas de Mealy, por exemplo,  são um modelo matemático simples para definir máquinas de cifras (criptografia), ou seja, máquinas que a partir de um texto de entrada geram um texto cifrado (criptografado) como saída \cite{menezes1998LFA}.
+
+Em termos informais uma autômato com saída pode ser descrito como um máquina que possui duas memórias (somente de leitura), a primeira memória guarda a palavra de entrada usada no funcionamento da máquina, já segunda memória (apenas de escrita) é responsável por armazenar a palavra de saída, sendo essa gerada durante o funcionamento do autômato.
+
+\begin{definicao}[Máquina de Mealy]\label{def:MealyMachine}
+	Uma máquina de Mealy é uma estrutura $A = \langle Q, \Sigma, \Lambda, \delta, \psi, q_0, \rangle$ onde $Q, \Sigma, \delta$ e $q_0$ são da mesma forma que na Definição \ref{def:AFD}. $\Lambda$ é um alfabeto chamado \textbf{alfabeto de saída} e $\psi: Q \times \Sigma \rightarrow \Lambda^+$ é a função de tradução da máquina de Mealy.
+\end{definicao}
+
+\begin{exemplo}\label{exe:Mealy1}
+	A estrutura $M = \langle \{q_0, q_1\}, \{a, b\}, \{0, 1, 2\}, \delta, \psi, q_0 \rangle$ onde a função de transição é representada pela Tabela \ref{tab:TransicaoMealyEx1} e a função de tradução é representada pela Tabela \ref{tab:TraducaoMealyEx1} a seguir é uma máquina de Mealy.
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{c|cc}
+			\diagbox{$Q$}{$\Sigma$} & $a$ & $b$\\ \hline
+			$q_0$ & $q_1$ & $q_1$ \\
+			$q_1$ & $q_0$ & $q_1$
+		\end{tabular}
+		\caption{Função de transição da Máquina de Mealy do Exemplo \ref{exe:Mealy1}.}
+		\label{tab:TransicaoMealyEx1}
+	\end{table}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{c|cc}
+			\diagbox{$Q$}{$\Sigma$} & $a$ & $b$\\ \hline
+			$q_0$ & $11$ & $20$ \\
+			$q_1$ & $12$ & $02$ 
+		\end{tabular}
+		\caption{Função de tradução da Máquina de Mealy do Exemplo \ref{exe:Mealy1}.}
+		\label{tab:TraducaoMealyEx1}
+	\end{table}
+\end{exemplo}
+
+Pode-se utilizar a ideia de grafo de transição para representar visualmente as máquinas de Mealy a única diferença que esta representação terá em relação aos grafos que representam os AFD, é que as arestas que ligam dois vértices $q_i$ e $q_j$ serão rotuladas com pares $(a, x) \in \Sigma \times \Lambda$ representando assim simultaneamente as funções $\delta(q_i, a) = q_j$ e $\psi(q_i, a) = x$.
+
+\begin{exemplo}\label{exe:MaquinaMealyGrafo1}
+	A representação do grafo de transição da máquina de Mealy do Exemplo \ref{exe:Mealy1} é como se segue.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=3.5cm, on grid, auto, state/.append style={minimum size=3em}, thick ]
+			\node[state, initial]							(A)               	{$q_0$};
+			\node[state]									(B) [right of=A] 	{$q_1$};
+			\path[->] (A) +(-1,0) edge (A)
+			
+			%Transições:
+			%(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+			(A) edge [bend left]  				node [align=center]   {$(a, 11)$\\$(b, 20)$} (B)
+			(B) edge [bend left]  				node    			  {$(a, 12)$} (A)
+			(B) edge [loop above]				node    			  {$(b, 02)$} ( );
+		\end{tikzpicture}
+		\caption{Representação da máquina de Mealy do Exemplo \ref{exe:Mealy1}.}
+		\label{fig:MaquinaMealy1}
+	\end{figure}
+\end{exemplo}
+
+Note que a máquina de Mealy traduz (ou associa) cada transição da máquina a um símbolo do alfabeto de saída, ou seja, cada movimento no processo de computação da máquina é traduzido na saída da mesma. Obviamente $\widehat{\delta}$ é definido da mesma forma que para os AFD, sendo assim basta agora estender a função $\psi$ para que a máquina de Mealy possa de fato ser vista como um tradutor finito, e isto será feito a seguir.
+
+\begin{definicao}[Extensão da função $\psi$]
+	Seja $A = \langle Q, \Sigma, \Lambda, \delta, \psi, q_0\rangle$ uma máquina de Mealy a função $\psi$ é estendida para a função $\widehat{\psi} : Q \times \Sigma^* \rightarrow \Lambda^*$ usando recursividade como se segue.
+	
+	\begin{eqnarray}\label{eq:ExtensaoDaFuncaoDetraducaoMealy}
+		\widehat{\psi}(q, \lambda)& = & \lambda \\
+		\widehat{\psi}(q, wa)& = & \widehat{\psi}(q, w)\psi(\widehat{\delta}(q, w), a)
+	\end{eqnarray}
+\end{definicao} 
+
+\begin{exemplo}
+	Considerando a máquina de Mealy do Exemplo \ref{exe:Mealy1} a tradução da palavra $bab$ a partir do estado $q_1$ é dada seguinte forma,
+	\begin{eqnarray*}
+		\widehat{\psi}(q_1, bab) & = & \widehat{\psi}(q_1, ba)\psi(\widehat{\delta}(q_1, ba), b)\\
+		& = & \widehat{\psi}(q_1, b)\psi(\widehat{\delta}(q_1, b), a)\psi(\widehat{\delta}(q_1, ba), b)\\
+		& = & \widehat{\psi}(q_1, \lambda)\psi(\widehat{\delta}(q_1, \lambda), b)\psi(\widehat{\delta}(q_1, b), a)\psi(\widehat{\delta}(q_1, ba), b)\\
+		& = & \lambda 021220\\
+		& = & 021220
+	\end{eqnarray*}
+\end{exemplo}
+
+Pode-se interpretar que as funções $\psi$ e $\widehat{\psi}$ escrevem na fita de saída da máquina, isto é, na memória adicional de escrita que tais máquinas possuem. E diferentemente dos AFD, AFN e $\lambda$-AFN o conjunto saída de qualquer máquina de Mealy não visto como uma linguagem aceita pela máquina, em vez disso, ela é vista como a linguagem traduzida pela máquina.
+
+\begin{definicao}[Linguagem Traduzida - Máquina de Mealy]
+	Dado uma máquina de Mealy $A = \langle Q, \Sigma, \Lambda, \delta, \psi, q_0\rangle$ a linguagem traduzida de $A$, denotado por $TRAD(A)$, é o conjunto de todas as traduções das palavras $w \in \Sigma^*$ realizadas a partir do estado inicial $q_0$, ou seja, tem-se que:
+	\begin{equation}
+		TRAD(A) = \{\widehat{\psi}(q_0, w)  \mid w \in \Sigma^*\}
+	\end{equation}
+\end{definicao}
+
+Em contrapartida as máquinas de Mealy, que como já dito, traduzem cada transição da máquina em um fragmento da palavra de saída, existem as máquina de Moore, nomeadas em homenagem a Edward F. Moore (1925-2003) que as propôs em seu seminal artigo \cite{moore1956}, tais máquinas não traduzem as transições em prefixos da palavras de saída, em vez disso, cada estado da máquina é mapeado em um símbolo do alfabeto de saída.
+
+\begin{definicao}[Máquina de Moore]\label{def:MooreMachine}
+	Uma máquina de Moore é uma estrutura $A = \langle Q, \Sigma, \Lambda, \delta, \Phi, q_0\rangle$ onde $Q, \Sigma, \delta$ e $q_0$ são da mesma forma que na Definição \ref{def:AFD}. $\Lambda$ é um alfabeto chamado \textbf{alfabeto de saída} e $\Phi: Q \rightarrow \Lambda^+$ é a função de escrita dos estado da máquina de Moore.
+\end{definicao}
+
+\begin{exemplo}\label{exe:Moore1}
+	A estrutura $M = \langle \{q_0, q_1, q_3\}, \{a, b\}, \{x, y, z\}, \delta, \Phi, q_0 \rangle$ onde a função de transição é esboçada pela Tabela \ref{tab:TransicaoMoore1} a seguir, sendo a função de escrita dos estados é definida como: $\Phi(q_0) = xy, \Phi(q_1) = yz$ e $\Phi(q_2) = zx$. É uma máquina de Moore.
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{c|cc}
+			\backslashbox{$Q$}{$\Sigma$} & a & b\\ \hline
+			$q_0$ & $q_1$ & $q_2$ \\
+			$q_1$ & $q_1$ & $q_2$ \\
+			$q_2$ & $q_0$ & $q_2$ 
+		\end{tabular}
+		\caption{Tabela de transição para a máquina de Moore do Exemplo \ref{exe:Moore1}.}
+		\label{tab:TransicaoMoore1}
+	\end{table}
+\end{exemplo}
+
+Similar aos AFD pode-se utilizar a ideia de grafo de transição para representar visualmente as máquinas de Moore a única diferença que esta representação terá em relação aos grafos que representam os AFD, é que os vértices serão rotulados por pares $(q, w) \in Q \times \Lambda$ e $q_j$ em que $\Phi(q) = w$.
+
+\begin{exemplo}\label{exe:MaquinaMooreGrafo1}
+	A representação do grafo de transição da máquina de Mealy do Exemplo \ref{exe:Moore1} pode ser observada na Figura \ref{fig:MaquinaMoore1}.
+
+  \begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=stealth, shorten >=1pt, node distance=3.0cm, on grid, auto, state/.append style={minimum size=1em}, thick ]
+      \node[state, initial]							(A)               	{$(q_0, xy)$};
+      \node[state, accepting]							(B) [right of=A] 	{$(q_1, yz)$};
+      \node[state]									(C) [below of=B] 	{$(q_2, zx)$};
+      \path[->] (A) +(-1,0) edge (A)
+      
+      %Transições:
+      %(Partida) edge [tipo da seta] node {simbolo lido} (Destino)
+      (A)	edge			  				node   				  {$a$} (B)
+      (A) edge [bend left]  				node [below]		  {$b$} (C)
+      (B) edge [loop right]				node				  {$a$} ( )
+      (B)	edge			  				node   				  {$b$} (C)
+      (C) edge [bend left]  				node   				  {$a$} (A)
+      (C) edge [loop right]				node				  {$b$} ( );
+    \end{tikzpicture}
+    \caption{Representação da máquina de Moore do Exemplo \ref{exe:Mealy1}.}
+    \label{fig:MaquinaMoore1}
+  \end{figure}
+\end{exemplo}
+
+Note que para qualquer $w \in \Sigma^*$ tem-se que $\Phi(\widehat{\delta}(q_0,w))$ expressa a saída da máquina de Moore para a palavra $w$. Para que as máquinas de Moore possam ser vistas como tradutores é necessário apresentar uma função de tradução para tais máquinas, sendo esta apresentada a seguir.
+
+\begin{definicao}[Função de tradução das máquinas de Moore]
+	Dado uma máquina de Moore $A = \langle Q, \Sigma, \Lambda, \delta, \Phi, q_0\rangle$ a função de tradução $\widehat{\Phi} : Q \times \Sigma^* \rightarrow \Lambda^*$ é definida por recursão como se segue.
+	
+	\begin{eqnarray}\label{eq:ExtensaoDaFuncaoDetraducaoMoore}
+		\widehat{\Phi}(q, \lambda)& = & \lambda \\
+		\widehat{\Phi}(q, wa)& = & \widehat{\Phi}(\widehat{\delta}(q, w))\Phi(\widehat{\delta}(q, wa))
+	\end{eqnarray}
+\end{definicao}
+
+Pode-se assim como para o caso das máquinas de Mealy considerar que a função de tradução das máquinas de Moore, isto é, a função $\widehat{\Phi}$ escreve a memória de escrita da máquina.
+
+\begin{definicao}[Linguagem Traduzida - Máquina de Moore]
+	Dado uma máquina de Moore $A = \langle Q, \Sigma, \Lambda, \delta, \Phi, q_0\rangle$ a linguagem traduzida de $A$, denotado por $TRAD(A)$, é o conjunto de todas as traduções das palavras $w \in \Sigma^*$ realizadas a partir do estado inicial $q_0$, ou seja, tem-se que:
+	\begin{equation}
+		TRAD(A) = \{\widehat{\Phi}(q_0, w) \mid  w \in \Sigma^*\}
+	\end{equation}
+\end{definicao}
+
+O leitor atento deve ter notado pelas definições que as traduções feitas pelas máquinas de Mealy e Moore, apresentam a propriedade de involução sobre a palavra vazia. Os próximos resultados apresentam uma forte relação entre as máquinas de Mealy e Moore.
+
+\begin{teorema}[Transformação Moore-Mealy]\label{teo:Moore-Mealy}
+	Dado uma linguagem $L \subseteq \Lambda^*$. Se $L = TRAD(N)$ para alguma máquina de Moore $N$,  então existe uma máquina de Mealy $M$ tal que $L = TRAD(M)$.
+\end{teorema}
+
+\begin{proof}
+	Suponha que $L = TRAD(N)$ para alguma máquina de Moore $N = \langle Q, \Sigma, \Lambda, \delta, \Phi, q_0\rangle$, agora defina uma máquina de Mealy $M = \langle Q, \Sigma, \Lambda, \delta, \psi, q_0\rangle$, onde para todo $(q, a) \in Q \times \Sigma$ é definido que:
+	\begin{eqnarray}\label{eq:ConversaoMoore-Mealy}
+		\psi(q, a) & = & \Phi(\delta(q, a))
+	\end{eqnarray}
+	Agora será mostrado por indução sobre o tamanho das palavras que para todo $w \in \Sigma^+$ que que as traduções de $M$ e $N$ são iguais, ou seja, será mostrado que $\widehat{\Phi}(q_0, w) = \widehat{\psi}(q_0, w)$.
+	\begin{itemize}
+		\item[ ] \textbf{(B)}ase da indução: Quando $|w| = 0$ é trivial da própria definição de $\widehat{\Phi}$ e $\widehat{\psi}$.
+		\item[ ] \textbf{(H)}ipótese indutiva: Suponha que para todo $|w| = n$ com $n \geq 0$ tem-se que $\Phi(q_0, w) = \psi(q_0, w)$.
+		\item[ ] \textbf{(P)}asso indutivo: Dado $|w| = ua$ com $u \in \Sigma^*$ tal que $|u| \geq 0$ e $a \in \Sigma$ tem-se que,
+		
+		\begin{eqnarray*}
+			\widehat{\Phi}(q_0, w) & = & \widehat{\Phi}(q_0, ua)\\
+			& = & \widehat{\Phi}(q_0, u)\Phi(\widehat{\delta}(q_0, ua))\\
+			& \stackrel{\textbf{(HI)}}{=} & \widehat{\psi}(q_0, u)\Phi(\widehat{\delta}(q_0, ua))\\
+			& = & \widehat{\psi}(q_0, u)\Phi(\delta(\widehat{\delta}(q_0, u), a))\\
+			& \stackrel{Eq. \ \ref{eq:ConversaoMoore-Mealy}}{=} & \widehat{\psi}(q_0, u)\psi(\widehat{\delta}(q_0, u), a)\\
+			& = & \widehat{\psi}(q_0, ua)\\ 
+			& = & \widehat{\psi}(q_0, w)
+		\end{eqnarray*}
+	\end{itemize}
+	Consequentemente, $TRAD(N) = TRAD(M)$ e, portanto, $L = TRAD(M)$.
+\end{proof}
+
+\begin{teorema}[Transformação Mealy-Moore]\label{teo:Mealy-Moore}
+	Dado uma linguagem $L \subseteq \Lambda^*$. Se $L = TRAD(N)$ para alguma máquina de Mealy $N$,  então existe uma máquina de Moore $M$ tal que $L = TRAD(M)$.
+\end{teorema}
+
+\begin{proof}
+	Similar ao raciocínio da demonstração do Teorema \ref{teo:Moore-Mealy}, e ficará como exercício ao leitor.
+\end{proof}
+
+As definições dadas aqui não apresentam o conceito de estado final, para leitores interessados em máquinas de Mealy e Moore com estados finais ver \cite{menezes1998LFA}.
 

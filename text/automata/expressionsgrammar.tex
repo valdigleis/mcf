@@ -921,6 +921,65 @@ O próximo resultado mostra que gramática regulares à esquerda e à direita s�
 	 e obviamente $\mathcal{L}(G_2) = \{w \in \{a, b\}^* \mid w = a^{2m}b^n \hbox{ com } m,n \in \mathbb{N}\}$.
 \end{exemplo}
 
+\section{Álgebras e Não Regularidade}\label{sec:FechoLinguagensRegulares}
+
+Para finalizar este capítulo é interessante discutir dois conceitos chaves sobre as linguagens regulares, o primeiro é sobre quais operações as linguagens regulares são fechadas e o segundo é se toda linguagem formal é ou não regular. Para começar este documento ataca o problema ligado aos estruturas álgebras em volta das expressões regulares.
+
+\begin{teorema}\label{teo:FechoRegA}
+	A classe $\mathcal{L}_{Reg}$ é fechada sobre a operação de união, interseção e fecho de Kleene.
+\end{teorema}
+
+\begin{proof}
+	Sejam $L_1, L_2 \in \mathcal{L}_{Reg}$, assim pelo Teorema \ref{teo:AFD-Regex} existem duas expressões regulares $r_1$ e $r_2$ tal que $L_1 = \mathcal{L}(r_1)$ e $L_2 = \mathcal{L}(r_2)$, agora é claro que $r_1 + r_2, r_1r_2$ e $r_1^*$ são também uma expressões regulares, e por definição $\mathcal{L}(r_1 + r_2) = \mathcal{L}(r_1) \cup \mathcal{L}(r_2)$, $\mathcal{L}(r_1r_2) = \mathcal{L}(r_1)\mathcal{L}(r_2)$ e $\mathcal{L}(r_1^*) = \mathcal{L}(r_1)^*$, ou seja, $\mathcal{L}(r_1 + r_2) = L_1 \cup L_2$, $\mathcal{L}(r_1r_2) = L_1L_2$ e $\mathcal{L}(r_1^*) = L_1^*$, portanto, pelo Corolário \ref{col:Regex-AFN} $L_1 \cup L_2, L_1L_2$ e $L_1^*$ são também uma linguagens regulares.
+\end{proof}
+
+\begin{teorema}\label{teo:FechoRegB}
+	A classe $\mathcal{L}_{Reg}$ é fechada sobre a operação de interseção.
+\end{teorema}
+
+\begin{proof}
+	Sejam $L_1, L_2 \in \mathcal{L}_{Reg}$, assim existem dois AFD $M_1 = \langle Q, \Sigma, \delta_1, q_0, F_1\rangle$ e $M_2 = \langle S, \Sigma, \delta_2, s_0, F_2\rangle$ tal que $L_1 = \mathcal{L}(M_1)$ e $L_2 = \mathcal{L}(M_2)$. Dito isso, construa um novo AFD $M = \langle Q \times S, \Sigma, \delta, (q_0, s_0), F_1 \times F_2 \rangle$ tal que para todo $(q, s) \in Q \times S$ e $a \in \Sigma$ tem-se que:
+	$$\delta((q, s), a) = (\delta_1(q, a), \delta_2(s, a))$$
+	agora é claro pela definição de $M$ que para todo $w \in \Sigma^*$ tem-se que:
+	\begin{eqnarray*}
+		w \in \mathcal{L}(M) & \Longleftrightarrow & \widehat{\delta}((q_0, s_0), w) \in F_1 \times F_2\\
+		& \Longleftrightarrow & \widehat{\delta_1}(q_0, w) \in F_1 \land \widehat{\delta_2}(s_0, w) \in F_2\\
+		& \Longleftrightarrow & w \in \mathcal{L}(M_1) \land w \in \mathcal{L}(M_2)\\
+		& \Longleftrightarrow & w \in \mathcal{L}(M_1) \cap \mathcal{L}(M_2)\\
+		& \Longleftrightarrow & w \in L_1 \cap L_2
+	\end{eqnarray*}
+	e desde que $M$ é um AFD tem-se por definição que $L_1 \cap L_2$ será uma linguagem regular, finalizando assim a prova.
+\end{proof}
+
+\begin{teorema}\label{teo:FechoRegC}
+	A classe $\mathcal{L}_{Reg}$ é fechada sobre a operação de complemento.
+\end{teorema}
+
+\begin{proof}
+	Seja $L \in \mathcal{L}_{Reg}$, assim existe um AFD $M = \langle Q, \Sigma, \delta, q_0, F\rangle$ tal que $L = \mathcal{L}(M)$. Dito isso, construa um novo AFD $M' = \langle Q \times S, \Sigma, \delta, q, Q - F \rangle$
+	agora é claro pela definição de $M'$ que para todo $w \in \Sigma^*$ tem-se que:
+	\begin{eqnarray*}
+		w \in \mathcal{L}(M') & \Longleftrightarrow & \widehat{\delta}(q_0, w) \in Q - F\\
+		& \Longleftrightarrow & \widehat{\delta}(q_0, w) \notin F\\
+		& \Longleftrightarrow & w \notin \mathcal{L}(M)\\
+		& \Longleftrightarrow & w \in \overline{\mathcal{L}(M)}\\
+		& \Longleftrightarrow & w \in \overline{L}
+	\end{eqnarray*}
+	e desde que $M'$ é um AFD tem-se por definição que $\overline{L}$ será uma linguagem regular, finalizando assim a prova.
+\end{proof}
+
+E diretamente destes resultados pode-se concluir o próximo resultado.
+
+\begin{corolario}
+	A estrutura $\langle \mathcal{L}_{Reg}, \cup, \cap, \overline{ \ } \rangle$ é uma álgebra booleana.
+\end{corolario}
+
+\begin{proof}
+	Direto dos Teoremas \ref{teo:FechoRegA}, \ref{teo:FechoRegB}, e \ref{teo:FechoRegC}.
+\end{proof}
+
+
+
 \section{Questionário}\label{sec:Questionario3part4}
 
 

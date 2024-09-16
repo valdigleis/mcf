@@ -1,0 +1,69 @@
+
+
+\begin{definicao}
+	A expressão regular $r$ que descreve (ou simplifica) a ME $\mathcal{A} = \langle Q, X, E, q_0, q_f \rangle$ é construída:
+	\begin{eqnarray*}
+		r & = & \widehat{R}^{\#Q - 1}_{0, f}
+	\end{eqnarray*}
+	com 
+	\begin{eqnarray*}
+		\widehat{R}^0_{i, j} & = & R(q_i, q_j)\\
+		\widehat{R}^{k}_{i,j} & = & (\widehat{R}^{k-1}_{i,k}(\widehat{R}^{k-1}_{k,k})^* \widehat{R}^{k-1}_{k,j}) + \widehat{R}^{k-1}_{i,j}
+	\end{eqnarray*}
+\end{definicao}
+
+\begin{exemplo}
+	Dado a ME do Exemplo \ref{exe:MaquinaExpressoes}, tem-se que a expressão $r$ que descreve a máquina é da forma:
+	\begin{eqnarray*}
+		r & = & \widehat{R}^{2}_{0, 2}
+	\end{eqnarray*}
+	mas,
+	\begin{eqnarray}\label{eq:ExeR-MaquinaExpressoesA}
+		\widehat{R}^{2}_{0,2} & = & (\widehat{R}^{1}_{0,2}(\widehat{R}^{1}_{2,2})^* \widehat{R}^{1}_{2,2}) + \widehat{R}^{1}_{0,2}
+	\end{eqnarray}
+	calculando $\widehat{R}^{1}_{0,2}$ tem-se que, 
+	\begin{eqnarray}\label{eq:ExeR-MaquinaExpressoesB}
+		\widehat{R}^{1}_{0,2} & = & (\widehat{R}^{0}_{0,1}(\widehat{R}^{0}_{1,1})^*\widehat{R}^{0}_{1,2}) + \widehat{R}^{0}_{0,2}\nonumber\\
+		& = & (R(q_0, q_1)(R(q_1, q_1))^*R(q_1, q_2)) + R(q_0, q_2)\nonumber\\
+		& = & ( (a + b)(b^*)^*(a+b)) + \emptyset\\
+		& \equiv & (a + b)b^*(a+b) + \emptyset\nonumber\\
+		& \equiv & (a + b)b^*(a+b)\nonumber
+	\end{eqnarray}
+	além disso tem-se que,
+	\begin{eqnarray}\label{eq:ExeR-MaquinaExpressoesC}
+		\widehat{R}^{1}_{2,2} & = & (\widehat{R}^{0}_{2,1}(\widehat{R}^{0}_{1,1})^*\widehat{R}^{0}_{1,2}) + \widehat{R}^{0}_{2,2}\nonumber\\
+		& = & (R(q_2,q_1)(R(q_1,q_1))^*R(q_1,q_2)) + R(q_2,q_2)\nonumber\\
+		& = & (\emptyset (b^*)^*(a+b)) + \emptyset\\
+		& \equiv & (\emptyset b^*(a+b)) + \emptyset\nonumber\\
+		& \equiv &  \emptyset\nonumber
+	\end{eqnarray}
+	agora substituindo as Equações (\ref{eq:ExeR-MaquinaExpressoesB}), e (\ref{eq:ExeR-MaquinaExpressoesC}) na Equação (\ref{eq:ExeR-MaquinaExpressoesA}) tem-se, 
+	\begin{eqnarray*}
+		\widehat{R}^{2}_{0,2} & = & ((a +b)b^*(a+b)(\emptyset)^* \emptyset) + (a +b)b^*(a+b)\\
+		& \equiv & (a +b)b^*(a+b)
+	\end{eqnarray*}
+	ou seja, a expressão regular que descreve a ME do Exemplo \ref{exe:MaquinaExpressoes} é exatamente $(a +b)b^*(a+b)$.
+\end{exemplo}
+
+\begin{teorema}[Transformação de AFD para Expressão Regular]\label{teo:AFD-EXP}
+  Se $L$ é uma linguagem regular, então existe uma expressão regular $r$ tal que $L = \mathcal{L}(r)$.
+\end{teorema}
+
+\begin{proof}
+	Se a linguagem $L$ é vazia então a prova é trivial. Para o caso de $L \neq \emptyset$, assuma sem perda de generalidade que $L = \mathcal{L}(A)$ para um $\lambda$-AFN $A = \langle Q, \Sigma, \delta, q_s, \{q_f\} \rangle$ exatamente como apresentado na prova do Lema \ref{lema:LNFA-Simples}, mas alterando os índices dos estados para que $s = 0$ e $f = \#Q - 1$, dito isso, defina uma ME $\mathcal{A} = \langle Q, \Sigma, R, q_s, q_f \rangle$ onde $R$ é definida da seguinte forma:
+	\begin{eqnarray*}
+		R(q_i, q_j) & = & a_1 + \cdots + a_n \Longleftrightarrow  q_j \in \underline{\delta_N}(q_j, a_k) \land 1 \leq k \leq n\\
+		R(q_i, q_j) & = & \emptyset \Longleftrightarrow (\forall a \in \Sigma \cup \{\lambda\})[ q_j \notin \underline{\delta_N}(q_i, a) ]
+	\end{eqnarray*}
+	note que a constução de $\mathcal{A}$ estabele que toda transição válida\footnote{Válida no sentido de $\underline{\delta_N}(q_j, a)  \neq \emptyset$.} do $\lambda$-AFN $A$ é mapeada em uma expressão regular diferente da expressão regular do vazio, e as transições inválidas são mapeadas na expressão regular do vazio. A prova de que $\mathcal{L}(A)= \mathcal{L}(r)$ onde $r$ é a expressão regular que descreve a ME $\mathcal{A}$ pode ser vista em detalhes em \cite{erickson2014}.
+\end{proof}
+
+\begin{corolario}
+	Uma linguagem $L \subseteq \Sigma^*$ é regular se, e somente, se existir $r \in Exp_\Sigma$ tal que $L = \mathcal{L}(r)$.
+\end{corolario}
+
+\begin{proof}
+	Direto do Corolário \ref{col:Regex-AFN} e do Teorema \ref{teo:AFD-EXP}.
+\end{proof}
+
+Agora é importante chamar atenção para o fato que o método apresentado na prova do Teorema \ref{teo:AFD-EXP} já uma versão melhorada do método padrão esboçado em \cite{benjaLivro2010,hopcroft2008}, pelo fato do $\lambda$-AFN usado na conversão está ``otimizado'' para ter um único estado final. Entretanto, tal como \cite{hopcroft2008} o método continua apresentado a problemática de para um autômato de $n$ estados serem construídas exatamente $n^3$ expressões, e além disso, o tamanho médio das expressões regulares crescem em média por um fator de $4$, como muito bem explicado em \cite{hopcroft2008}.

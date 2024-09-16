@@ -21,16 +21,18 @@ Atualmente os tópicos sobre matemática e ciência da computação que eu ([Val
 * Métodos de demonstração
 * Relação e Funções
 * Ordem e Equivalência
-* Cardinalidade
+* Indução
+* Lógica Proposicional
+* Autômatos Finitos
 
 
 > [!IMPORTANT]\
 > Em momentos futuros serão gradativamente adicionados: partes, capítulos e seções, tratando dos seguintes tópicos:
 
+* Cardinalidade
 * Teoria dos Grafos
 * $\Sigma$-Álgebras
-* Lógicas
-* Autômatos Finitos
+* Lógica de Primeira Ordem
 * Computabilidade e Decidibilidade
 * Categorias
 * Teoria da informação

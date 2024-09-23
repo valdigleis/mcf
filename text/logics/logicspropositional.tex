@@ -100,7 +100,7 @@ O diagrama de Fitch é organizado por linhas numeradas, onde cada linha $i$ pode
 
 As barras verticais nos diagramas de Fitch são usadas de duas formas:
 \begin{itemize}
-    \item[(1)] Para separar a demonstração em escopos, sendo que um escopo consiste de uma sequencia de várias linhas (ou passos) para demonstrar uma conclusão.
+    \item[(1)] Para separar a demonstração em escopos, sendo que um escopo consiste de uma sequência de várias linhas (ou passos) para demonstrar uma conclusão.
     \item[(2)] Como um mecanismo para saber quais palavras de $\mathcal{L}$ estão ativas\footnote{Uma palavra de $\mathcal{L}$ está ativa em uma demonstração, enquanto o escopo da mesma está aberto na demonstração.} na prova, como explicado em \cite{joaoPavao2014}. 
 \end{itemize}
 
@@ -114,7 +114,7 @@ Por fim, é comum na notação dos diagramas de Fitch escrever mais à direita d
 
 Agora pode-se definir precisamente o conceito de relação de consequência sintática sobre a linguagem $\mathcal{L}$.
 
-\begin{definicao}[Consequência Sintática]\label{def:ConsequenciaSintatica}
+\begin{definicao}[Consequência Sintática]\label{def:ConsequênciaSintatica}
   Seja $\mathcal{L}$ a linguagem proposicional, dado $\alpha \in \mathcal{L}$ e $\Gamma \subseteq \mathcal{L}$, diz-se que $\alpha$ é consequência sintática de $\Gamma$, denotado por $\Gamma \vdash \alpha$, sempre que existir uma prova de $\alpha$ a partir do conjunto de premissas $\Gamma$. 
 \end{definicao}
 
@@ -722,7 +722,7 @@ O resultado que se segue é uma consequência direta do Teorema da dedução.
       \have[l]{c}{\beta}
     \end{nd}
   $$
-  Assim é possível construir um novo diagrama em que as linhas de 1 até $m$ contém exatamente as premissas que formam o conjunto $\Gamma$. Além disso, as linhas de $m+1$ até $k_1$ serão idênticas as linhas do diagrama para a prova de $\Gamma \vdash \alpha_1$. Seguindo a construção deste novo diagrama para cada $2 \leq j \leq n$, as linha de $m+1$ até $k_j$ dos diagramas das prova de $\Gamma \vdash \alpha_j$ são dispostas sequencialmente no novo diagrama da mesma forma que estão em seus diagramas originais \footnote{Exceto pelo fato de que a referência das linhas de aplicação das regras de dedução natural precisam ser atualizadas para as linhas do novo diagrama}, assim o novo diagrama possui neste momento a seguinte forma:
+  Assim é possível construir um novo diagrama em que as linhas de 1 até $m$ contém exatamente as premissas que formam o conjunto $\Gamma$. Além disso, as linhas de $m+1$ até $k_1$ serão idênticas as linhas do diagrama para a prova de $\Gamma \vdash \alpha_1$. Seguindo a construção deste novo diagrama para cada $2 \leq j \leq n$, as linha de $m+1$ até $k_j$ dos diagramas das prova de $\Gamma \vdash \alpha_j$ são dispostas sequêncialmente no novo diagrama da mesma forma que estão em seus diagramas originais \footnote{Exceto pelo fato de que a referência das linhas de aplicação das regras de dedução natural precisam ser atualizadas para as linhas do novo diagrama}, assim o novo diagrama possui neste momento a seguinte forma:
   $$
     \begin{nd}
       \have[1]{a}{\delta_1} \by{Premissa}{}
@@ -889,7 +889,7 @@ Assim as abreviações podem ser vistas como um homomorfismo\footnote{Aqui o hom
   \end{itemize}
 \end{definicao}
 
-\begin{definicao}[Consequência em sistemas axiomáticos]\label{def:ConsequenciaAxiomatica}
+\begin{definicao}[Consequência em sistemas axiomáticos]\label{def:ConsequênciaAxiomatica}
   Seja $T$ um sistema axiomático e seja $\Gamma \subseteq \mathcal{L}_T$ e $\alpha \in \mathcal{L}_T$, é dito que $\alpha$ é consequência sintática de $\Gamma$ no sistema $T$, denotado por $\Gamma \vdash_T \alpha$, se existir uma prova partindo das premissas em $\Gamma$ que deduza $\alpha$.
 \end{definicao}
 
@@ -1193,7 +1193,7 @@ Usando a noção de interpretação é possível definir formalmente a noção d
 
 Pode-se então agora formalizar a ideia de consequência do ponto de vista semântico, a consequência semântica é o mecanismo que determina se uma conclusão (ou tese) segue (ou é consequência) de um conjunto de premissas, formalmente isto é definido como se segue.
 
-\begin{definicao}[Consequência Semântica]\label{def:ConsequenciaSemantica}
+\begin{definicao}[Consequência Semântica]\label{def:ConsequênciaSemantica}
   Seja $\Gamma \subseteq \mathcal{L}$ e $\alpha \in \mathcal{L}$, é dito que $\alpha$ é consequência semântica de $\Gamma$, denotado por $\Gamma \vDash \alpha$, sempre que todo modelo $I_\rho$ de $\Gamma$, for também um modelo para o conjunto unitário $\{\alpha\}$.
 \end{definicao}
 
@@ -1298,7 +1298,7 @@ Um aspecto semântico importante do sistema axiomático $L$ é exposto pelos doi
 Outro importante aspecto semântico entre as palavras de $\mathcal{L}$ é a noção de equivalência semântica definida formalmente a seguir.
 
 \begin{definicao}[Equivalência semântica]\label{def:EquivalenciaSemantica}
-  Dado $\alpha, \beta \in \mathcal{L}$ é dito que $\alpha$ e $\beta$ são equivalente, denotado por $\alpha \equiv_\vDash \beta$, quando para toda interpretação $I_\rho$ tem-se que $I_\rho(\alpha) = I_\rho(\beta)$.
+  Dado $\alpha, \beta \in \mathcal{L}$ é dito que $\alpha$ e $\beta$ são equivalente, denotado\footnote{Também pode ser usado o símbolo $\Leftrightarrow$ em vez de $\equiv_\vDash$.} por $\alpha \equiv_\vDash \beta$, quando para toda interpretação $I_\rho$ tem-se que $I_\rho(\alpha) = I_\rho(\beta)$.
 \end{definicao}
 
 \begin{exemplo}
@@ -1509,7 +1509,7 @@ Agora como dito em \cite{joaoPavao2014} um conjunto maximamente consistente tem 
 \end{teorema}
 
 \begin{proof}
-  Antes de qualquer coisa lembre-se que a linguagem $\mathcal{L}$ é também recursivamente enumerável (detalhes em \cite{ullman1992}), portanto, $\mathcal{L} - \{\bot\}$ é também um conjunto recursivamente enumerável, assim as palavras de $\mathcal{L} - \{\bot\}$ podem ser distribuídas em uma sequencia ordenada $\{\alpha_i\}_{i \in \mathbb{N}}$, dito isto, suponha que $\Gamma$ é um conjunto consistente e defina indutivamente os seguintes conjuntos:
+  Antes de qualquer coisa lembre-se que a linguagem $\mathcal{L}$ é também recursivamente enumerável (detalhes em \cite{ullman1992}), portanto, $\mathcal{L} - \{\bot\}$ é também um conjunto recursivamente enumerável, assim as palavras de $\mathcal{L} - \{\bot\}$ podem ser distribuídas em uma sequência ordenada $\{\alpha_i\}_{i \in \mathbb{N}}$, dito isto, suponha que $\Gamma$ é um conjunto consistente e defina indutivamente os seguintes conjuntos:
   \begin{eqnarray*}
     \Gamma_0 & = & \Gamma\\
     \Gamma_1 & = & \left\{\begin{array}{ll}	\Gamma_0 \cup \{\alpha_1\}, & \hbox{se } \Gamma_1 \cup \{\alpha_1\} \hbox{ é consistente}\\ \Gamma_0 \cup \{\neg \alpha_1\},  & \hbox{senão.}\end{array}\right.\\

@@ -1,0 +1,156 @@
+\chapter{Resolução Proposicional}\label{cap:ResoltuionPropositional}
+
+\epigraph{``O trabalho de um matemático é frequentemente guiado por intuição, mas é sempre governado pela lógica.''}{Julia Robinson}
+
+A resolução surge na década de 1960 com o trabalho de Robinson \cite{robinson1965}, que depois generaliza seus resultados em \cite{robinson1983}. A resolução corresponde a uma abordagem contendo apenas uma única regra de inferência, a saber, \textbf{o princípio da resolução}. Tal abordagem é uma alternativa aos sistemas dedutivo (dedução natural) e axiomático, ou seja, é uma abordagem sintática.
+
+Como mencionado em \cite{joaoPavao2014} o trabalho inicial sobre resolução feito por Robinson também pode ser visto como marco inicial do que hoje é chamado de demonstração (semi)automática de teoremas\footnote{Em alguns texto também é usado o termo raciocínio automático \cite{robinson2001, wos1988}.} e em especial é responsável pelo surgimento da linguagem prolog \cite{ayala2014}.
+
+\section{Definido Conceitos Fundamentais}\label{sec:DefinitionsForResolution}
+
+Nesta seção do documento serão apresentados todos os conceitos fundamentais para o estudo da resolução na lógica proposicional.
+
+\begin{definicao}[Conjunto dos literais]\label{def:Literais}
+  Seja $\Sigma_s$ da mesma forma que na Definição \ref{def:AlfabetoProposicional}, o conjunto dos literais, denotado por $Lit$, é o conjunto formado por todos os átomos e suas negações, ou seja, $Lit = \{\neg \alpha \mid \alpha \in \Sigma_s\} \cup \Sigma_s$. Dado $\alpha \in \Sigma_s$, tem-se que $\alpha$ é chamado de literal positivo e $\neg \alpha$ é chamado de literal negativo (ou complementar).
+\end{definicao}
+
+No Capítulo \ref{cap:LogicsPropositional} foi usado o termo lógica para designar as sequências de símbolos do alfabeto proposicional formadas pela gramática apresentada na Definição \ref{def:LinguagemProposicional}, na resolução por outro lado, não é comum usar o termo palavra, em vez disso é usado o termo cláusula, chamando a atenção que apenas algumas palavras formada a partir de disjunções são vista diretamente como cláusulas.
+
+\begin{definicao}[Clásulas]\label{def:ClausulaV1}
+  Uma cláusula é um $\alpha$ tal que $\alpha \in Lit$ ou existe uma sequência $\beta_1, \cdots, b_n \in Lit$ tal que $\alpha = \beta_1 \lor \cdots \lor \beta_n$.
+\end{definicao}
+
+\begin{exemplo}
+  São exemplo de cláusulas:
+  \begin{itemize}
+    \item[(a)] $\neg P$
+    \item[(b)] $Q \lor \neg R$
+    \item[(c)] $\neg Q \lor (\neg R \lor neg S)$
+  \end{itemize}
+  E pela Definição \ref{def:ClausulaV1} obivamente
+  \begin{itemize}
+    \item[(d)] $\neg P \land Q$
+    \item[(e)] $Q \Rightarrow \neg R$
+    \item[(f)] $\neg Q \land (\neg R \lor neg S)$
+  \end{itemize}
+  não são cláusulas.
+\end{exemplo}
+
+\begin{definicao}[Forma Normal Conjuntiva]\label{def:ConjuntiveNormalForm}
+  Uma palavra $w$ da linguagem proposicional $\mathcal{L}$ é dita está na forma normal conjuntiva (FNC) se, e somente, se existem cláusulas $c_1, \cdots, c_n$ tal que $w = c_1 \land \cdots \land c_n$.
+\end{definicao}
+
+\begin{exemplo}
+  A palavra $(P \lor \neg Q \lor \neg P) \land (\neg Q \lor Q)$ está na FNC. Por outro lado, a palavra $(P \land \neg Q) \lor R$ não está na FNC.
+\end{exemplo}
+
+Agora como dito em \cite{benja-Logica}, para uma palavra $w \in \mathcal{L}$ satisfazer a Definição \ref{def:ConjuntiveNormalForm}, ela deve satisfazer as seguintes restrições:
+
+\begin{enumerate}
+  \item $w$ não possui nenhuma ocorrência do conectivo $\Rightarrow$.
+  \item Nenhuma sub-palavra de $w$ onde o conectivo principal seja $\neg$ deverá conter outra ocorrência de $\neg$, ou ocorrência dos conectivos $\lor$ ou $\land$, e também não deve haver ocorrências das palavras especiais\footnote{Vale relembrar que $\bot$ é um açúcar sintático para $P \land \neg P$ e $\top$ é o açúcar sintático de $\neg \bot$.} de $\bot$ e $\top$.
+  \item Nenhuma sub-palavra de $w$ onde o conectivo principal seja $\lor$ irá conter ocorrências de $\land$, $\bot$ ou $\top$.
+  \item Nenhuma sub-palavra de $w$ onde o conectivo principal seja $\land$ irá conter ocorrências $\bot$ ou $\top$.
+\end{enumerate}
+
+\begin{definicao}[Forma Normal Conjuntiva Reduzida]\label{def:ReduzedConjuntiveNormalForm}
+  Uma palavra $w$ da linguagem proposicional $\mathcal{L}$ é dita está na forma normal conjuntiva reduzida (FNCR) se, e somente, se $w$ está na FNC e nenhuma cláusula de $w$ apresenta o mesmo literal repetido.
+\end{definicao}
+
+\begin{exemplo}
+  A palavra $(P \lor \neg Q \lor \neg P) \land (S \lor R \lor S)$ está na FNC, mas não está na FNCR pois a cláusula $(S \lor R \lor S)$ apresenta o literal $S$ de forma repetida.
+\end{exemplo}
+
+\begin{definicao}
+  Uma palavra $w \in \mathcal{L}$ se reduz a uma palavra $w' \in \mathcal{L}$, denotado por $w \twoheadrightarrow  w'$, sempre que $w \Leftrightarrow w'$.
+\end{definicao}
+
+Dado que $\Leftrightarrow$ é a relação de equivalência semântica, tem-se que $\twoheadrightarrow$ irá herdar todas as propriedades de $\Leftrightarrow$, o que faz dela também uma relação de equivalência. Logo é possível\footnote{A prova é exercício para o leitor} definir as seguintes regras de redução na linguagem $\mathcal{L}$, para todo $\alpha, \beta, \gamma \in \mathcal{L}$ tem-se:
+
+\begin{itemize}
+  \item[($r_1$)] $\alpha \Rightarrow \beta \twoheadrightarrow \neg \alpha \lor \beta$.
+  \item[($r_2$)] $\neg \neg\alpha \twoheadrightarrow\alpha$.
+  \item[($r_3$)] $\neg(\alpha \lor \beta) \twoheadrightarrow \neg \alpha \land \neg \beta$.
+  \item[($r_4$)] $\neg(\alpha \land \beta) \twoheadrightarrow \neg \alpha \lor \neg \beta$.
+  \item[($r_5$)] $\alpha \land (\beta \lor \gamma) \twoheadrightarrow (\alpha \land \beta) \lor (\alpha \land \gamma)$.
+  \item[($r_6$)] $\alpha \lor (\beta \land \gamma) \twoheadrightarrow (\alpha \lor \beta) \land (\alpha \lor \gamma)$.
+  \item[($r_7$)] $\alpha \land (\beta \land \gamma) \twoheadrightarrow (\alpha \land \beta) \land \gamma$.
+  \item[($r_8$)] $\alpha \lor (\beta \lor \gamma) \twoheadrightarrow (\alpha \lor \beta) \lor \gamma$.
+  \item[($r_9$)] $\neg \bot \twoheadrightarrow \top$.
+  \item[($r_{10}$)] $\neg \top \twoheadrightarrow \bot$.
+  \item[($r_{11}$)] $\bot \land \alpha \twoheadrightarrow\bot$.
+  \item[($r_{12}$)] $\bot \lor \alpha \twoheadrightarrow\alpha$.
+  \item[($r_{13}$)] $\top \land \alpha \twoheadrightarrow\alpha$.
+  \item[($r_{14}$)] $\top \lor \alpha \twoheadrightarrow\top$.
+  \item[($r_{15}$)] $\alpha \land \alpha \twoheadrightarrow \alpha$.
+  \item[($r_{16}$)] $\alpha \lor \alpha \twoheadrightarrow \alpha$.
+  \item[($r_{17}$)] $\alpha \land \beta \twoheadrightarrow \beta \land \alpha$.
+  \item[($r_{18}$)] $\alpha \lor \beta \twoheadrightarrow \beta \lor \alpha$.
+\end{itemize}
+
+\begin{teorema}\label{teo:ConversaoParaFNCR}
+  Se $w \in \mathcal{L}$, então existe $w' \in \mathcal{L}$ tal que $w \twoheadrightarrow  w'$ tal que $w'$ está na FNCR.
+\end{teorema}
+
+\begin{proof}
+  A prova é um algoritmo que descreve o uso sucessivo das regras de redução apresentadas anteriormente, e pode ser vista em detalhes em \cite{benja-Logica}.
+\end{proof}
+
+Como explicado em \cite{joaoPavao2014}, o algoritmo usando na prova o Teorema \ref{teo:ConversaoParaFNCR} se baseia em uma série de atividades bem definidas, ele segue o seguinte roteiro de reduções.
+
+\begin{enumerate}
+  \item Eliminação do $\Rightarrow$.
+  \item Redução (simplificação) do domínio do $\neg$.
+  \item Redução (simplificação) do domínio do $\lor$.
+\end{enumerate}
+
+Ao fim, do processo para estar na FNCR uma palavra deve seguir a seguinte hierárquia: o $\land$ deve ser o conectivo mais externo em relação ao $\lor$, por usa vez, o $\lor$ deve ser mais externo com respeito a $\neg$ e não existem literais repetidos sobre o domínio do $\lor$.
+
+\begin{exemplo}
+  Considere uma palavra 
+  $$\alpha = \neg(P_1 \Rightarrow (P_2 \Rightarrow P_3 )) \Rightarrow ((P_1 \Rightarrow P_2 ) \Rightarrow (P_1 \Rightarrow P_3))$$
+  elminando primeiro as implicações usando sucessivas aplicações de $r_1$ é obtida uma palavra da forma:
+  $$\neg(\neg(\neg P_1 \lor (\neg P_2 \lor P_3 ))) \lor (\neg(\neg P_1 \lor P_2 ) \lor (\neg P_1 \lor P_3 ))$$
+  agora usando aplicações de $r_3$ e $r_4$ fica-se com:
+  $$(\neg\neg\neg P_1 \lor (\neg\neg\neg P_2 \lor \neg\neg P_3 )) \lor ((\neg\neg P_1 \land \neg P_2 ) \lor (\neg P_1 \lor P_3 ))$$
+  agora usando $r_2$ sucessivamente é obtida a palavra:
+  $$(\neg P_1 \lor (\neg P_2 \lor P_3 )) \lor ((P_1 \land \neg P_2 ) \lor (\neg P_1 \lor P_3 ))$$
+  agora usando $r_6$ é obtida a palavra:
+  $$(\neg P_1 \lor (\neg P_2 \lor P_3 )) \lor ((P_1 \lor (\neg P_1 \lor P_3 )) \land (\neg P_2 \lor (\neg P_1 \lor P_3 )))$$
+  agora aplicando a regra $r_8$ seguida do uso do açúcar sintática $\top$ para reescreve palavra da forma $\alpha \lor \neg \alpha$ é obtida a palavra:
+  $$(\neg P_1 \lor (\neg P_2 \lor P_3 )) \lor ((\top \lor P_3 ) \land (\neg P_2 \lor (\neg P_1 \lor P_3 )))$$
+  agora usando a regra $r_{14}$ tem-se a palavra :
+  $$(\neg P_1 \lor (\neg P_2 \lor P_3 )) \lor (\top \land (\neg P_2 \lor (\neg P_1 \lor P_3 )))$$
+  usando então a regra $r_{13}$ é obtida a palavra:
+  $$(\neg P_1 \lor (\neg P_2 \lor P_3 )) \lor (\neg P_2 \lor (\neg P_1 \lor P_3 ))$$
+  agora usando aplicações de $r_8$ e $r_{18}$ é obtida a palavra
+  $$(\neg P_1 \lor (\neg P_2 \lor P_3 )) \lor (\neg P_1 \lor (\neg P_2 \lor P_3 ))$$
+  por fim, usando $r_{16}$ tem-se a palavra,
+  $$\neg P_1 \lor (\neg P_2 \lor P_3)$$
+  o que permite concluir que $\alpha \twoheadrightarrow \neg P_1 \lor (\neg P_2 \lor P_3)$, observe antes de terminar que a palavra $\neg P_1 \lor (\neg P_2 \lor P_3)$ é uma cláusula e assim pelas Definições \ref{def:ConjuntiveNormalForm} e \ref{def:ReduzedConjuntiveNormalForm} , ela está na FNCR.
+\end{exemplo}
+
+\begin{exemplo}\label{exe:Reducao1}
+  Considere a palavra $\alpha = \neg(\neg Q \Rightarrow (\neg Q \Rightarrow R))$, tem-se claramente que $\alpha$ não exstá na FNC, mas:
+  \begin{eqnarray*}
+    \neg(\neg P \Rightarrow (Q \Rightarrow R)) & \stackrel{r_1}{\twoheadrightarrow} & \neg(\neg \neg P \lor (\neg \neg Q \lor R)) \\
+    & \stackrel{r_2}{\twoheadrightarrow} & \neg(Q \lor (Q \lor R))\\
+    & \stackrel{r_3}{\twoheadrightarrow} & \neg Q \land \neg(Q \lor R)\\
+    & \stackrel{r_3}{\twoheadrightarrow} & \neg Q \land \neg Q \land \neg R
+  \end{eqnarray*}
+  ou seja $\alpha \twoheadrightarrow \neg Q \land \neg Q \land \neg R$, agora é claro que $\neg Q \land \neg Q \land \neg R$ está na FNC. Por fim,  note que, $\neg Q \land \neg Q \land \neg R \stackrel{r_{15}}{\twoheadrightarrow} \neg Q \land \neg R$, agora obviamente $\neg Q \land \neg R$ é uma palavra na FNCR.
+\end{exemplo}
+
+\section{O Princípio da Resolução}
+
+Agora antes de apresentar formalmente a regra sobre o qual é construída a resolução, é importante apresentar a seguinte definição.
+
+\begin{definicao}
+  Seja $w = c_1 \land \cdots \land c_n$ uma palavra na FNCR, o conjunto de cláusulas $\{c_1, \cdots, c_n\}$ é uma descrição da palavra $w$.
+\end{definicao}
+
+Agora é claro que para toda cláusula $c_i = l_1 \lor \cdots \lor l_k$ em uma palavra $w$, tem-se que $c_i$ também pode ser vista como um conjunto $C_i = \{l_1, \cdots, l_k\}$, e assim $w$, pode ser descrita como sendo uma família de conjuntos $\{C_1, \cdots, C_n\}$ onde $C_i$ é o conjunto que representa a cláusulas $c_i$.
+
+\begin{exemplo}
+  A palavra $(P_1 \lor P_2) \land (\neg P_1 \lor \neg P_2)$ claramente está na FNCR, e ela é representada pela seguinte família de conjunto, $\{\{P_1, \neg P_2\}, \{\neg P_1, \neg P_2\}\}$.
+\end{exemplo}
